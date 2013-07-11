@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : Jul 11, 2013, 12:10:44 AM
+    Document   : newjsp
+    Created on : Jul 11, 2013, 12:56:04 AM
     Author     : vadim
 --%>
 
@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="slider/themes/dark/dark.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="slider/themes/bar/bar.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="slider/nivo-slider.css" type="text/css" media="screen" />
-
+<
     </head>
     <body>
         <div id="header">
@@ -35,7 +35,7 @@
                     <div>
                         <div class="button">Регистрация
 
-                        <form name="frm" class="dropdownMenu register" action="Regist" method="Post" onSubmit="return Validate()">
+                        <form class="dropdownMenu register" method="GET" action="#">
                             <div>Заполните пожалуйста все поля</div>
                             <div>                                
                                 <div class="caption">Логин:</div>
@@ -73,8 +73,7 @@
                                 <div class="wrongInput">введите Вашу фамилию</div>
                             </div>
                             <div class="centered">
-                                <input type="submit" class="button" value="РЕГИСТРАЦИЯ"/>
-                                
+                                <input type="button" class="button" value="РЕГИСТРАЦИЯ"/>
                             </div>    
                         </form></div>
                     </div>
@@ -131,76 +130,11 @@
             <div class="rightCol"> </div>      
         </div>
         <div class="separator"></div>       
-        <div id="center">
-            <!--<div class="leftCol dark"> </div>
-            <div class="centerCol"> -->
-                <div class="slider-wrapper theme-dark">
-                    <div id="slider" class="nivoSlider">
-                        <!--<img src="slider/images/toystory.jpg" data-thumb="slider/images/toystory.jpg" alt="" data-transition="slideInLeft"/>
-                        <a href="http://dev7studios.com"><img src="slider/images/up.jpg" data-thumb="slider/images/up.jpg" alt="" title="This is an example of a caption" data-transition="slideInLeft"/></a>
-                        <img src="slider/images/walle.jpg" data-thumb="slider/images/walle.jpg" alt="" data-transition="slideInLeft" />
-                        <img src="slider/images/nemo.jpg" data-thumb="slider/images/nemo.jpg" alt="" title="#htmlcaption" data-transition="slideInLeft"/>-->
-                        <img src="slider/images/banner1.png" data-thumb="slider/images/banner1.png" alt=""  />
-                    </div>
-                </div>
-            <!--</div>
-            <div class="rightCol dark"> </div>-->
-            <div class="separator"></div>
-            <div class="leftCol"> </div>
-            <div class="centerCol"> 
-                <div id="smallContainer">
-                    <div >
-                        <div id="sm1" class="smallMenuItem">
-                            <div class="menuTitle">Покер против казино</div>
-                        </div>
-                        <div id="sm2" class="smallMenuItem">
-                            <div class="menuTitle">Покер между людьми</div>
-                        </div>
-                        <div id="sm3" class="smallMenuItem">
-                            <div class="menuTitle">Ставки на спорт</div>
-                        </div>
-                    </div>
-                    <div >
-                        <div id="sm4" class="smallMenuItem">
-                            <div class="menuTitle">Игровые автоматы</div>
-                        </div>
-                        <div id="sm5" class="smallMenuItem">
-                            <div class="menuTitle">Онлайн спорт трансляции</div>
-                        </div>
-                        <div id="sm6" class="smallMenuItem">
-                            <div class="menuTitle">Игры против казино</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bigMenuItem">
-                    <div class="bigMenuTop">Зарегистрируйтесь</div>
-                    <div class="bigMenuCenter">
-                        <div>
-                            <div>Турниры</div>
-                        </div>
-                        <div>
-                            <div>Игры онлайн</div>
-                        </div>    
-                        <div>
-                            <div>Ежедневные фрироллы</div>
-                        </div>
-                    </div>
-                    <div class="bigMenuBottom">
-                        <div class="button">Зарегистрироваться</div>
-                    </div>
-                </div>
-                Приветствуем вас в нашем казино. Приветствуем вас в нашем казино. Приветствуем вас в нашем казино. Приветствуем вас в нашем казино. Еще.
-                <ul>
-                    <li>Турниры до 1000000 денег</li>
-                    <li>Ставки круглосуточно</li>
-                    <li>Стабильность и качество Вашей работы</li>
-                </ul>
-                Приветствуем вас в нашем казино. Приветствуем вас в нашем казино. Приветствуем вас в нашем казино. Приветствуем вас в нашем казино. Приветствуем вас в нашем казино. Приветствуем вас в нашем казино. Приветствуем вас в нашем казино. Приветствуем вас в нашем казино.
-            </div>
-            <div class="leftCol"> </div>
-            <div class="separator"></div>
+        <div id="center" >
+            <img id="game" src="pic/game.jpg"/>
+            
         </div>
-        
+        <div class="separator"></div>
         <div id="footer">
             <div>
                 <div class="leftCol"> </div>
@@ -366,3 +300,4 @@
         </div>
     </body>
 </html>
+
