@@ -3,7 +3,9 @@
     Created on : Jul 11, 2013, 12:10:44 AM
     Author     : vadim
 --%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page session="true"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -25,6 +27,7 @@
 
     </head>
     <body>
+        
         <div id="header">
             <div class="leftCol"> </div>
             <div class="centerCol"> 
