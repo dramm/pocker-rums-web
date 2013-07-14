@@ -53,7 +53,7 @@ public class Regist extends HttpServlet {
             out.println("<title>Servlet Regist</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Regist at " + request.getParameter("login") + "</h1>");
+            out.println("<h1>Пользователь " + request.getParameter("login") + " зарегистрирован</h1>");
             out.println("</body>");
             out.println("</html>");
             

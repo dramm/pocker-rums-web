@@ -3,119 +3,31 @@
     Created on : Jul 11, 2013, 12:10:44 AM
     Author     : vadim
 --%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ page session="true"%>
+
+<%@page import="org.springframework.security.core.userdetails.UserDetails"%>
+<%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
+<%@page import="com.pokerweb.Counter.servlet" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Sergio Richi Casino</title>
-        <meta name="description" content="Sergio Richi - лучшее казино....">
-        <meta name="keywords" content="Rergio Richi казино играть live спорт футбол ставки выиграть ">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" src="js/script.js"></script>        
-        <link rel="Stylesheet" href="style.css" type="text/css" />
-    
-    <script type="text/javascript" src="slider/jquery.nivo.slider.js"></script>    
-    <link rel="stylesheet" href="slider/themes/default/default.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="slider/themes/light/light.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="slider/themes/dark/dark.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="slider/themes/bar/bar.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="slider/nivo-slider.css" type="text/css" media="screen" />
-
+    <jsp:include page="headParam.jsp" flush="true" />
     </head>
     <body>
         
         <div id="header">
             <div class="leftCol"> </div>
             <div class="centerCol"> 
-                <div id="topMenu"> 
-                    <div>
-                        <a href="#">О нас</a> | <a href="#">Помощь и обучение</a> | <a href="#">Ответственная игра</a>
-                    </div>
-                    <div>
-                        <div class="button">Регистрация
-
-                        <form name="frm" class="dropdownMenu register" action="Regist" method="Post" onSubmit="return Validate()">
-                            <div>Заполните пожалуйста все поля</div>
-                            <div>                                
-                                <div class="caption">Логин:</div>
-                                <input type="text" name="login" placeholder="Введите логин"/>
-                                <div class="wrongInput">введите логин</div>
-                            </div>
-                            <div>
-                                <div class="caption">Пароль:</div>
-                                <input type="password" name="password" placeholder="Введите пароль"/>
-                                <div class="wrongInput">введите пароль</div>
-                            </div>
-                            <div>
-                                <div class="caption">Повторите пароль:</div>
-                                <input type="password" name="confirmPassword"/>
-                                <div class="wrongInput">повторите пароль</div>
-                            </div>
-                            <div>
-                                <div class="caption">Телефон:</div>
-                                <input type="text" name="tel"/>
-                                <div class="wrongInput">введите телефон</div>
-                            </div>
-                            <div>
-                                <div class="caption">E-mail:</div>
-                                <input type="email" name="email"/>
-                                <div class="wrongInput">не правильно заполнено</div>
-                            </div>
-                            <div>
-                                <div class="caption">Имя:</div>
-                                <input type="text" name="name"/>
-                                <div class="wrongInput">введите Ваше имя</div>
-                            </div>
-                            <div>
-                                <div class="caption">Фамилия:</div>
-                                <input type="text" name="surname" value=""/>
-                                <div class="wrongInput">введите Вашу фамилию</div>
-                            </div>
-                            <div class="centered">
-                                <input type="submit" class="button" value="РЕГИСТРАЦИЯ"/>
-                                
-                            </div>    
-                        </form></div>
-                    </div>
-                    <div>
-                        <div class="button">Войти
-                            <form class="dropdownMenu signIn" method="GET" action="#">
-                            <div>                                
-                                <div class="caption">Логин:</div>
-                                <input type="text" name="login"/>
-                                <div class="wrongInput">введите логин</div>
-                            </div>
-                            <div>
-                                <div class="caption">Пароль:</div>
-                                <input type="password" name="password"/>
-                                <div class="wrongInput">введите пароль</div>
-                            </div>                            
-                            <div class="centered">
-                                <input type="button" class="button" value="ВХОД"/>
-                            </div>    
-                        </form>
-                        </div>
-                        
-                    </div>
-                    <a href="#">Забыли пароль?</a>                    
-                    <div>
-                        <div class="button">Язык
-                            <form class="dropdownMenu" id="language" method="GET" action="#">
-                                <input class="active" type="submit" name="language" value="Русский"/>
-                                <input type="submit" name="language" value="English"/>
-                                <input type="submit" name="language" value="Germany"/>
-                        </form>
-                        </div>
-                        
-                    </div>
-                </div>
+               
+                <jsp:include page="topMenu.jsp" flush="true" />
+    
                 <div id="headerContent"> 
                     <div class="firstText">Именно СЕЙЧАС 348 активных столов!</div>
-                    <br><div class="secondText">На сайте 1023 посетителя</div>
+                    <br><div class="secondText">
+                       Посетителей на сайте
+                        <%int p=0;servlet counter=(servlet)session.getAttribute("counter");%>
+                        <%=counter.getActiveSessionNumber()%>
+                         </div>
                 </div>
                 <div id="mainMenu"> 
                     <div class="button">Спорт</div>
@@ -133,6 +45,7 @@
             </div>
             <div class="rightCol"> </div>      
         </div>
+        
         <div class="separator"></div>       
         <div id="center">
             <!--<div class="leftCol dark"> </div>

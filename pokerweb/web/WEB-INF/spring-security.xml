@@ -6,32 +6,24 @@
     
 <!--Public resources -->
     <http pattern="/js/**" security="none"/>
-    <http pattern="/style/**" security="none"/>
-    <http pattern="/img/**" security="none"/>
+    <http pattern="/css/style.css" security="none"/>
+    <http pattern="/pic/**" security="none"/>
 
-    <http pattern="/login.jsp" security="none"/>  
-    <http auto-config="true" access-denied-page="/login.htm?accessDeniedError=1">
-        <intercept-url pattern="/**" access="ROLE_USER,ROLE_ADMIN" />
-        <form-login authentication-failure-url="/login.jsp?loginError=1"
-                    login-page="/login.jsp"
+    <http auto-config="true" access-denied-page="/index.htm?accessDeniedError=1">
+        <intercept-url pattern="/game.jsp" access="ROLE_USER,ROLE_ADMIN" />
+        <form-login 
+                    login-page="/index.jsp"
                     login-processing-url="/j_spring_security_check"
-                    default-target-url="/index.jsp" 
-                    always-use-default-target="true"/>
+                    />
     </http>
-
-    <authentication-manager>
-        
-        <authentication-provider >
-            <password-encoder hash="md5" />
-            <user-service>
-                <user name="user" password="098f6bcd4621d373cade4e832627b4f6" authorities="ROLE_USER" />
-                <user name="admin" password="098f6bcd4621d373cade4e832627b4f6" authorities="ROLE_USER,ROLE_ADMIN" />
-            </user-service>
-        </authentication-provider>
-    
-    
-    
-    </authentication-manager>
+<authentication-manager>
+    <authentication-provider>
+      <user-service>
+        <user name="admin" password="admin" authorities="ROLE_USER, ROLE_ADMIN" />
+      </user-service>
+    </authentication-provider>
+  </authentication-manager>
+  
     <beans:bean id="loginSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler" >
         <beans:property name="defaultTargetUrl" value="/index.htm"/>
         <!--beans:property name="redirectStrategy" ref="defaultRedirectStrategy"/-->
