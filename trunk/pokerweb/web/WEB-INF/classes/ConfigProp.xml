@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<root>
+    <jdbc>
+        <serverName>localhost</serverName>
+        <database>pokerwebdb</database>
+        <port>3307</port>
+        <username>root</username>
+        <password>P0laroid</password>
+    </jdbc>
+    <mail>
+        <transport>smtp</transport>
+        <server>smtp.gmail.com</server>
+        <port>587</port>
+        <login></login>
+        <password></password>
+    </mail>  
+</root>

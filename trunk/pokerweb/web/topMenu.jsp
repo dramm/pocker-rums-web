@@ -7,11 +7,7 @@
 <%@page import="org.springframework.security.core.userdetails.UserDetails"%>
 <%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-     </head>
-    <body>
+
         <div id="topMenu"> 
                     <div>
 
@@ -111,5 +107,3 @@
                         
                     </div>
                 </div>
-    </body>
-</html>
