@@ -32,7 +32,7 @@ public class SendMail {
             message.setContent(MessageText, "text/html; charset=utf-8");
 
             Transport transport = session.getTransport("smtp");
-            transport.connect("smtp.gmail.com", 587, "dizinor", "");
+            transport.connect("smtp.gmail.com", 587, "pokerweb1", "MnifUIC5OQ9Hd1Fsuqad");
             transport.sendMessage(message, message.getAllRecipients());
             logger.error("successfully send email");
         } catch (Exception e) {            
