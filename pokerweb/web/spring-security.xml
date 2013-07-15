@@ -1,0 +1,48 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+  xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+      http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+  
+    <context:component-scan base-package="com.pokerweb.mail" />	
+<!--Public resources -->
+    <http pattern="/js/**" security="none"/>
+    <http pattern="/css/**" security="none"/>
+    <http pattern="/pic/**" security="none"/>
+    <http pattern="/WEB-INF/classes/**" security="none"/>
+    <http pattern="/WEB-INF/**" security="none"/>
+
+    <http auto-config="true" access-denied-page="/index.htm?accessDeniedError=1">
+        <intercept-url pattern="/game.jsp" access="ROLE_USER,ROLE_ADMIN" />
+        <form-login 
+                    login-page="/index.jsp"
+                    login-processing-url="/j_spring_security_check"
+                    />
+    </http>
+    
+<authentication-manager>
+        <authentication-provider user-service-ref="customUserDetailsService">
+           <!-- <password-encoder ref="passwordEncoder"/>-->
+        </authentication-provider>
+    </authentication-manager>
+
+    <!-- Use a Md5 encoder since the user's passwords are stored as Md5 in the database -->
+    <beans:bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>
+
+    <!-- A custom service where Spring will retrieve users and their corresponding access levels  -->
+    <beans:bean id="customUserDetailsService" class="com.pokerweb.service.CustomUserDetailsService"/>
+   
+    <beans:bean id="loginSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler" >
+        <beans:property name="defaultTargetUrl" value="/index.htm"/>
+        <!--beans:property name="redirectStrategy" ref="defaultRedirectStrategy"/-->
+    </beans:bean>
+    <beans:bean id="loginFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler" >
+        <beans:property name="defaultFailureUrl" value="/login.htm?loginError=1" />
+    </beans:bean>
+    
+  
+    
+    
+</beans:beans>    

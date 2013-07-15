@@ -19,7 +19,7 @@ public class servlet implements HttpSessionListener {
     public void sessionCreated(HttpSessionEvent event) {
         HttpSession session = event.getSession();
         sessions.add(session.getId());
- 
+        event.getSession().setMaxInactiveInterval(15*60);
         session.setAttribute("counter", this);
     }
  

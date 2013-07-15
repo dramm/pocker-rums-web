@@ -1,0 +1,46 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+  xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+      http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+  <context:component-scan base-package="com.pokerweb.mail" />	
+ <context:annotation-config/>
+  <beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	    <beans:property name="host" value="smtp.gmail.com"/>
+	    <beans:property name="port" value="25"/>
+	    <beans:property name="username" value=""/>
+	    <beans:property name="password" value=""/>
+	    <beans:property name="javaMailProperties">
+	        <beans:props>
+	        	<!-- Use SMTP transport protocol -->
+	            <beans:prop key="mail.transport.protocol">smtp</beans:prop>
+	            <!-- Use SMTP-AUTH to authenticate to SMTP server -->
+	            <beans:prop key="mail.smtp.auth">true</beans:prop>
+	            <!-- Use TLS to encrypt communication with SMTP server -->
+	            <beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+	            <beans:prop key="mail.debug">true</beans:prop>
+	        </beans:props>
+	    </beans:property>
+	</beans:bean>
+	
+        <beans:bean id="mailSession" class="org.springframework.jndi.JndiObjectFactoryBean">
+    <beans:property name="jndiName" value="myMailSession" />
+</beans:bean>
+
+
+	<beans:bean id="alertMailMessage" class="org.springframework.mail.SimpleMailMessage">
+	    <beans:property name="from">	        
+	        <beans:value>myusername@gmail.com</beans:value>
+	    </beans:property>
+	    <beans:property name="to">	        
+	        <beans:value>myusername@gmail.com</beans:value>
+	    </beans:property>
+	    <beans:property name="subject" value="Alert - Exception occurred"/>
+	</beans:bean>
+    
+  
+    
+    
+</beans:beans>    

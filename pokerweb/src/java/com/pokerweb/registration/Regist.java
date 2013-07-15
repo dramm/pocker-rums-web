@@ -4,14 +4,23 @@
  */
 package com.pokerweb.registration;
 
+import com.pokerweb.DB.DBManager;
+import com.pokerweb.mail.SendMail;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.xpath.XPathExpressionException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
+
 
 /**
  *
@@ -19,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "Regist", urlPatterns = {"/Regist"})
 public class Regist extends HttpServlet {
+    private ApplicationContext MailService;
    
 
     /**
@@ -35,7 +45,7 @@ public class Regist extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter(); 
-       RegistDb v = new RegistDb();
+        DBManager v = new DBManager();
         UserBasicInformation u = new UserBasicInformation();
         u.login=request.getParameter("login");
         u.password=request.getParameter("password");
@@ -43,9 +53,8 @@ public class Regist extends HttpServlet {
         u.email=request.getParameter("email");
         u.name=request.getParameter("name");
         u.surname=request.getParameter("surname");
-       v.SetNewUser(u);
-        
-        try {
+        v.SetNewUser(u); 
+       try {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
