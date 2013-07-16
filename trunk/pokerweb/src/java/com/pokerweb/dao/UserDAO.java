@@ -7,10 +7,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import com.pokerweb.domain.DbUser;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 
 /**
@@ -51,7 +49,7 @@ public class UserDAO {
 		List<DbUser> users = new ArrayList<DbUser>();
 		DbUser user = null;
                 Connection connection;
-          DBManager DBM=new DBManager();
+          DBManager DBM=DBManager.GetInstance();
           ResultSet rs=DBM.GetUserAutorizationInfo();
             try {
                 while (rs.next()) {
