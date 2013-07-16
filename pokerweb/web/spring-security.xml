@@ -6,7 +6,7 @@
       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
   
-    <context:component-scan base-package="com.pokerweb.mail" />	
+    <context:component-scan base-package="com.pokerweb" />	
 <!--Public resources -->
     <http pattern="/js/**" security="none"/>
     <http pattern="/css/**" security="none"/>
@@ -15,10 +15,11 @@
     <http pattern="/WEB-INF/**" security="none"/>
 
     <http auto-config="true" access-denied-page="/index.htm?accessDeniedError=1">
-        <intercept-url pattern="/game.jsp" access="ROLE_USER,ROLE_ADMIN" />
+        <intercept-url pattern="/game" access="ROLE_USER,ROLE_ADMIN" />
         <form-login 
-                    login-page="/index.jsp"
-                    login-processing-url="/j_spring_security_check"
+            login-page="/index"
+            login-processing-url="/j_spring_security_check"
+            always-use-default-target="true" default-target-url="/index"
                     />
     </http>
     
