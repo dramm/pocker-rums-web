@@ -48,6 +48,7 @@ public class DBManager {
     public ResultSet GetUserAutorizationInfo(){
             String query="select login,password from users where activated=true";
         try {
+            stmt = connection.prepareStatement(query);
             ResultSet rs = stmt.executeQuery(query);
             return rs;
         } catch (SQLException ex) {
