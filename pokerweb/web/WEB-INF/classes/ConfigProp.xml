@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
+
 <root>
     <jdbc>
         <serverName>localhost</serverName>
@@ -15,7 +12,9 @@ and open the template in the editor.
         <transport>smtp</transport>
         <server>smtp.gmail.com</server>
         <port>587</port>
-        <login></login>
-        <password></password>
+        <login>pokerweb1</login>
+        <password>MnifUIC5OQ9Hd1Fsuqad</password>
+        <Subject></Subject>                         <!--Тема письма по умолчанию для подтверждения регистрации-->
+        <MessageText></MessageText>                 <!--Текст письма по умолчанию для подтверждения регистрации -->
     </mail>  
 </root>

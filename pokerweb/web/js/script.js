@@ -1,9 +1,11 @@
 if(typeof jQuery == 'undefined'){
     console.log("jQuery not LOADED!!!");
 }
+
 $(window).load(function() {
         $('#slider').nivoSlider();
     });
+    
 function resetForm(form)
 {
     $(form).find("input").each(function()
@@ -34,6 +36,7 @@ function setButtonGradient(button,active)
         $(button).css("background"," linear-gradient(top, #285F74 0%, #0d2a34 100%)");
     }
 }
+
 $(document).ready(function(){
         $("#game").css({"width":$(document).width()+"px"});
         
@@ -82,6 +85,7 @@ $(document).ready(function(){
                 form.removeClass("started");
             });
         });
+
         $(".dropdownMenu .button").click(function(){
             //alert(1);
             var valid=true;
