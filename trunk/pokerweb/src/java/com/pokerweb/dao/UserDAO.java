@@ -1,6 +1,7 @@
 package com.pokerweb.dao;
 
 import com.pokerweb.DB.DBManager;
+import com.pokerweb.crypto.CryptoManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,14 +49,13 @@ public class UserDAO {
 		// Create a dummy array list
 		List<DbUser> users = new ArrayList<DbUser>();
 		DbUser user = null;
-                Connection connection;
-          DBManager DBM=DBManager.GetInstance();
-          ResultSet rs=DBM.GetUserAutorizationInfo();
+                DBManager DBM=DBManager.GetInstance();
+                ResultSet rs=DBM.GetUserAutorizationInfo();
             try {
                 while (rs.next()) {
                 user = new DbUser();
-                String UserN=rs.getString(1);
-                String Pass=rs.getString(2);
+                String UserN = rs.getString(1);
+                String Pass = rs.getString(2);//CryptoManager.GetDectyptPassword(rs.getString(2),rs.getString(3));
                     user.setUsername(UserN);
                     user.setPassword(Pass);
                     user.setAccess(2);

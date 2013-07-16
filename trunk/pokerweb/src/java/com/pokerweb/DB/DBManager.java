@@ -6,6 +6,7 @@ package com.pokerweb.DB;
 
 import com.pokerweb.Config.ConfigManager;
 import com.pokerweb.Config.FieldJdbc;
+import com.pokerweb.crypto.CryptoManager;
 import com.pokerweb.mail.SendMail;
 import com.pokerweb.registration.UserBasicInformation;
 import java.sql.Connection;
@@ -46,7 +47,7 @@ public class DBManager {
     
     
     public ResultSet GetUserAutorizationInfo(){
-            String query="select login,password from users where activated=true";
+            String query="select login,password,register_date from users where activated=true";
         try {
             stmt = connection.prepareStatement(query);
             ResultSet rs = stmt.executeQuery(query);
@@ -76,20 +77,25 @@ public class DBManager {
                     + "banned_admin_id,"
                     + "activated)" +
                     "values(?,?,?,?,?,'',?,"
-                    + "now(),"
+                    + "?,"
                     + "now(),"
                     + "false,"
                     + "now(),"
                     + "'',"
                     + "0,"
                     + "false);";
+            java.util.Date dt = new java.util.Date();
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String currentTime = sdf.format(dt);
             stmt = connection.prepareStatement(query);
+            String EncoderS = CryptoManager.GetEnctyptPassword(ubi.password, currentTime);
             stmt.setString(1, ubi.login);
-            stmt.setString(2, ubi.password);
+            stmt.setString(2, EncoderS);
             stmt.setString(3, ubi.email);
             stmt.setString(4, ubi.surname);
             stmt.setString(5, ubi.name);
             stmt.setString(6, ubi.tel);
+            stmt.setString(7, currentTime);
             stmt.executeUpdate();
             
             
