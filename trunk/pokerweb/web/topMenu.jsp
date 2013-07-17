@@ -35,43 +35,43 @@
                             <div>Заполните пожалуйста все поля</div>
                             <div>                                
                                 <div class="caption">Логин:</div>
-                                <input type="text" id="login" placeholder="Введите логин" onkeyup="doCompletion()"/>
+                                <input type="text" id="login" name="login" placeholder="Введите логин" onkeyup="doCompletion()"/>
                                 <p id="LoginError" class="errorMessage"></p>
                                 <div class="wrongInput">введите логин</div>
                             </div>
                             <div>
                                 <div class="caption">Пароль:</div>
-                                <input type="password" id="password" placeholder="Введите пароль" onkeyup="doCompletion()"/>
+                                <input type="password" id="password" name="password" placeholder="Введите пароль" onkeyup="doCompletion()"/>
                                 <p id="PassError" class="errorMessage"></p>
                                 <div class="wrongInput">введите пароль</div>
                             </div>
                             <div>
                                 <div class="caption">Повторите пароль:</div>
-                                <input type="password" id="confirmPassword" onkeyup="doCompletion()"/>
+                                <input type="password" id="confirmPassword" name="confirmPassword" onkeyup="doCompletion()"/>
                                 <p id="ConfPassError" class="errorMessage"></p>
                                 <div class="wrongInput">повторите пароль</div>
                             </div>
                             <div>
                                 <div class="caption">Телефон:</div>
-                                <input type="text" id="tel" onkeyup="doCompletion()"/>
+                                <input type="text" id="tel" name="tel" onkeyup="doCompletion()"/>
                                 <p id="TelError" class="errorMessage"></p>
                                 <div class="wrongInput">введите телефон</div>
                             </div>
                             <div>
                                 <div class="caption">E-mail:</div>
-                                <input type="email" id="email" onkeyup="doCompletion()"/> 
+                                <input type="email" id="email" name="email" onkeyup="doCompletion()"/> 
                                 <p id="MailError" class="errorMessage"></p>
                                 <div class="wrongInput">не правильно заполнено</div>
                             </div>
                             <div>
                                 <div class="caption">Имя:</div>
-                                <input type="text" id="name" onkeyup="doCompletion()"/>
+                                <input type="text"  id="name" name="name" onkeyup="doCompletion()"/>
                                 <p id="NameError" class="errorMessage"></p>
                                 <div class="wrongInput">введите Ваше имя</div>
                             </div>
                             <div>
                                 <div class="caption">Фамилия:</div>
-                                <input type="text" id="surname" onkeyup="doCompletion()"/>
+                                <input type="text" id="surname" name="surname" onkeyup="doCompletion()"/>
                                 <p id="SurnameError" class="errorMessage"></p>
                                 <div class="wrongInput">введите Вашу фамилию</div>
                             </div>

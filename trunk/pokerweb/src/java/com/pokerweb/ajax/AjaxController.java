@@ -123,7 +123,7 @@ public class AjaxController extends HttpServlet {
                     }
               
               if (namesAdded) {
-                  response.setContentType("text/xml; charset=utf-8");
+                  response.setContentType("application/json; charset=utf-8");
                   response.setHeader("Cache-Control", "no-cache");
                   response.getWriter().write(js.toString());
               } else 
