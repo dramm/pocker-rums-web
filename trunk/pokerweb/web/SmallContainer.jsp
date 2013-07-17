@@ -17,7 +17,7 @@
                             <div class="menuTitle">Ставки на спорт</div>
                         </div>
                     </div>
-                    <div >
+                    <div>
                         <div id="sm4" class="smallMenuItem">
                             <div class="menuTitle">Игровые автоматы</div>
                         </div>

@@ -481,6 +481,10 @@ a{
     background: -ms-linear-gradient(top, #729CB0 0%, #153847 100%);
     background: linear-gradient(top, #729CB0 0%, #153847 100%);
 }
+
+.errorMessage{
+    color: red;
+}
 /**+html #center .bigMenuItem,*+html #smallContainer .smallMenuItem{
     border-bottom: solid black 2px;
     border-right: solid black 2px;

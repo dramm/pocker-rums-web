@@ -115,3 +115,118 @@ $(document).ready(function(){
                 $form.submit();
         });
 });
+
+var req;
+var LoginError;
+var PassError;
+var ConfPassError;
+var TelError;
+var MailError;
+var NameError;
+var SurnameError;
+
+var FieldLogin;
+var FieldPass;
+var FieldConfPass;
+var FieldTel;
+var FieldMail;
+var FieldName;
+var FieldSurname;
+
+var RegisterButton;
+
+function init() {
+    LoginError = document.getElementById("LoginError");
+    PassError = document.getElementById("PassError");
+    ConfPassError = document.getElementById("ConfPassError");
+    TelError = document.getElementById("TelError");
+    MailError = document.getElementById("MailError");
+    NameError = document.getElementById("NameError");
+    SurnameError = document.getElementById("SurnameError");  
+    
+    FieldLogin = document.getElementById("login");
+    FieldPass = document.getElementById("password");
+    FieldConfPass = document.getElementById("confirmPassword");
+    FieldTel = document.getElementById("tel");
+    FieldMail = document.getElementById("email");
+    FieldName = document.getElementById("name");
+    FieldSurname = document.getElementById("surname");
+    
+    RegisterButton = document.getElementById("RegButton");
+}
+
+function doCompletion() {
+    init();
+    var values =  {  
+                "login": FieldLogin.value,
+                "password":FieldPass.value,
+                "confirmPassword": FieldConfPass.value,
+                "tel": FieldTel.value,
+                "email": FieldMail.value,
+                "name": FieldName.value,
+                "surname": FieldSurname.value
+            };
+    var url = "AjaxController";
+    req = new XMLHttpRequest();
+    req.open("POST", url, true);
+    req.onreadystatechange = callback;
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(JSON.stringify(values));   
+}
+
+function callback() {
+    init();
+    RegisterButton.disabled=false;
+    LoginError.innerHTML="";
+    PassError.innerHTML="";
+    ConfPassError.innerHTML="";
+    TelError.innerHTML="";
+    MailError.innerHTML="";
+    NameError.innerHTML="";
+    SurnameError.innerHTML="";
+    
+    if (req.readyState == 4) {
+        if (req.status == 200) {
+            parseMessages(req.responseText);
+        }
+    }
+}
+
+
+function parseMessages(responseText) {
+    if (responseText == null) {
+        return false;
+    } else {
+        if (responseText.length > 0) {
+        var ErrorS = JSON.parse(responseText);
+        appendComposer(ErrorS);
+        } 
+   }
+   }
+
+function appendComposer(Message) {
+    init();
+    RegisterButton.disabled=true;
+    
+    if(Message.Login!=null)
+        LoginError.innerHTML = Message.Login;
+    
+    if(Message.Mail!=null)
+        MailError.innerHTML = Message.Mail;
+    
+    if(Message.Pass!=null)
+        PassError.innerHTML = Message.Pass;
+    
+    if(Message.PassConf!=null)
+        ConfPassError.innerHTML = Message.PassConf;
+    
+    if(Message.Name!=null)
+        NameError.innerHTML = Message.Name;
+    
+    if(Message.Surname!=null)
+        SurnameError.innerHTML = Message.Surname;
+    
+    if(Message.Tel!=null)
+        TelError.innerHTML = Message.Tel;
+    
+}

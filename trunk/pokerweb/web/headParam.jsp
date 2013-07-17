@@ -11,6 +11,7 @@
         <meta name="keywords" content="Rergio Richi казино играть live спорт футбол ставки выиграть ">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/json2.js"></script>
         <script type="text/javascript" src="js/script.js"></script>        
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
     
