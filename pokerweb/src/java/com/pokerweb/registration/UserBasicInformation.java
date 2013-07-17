@@ -12,6 +12,7 @@ package com.pokerweb.registration;
 public class UserBasicInformation {
     public String login;
     public String password;
+    public String confpassword;
     public String tel;
     public String email;
     public String name;

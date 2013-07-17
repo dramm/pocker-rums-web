@@ -14,13 +14,10 @@
     <jsp:include page="headParam.jsp" flush="true" />
     </head>
     <body>
-        
         <div id="header">
             <div class="leftCol"> </div>
             <div class="centerCol"> 
-               
                 <jsp:include page="topMenu.jsp" flush="true" />
-    
                 <jsp:include page="headerContent.jsp" flush="true" />
                 <jsp:include page="mainMenu.jsp" flush="true" />
             </div>
@@ -32,6 +29,7 @@
             <!--<div class="leftCol dark"> </div>
             <div class="centerCol"> -->
             <jsp:include page="SliderPage.jsp" flush="true" />
+            
             <!--</div>
             <div class="rightCol dark"> </div>-->
             <div class="separator"></div>

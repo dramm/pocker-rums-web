@@ -8,7 +8,7 @@
 <%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-        <div id="topMenu"> 
+        <div id="topMenu" onload="init()"> 
                     <div>
 
                         <a href="#">О нас </a> | <a href="#">Помощь и обучение</a> | <a href="#">Ответственная игра</a>
@@ -35,41 +35,48 @@
                             <div>Заполните пожалуйста все поля</div>
                             <div>                                
                                 <div class="caption">Логин:</div>
-                                <input type="text" name="login" placeholder="Введите логин"/>
+                                <input type="text" id="login" placeholder="Введите логин" onkeyup="doCompletion()"/>
+                                <p id="LoginError" class="errorMessage"></p>
                                 <div class="wrongInput">введите логин</div>
                             </div>
                             <div>
                                 <div class="caption">Пароль:</div>
-                                <input type="password" name="password" placeholder="Введите пароль"/>
+                                <input type="password" id="password" placeholder="Введите пароль" onkeyup="doCompletion()"/>
+                                <p id="PassError" class="errorMessage"></p>
                                 <div class="wrongInput">введите пароль</div>
                             </div>
                             <div>
                                 <div class="caption">Повторите пароль:</div>
-                                <input type="password" name="confirmPassword"/>
+                                <input type="password" id="confirmPassword" onkeyup="doCompletion()"/>
+                                <p id="ConfPassError" class="errorMessage"></p>
                                 <div class="wrongInput">повторите пароль</div>
                             </div>
                             <div>
                                 <div class="caption">Телефон:</div>
-                                <input type="text" name="tel"/>
+                                <input type="text" id="tel" onkeyup="doCompletion()"/>
+                                <p id="TelError" class="errorMessage"></p>
                                 <div class="wrongInput">введите телефон</div>
                             </div>
                             <div>
                                 <div class="caption">E-mail:</div>
-                                <input type="email" name="email"/>
+                                <input type="email" id="email" onkeyup="doCompletion()"/> 
+                                <p id="MailError" class="errorMessage"></p>
                                 <div class="wrongInput">не правильно заполнено</div>
                             </div>
                             <div>
                                 <div class="caption">Имя:</div>
-                                <input type="text" name="name"/>
+                                <input type="text" id="name" onkeyup="doCompletion()"/>
+                                <p id="NameError" class="errorMessage"></p>
                                 <div class="wrongInput">введите Ваше имя</div>
                             </div>
                             <div>
                                 <div class="caption">Фамилия:</div>
-                                <input type="text" name="surname" value=""/>
+                                <input type="text" id="surname" onkeyup="doCompletion()"/>
+                                <p id="SurnameError" class="errorMessage"></p>
                                 <div class="wrongInput">введите Вашу фамилию</div>
                             </div>
                             <div class="centered">
-                                <input type="submit" class="button" value="РЕГИСТРАЦИЯ"/>
+                                <input type="submit" class="button" id="RegButton" disabled value="РЕГИСТРАЦИЯ"/>
                                 
                             </div>    
                         </form></div>
