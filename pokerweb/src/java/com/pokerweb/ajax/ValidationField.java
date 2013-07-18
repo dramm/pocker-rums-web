@@ -24,6 +24,7 @@ public class ValidationField {
     }
     
      public static boolean ValidLogin(String Login){
+         
         return Login.length() > 0;
     }
     

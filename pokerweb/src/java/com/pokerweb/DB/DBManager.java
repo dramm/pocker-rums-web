@@ -58,7 +58,22 @@ public class DBManager {
         return null;
     
     }
-    
+    public boolean UserExists(String login){
+     String query="select * from users where login=?";
+        try {
+            stmt = connection.prepareStatement(query);
+            stmt.setString(1, login);
+            ResultSet rs = stmt.executeQuery(query);
+            if(rs.first())                                  //что-то тут не так
+                return true;
+            else
+                return false;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        
+    }
     public boolean SetNewUser(UserBasicInformation ubi){
         try {
             String query="insert into users("
