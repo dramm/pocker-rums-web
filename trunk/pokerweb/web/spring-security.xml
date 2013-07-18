@@ -13,7 +13,10 @@
     <http pattern="/pic/**" security="none"/>
     <http pattern="/WEB-INF/classes/**" security="none"/>
     <http pattern="/WEB-INF/**" security="none"/>
-
+    <http pattern="/AjaxController" security="none"/>
+    <http pattern="/ConfirmRegistration" security="none"/>
+    <http pattern="/RegisterUser" security="none"/>
+    
     <http auto-config="true" access-denied-page="/index.htm?accessDeniedError=1">
         <intercept-url pattern="/game" access="ROLE_USER,ROLE_ADMIN,ROLE_MANAGER" />
         <intercept-url pattern="/game.jsp" access="ROLE_USER,ROLE_ADMIN,ROLE_MANAGER" />

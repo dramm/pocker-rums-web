@@ -45,12 +45,12 @@ function init() {
     var query = getURLParameter("token");
    if(query!='null')
         ConfirmRegist(query);
+  //   document.getElementById("modalWait").className='modal';
 }
 
-
 function RegistClickButton() {
-    init();
-    document.getElementById("modalWait").className='modal';
+     document.getElementById("modalWait").className='modal';
+     init();
     var values =  {  
                 "login": FieldLogin.value,
                 "password":FieldPass.value,
@@ -66,7 +66,6 @@ function RegistClickButton() {
     req.onreadystatechange = callbackRegist;
     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     req.send(JSON.stringify(values));  
-
 }
 
 function callbackRegist() {
@@ -214,5 +213,15 @@ var newP=document.createElement("p");
 newP.style.cssText="color:#FFFFFF;";
 newP.innerHTML=message;//"На указаный вами адрес отправленно сообщение для подтверждения регистрации, перейдите пожалуйста по ссылке";
 formReadReminder.appendChild(newP);
+newInput.setAttribute("type","submit");
+newInput.style.cssText="color: white;padding: 1px;display:inline-block;border: solid 2px #285F74;"+
+    "border-radius: 6px;min-width: 76px;text-align: center;background: #000000;"+
+    "background: -moz-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
+    "background: -webkit-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
+    "background: -o-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
+    "background: -ms-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
+    "background: linear-gradient(top, #285F74 0%, #0d2a34 100%);";
+newInput.setAttribute("value","OK");
+formReadReminder.appendChild(newInput);
 $( formReadReminder).dialog({ modal: true,/*title:"Подтвердите регистрацию",*/maxHeight:200,maxWidth:400,minHeight:200,minWidth:400});
  }

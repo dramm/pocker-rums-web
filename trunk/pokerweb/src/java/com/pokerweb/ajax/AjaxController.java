@@ -4,6 +4,7 @@
  */
 package com.pokerweb.ajax;
 
+import com.pokerweb.DB.DBManager;
 import com.pokerweb.registration.UserBasicInformation;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -85,6 +86,11 @@ public class AjaxController extends HttpServlet {
                     ubi.surname = jsonObject.getString("surname");
                     JSONObject js = new JSONObject();
                     
+                    if(DBManager.GetInstance().UserExists(ubi.login)){
+                        js.append("Login","логин занят");
+                        namesAdded = true;
+                    }
+                    else
                     if(!ValidationField.ValidLogin(ubi.login)){
                       js.append("Login","заполните поле логина");
                       namesAdded = true;
