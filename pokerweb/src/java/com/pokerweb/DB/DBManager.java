@@ -120,7 +120,7 @@ public class DBManager {
             
            sm.SendOneAddress(ubi.email,
                    "Для подтверждения регистрации перейдите по ссылке"+
-                   " <a href='http://localhost:8080/ConfirmRegist?token="+uuid.toString()+"'>Подтверждение</a>",
+                   " <a href='http://localhost:8080/?token="+uuid.toString()+"'>Подтверждение</a>",
                    "Welcome to SergioRio");
         return true;
         } catch (SQLException ex) {
