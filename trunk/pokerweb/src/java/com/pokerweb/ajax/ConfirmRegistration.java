@@ -2,25 +2,29 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.pokerweb.registration;
+package com.pokerweb.ajax;
 
 import com.pokerweb.DB.DBManager;
+import com.pokerweb.registration.UserBasicInformation;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
  * @author vadim
  */
-@WebServlet(name = "Regist", urlPatterns = {"/Regist"})
-public class Regist extends HttpServlet {
-   
+@WebServlet(name = "ConfirmRegistration", urlPatterns = {"/ConfirmRegistration"})
+public class ConfirmRegistration extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -45,17 +49,6 @@ public class Regist extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DBManager v = DBManager.GetInstance();
-        UserBasicInformation ubi = new UserBasicInformation();
-        ubi.login=request.getParameter("login");
-        ubi.password=request.getParameter("password");
-        ubi.tel=request.getParameter("tel");
-        ubi.email=request.getParameter("email");
-        ubi.name=request.getParameter("name");
-        ubi.surname=request.getParameter("surname");
-        boolean res = v.SetNewUser(ubi);
-      //  if(res)
-            
     }
 
     /**
@@ -70,7 +63,29 @@ public class Regist extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    }
+        try {        
+            StringBuilder jb = new StringBuilder();
+            String line = null;
+            UserBasicInformation ubi=new UserBasicInformation();
+            BufferedReader reader = request.getReader();
+                while ((line = reader.readLine()) != null)
+                    jb.append(line);
+                
+                    JSONObject jsonObject = new JSONObject(jb.toString());
+                   String token = jsonObject.getString("token");
+                    JSONObject js = new JSONObject();
+                    if(DBManager.GetInstance().ConfirmRegistToken(token))
+                        js.append("ConfRegist","пользователь активирован");
+                    else
+                        js.append("ConfRegist","ошибка активации");
+                    response.setContentType("application/json; charset=utf-8");
+                    response.setHeader("Cache-Control", "no-cache");
+                    response.getWriter().write(js.toString());
+    }catch (JSONException ex) {
+            Logger.getLogger(ConfirmRegistration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+              
 
     /**
      * Returns a short description of the servlet.
@@ -81,4 +96,5 @@ public class Regist extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+       
 }

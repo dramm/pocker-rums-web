@@ -13,7 +13,7 @@
     <head>
     <jsp:include page="headParam.jsp" flush="true" />
     </head>
-    <body>
+    <body onload="init()">
         <div id="header">
             <div class="leftCol"> </div>
             <div class="centerCol"> 

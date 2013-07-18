@@ -8,7 +8,7 @@
 <%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-        <div id="topMenu" onload="init()"> 
+        <div id="topMenu" > 
                     <div>
 
                         <a href="#">О нас </a> | <a href="#">Помощь и обучение</a> | <a href="#">Ответственная игра</a>
@@ -31,7 +31,7 @@
                         <%}else{%>
                         <div class="button">Регистрация
 
-                        <form name="frm" class="dropdownMenu register" action="Regist" method="Post" onSubmit="return Validate()">
+                        <form name="frm" class="dropdownMenu register" onSubmit="return Validate()">
                             <div>Заполните пожалуйста все поля</div>
                             <div>                                
                                 <div class="caption">Логин:</div>
@@ -76,8 +76,7 @@
                                 <div class="wrongInput">введите Вашу фамилию</div>
                             </div>
                             <div class="centered">
-                                <input type="submit" class="button" id="RegButton" disabled value="РЕГИСТРАЦИЯ"/>
-                                
+                                <input class="button" id="RegButton" onclick="RegistClickButton()" disabled value="РЕГИСТРАЦИЯ"/>
                             </div>    
                         </form></div>
                     </div>

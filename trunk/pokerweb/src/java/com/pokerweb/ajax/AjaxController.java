@@ -9,8 +9,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -118,7 +116,7 @@ public class AjaxController extends HttpServlet {
                     }
                     
                     if(!ValidationField.ValidTel(ubi.tel)){
-                        js.append("Tel","фамилия введена не корректно</message>");
+                        js.append("Tel","телефон введена не корректно</message>");
                         namesAdded = true;
                     }
               
