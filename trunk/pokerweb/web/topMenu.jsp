@@ -76,7 +76,7 @@
                                 <div class="wrongInput">введите Вашу фамилию</div>
                             </div>
                             <div class="centered">
-                                <input class="button" id="RegButton" onclick="RegistClickButton()" disabled value="РЕГИСТРАЦИЯ"/>
+                                <input class="button" id="RegButton" type="button" onclick="RegistClickButton()" disabled value="РЕГИСТРАЦИЯ"/>
                             </div>
                             
                         </form></div>
