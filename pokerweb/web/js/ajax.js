@@ -24,16 +24,6 @@ var FieldSurname;
 
 var RegisterButton;
 
-// $("body").on({
-//    ajaxStart: function() { 
-//        $(this).addClass("loading"); 
-//    },
-//    ajaxStop: function() { 
-//        $(this).removeClass("loading"); 
-//    }    
-//});
-
-
 function init() {
     LoginError = document.getElementById("LoginError");
     PassError = document.getElementById("PassError");
@@ -51,11 +41,10 @@ function init() {
     FieldName = document.getElementById("name");
     FieldSurname = document.getElementById("surname");
     RegisterButton = document.getElementById("RegButton");
-    
+    RegisterButton.disabled=true;
     var query = getURLParameter("token");
    if(query!='null')
         ConfirmRegist(query);
-  
 }
 
 
@@ -102,15 +91,8 @@ function parseMessagesRegistration(responseText) {
    }
 
 
-
-//$("body").addClass("loading");
 function RegistFieldChanged() {
     init();
-   // $.mockjax({ url: '/AjaxController', responseTime: 20 });
-//   $(document).on("click", function(){
-//    $.post("/AjaxController");        
-//});
-
     var values =  {  
                 "login": FieldLogin.value,
                 "password":FieldPass.value,
@@ -139,7 +121,6 @@ function ConfirmRegist(token) {
 }
 
 function callbackConfRegist() {
-    
     if (req.readyState == 4) {
         if (req.status == 200) {
             parseMessagesConfRegistration(req.responseText);
@@ -161,7 +142,6 @@ function parseMessagesConfRegistration(responseText) {
 
 function callback() {
     init();
-  //  $("body").removeClass("loading");
     RegisterButton.disabled=false;
     LoginError.innerHTML="";
     PassError.innerHTML="";
@@ -236,9 +216,3 @@ newP.innerHTML=message;//"На указаный вами адрес отправ
 formReadReminder.appendChild(newP);
 $( formReadReminder).dialog({ modal: true,/*title:"Подтвердите регистрацию",*/maxHeight:200,maxWidth:400,minHeight:200,minWidth:400});
  }
-
-
-// Initiates an AJAX request on click
-
-
-
