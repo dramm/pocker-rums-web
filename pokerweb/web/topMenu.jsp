@@ -35,51 +35,53 @@
                             <div>Заполните пожалуйста все поля</div>
                             <div>                                
                                 <div class="caption">Логин:</div>
-                                <input type="text" id="login" name="login" placeholder="Введите логин" onkeyup="doCompletion()"/>
+                                <input type="text" id="login" name="login" placeholder="Введите логин" onkeyup="RegistFieldChanged()"/>
                                 <p id="LoginError" class="errorMessage"></p>
                                 <div class="wrongInput">введите логин</div>
                             </div>
                             <div>
                                 <div class="caption">Пароль:</div>
-                                <input type="password" id="password" name="password" placeholder="Введите пароль" onkeyup="doCompletion()"/>
+                                <input type="password" id="password" name="password" placeholder="Введите пароль" onkeyup="RegistFieldChanged()"/>
                                 <p id="PassError" class="errorMessage"></p>
                                 <div class="wrongInput">введите пароль</div>
                             </div>
                             <div>
                                 <div class="caption">Повторите пароль:</div>
-                                <input type="password" id="confirmPassword" name="confirmPassword" onkeyup="doCompletion()"/>
+                                <input type="password" id="confirmPassword" name="confirmPassword" onkeyup="RegistFieldChanged()"/>
                                 <p id="ConfPassError" class="errorMessage"></p>
                                 <div class="wrongInput">повторите пароль</div>
                             </div>
                             <div>
                                 <div class="caption">Телефон:</div>
-                                <input type="text" id="tel" name="tel" onkeyup="doCompletion()"/>
+                                <input type="text" id="tel" name="tel" onkeyup="RegistFieldChanged()"/>
                                 <p id="TelError" class="errorMessage"></p>
                                 <div class="wrongInput">введите телефон</div>
                             </div>
                             <div>
                                 <div class="caption">E-mail:</div>
-                                <input type="email" id="email" name="email" onkeyup="doCompletion()"/> 
+                                <input type="email" id="email" name="email" onkeyup="RegistFieldChanged()"/> 
                                 <p id="MailError" class="errorMessage"></p>
                                 <div class="wrongInput">не правильно заполнено</div>
                             </div>
                             <div>
                                 <div class="caption">Имя:</div>
-                                <input type="text"  id="name" name="name" onkeyup="doCompletion()"/>
+                                <input type="text"  id="name" name="name" onkeyup="RegistFieldChanged()"/>
                                 <p id="NameError" class="errorMessage"></p>
                                 <div class="wrongInput">введите Ваше имя</div>
                             </div>
                             <div>
                                 <div class="caption">Фамилия:</div>
-                                <input type="text" id="surname" name="surname" onkeyup="doCompletion()"/>
+                                <input type="text" id="surname" name="surname" onkeyup="RegistFieldChanged()"/>
                                 <p id="SurnameError" class="errorMessage"></p>
                                 <div class="wrongInput">введите Вашу фамилию</div>
                             </div>
                             <div class="centered">
                                 <input class="button" id="RegButton" onclick="RegistClickButton()" disabled value="РЕГИСТРАЦИЯ"/>
-                            </div>    
+                            </div>
+                            
                         </form></div>
                     </div>
+                        <div id="modalWait"></div>
                     <div>
                         <div class="button">Войти
                             <form class="dropdownMenu signIn" action="j_spring_security_check" method="POST">

@@ -24,6 +24,16 @@ var FieldSurname;
 
 var RegisterButton;
 
+// $("body").on({
+//    ajaxStart: function() { 
+//        $(this).addClass("loading"); 
+//    },
+//    ajaxStop: function() { 
+//        $(this).removeClass("loading"); 
+//    }    
+//});
+
+
 function init() {
     LoginError = document.getElementById("LoginError");
     PassError = document.getElementById("PassError");
@@ -40,15 +50,18 @@ function init() {
     FieldMail = document.getElementById("email");
     FieldName = document.getElementById("name");
     FieldSurname = document.getElementById("surname");
-    
     RegisterButton = document.getElementById("RegButton");
+    
     var query = getURLParameter("token");
-    if(query!='null')
+   if(query!='null')
         ConfirmRegist(query);
+  
 }
+
 
 function RegistClickButton() {
     init();
+    document.getElementById("modalWait").className='modal';
     var values =  {  
                 "login": FieldLogin.value,
                 "password":FieldPass.value,
@@ -62,6 +75,55 @@ function RegistClickButton() {
     req = new XMLHttpRequest();
     req.open("POST", url, true);
     req.onreadystatechange = callbackRegist;
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(JSON.stringify(values));  
+
+}
+
+function callbackRegist() {
+     document.getElementById("modalWait").className='';
+    if (req.readyState == 4) {
+        if (req.status == 200) {
+            parseMessagesRegistration(req.responseText);
+        }
+    }
+}
+
+function parseMessagesRegistration(responseText) {
+    if (responseText == null) {
+        return false;
+    } else {
+        if (responseText.length > 0) {
+        var ErrorS = JSON.parse(responseText);
+      if(ErrorS.Regist!=null)
+         registDialog(ErrorS.Regist);
+        } 
+   }
+   }
+
+
+
+//$("body").addClass("loading");
+function RegistFieldChanged() {
+    init();
+   // $.mockjax({ url: '/AjaxController', responseTime: 20 });
+//   $(document).on("click", function(){
+//    $.post("/AjaxController");        
+//});
+
+    var values =  {  
+                "login": FieldLogin.value,
+                "password":FieldPass.value,
+                "confirmPassword": FieldConfPass.value,
+                "tel": FieldTel.value,
+                "email": FieldMail.value,
+                "name": FieldName.value,
+                "surname": FieldSurname.value
+            };
+    var url = "AjaxController";
+    req = new XMLHttpRequest();
+    req.open("POST", url, true);
+    req.onreadystatechange = callback;
     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     req.send(JSON.stringify(values));   
 }
@@ -99,6 +161,7 @@ function parseMessagesConfRegistration(responseText) {
 
 function callback() {
     init();
+  //  $("body").removeClass("loading");
     RegisterButton.disabled=false;
     LoginError.innerHTML="";
     PassError.innerHTML="";
@@ -115,25 +178,9 @@ function callback() {
     }
 }
 
-function callbackRegist() {
-    if (req.readyState == 4) {
-        if (req.status == 200) {
-            parseMessagesRegistration(req.responseText);
-        }
-    }
-}
 
-function parseMessagesRegistration(responseText) {
-    if (responseText == null) {
-        return false;
-    } else {
-        if (responseText.length > 0) {
-        var ErrorS = JSON.parse(responseText);
-      if(ErrorS.Regist!=null)
-          registDialog(ErrorS.Regist);
-        } 
-   }
-   }
+
+
 
 function parseMessages(responseText) {
     if (responseText == null) {
@@ -179,11 +226,19 @@ function getURLParameter(name) {
 }
 
 
-
 function registDialog(message){
 var formReadReminder=document.createElement("form");
+var newInput=document.createElement("input");
+formReadReminder.style.cssText="background-color: #285F74;text-align:center;"
 var newP=document.createElement("p");
+newP.style.cssText="color:#FFFFFF;";
 newP.innerHTML=message;//"На указаный вами адрес отправленно сообщение для подтверждения регистрации, перейдите пожалуйста по ссылке";
 formReadReminder.appendChild(newP);
 $( formReadReminder).dialog({ modal: true,/*title:"Подтвердите регистрацию",*/maxHeight:200,maxWidth:400,minHeight:200,minWidth:400});
  }
+
+
+// Initiates an AJAX request on click
+
+
+
