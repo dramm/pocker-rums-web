@@ -2,6 +2,7 @@ package com.pokerweb.mail;
 
 import com.pokerweb.Config.ConfigManager;
 import com.pokerweb.Config.FieldMail;
+import com.pokerweb.DB.DBManager;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -15,13 +16,13 @@ import javax.mail.internet.MimeMessage;
 import org.apache.log4j.Logger;
 
 public class SendMail {
-
     private static Logger logger = Logger.getLogger(SendMail.class);
     private Properties props;
     private Message message;
     private Session session;
     private Transport transport;
-    public SendMail(){
+    private static SendMail instanse=new SendMail();
+    private SendMail(){
         try {
             props = new Properties();
             props.put("mail.smtp.auth", "true");
@@ -40,6 +41,11 @@ public class SendMail {
             java.util.logging.Logger.getLogger(SendMail.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public static SendMail GetInstance(){
+        return instanse;
+    }
+   
     public  boolean SendOneAddress(String to,String MessageText,String Subject) {
         try {
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));

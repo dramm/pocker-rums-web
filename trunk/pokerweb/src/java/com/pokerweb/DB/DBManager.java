@@ -7,6 +7,7 @@ package com.pokerweb.DB;
 import com.pokerweb.Config.ConfigManager;
 import com.pokerweb.Config.FieldJdbc;
 import com.pokerweb.crypto.CryptoManager;
+import com.pokerweb.mail.SendConfirmMessage;
 import com.pokerweb.mail.SendMail;
 import com.pokerweb.registration.UserBasicInformation;
 import java.sql.Connection;
@@ -21,7 +22,7 @@ import java.util.logging.Logger;
  *
  * @author vadim
  */
-public class DBManager {
+public class DBManager{
     private PreparedStatement stmt;
     private Connection connection;
     private static DBManager instanse=new DBManager();
@@ -92,27 +93,26 @@ public class DBManager {
                     + "banned_admin_id,"
                     + "activated)" +
                     "values(?,?,?,?,?,'',?,"
-                    + "?,"
+                    + "now(),"
                     + "now(),"
                     + "false,"
                     + "now(),"
                     + "'',"
                     + "0,"
                     + "false);";
-            java.util.Date dt = new java.util.Date();
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String currentTime = sdf.format(dt);
+          //  java.util.Date dt = new java.util.Date();
+          //  java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+          //  String currentTime = sdf.format(dt);
             stmt = connection.prepareStatement(query);
-            String EncoderS = CryptoManager.GetEnctyptPassword(ubi.password, currentTime);
+            String EncoderS = CryptoManager.GetEnctyptPassword(ubi.password, "");//currentTime);
             stmt.setString(1, ubi.login);
             stmt.setString(2, EncoderS);
             stmt.setString(3, ubi.email);
             stmt.setString(4, ubi.surname);
             stmt.setString(5, ubi.name);
             stmt.setString(6, ubi.tel);
-            stmt.setString(7, currentTime);
+            //stmt.setString(7, currentTime);
             stmt.executeUpdate();
-            
             
             query="insert into user_roles("
                     + "role_id,user_id)"
@@ -121,7 +121,7 @@ public class DBManager {
             stmt.setString(1, ubi.login);
             stmt.executeUpdate();
             
-            SendMail sm=new SendMail();
+            
             UUID uuid = UUID.randomUUID();
             
             query="insert into reg_token_user("
@@ -132,18 +132,18 @@ public class DBManager {
             stmt = connection.prepareStatement(query);
             stmt.setString(1, ubi.login);
             stmt.executeUpdate();
-            
-           sm.SendOneAddress(ubi.email,
-                   "Для подтверждения регистрации перейдите по ссылке"+
-                   " <a href='http://localhost:8080/?token="+uuid.toString()+"'>Подтверждение</a>",
-                   "Welcome to SergioRio");
-        return true;
+            SendConfirmMessage sm=new SendConfirmMessage();
+            sm.SetMail(ubi.email);
+            sm.SetToken(uuid.toString());
+            Thread myT = new Thread(sm);
+            myT.start();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         return false;
         }
     }
-    
+  
     public boolean ConfirmRegistToken(String token){
         try {
           String query="(select id from reg_token_user where reg_token_confirm=?)";
