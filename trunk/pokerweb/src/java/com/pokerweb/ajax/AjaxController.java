@@ -122,7 +122,7 @@ public class AjaxController extends HttpServlet {
                     }
                     
                     if(!ValidationField.ValidTel(ubi.tel)){
-                        js.append("Tel","телефон введена не корректно</message>");
+                        js.append("Tel","телефон введена не корректно");
                         namesAdded = true;
                     }
               

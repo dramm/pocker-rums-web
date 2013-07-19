@@ -229,12 +229,13 @@ a{
 .dropdownMenu .wrongInput{
     color: red;
     font-size: 10px;
-    visibility: hidden;
+    visibility: visible;
     /*display: block;*/
 }
 #topMenu .dropdownMenu .caption{
     display: inline-block;
     width: 60px;
+   
 }
 *+html #topMenu .dropdownMenu .caption{
     display: inline;
@@ -464,6 +465,7 @@ a{
     padding: 30px 40px 0px 40px;
     height: 15%;
 }
+
 #center .bigMenuItem .button{
     margin: 0;
     color: white;
@@ -484,6 +486,7 @@ a{
 
 .errorMessage{
     color: red;
+    visibility: visible !important;
 }
 /**+html #center .bigMenuItem,*+html #smallContainer .smallMenuItem{
     border-bottom: solid black 2px;

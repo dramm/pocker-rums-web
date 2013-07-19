@@ -50,7 +50,7 @@ function init() {
 
 function RegistClickButton() {
      document.getElementById("modalWait").className='modal';
-     init();
+    // init();
     var values =  {  
                 "login": FieldLogin.value,
                 "password":FieldPass.value,
@@ -91,7 +91,7 @@ function parseMessagesRegistration(responseText) {
 
 
 function RegistFieldChanged() {
-    init();
+   // init();
     var values =  {  
                 "login": FieldLogin.value,
                 "password":FieldPass.value,
@@ -140,14 +140,20 @@ function parseMessagesConfRegistration(responseText) {
    }
 
 function callback() {
-    init();
+  //  init();
     RegisterButton.disabled=false;
     LoginError.innerHTML="";
+    
     PassError.innerHTML="";
+    
     ConfPassError.innerHTML="";
+    
     TelError.innerHTML="";
+    
     MailError.innerHTML="";
+    
     NameError.innerHTML="";
+    
     SurnameError.innerHTML="";
     
     if (req.readyState == 4) {
@@ -173,9 +179,9 @@ function parseMessages(responseText) {
    }
 
 function appendComposer(Message) {
-    init();
+  //  init();
     RegisterButton.disabled=true;
-    
+    LoginError.style.cssText="visibility: visible !important;"
     if(Message.Login!=null)
         LoginError.innerHTML = Message.Login;
     
