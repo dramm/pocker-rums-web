@@ -63,7 +63,7 @@ public class DBManager {
         try {
             stmt = connection.prepareStatement(query);
             stmt.setString(1, login);
-            ResultSet rs = stmt.executeQuery(query);
+            ResultSet rs = stmt.executeQuery();
             if(rs.first())                                  //что-то тут не так
                 return true;
             else

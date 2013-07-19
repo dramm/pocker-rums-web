@@ -10,12 +10,13 @@ import java.util.List;
 import java.util.ArrayList;
  
 public class servlet implements HttpSessionListener {
-    private List sessions = new ArrayList();
+    private List<String> sessions = new ArrayList<String>();
  
     public servlet() {
     }
  
     
+    @Override
     public void sessionCreated(HttpSessionEvent event) {
         HttpSession session = event.getSession();
         sessions.add(session.getId());
@@ -24,6 +25,7 @@ public class servlet implements HttpSessionListener {
     }
  
    
+    @Override
     public void sessionDestroyed(HttpSessionEvent event) {
         HttpSession session = event.getSession();
         sessions.remove(session.getId());

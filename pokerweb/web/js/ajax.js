@@ -163,10 +163,6 @@ function callback() {
     }
 }
 
-
-
-
-
 function parseMessages(responseText) {
     if (responseText == null) {
         return false;
