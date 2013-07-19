@@ -33,47 +33,52 @@
 
                         <form name="frm" class="dropdownMenu register" onSubmit="return Validate()">
                             <div>Заполните пожалуйста все поля</div>
-                            <div>                                
+                            <div style="height: 45px;">                                
                                 <div class="caption">Логин:</div>
                                 <input type="text" id="login" name="login" placeholder="Введите логин" onkeyup="RegistFieldChanged()"/>
-                                <p id="LoginError" class="errorMessage"></p>
-                                <div class="wrongInput">введите логин</div>
+                                <div id="LoginError" class="errorMessage">
+                                </div>
+                              
                             </div>
-                            <div>
+                            <div style="height: 45px;"> 
                                 <div class="caption">Пароль:</div>
                                 <input type="password" id="password" name="password" placeholder="Введите пароль" onkeyup="RegistFieldChanged()"/>
-                                <p id="PassError" class="errorMessage"></p>
-                                <div class="wrongInput">введите пароль</div>
+                                <div id="PassError" class="errorMessage">
+                                </div>
+                               
                             </div>
-                            <div>
+                            <div style="height: 45px;">
                                 <div class="caption">Повторите пароль:</div>
                                 <input type="password" id="confirmPassword" name="confirmPassword" onkeyup="RegistFieldChanged()"/>
-                                <p id="ConfPassError" class="errorMessage"></p>
-                                <div class="wrongInput">повторите пароль</div>
+                                <div id="ConfPassError" class="errorMessage">
+                                </div>
+                                
                             </div>
-                            <div>
+                            <div style="height: 45px;">
                                 <div class="caption">Телефон:</div>
                                 <input type="text" id="tel" name="tel" onkeyup="RegistFieldChanged()"/>
-                                <p id="TelError" class="errorMessage"></p>
-                                <div class="wrongInput">введите телефон</div>
+                                <div id="TelError" class="errorMessage">
+                                </div>
+                                
                             </div>
-                            <div>
+                            <div style="height: 45px;">
                                 <div class="caption">E-mail:</div>
                                 <input type="email" id="email" name="email" onkeyup="RegistFieldChanged()"/> 
-                                <p id="MailError" class="errorMessage"></p>
-                                <div class="wrongInput">не правильно заполнено</div>
+                                <div id="MailError" class="errorMessage" >
+                                </div>
+                                
                             </div>
-                            <div>
+                            <div style="height: 45px;">
                                 <div class="caption">Имя:</div>
                                 <input type="text"  id="name" name="name" onkeyup="RegistFieldChanged()"/>
-                                <p id="NameError" class="errorMessage"></p>
-                                <div class="wrongInput">введите Ваше имя</div>
+                                <div id="NameError" class="errorMessage"> </div>
+                                
                             </div>
-                            <div>
+                            <div style="height: 45px;">
                                 <div class="caption">Фамилия:</div>
                                 <input type="text" id="surname" name="surname" onkeyup="RegistFieldChanged()"/>
-                                <p id="SurnameError" class="errorMessage"></p>
-                                <div class="wrongInput">введите Вашу фамилию</div>
+                                <div id="SurnameError" class="errorMessage"> </div>
+                                
                             </div>
                             <div class="centered">
                                 <input class="button" id="RegButton" type="button" onclick="RegistClickButton()" disabled value="РЕГИСТРАЦИЯ"/>
