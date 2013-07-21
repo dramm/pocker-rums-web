@@ -227,3 +227,9 @@ newInput.setAttribute("value","OK");
 formReadReminder.appendChild(newInput);
 $( formReadReminder).dialog({ modal: true,/*title:"Подтвердите регистрацию",*/maxHeight:200,maxWidth:400,minHeight:200,minWidth:400});
  }
+
+
+$(function() {
+$( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+$( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+});

@@ -11,5 +11,10 @@
         <from>^/game$</from>
        <to type="forward">/game.jsp</to>
     </rule>
+    
+    <rule>
+        <from>^/PrivateArea$</from>
+       <to type="forward">/PrivateArea.jsp</to>
+    </rule>
 </urlrewrite>
 
