@@ -65,7 +65,7 @@ public class DBManager{
             stmt = connection.prepareStatement(query);
             stmt.setString(1, login);
             ResultSet rs = stmt.executeQuery();
-            if(rs.first())                                  //что-то тут не так
+            if(rs.first())                                  
                 return true;
             else
                 return false;
@@ -84,6 +84,7 @@ public class DBManager{
                     + "surname,"
                     + "name,"
                     + "second_name,"
+                    + "country,"
                     + "tel,"
                     + "register_date,"
                     + "last_login,"
@@ -92,7 +93,7 @@ public class DBManager{
                     + "banned_comment,"
                     + "banned_admin_id,"
                     + "activated)" +
-                    "values(?,?,?,?,?,'',?,"
+                    "values(?,?,?,?,?,'','',?,"
                     + "now(),"
                     + "now(),"
                     + "false,"

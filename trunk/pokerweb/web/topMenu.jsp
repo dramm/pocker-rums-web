@@ -22,12 +22,18 @@
                         if(userDetails!=null){%>
                         <b>Вы вошли как</b>
                         <%=userDetails.getUsername()%>
-                       <div style="display:inline-block;"> 
+                        <div style="display:inline-block;"> 
                         <form action="j_spring_security_logout" method="Post">
                             <input class="button" type="submit" value="Выход"/>
                         </form>
-                       </div>
+                         
                     </div>
+                        <div style="display:inline-block;">
+                        <form action="/PrivateArea">
+                            <input class="button" type="submit"  value="Личный кабинет"/>
+                        </form>
+                            </div>
+                        </div>
                         <%}else{%>
                         <div class="button">Регистрация
 
@@ -109,6 +115,7 @@
                     </div>
                         <a href="#">Забыли пароль?</a> 
                         <%}%>
+                        
                     <div>
                         <div class="button">Язык
                             <form class="dropdownMenu" id="language" method="GET" action="#">
