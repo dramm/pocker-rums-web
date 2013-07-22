@@ -10,7 +10,7 @@
    <head>
        <jsp:include page="headParam.jsp" flush="true" />
 </head>
-<body>
+<body onload="initPrivateBody">
     <div id="header">
             <div class="leftCol"> </div>
             <div class="centerCol"> 
@@ -34,38 +34,32 @@
 <li><a href="#tabs-7">Статистика пользователя</a></li>
 </ul>
 <div id="tabs-1">
+    <div style="height: 45px;">                                
+        <div style="float: left;">Имя:</div>
+        <input type="text" style="float: right;" id="NamePrivateEdit" name="login" placeholder="Введите имя" onkeyup="RegistFieldChanged()"/>
+        <div id="NamePrivateError" class="errorMessage"></div>
+                              
+                            </div>
+    <div style="height: 45px;">                                
+        <div style="float: left;">Фамилия:</div>
+        <input type="text" style="float: right;" id="SurnamePrivateEdit" name="login" placeholder="Введите фамилию" onkeyup="RegistFieldChanged()"/>
+        <div id="SurnamePrivateError" class="errorMessage"></div>
+    </div>
+    <div style="height: 45px;">                                
+        <div style="float: left;">Отчество:</div>
+        <input type="text" style="float: right;" id="SecondNamePrivateEdit" name="login" placeholder="Введите отчество" onkeyup="RegistFieldChanged()"/>
+        <div id="SecondNamePrivateError" class="errorMessage"></div>
+    </div>
+      <div style="height: 45px;">                                
+        <div style="float: left;">Страна:</div>
+        <input type="text" style="float: right;" id="CountryPrivateEdit" name="login" placeholder="Введите отчество" onkeyup="RegistFieldChanged()"/>
+        <div id="CountryPrivateError" class="errorMessage"></div>
+    </div>
     
-    <table cellspacing="5" cellpadding="5">
-        <tr>
-            <td>Имя</td>
-            <td><input type="text" id="NameEdit"/></td>
-        </tr>
-       
-        <tr>
-            <td>Фамилия</td>
-            <td><input type="text" id="SurnameEdit"/></td>
-        </tr>
-        <tr>
-            <td>
-                Отчество
-            </td>
-            <td>
-                <input type="text" id="SecondNameEdit"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-              Страна
-            </td>
-            <td>
-                <input type="text" id="SecondCountryEdit"/>
-            </td>
-        </tr>
-    </table>
     <input type="button" id="SaveInfo" onclick="" value="Сохранить" class="button"/>
     </div>
 <div id="tabs-2">
-<table cellspacing="5" cellpadding="5">
+<table cellspacing="5" cellpadding="5" class="tableArea">
         <tr>
             <td>
                 <input type="checkbox" id="SendProjectInfo"/>
@@ -78,7 +72,7 @@
     <input type="button" id="SaveEmailNotify" onclick="" value="Сохранить" class="button"/>
 </div>
 <div id="tabs-3">
-<table cellspacing="5" cellpadding="5">
+<table cellspacing="5" cellpadding="5" class="tableArea">
         <tr>
             <td>
                 Введите новый e-mail
@@ -109,7 +103,7 @@
     <input type="button" id="SaveNewMail" onclick="" value="Сохранить" class="button"/> 
 </div>
     <div id="tabs-4">
-        <table cellspacing="5" cellpadding="5">
+        <table cellspacing="5" cellpadding="5" class="tableArea">
         <tr>
             <td>
                 Введите новый пароль
@@ -141,7 +135,7 @@
     </div>
     
     <div id="tabs-5">
-        <table cellspacing="5" cellpadding="5">
+        <table cellspacing="5" cellpadding="5" class="tableArea">
         <tr>
             <td>
                 Введите новый телефон
@@ -165,6 +159,15 @@
                 Введите текущий телефон
             </td>
             <td>
+                <input type="tel" id="EditCurrentTel"/>
+            </td>
+        </tr>
+        
+         <tr>
+            <td>
+                Введите текущий пароль
+            </td>
+            <td>
                 <input type="tel" id="PassUserForEditTel"/>
             </td>
         </tr>
@@ -173,7 +176,7 @@
         <input type="button" id="SaveNewTel" onclick="" value="Сохранить" class="button"/>
     </div>
     <div id="tabs-6">
-        <table cellspacing="5" cellpadding="5">
+        <table cellspacing="5" cellpadding="5" class="tableArea">
         <tr>
             <td>
                 Серия и номер паспорта
@@ -197,6 +200,7 @@
                 </select>
             </td>
         </tr>
+        
          <tr>
             <td>
                 Введите номер счета в платежной системе
