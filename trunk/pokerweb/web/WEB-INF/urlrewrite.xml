@@ -16,5 +16,7 @@
         <from>^/PrivateArea$</from>
        <to type="forward">/PrivateArea.jsp</to>
     </rule>
+    
+    
 </urlrewrite>
 

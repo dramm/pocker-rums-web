@@ -55,10 +55,10 @@ public class UserDAO {
                 while (rs.next()) {
                 user = new DbUser();
                 String UserN = rs.getString(1);
-                String Pass = rs.getString(2);//CryptoManager.GetDectyptPassword(rs.getString(2),rs.getString(3));
+                String Pass = rs.getString(2);
                     user.setUsername(UserN);
                     user.setPassword(Pass);
-                    user.setAccess(2);
+                    user.setAccess(rs.getInt(3));
                     users.add(user);
                 }
             } catch (SQLException ex) {

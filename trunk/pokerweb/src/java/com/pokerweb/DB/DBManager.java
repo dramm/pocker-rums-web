@@ -8,7 +8,6 @@ import com.pokerweb.Config.ConfigManager;
 import com.pokerweb.Config.FieldJdbc;
 import com.pokerweb.crypto.CryptoManager;
 import com.pokerweb.mail.SendConfirmMessage;
-import com.pokerweb.mail.SendMail;
 import com.pokerweb.registration.UserBasicInformation;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -48,7 +47,7 @@ public class DBManager{
     
     
     public ResultSet GetUserAutorizationInfo(){
-            String query="select login,password,register_date from users where activated=true";
+            String query="select login,password,role_id from users,user_roles where activated=true and user_id=id";
         try {
             stmt = connection.prepareStatement(query);
             ResultSet rs = stmt.executeQuery(query);
@@ -95,9 +94,9 @@ public class DBManager{
                     + "activated)" +
                     "values(?,?,?,?,?,'','',?,"
                     + "now(),"
-                    + "now(),"
+                    + "'1999-01-01 00:00:00',"
                     + "false,"
-                    + "now(),"
+                    + "'1999-01-01 00:00:00',"
                     + "'',"
                     + "0,"
                     + "false);";
@@ -105,14 +104,13 @@ public class DBManager{
           //  java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
           //  String currentTime = sdf.format(dt);
             stmt = connection.prepareStatement(query);
-            String EncoderS = CryptoManager.GetEnctyptPassword(ubi.password, "");//currentTime);
+            String EncoderS = CryptoManager.GetEnctyptPassword(ubi.password, "");
             stmt.setString(1, ubi.login);
             stmt.setString(2, EncoderS);
             stmt.setString(3, ubi.email);
             stmt.setString(4, ubi.surname);
             stmt.setString(5, ubi.name);
             stmt.setString(6, ubi.tel);
-            //stmt.setString(7, currentTime);
             stmt.executeUpdate();
             
             query="insert into user_roles("
@@ -125,11 +123,15 @@ public class DBManager{
             
             UUID uuid = UUID.randomUUID();
             
-            query="insert into reg_token_user("
+            query="insert into token_user("
                     + "id,"
-                    + "reg_token_confirm) "
+                    + "token_confirm,"
+                    + "type_confirm,"
+                    + "date_request,"
+                    + "date_response,"
+                    + "confirmed) "
                     + "values((select id from users where login=?),'"
-                    +uuid.toString()+"')";
+                    +uuid.toString()+"',1,now(),now(),false)";
             stmt = connection.prepareStatement(query);
             stmt.setString(1, ubi.login);
             stmt.executeUpdate();
@@ -147,16 +149,74 @@ public class DBManager{
   
     public boolean ConfirmRegistToken(String token){
         try {
-          String query="(select id from reg_token_user where reg_token_confirm=?)";
+          String query="(select id from token_user where token_confirm=? and type_confirm=1 and confirmed=false)";
           stmt = connection.prepareStatement(query);
           stmt.setString(1, token);
           ResultSet rs = stmt.executeQuery();
-           rs.first();
-           stmt.executeUpdate("UPDATE users SET activated=true WHERE id="+rs.getString(1));
+          if(!rs.first())
+              return false;
+          stmt.executeUpdate("UPDATE users SET activated=true WHERE id="+rs.getString(1));
+          query="UPDATE token_user SET confirmed=true,date_response=now() WHERE token_confirm=?";
+          stmt = connection.prepareStatement(query);
+          stmt.setString(1, token);
+          stmt.executeUpdate();
         return true;
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         return false;
+        }
+    }
+    
+    private int GetIdFromLogin(String login){
+        try {
+            String query="(select id from users where login=?)";
+                 stmt = connection.prepareStatement(query);
+                 stmt.setString(1, login);
+                 ResultSet rs = stmt.executeQuery();
+                 if(!rs.first())
+                     return -1;
+                 else
+                     return rs.getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
+    }
+    
+    
+    public boolean SetStatisticUserLogin(String login,String ipAddress,String userAgent){
+        try {
+            String query="UPDATE users SET last_login=now() WHERE login=?";
+            stmt = connection.prepareStatement(query);
+            stmt.setString(1, login);
+            stmt.executeUpdate();
+            
+            query="insert into stat_logins("
+                    + "user_id,"
+                    + "login_time,"
+                    + "logout,"
+                    + "ip,"
+                    + "user_agent"
+                    + ")"
+                    + "values("
+                    + "?,"
+                    + "now(),"
+                    + "'1999-01-01 00:00:00',"
+                    + "INET_ATON(?),"
+                    + "?)";
+            int UserId=GetIdFromLogin(login);
+            if(UserId<0)
+                return false;
+            
+            stmt = connection.prepareStatement(query);
+            stmt.setInt(1, UserId);
+            stmt.setString(2, ipAddress);
+            stmt.setString(3, userAgent);
+            stmt.executeUpdate();
+               return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
     }
 }

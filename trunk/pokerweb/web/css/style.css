@@ -538,14 +538,15 @@ a{
                 no-repeat; 
 }
 
-.ui-tabs-vertical { width: 55em; 
-background: #285F74; 
-color: white;
+.ui-tabs-vertical { 
+    width: 55em; 
+    background: #285F74; 
+    color: white;
 }
 .ui-tabs-vertical .ui-tabs-nav {
     padding: .2em .1em .2em .2em;
     float: left;
-    width: 12em; 
+    width: 15em; 
     color: white;
 }
 .ui-tabs-vertical .ui-tabs-nav li {
@@ -575,17 +576,19 @@ color: white;
 }
 .ui-tabs-vertical .ui-tabs-panel { 
     padding: 1em;
-    float: right;
-    width: 40em;
+    float: left;
     color: white;
+    text-align: center;
+}
+
+.tableArea{
+    text-align: left;
 }
 
 #PrivatArea{
-text-align: center !important;
 margin:0 20%;
 color: white !important;
 }
-
 
 #PrivatArea .button{
     color: white;
