@@ -36,201 +36,141 @@
 <div id="tabs-1">
     <div style="height: 45px;">                                
         <div style="float: left;">Имя:</div>
-        <input type="text" style="float: right;" id="NamePrivateEdit" name="login" placeholder="Введите имя" onkeyup="RegistFieldChanged()"/>
+        <input type="text" style="float: right;" id="NamePrivateEdit" onkeyup="RegistFieldChanged()"/>
         <div id="NamePrivateError" class="errorMessage"></div>
                               
                             </div>
     <div style="height: 45px;">                                
         <div style="float: left;">Фамилия:</div>
-        <input type="text" style="float: right;" id="SurnamePrivateEdit" name="login" placeholder="Введите фамилию" onkeyup="RegistFieldChanged()"/>
+        <input type="text" style="float: right;" id="SurnamePrivateEdit" onkeyup="RegistFieldChanged()"/>
         <div id="SurnamePrivateError" class="errorMessage"></div>
     </div>
     <div style="height: 45px;">                                
         <div style="float: left;">Отчество:</div>
-        <input type="text" style="float: right;" id="SecondNamePrivateEdit" name="login" placeholder="Введите отчество" onkeyup="RegistFieldChanged()"/>
+        <input type="text" style="float: right;" id="SecondNamePrivateEdit" onkeyup="RegistFieldChanged()"/>
         <div id="SecondNamePrivateError" class="errorMessage"></div>
     </div>
       <div style="height: 45px;">                                
         <div style="float: left;">Страна:</div>
-        <input type="text" style="float: right;" id="CountryPrivateEdit" name="login" placeholder="Введите отчество" onkeyup="RegistFieldChanged()"/>
+        <input type="text" style="float: right;" id="CountryPrivateEdit" onkeyup="RegistFieldChanged()"/>
         <div id="CountryPrivateError" class="errorMessage"></div>
     </div>
     
     <input type="button" id="SaveInfo" onclick="" value="Сохранить" class="button"/>
     </div>
 <div id="tabs-2">
-<table cellspacing="5" cellpadding="5" class="tableArea">
-        <tr>
-            <td>
-                <input type="checkbox" id="SendProjectInfo"/>
-            </td>
-            <td>
-                Уведомлять об изменениях проведенных на сайте
-            </td>
-        </tr>
-    </table>
+    <div style="height: 45px;">                                
+        <div style="float: left;"><input type="checkbox" id="SendProjectInfo"/></div>
+        <div style="float: right;">Уведомлять об изменениях проведенных на сайте</div>  
+    </div>
     <input type="button" id="SaveEmailNotify" onclick="" value="Сохранить" class="button"/>
 </div>
 <div id="tabs-3">
-<table cellspacing="5" cellpadding="5" class="tableArea">
-        <tr>
-            <td>
-                Введите новый e-mail
-            </td>
-            <td>
-                <input type="email" id="EditNewMail"/>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                Повторите новый e-mail
-            </td>
-            <td>
-                <input type="email" id="EditConfNewMail"/>
-            </td>
-        </tr>
-        
-         <tr>
-            <td>
-                Введите текущий пароль
-            </td>
-            <td>
-                <input type="password" id="PassUserForEditMail"/>
-            </td>
-        </tr>
-</table>
+      <div style="height: 45px;">                                
+        <div style="float: left;">Введите новый e-mail</div>
+        <input type="email" style="float: right;" id="NewMailPrivateEdit" onkeyup="RegistFieldChanged()"/>
+        <div id="NewMailPrivateError" class="errorMessage"></div>
+    </div>
+    
+    <div style="height: 45px;">                                
+        <div style="float: left;">Повторите новый e-mail</div>
+        <input type="email" style="float: right;" id="NewMailConfPrivateEdit" onkeyup="RegistFieldChanged()"/>
+        <div id="NewMailConfPrivateError" class="errorMessage"></div>
+    </div>
+    
+    <div style="height: 45px;">                                
+        <div style="float: left;">Введите текущий пароль</div>
+        <input type="password" style="float: right;" id="NewMailPassPrivateEdit" onkeyup="RegistFieldChanged()"/>
+        <div id="NewMailPassPrivateError" class="errorMessage"></div>
+    </div>
     <input type="button" id="SaveNewMail" onclick="" value="Сохранить" class="button"/> 
 </div>
     <div id="tabs-4">
-        <table cellspacing="5" cellpadding="5" class="tableArea">
-        <tr>
-            <td>
-                Введите новый пароль
-            </td>
-            <td>
-                <input type="password" id="EditNewPass"/>
-            </td>
-        </tr>
+        <div style="height: 45px;">                                
+        <div style="float: left;">Введите новый пароль</div>
+        <input type="password" style="float: right;" id="NewPasPrivateEdit" onkeyup="RegistFieldChanged()"/>
+        <div id="NewMailPassPrivateError" class="errorMessage"></div>
+    </div>
+        <div style="height: 45px;">                                
+        <div style="float: left;">Повторите новый пароль</div>
+        <input type="password" style="float: right;" id="ConfPassPrivateEdit" onkeyup="RegistFieldChanged()"/>
+        <div id="ConfPassPrivateError" class="errorMessage"></div>
+        </div>
         
-        <tr>
-            <td>
-                Повторите новый пароль
-            </td>
-            <td>
-                <input type="email" id="EditConfNewPass"/>
-            </td>
-        </tr>
-        
-         <tr>
-            <td>
-                Введите текущий пароль
-            </td>
-            <td>
-                <input type="password" id="PassUserForEditPass"/>
-            </td>
-        </tr>
-</table>
+        <div style="height: 45px;">                                
+        <div style="float: left;">Введите текущий пароль</div>
+        <input type="password" style="float: right;" id="CurPassPrivateEdit" onkeyup="RegistFieldChanged()"/>
+        <div id="CurPassPrivateError" class="errorMessage"></div>
+    </div>
         <input type="button" id="SaveNewPass" onclick="" value="Сохранить" class="button"/> 
     </div>
     
     <div id="tabs-5">
-        <table cellspacing="5" cellpadding="5" class="tableArea">
-        <tr>
-            <td>
-                Введите новый телефон
-            </td>
-            <td>
-                <input type="tel" id="EditNewTel"/>
-            </td>
-        </tr>
         
-        <tr>
-            <td>
-                Повторите новый телефон
-            </td>
-            <td>
-                <input type="tel" id="EditConfNewTel"/>
-            </td>
-        </tr>
+        <div style="height: 45px;">                                
+        <div style="float: left;">Введите новый телефон</div>
+        <input type="text" style="float: right;" id="NewPhonePrivateEdit" onkeyup="RegistFieldChanged()"/>
+        <div id="NewPhonePrivateError" class="errorMessage"></div>
+    </div>
         
-         <tr>
-            <td>
-                Введите текущий телефон
-            </td>
-            <td>
-                <input type="tel" id="EditCurrentTel"/>
-            </td>
-        </tr>
+        <div style="height: 45px;">                                
+        <div style="float: left;">Повторите новый телефон</div>
+        <input type="text" style="float: right;" id="NewPhoneConfPrivateEdit" onkeyup="RegistFieldChanged()"/>
+        <div id="NewPhoneConfPrivateError" class="errorMessage"></div>
+    </div>
         
-         <tr>
-            <td>
-                Введите текущий пароль
-            </td>
-            <td>
-                <input type="tel" id="PassUserForEditTel"/>
-            </td>
-        </tr>
+        <div style="height: 45px;">                                
+        <div style="float: left;">Введите текущий телефон</div>
+        <input type="text" style="float: right;" id="CurPhonePrivateEdit" onkeyup="RegistFieldChanged()"/>
+        <div id="CurPhonePrivateError" class="errorMessage"></div>
+    </div>
         
-</table>
+           <div style="height: 45px;">                                
+        <div style="float: left;">Введите текущий пароль</div>
+        <input type="text" style="float: right;" id="CurPassTelPrivateEdit" onkeyup="RegistFieldChanged()"/>
+        <div id="CurPassTelPrivateError" class="errorMessage"></div>
+    </div>
         <input type="button" id="SaveNewTel" onclick="" value="Сохранить" class="button"/>
     </div>
     <div id="tabs-6">
-        <table cellspacing="5" cellpadding="5" class="tableArea">
-        <tr>
-            <td>
-                Серия и номер паспорта
-            </td>
-            <td>
-                <input type="text" id="EditNewPassport"/>
-            </td>
-        </tr>
+        <div style="height: 45px;">                                
+            <div style="float: left;">Серия и номер паспорта</div>
+        <input type="text" style="float: right;" id="PassportPrivateEdit" onkeyup="RegistFieldChanged()"/>
+        <div id="PassportPrivateError" class="errorMessage"></div>
+    </div>
         
-        <tr>
-            <td>
-                Выберете платежную систему
-            </td>
-            <td>
-                <select name="PaySys">
+        <div style="height: 45px;">                                
+            <div style="float: left;">Выберете платежную систему</div>
+            <select id="PaySystemPrivateEdit" style="float: right;">
                     <option>Visa</option>
                     <option>Master-Cart</option>
                     <option>WebMoney</option>
                     <option>YandexMoney</option>
                     <option>PayPal</option>
                 </select>
-            </td>
-        </tr>
+      <div id="PaySystemPrivateError" class="errorMessage"></div>
+    </div>
         
-         <tr>
-            <td>
-                Введите номер счета в платежной системе
-            </td>
-            <td>
-                <input type="text" id="PassUserForEditTel"/>
-            </td>
-        </tr>
+        <div style="height: 45px;">                                
+            <div style="float: left;">Введите номер счета в платежной системе</div>
+        <input type="text" style="float: right;" id="PayNumPrivateEdit" onkeyup="RegistFieldChanged()"/>
+        <div id="PayNumPrivateError" class="errorMessage"></div>
+    </div>
         
-         <tr>
-            <td>
-                Введите ваш текущий пароль
-            </td>
-            <td>
-                <input type="password" id="PassUserForEdiPaySys"/>
-            </td>
-        </tr>
-        
-</table>
+        <div style="height: 45px;">                                
+            <div style="float: left;">Введите ваш текущий пароль</div>
+        <input type="text" style="float: right;" id="CurPassPayPrivateEdit" onkeyup="RegistFieldChanged()"/>
+        <div id="CurPassPayPrivateError" class="errorMessage"></div>
+    </div>
         <input type="button" id="SaveNewPaySys" onclick="" value="Сохранить" class="button"/>
     </div>
     
     <div id="tabs-7">
         <h2>Статистика пользователя</h2>
     </div>
-    
-    
 </div>
-        </div>
                     </div>
+                </div>
                 </div>
 </body>
 </html>
