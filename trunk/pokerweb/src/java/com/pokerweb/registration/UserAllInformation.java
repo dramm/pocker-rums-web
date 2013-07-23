@@ -16,10 +16,12 @@ public class UserAllInformation {
     public String name;
     public String surname;
     public String second_name;
+    public String country;
     public String register_date;
     public String last_login;
-    public String banned;
+    public boolean banned;
     public String banned_date;
     public String banned_comment;
     public String banned_admin_id;
+    public float balance;
 }

@@ -17,6 +17,8 @@ import java.sql.SQLException;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 /**
  *
  * @author vadim
@@ -58,6 +60,29 @@ public class DBManager{
         return null;
     
     }
+    
+    public ResultSet GetCurrentUserAllInfo(){
+        String query="select "
+                + "name,"
+                + "surname,"
+                + "second_name,"
+                + "country,"
+                + "balance"
+                + " from users where login=?";
+        try {
+            stmt = connection.prepareStatement(query);
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            String name = auth.getName();
+            stmt.setString(1, name);
+            ResultSet rs = stmt.executeQuery();
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    
+    }
+    
     public boolean UserExists(String login){
      String query="select * from users where login=?";
         try {
@@ -87,6 +112,7 @@ public class DBManager{
                     + "tel,"
                     + "register_date,"
                     + "last_login,"
+                    + "balance,"
                     + "banned,"
                     + "banned_date,"
                     + "banned_comment,"
@@ -95,6 +121,7 @@ public class DBManager{
                     "values(?,?,?,?,?,'','',?,"
                     + "now(),"
                     + "'1999-01-01 00:00:00',"
+                    + "0.0,"
                     + "false,"
                     + "'1999-01-01 00:00:00',"
                     + "'',"

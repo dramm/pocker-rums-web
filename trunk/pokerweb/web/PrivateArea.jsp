@@ -9,8 +9,9 @@
 <html>
    <head>
        <jsp:include page="headParam.jsp" flush="true" />
+       
 </head>
-<body onload="initPrivateBody">
+<body onload="initPrivateBody()">
     <div id="header">
             <div class="leftCol"> </div>
             <div class="centerCol"> 
@@ -34,26 +35,37 @@
 <li><a href="#tabs-7">Статистика пользователя</a></li>
 </ul>
 <div id="tabs-1">
-    <div style="height: 45px;">                                
+    <div style="height: 45px;">                         
+        <div style="display: block">
         <div style="float: left;">Имя:</div>
-        <input type="text" style="float: right;" id="NamePrivateEdit" onkeyup="RegistFieldChanged()"/>
-        <div id="NamePrivateError" class="errorMessage"></div>
-                              
-                            </div>
+        <input type="text" style="float: right;" id="NamePrivateEdit" onkeyup="Tab1FieldChanged()"/>
+        </div>
+        <div id="NamePrivateError" class="errorMessage" style="float:right;" ></div>
+        
+    </div>
     <div style="height: 45px;">                                
+        <div style="display: block">
         <div style="float: left;">Фамилия:</div>
-        <input type="text" style="float: right;" id="SurnamePrivateEdit" onkeyup="RegistFieldChanged()"/>
-        <div id="SurnamePrivateError" class="errorMessage"></div>
+        <input type="text" style="float: right;" id="SurnamePrivateEdit" onkeyup="Tab1FieldChanged()"/>
+       </div>
+        <div id="SurnamePrivateError" class="errorMessage" style="float:right;"></div>
     </div>
+    
     <div style="height: 45px;">                                
+        <div style="display: block">
         <div style="float: left;">Отчество:</div>
-        <input type="text" style="float: right;" id="SecondNamePrivateEdit" onkeyup="RegistFieldChanged()"/>
-        <div id="SecondNamePrivateError" class="errorMessage"></div>
+        <input type="text" style="float: right;" id="SecondNamePrivateEdit" onkeyup="Tab1FieldChanged()"/>
+       </div>
+        <div id="SecondNamePrivateError" class="errorMessage" style="float:right;"></div>
     </div>
+    
       <div style="height: 45px;">                                
-        <div style="float: left;">Страна:</div>
-        <input type="text" style="float: right;" id="CountryPrivateEdit" onkeyup="RegistFieldChanged()"/>
-        <div id="CountryPrivateError" class="errorMessage"></div>
+        <div style="display: block">
+        
+          <div style="float: left;">Страна:</div>
+        <input type="text" style="float: right;" id="CountryPrivateEdit" onkeyup="Tab1FieldChanged()"/>
+    </div>
+        <div id="CountryPrivateError" class="errorMessage" style="float: right;"></div>
     </div>
     
     <input type="button" id="SaveInfo" onclick="" value="Сохранить" class="button"/>
@@ -89,7 +101,7 @@
         <div style="height: 45px;">                                
         <div style="float: left;">Введите новый пароль</div>
         <input type="password" style="float: right;" id="NewPasPrivateEdit" onkeyup="RegistFieldChanged()"/>
-        <div id="NewMailPassPrivateError" class="errorMessage"></div>
+        <div id="NewPassPrivateError" class="errorMessage"></div>
     </div>
         <div style="height: 45px;">                                
         <div style="float: left;">Повторите новый пароль</div>
@@ -106,7 +118,6 @@
     </div>
     
     <div id="tabs-5">
-        
         <div style="height: 45px;">                                
         <div style="float: left;">Введите новый телефон</div>
         <input type="text" style="float: right;" id="NewPhonePrivateEdit" onkeyup="RegistFieldChanged()"/>
@@ -148,7 +159,6 @@
                     <option>YandexMoney</option>
                     <option>PayPal</option>
                 </select>
-      <div id="PaySystemPrivateError" class="errorMessage"></div>
     </div>
         
         <div style="height: 45px;">                                
@@ -166,8 +176,8 @@
     </div>
     
     <div id="tabs-7">
-        <h2>Статистика пользователя</h2>
-    </div>
+        <div style="float: left;">Баланс: <label id="Balance"/>0</div>
+            </div>
 </div>
                     </div>
                 </div>

@@ -48,6 +48,14 @@ public class ValidationField {
         return Tel.length() > 0;
     }
     
+    public static boolean ValidSecond(String Second_name){
+        return Second_name.length() > 0;
+    }
+    
+    public static boolean ValidCountry(String Country){
+        return Country.length() > 0;
+    }
+    
     
     
 }
