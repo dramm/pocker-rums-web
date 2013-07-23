@@ -487,6 +487,7 @@ a{
 .errorMessage{
     color: red;
     visibility: visible !important;
+    font-size: 12px;
 }
 /**+html #center .bigMenuItem,*+html #smallContainer .smallMenuItem{
     border-bottom: solid black 2px;

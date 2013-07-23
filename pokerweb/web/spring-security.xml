@@ -20,6 +20,8 @@
     <http auto-config="true" access-denied-page="/index.htm?accessDeniedError=1">
         <intercept-url pattern="/game" access="ROLE_USER,ROLE_ADMIN,ROLE_MANAGER" />
         <intercept-url pattern="/game.jsp" access="ROLE_USER,ROLE_ADMIN,ROLE_MANAGER" />
+        <intercept-url pattern="/PrivateArea.jsp" access="ROLE_USER,ROLE_ADMIN,ROLE_MANAGER" />
+         <intercept-url pattern="/PrivateArea" access="ROLE_USER,ROLE_ADMIN,ROLE_MANAGER" />
         <form-login 
             login-page="/index"
             login-processing-url="/j_spring_security_check"

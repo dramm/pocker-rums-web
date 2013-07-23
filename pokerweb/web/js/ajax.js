@@ -41,6 +41,7 @@ function init() {
     FieldName = document.getElementById("name");
     FieldSurname = document.getElementById("surname");
     RegisterButton = document.getElementById("RegButton");
+   if(RegisterButton!=null)
     RegisterButton.disabled=true;
     var query = getURLParameter("token");
    if(query!='null')
