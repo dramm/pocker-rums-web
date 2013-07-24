@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -66,27 +67,47 @@ public class LoadInfoFromDB extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-                    UserAllInformation ubi=new UserAllInformation();
-                      ResultSet rs = DBManager.GetInstance().GetCurrentUserAllInfo();
-                      rs.first();
-                            ubi.name = rs.getString(1);
-                            ubi.surname = rs.getString(2);
-                            ubi.second_name = rs.getString(3);
-                            ubi.country = rs.getString(4);
-                            ubi.balance = rs.getFloat(5);
-                            JSONObject js = new JSONObject();
+            JSONObject js = new JSONObject();
+            UserAllInformation ubi=new UserAllInformation();
+            ResultSet rs = DBManager.GetInstance().GetCurrentUserAllInfo();
+            ResultSet Pay_info = DBManager.GetInstance().GetPaymentInfoCurrentUser();
+            ResultSet PaySysResultSet = DBManager.GetInstance().GetAllPaySys();
+            rs.first();
+            PaySysResultSet.first();
+            ubi.name = rs.getString(1);
+            ubi.surname = rs.getString(2);
+            ubi.second_name = rs.getString(3);
+            ubi.country = rs.getString(4);
+            ubi.balance = rs.getFloat(5);
+            ubi.email = rs.getString(6);
+            ubi.tel = rs.getString(7);
+            if(Pay_info.first()){
+                ubi.Passport = Pay_info.getString(1);
+                ubi.Pay_sys = Pay_info.getInt(2);
+                ubi.Score = Pay_info.getString(3);
                             
-                            js.append("Name",ubi.name);
-                            js.append("Surname",ubi.surname);
-                            js.append("Second",ubi.second_name);
-                            js.append("Country",ubi.country);
-                            js.append("Balance",ubi.balance);
-                            
-                            response.setContentType("application/json; charset=utf-8");
-                            response.setHeader("Cache-Control", "no-cache");
-                            response.getWriter().write(js.toString());
-                             
-                              
+                js.append("Passport",ubi.Passport);
+                js.append("Pay_sys",ubi.Pay_sys);
+            }               
+            JSONArray arrayOptionPaySystem = new JSONArray();
+            while (PaySysResultSet.next()) 
+                arrayOptionPaySystem.put(PaySysResultSet.getString(1));
+            
+            js.append("Name",ubi.name);
+            js.append("Surname",ubi.surname);
+            js.append("Second",ubi.second_name);
+            js.append("Country",ubi.country);
+            js.append("Balance",ubi.balance);
+            String email = ubi.email.substring(0,1);
+            email += "***";
+            email += ubi.email.substring(ubi.email.indexOf("@"),ubi.email.length());
+            js.append("Email",email);
+            js.append("Phone",ubi.tel);
+            js.append("SelectOptions",arrayOptionPaySystem.toString());
+            js.append("Score",ubi.Score);
+            response.setContentType("application/json; charset=utf-8");
+            response.setHeader("Cache-Control", "no-cache");
+            response.getWriter().write(js.toString());                  
         } catch (JSONException ex) {
             Logger.getLogger(LoadInfoFromDB.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

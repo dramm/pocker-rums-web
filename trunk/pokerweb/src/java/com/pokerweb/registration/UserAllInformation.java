@@ -24,4 +24,8 @@ public class UserAllInformation {
     public String banned_comment;
     public String banned_admin_id;
     public float balance;
+    public String Passport;
+    public int Pay_sys;
+    public String Score;
+    
 }
