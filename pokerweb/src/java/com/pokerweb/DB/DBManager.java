@@ -61,18 +61,99 @@ public class DBManager{
     
     }
     
+    public String GetCurrentUserLogin(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth == null)
+            return null;
+        return auth.getName();
+    }
+    
+    public int GetCurrentUserId(){
+        try {
+            String query="select id from users where login=?";
+            
+            stmt = connection.prepareStatement(query);
+            String name = GetCurrentUserLogin();
+            if(name == null)
+                return 0;
+            stmt.setString(1, name);
+            ResultSet rs = stmt.executeQuery();
+            if(!rs.first())
+                return 0;
+            return rs.getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+    } 
+    
+    
+    public ResultSet GetAllPaySys(){
+        try {
+            String query="select title from pay_sys";
+            stmt = connection.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public ResultSet GetPaymentInfoCurrentUser(){
+        String query="select passport,pay_sys,score from payment_info where id_user=?";
+        try {
+            stmt = connection.prepareStatement(query);
+            String name = GetCurrentUserLogin();
+            if(name == null)
+                return null;
+            int idUser = GetCurrentUserId();
+            if(idUser == 0)
+                return null;
+            stmt.setInt(1, idUser);
+            ResultSet rs = stmt.executeQuery();
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
+    public boolean UpdatePaymentInfoCurrentUser(String Passport, int Pay_Sys, String Score){
+        try {
+            String query="UPDATE payment_info SET passport=?,pay_sys=?,score=? WHERE id_user=?";
+            int IdUser = GetCurrentUserId();
+            if(IdUser == 0)
+                return false;
+            stmt = connection.prepareStatement(query);
+               stmt.setString(1, Passport);
+               stmt.setInt(2, Pay_Sys);
+               stmt.setString(3, Score);
+               stmt.setLong(4, IdUser);
+               stmt.executeUpdate();
+             return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
     public ResultSet GetCurrentUserAllInfo(){
         String query="select "
                 + "name,"
                 + "surname,"
                 + "second_name,"
                 + "country,"
-                + "balance"
+                + "balance,"
+                + "email,"
+                + "tel"
                 + " from users where login=?";
         try {
             stmt = connection.prepareStatement(query);
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            String name = auth.getName();
+            String name = GetCurrentUserLogin();
+            if(name == null)
+                return null;
             stmt.setString(1, name);
             ResultSet rs = stmt.executeQuery();
             return rs;
@@ -97,8 +178,28 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-        
     }
+    
+    public boolean UpdateUserInfoAreaT1(String Name, String Surname, String Second_name, String Country){
+        try {
+            String query="UPDATE users SET name=?,surname=?,second_name=?,country=? WHERE login=?";
+            String login = GetCurrentUserLogin();
+            if(login == null)
+                return false;
+            stmt = connection.prepareStatement(query);
+               stmt.setString(1, Name);
+               stmt.setString(2, Surname);
+               stmt.setString(3, Second_name);
+               stmt.setString(4, Country);
+               stmt.setString(5, login);
+               stmt.executeUpdate();
+             return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
     public boolean SetNewUser(UserBasicInformation ubi){
         try {
             String query="insert into users("
@@ -147,7 +248,6 @@ public class DBManager{
             stmt.setString(1, ubi.login);
             stmt.executeUpdate();
             
-            
             UUID uuid = UUID.randomUUID();
             
             query="insert into token_user("
@@ -162,6 +262,13 @@ public class DBManager{
             stmt = connection.prepareStatement(query);
             stmt.setString(1, ubi.login);
             stmt.executeUpdate();
+            
+            query="insert into payment_info(id_user,passport,pay_sys,score) "
+                    + "values((select id from users where login=?),'',1,score)";
+            stmt = connection.prepareStatement(query);
+            stmt.setString(1, ubi.login);
+            stmt.executeUpdate();
+            
             SendConfirmMessage sm=new SendConfirmMessage();
             sm.SetMail(ubi.email);
             sm.SetToken(uuid.toString());

@@ -45,6 +45,9 @@ var CurPassPayPrivateError;
 
 var Balance;
 
+var CurrentEmail;
+
+var CurrentPhone;
 function initPrivateBody() {
     init();
     NamePrivateEdit = document.getElementById("NamePrivateEdit");
@@ -94,8 +97,60 @@ function initPrivateBody() {
     
     Balance = document.getElementById("Balance");
     
+    CurrentEmail = document.getElementById("CurrentEmail");
+    
+    CurrentPhone = document.getElementById("CurrentPhone");
+    
     FieldLoadFromDB();
 }
+
+function SaveTab1Info() {
+    var values =  {  
+                "Name": NamePrivateEdit.value,
+                "Surname":SurnamePrivateEdit.value,
+                "SecondName": SecondNamePrivateEdit.value,
+                "Country": CountryPrivateEdit.value
+            };
+    var url = "SaveInfoTab1";
+    reqPrivate = new XMLHttpRequest();
+    reqPrivate.open("POST", url, true);
+    reqPrivate.onreadystatechange = CallbackSaveTab1Info;
+    reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    reqPrivate.send(JSON.stringify(values));
+}
+
+
+function CallbackSaveTab1Info() {
+    if (reqPrivate.readyState == 4) {
+        if (reqPrivate.status == 200) {
+            if(reqPrivate.responseText != null && reqPrivate.responseText.length>0){
+            var ErrorS = JSON.parse(reqPrivate.responseText);
+            SaveDialog(ErrorS.Message);
+            }
+        }
+    }
+}
+
+function SaveDialog(message){
+var formReadReminder=document.createElement("form");
+var newInput=document.createElement("input");
+formReadReminder.style.cssText="background-color: #285F74;text-align:center;"
+var newP=document.createElement("p");
+newP.style.cssText="color:#FFFFFF;";
+newP.innerHTML=message;
+formReadReminder.appendChild(newP);
+newInput.setAttribute("type","submit");
+newInput.style.cssText="color: white;padding: 1px;display:inline-block;border: solid 2px #285F74;"+
+    "border-radius: 6px;min-width: 76px;text-align: center;background: #000000;"+
+    "background: -moz-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
+    "background: -webkit-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
+    "background: -o-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
+    "background: -ms-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
+    "background: linear-gradient(top, #285F74 0%, #0d2a34 100%);";
+newInput.setAttribute("value","OK");
+formReadReminder.appendChild(newInput);
+$( formReadReminder).dialog({ modal: true,/*title:"Подтвердите регистрацию",*/maxHeight:200,maxWidth:400,minHeight:200,minWidth:400});
+ }
 
 function FieldLoadFromDB() {
     var url = "LoadInfoFromDB";
@@ -109,7 +164,8 @@ function FieldLoadFromDB() {
 function CallbackLoadInfo() {
     if (reqPrivate.readyState == 4) {
         if (reqPrivate.status == 200) {
-            if(reqPrivate.responseText != null && reqPrivate.responseText.length>0){
+            if(reqPrivate.responseText != null)
+                if(reqPrivate.responseText.length > 0){
             var ErrorS = JSON.parse(reqPrivate.responseText);
             AppendFieldInfoFromDB(ErrorS);
             }
@@ -131,7 +187,35 @@ function AppendFieldInfoFromDB(Message) {
     
        if(Message.Country != null)
            CountryPrivateEdit.value = Message.Country;
-   }
+       
+       if(Message.Email != null)
+           CurrentEmail.innerHTML = Message.Email;
+           
+       if(Message.Phone != null)
+           CurrentPhone.innerHTML = Message.Phone;
+       
+       if(Message.Passport != null)
+           PassportPrivateEdit.value =  Message.Passport;
+       
+       if(Message.Passport != null)
+           PassportPrivateEdit.value =  Message.Passport;
+       
+       if(Message.Passport != null)
+           PassportPrivateEdit.value =  Message.Passport;
+       
+        if(Message.SelectOptions != null){
+           var OptionsPay = JSON.parse(Message.SelectOptions);
+           
+        for (var i=0; i<OptionsPay.length;i++)
+                PaySystemPrivateEdit.options[PaySystemPrivateEdit.options.length] = new Option(OptionsPay[i], i);
+        }
+        
+       if(Message.Pay_sys != null)
+           PaySystemPrivateEdit.options[Message.Pay_sys].selected = true;
+       
+        if(Message.Score != null) 
+            PayNumPrivateEdit.value = Message.Score;
+}
 
 function Tab1FieldChanged() {
     var values =  {  
@@ -149,8 +233,14 @@ function Tab1FieldChanged() {
 }
 
 function CallbackTab1Changet() {
+    //NamePrivateError.innerHTML="";
+    //SurnamePrivateError.innerHTML="";
+    //SecondNamePrivateError.innerHTML="";
+    //CountryPrivateError.innerHTML="";
     if (reqPrivate.readyState == 4) {
         if (reqPrivate.status == 200) {
+            if(reqPrivate.responseText != null)
+            if(reqPrivate.responseText.length>0)
             parseMessagesTab1Error(reqPrivate.responseText);
         }
     }
@@ -168,10 +258,7 @@ function parseMessagesTab1Error(responseText) {
 }
    
    function AppendErrorFieldTab1(Message) {
-       NamePrivateError.innerHTML="";
-       SurnamePrivateError.innerHTML="";
-       SecondNamePrivateError.innerHTML="";
-       CountryPrivateError.innerHTML="";
+       
        if(Message.Name!=null)
            NamePrivateError.innerHTML = Message.Name;
        
