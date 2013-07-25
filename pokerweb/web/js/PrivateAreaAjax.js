@@ -197,12 +197,6 @@ function AppendFieldInfoFromDB(Message) {
        if(Message.Passport != null)
            PassportPrivateEdit.value =  Message.Passport;
        
-       if(Message.Passport != null)
-           PassportPrivateEdit.value =  Message.Passport;
-       
-       if(Message.Passport != null)
-           PassportPrivateEdit.value =  Message.Passport;
-       
         if(Message.SelectOptions != null){
            var OptionsPay = JSON.parse(Message.SelectOptions);
            
@@ -233,10 +227,10 @@ function Tab1FieldChanged() {
 }
 
 function CallbackTab1Changet() {
-    //NamePrivateError.innerHTML="";
-    //SurnamePrivateError.innerHTML="";
-    //SecondNamePrivateError.innerHTML="";
-    //CountryPrivateError.innerHTML="";
+    NamePrivateError.innerHTML="";
+    SurnamePrivateError.innerHTML="";
+    SecondNamePrivateError.innerHTML="";
+    CountryPrivateError.innerHTML="";
     if (reqPrivate.readyState == 4) {
         if (reqPrivate.status == 200) {
             if(reqPrivate.responseText != null)

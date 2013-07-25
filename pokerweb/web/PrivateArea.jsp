@@ -33,6 +33,7 @@
 <li><a href="#tabs-5">Изменение телефона</a></li>
 <li><a href="#tabs-6">Платежная информация</a></li>
 <li><a href="#tabs-7">Статистика пользователя</a></li>
+<li><a href="#tabs-8">Вывод средств</a></li>
 </ul>
     
 <div id="tabs-1">
@@ -68,9 +69,8 @@
     </div>
         <div id="CountryPrivateError" class="errorMessage" style="float: right;"></div>
     </div>
-     <form onSubmit="return Validate()">
-         <input type="button" id="SaveInfo" onclick="SaveTab1Info()" value="Сохранить" class="button"/>
-</form>    
+    
+         <input type="button" id="SaveInfo" onclick="SaveTab1Info()" value="Сохранить" class="button"/>    
 </div>
 <div id="tabs-2">
     <div style="height: 45px;"> 
@@ -192,7 +192,18 @@
     </div>
     
     <div id="tabs-7">
-        <div style="float: left;">Баланс: <label id="Balance"/></div>
+        <div style="float: left;">Ваш баланс: <label id="Balance"/></div>
+            </div>
+    
+    <div id="tabs-8">
+        <div style="float: left;">Ваш баланс: <label id="Balance"/></div>
+        <div style="height: 45px;">                                
+            <div style="display: block">
+            <div style="float: left;">Введите выводимую сумму</div>
+        <input type="text" style="float: right;" id="OutMoneyPrivateEdit" onkeyup="RegistFieldChanged()"/>
+        <div id="OutMoneyPrivateError" class="errorMessage"></div>
+            </div></div>
+               <input type="button" id="SaveOutMoney" onclick="" value="Сохранить" class="button"/>
             </div>
 </div>
                     </div>

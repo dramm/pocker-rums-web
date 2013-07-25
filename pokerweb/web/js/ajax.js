@@ -43,9 +43,12 @@ function init() {
     RegisterButton = document.getElementById("RegButton");
    if(RegisterButton!=null)
     RegisterButton.disabled=true;
-    var query = getURLParameter("token");
-   if(query!='null')
-        ConfirmRegist(query);
+    var ConfirmReg = getURLParameter("confirm-reg");
+    var PrivatToken = getURLParameter("privat-token");
+   if(ConfirmReg != 'null')
+        ConfirmRegist(ConfirmReg);
+    if(PrivatToken != 'null')
+        ConfirmEdit(PrivatToken);
   //   document.getElementById("modalWait").className='modal';
 }
 
@@ -109,6 +112,36 @@ function RegistFieldChanged() {
     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     req.send(JSON.stringify(values));   
 }
+
+function ConfirmEdit(token) {
+    var values =  {"token": token};
+    var url = "ConfirmEdit";
+    req = new XMLHttpRequest();
+    req.open("POST", url, true);
+    req.onreadystatechange = callbackConfEdit;
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(JSON.stringify(values));   
+}
+
+function callbackConfEdit() {
+    if (req.readyState == 4) {
+        if (req.status == 200) {
+            parseMessagesConfEdit(req.responseText);
+        }
+    }
+}
+
+function parseMessagesConfEdit(responseText) {
+    if (responseText == null) {
+        return false;
+    } else {
+        if (responseText.length > 0) {
+        var ErrorS = JSON.parse(responseText);
+      if(ErrorS.ConfEdit!=null)
+          registDialog(ErrorS.ConfRegist);
+        } 
+   }
+   }
 
 function ConfirmRegist(token) {
     var values =  {"token": token};

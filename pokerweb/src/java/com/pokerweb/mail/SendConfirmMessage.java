@@ -15,7 +15,7 @@ public class SendConfirmMessage implements Runnable{
    public void run(){
       SendMail.GetInstance().SendOneAddress(Mail,
                    "Для подтверждения регистрации перейдите по ссылке"+
-                   " <a href='http://localhost:8080/?token="+Token+"'>Подтверждение</a>",
+                   " <a href='http://localhost:8080/?confirm-reg="+Token+"'>Подтверждение</a>",
                    "Welcome to SergioRio"); 
     }
    
