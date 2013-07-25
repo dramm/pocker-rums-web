@@ -72,7 +72,7 @@ public class LoadInfoFromDB extends HttpServlet {
             ResultSet rs = DBManager.GetInstance().GetCurrentUserAllInfo();
             ResultSet Pay_info = DBManager.GetInstance().GetPaymentInfoCurrentUser();
             ResultSet PaySysResultSet = DBManager.GetInstance().GetAllPaySys();
-            rs.first();
+            boolean res = rs.first();
             PaySysResultSet.first();
             ubi.name = rs.getString(1);
             ubi.surname = rs.getString(2);
@@ -85,7 +85,8 @@ public class LoadInfoFromDB extends HttpServlet {
                 ubi.Passport = Pay_info.getString(1);
                 ubi.Pay_sys = Pay_info.getInt(2);
                 ubi.Score = Pay_info.getString(3);
-                            
+               
+                js.append("Score",ubi.Score);
                 js.append("Passport",ubi.Passport);
                 js.append("Pay_sys",ubi.Pay_sys);
             }               
@@ -104,7 +105,7 @@ public class LoadInfoFromDB extends HttpServlet {
             js.append("Email",email);
             js.append("Phone",ubi.tel);
             js.append("SelectOptions",arrayOptionPaySystem.toString());
-            js.append("Score",ubi.Score);
+            
             response.setContentType("application/json; charset=utf-8");
             response.setHeader("Cache-Control", "no-cache");
             response.getWriter().write(js.toString());                  

@@ -71,7 +71,6 @@ public class DBManager{
     public int GetCurrentUserId(){
         try {
             String query="select id from users where login=?";
-            
             stmt = connection.prepareStatement(query);
             String name = GetCurrentUserLogin();
             if(name == null)
@@ -101,15 +100,12 @@ public class DBManager{
     }
     
     public ResultSet GetPaymentInfoCurrentUser(){
-        String query="select passport,pay_sys,score from payment_info where id_user=?";
         try {
-            stmt = connection.prepareStatement(query);
-            String name = GetCurrentUserLogin();
-            if(name == null)
-                return null;
             int idUser = GetCurrentUserId();
             if(idUser == 0)
                 return null;
+            String query="select passport,pay_sys,score from pokerwebdb.payment_info where id_user=?";
+            stmt = connection.prepareStatement(query);
             stmt.setInt(1, idUser);
             ResultSet rs = stmt.executeQuery();
             return rs;
@@ -118,26 +114,21 @@ public class DBManager{
         }
         return null;
     }
-    
-    
-    public boolean UpdatePaymentInfoCurrentUser(String Passport, int Pay_Sys, String Score){
-        try {
-            String query="UPDATE payment_info SET passport=?,pay_sys=?,score=? WHERE id_user=?";
-            int IdUser = GetCurrentUserId();
-            if(IdUser == 0)
-                return false;
-            stmt = connection.prepareStatement(query);
-               stmt.setString(1, Passport);
-               stmt.setInt(2, Pay_Sys);
-               stmt.setString(3, Score);
-               stmt.setLong(4, IdUser);
-               stmt.executeUpdate();
-             return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-    }
+    //Метод пишется
+//    public boolean UpdateCurrentUserTempInfoMail(){
+//        try {
+//            String query="select id,login from token_user where token_confirm=? and type_confirm=2 and confirmed=false";
+//            stmt = connection.prepareStatement(query);
+//            stmt.setString(1, token);
+//            ResultSet rs = stmt.executeQuery();
+//              if(!rs.first())
+//                  return false;
+//              return true;
+//        } catch (SQLException ex) {
+//            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+//            return false;
+//        }
+//    }
     
     public ResultSet GetCurrentUserAllInfo(){
         String query="select "
@@ -278,6 +269,144 @@ public class DBManager{
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         return false;
+        }
+    }
+    
+    
+    public boolean ConfirmPrivatAreaToken(String token){
+        try {
+          String query="select id,login from token_user where token_confirm=? and type_confirm=2 and confirmed=false";
+          stmt = connection.prepareStatement(query);
+          stmt.setString(1, token);
+          ResultSet rs = stmt.executeQuery();
+          if(!rs.first())
+              return false;
+         String Login = rs.getString(2);
+         String Id = rs.getString(1);
+          query="select "
+                  + "new_mail,"
+                  + "mail_editing,"
+                  + "new_password,"
+                  + "password_editing,"
+                  + "new_phone,"
+                  + "phone_editing,"
+                  + "new_passport,"
+                  + "passport_editing,"
+                  + "new_pay_sys,"
+                  + "pay_sys_editing,"
+                  + "new_num_pay_sys,"
+                  + "num_pay_sys_editing"
+                  + " from new_user_info where id_user=?";
+          stmt = connection.prepareStatement(query);
+          stmt.setString(1, rs.getString(1));
+          rs = stmt.executeQuery();
+          if(!rs.first())
+              return false;
+          if(rs.getBoolean(2))
+              SetUserNewMail(rs.getString(1),Login);
+          if(rs.getBoolean(4))
+              SetUserNewPassword(rs.getString(3), Login);
+          if(rs.getBoolean(6))
+              SetUserNewPassword(rs.getString(3), Login);
+          if(rs.getBoolean(8))
+              SetUserNewPassport(rs.getString(7), Id);
+          if(rs.getBoolean(10))
+              SetUserNewPaySys(rs.getString(9), Id);
+          if(rs.getBoolean(12))
+              SetUserNewScore(rs.getString(11), Id);
+         
+          query="Delete from new_user_info WHERE id_user=?";
+          stmt = connection.prepareStatement(query);
+          stmt.setString(1, Id);
+          stmt.executeUpdate();
+        return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean SetUserNewScore(String Score,String Id){
+        try {
+            String query="UPDATE payment_info SET score=? WHERE id_user=?";
+                    stmt = connection.prepareStatement(query);
+                    stmt.setString(1, Score);
+                    stmt.setString(2, Id);
+                    stmt.executeUpdate();
+                    return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+     public boolean SetUserNewPaySys(String PaySys,String Id){
+        try {
+            String query="UPDATE payment_info SET pay_sys=? WHERE id_user=?";
+                    stmt = connection.prepareStatement(query);
+                    stmt.setString(1, PaySys);
+                    stmt.setString(2, Id);
+                    stmt.executeUpdate();
+                    return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+     public boolean SetUserNewPassport(String Passport,String Id){
+        try {
+            String query="UPDATE payment_info SET passport=? WHERE id_user=?";
+                    stmt = connection.prepareStatement(query);
+                    stmt.setString(1, Passport);
+                    stmt.setString(2, Id);
+                    stmt.executeUpdate();
+                    return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+     public boolean SetUserNewPhone(String Phone,String Login){
+        try {
+            String query="UPDATE users SET tel=? WHERE login=?";
+                    stmt = connection.prepareStatement(query);
+                    stmt.setString(1, Phone);
+                    stmt.setString(2, Login);
+                    stmt.executeUpdate();
+                    return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+     public boolean SetUserNewPassword(String Password,String Login){
+        try {
+            String query="UPDATE users SET password=? WHERE login=?";
+                    stmt = connection.prepareStatement(query);
+                    stmt.setString(1, Password);
+                    stmt.setString(2, Login);
+                    stmt.executeUpdate();
+                    return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean SetUserNewMail(String Mail,String Login){
+        try {
+            String query="UPDATE users SET email=? WHERE login=?";
+                    stmt = connection.prepareStatement(query);
+                    stmt.setString(1, Mail);
+                    stmt.setString(2, Login);
+                    stmt.executeUpdate();
+                    return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
     }
   
