@@ -84,7 +84,7 @@ public class RegisterUser extends HttpServlet {
                         
                     if(
                             ValidationField.ValidLogin(ubi.login) &&
-                            ValidationField.ValidEmil(ubi.email)  &&
+                            ValidationField.ValidEmail(ubi.email)  &&
                             ValidationField.ValidPassword(ubi.password) &&
                             ValidationField.ValidConfPassword(ubi.password, ubi.confpassword) &&
                             ValidationField.ValidName(ubi.name) &&

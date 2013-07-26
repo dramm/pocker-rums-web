@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  */
 public class ValidationField {
     
-    public static boolean ValidEmil(String Mail){
+    public static boolean ValidEmail(String Mail){
         Pattern pattern;
         Matcher matcher;    
         String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -21,6 +21,11 @@ public class ValidationField {
         pattern = Pattern.compile(EMAIL_PATTERN);
         matcher = pattern.matcher(Mail);
         return matcher.matches();
+    }
+    
+    public static boolean ValidEmailConf(String Mail, String MailConf){
+         
+        return Mail.equals(MailConf);
     }
     
      public static boolean ValidLogin(String Login){

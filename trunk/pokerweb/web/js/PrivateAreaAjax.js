@@ -104,6 +104,31 @@ function initPrivateBody() {
     FieldLoadFromDB();
 }
 
+function SaveTab3Info() {
+    var values =  {  
+                "NewMail": NewMailPrivateEdit.value,
+                "ConfNewMail":NewMailConfPrivateEdit.value,
+                "CurrentPassword": NewMailPassPrivateEdit.value
+            };
+    var url = "SaveInfoTab3";
+    reqPrivate = new XMLHttpRequest();
+    reqPrivate.open("POST", url, true);
+    reqPrivate.onreadystatechange = CallbackSaveTab1Info;
+    reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    reqPrivate.send(JSON.stringify(values));
+}
+
+function CallbackSaveTab3Info() {
+    if (reqPrivate.readyState == 4) {
+        if (reqPrivate.status == 200) {
+            if(reqPrivate.responseText != null && reqPrivate.responseText.length > 0){
+            var ErrorS = JSON.parse(reqPrivate.responseText);
+            SaveDialog(ErrorS.Message);
+            }
+        }
+    }
+}
+
 function SaveTab1Info() {
     var values =  {  
                 "Name": NamePrivateEdit.value,

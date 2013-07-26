@@ -96,7 +96,7 @@ public class AjaxController extends HttpServlet {
                       namesAdded = true;
                     }
                     
-                    if(!ValidationField.ValidEmil(ubi.email)){
+                    if(!ValidationField.ValidEmail(ubi.email)){
                       js.append("Mail","mail указан не верно");
                       namesAdded = true;
                     }
