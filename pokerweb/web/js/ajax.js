@@ -138,7 +138,7 @@ function parseMessagesConfEdit(responseText) {
         if (responseText.length > 0) {
         var ErrorS = JSON.parse(responseText);
       if(ErrorS.ConfEdit!=null)
-          registDialog(ErrorS.ConfRegist);
+          registDialog(ErrorS.ConfEdit);
         } 
    }
    }

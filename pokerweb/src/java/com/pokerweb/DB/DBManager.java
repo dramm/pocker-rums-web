@@ -7,7 +7,8 @@ package com.pokerweb.DB;
 import com.pokerweb.Config.ConfigManager;
 import com.pokerweb.Config.FieldJdbc;
 import com.pokerweb.crypto.CryptoManager;
-import com.pokerweb.mail.SendConfirmMessage;
+import com.pokerweb.mail.SendConfirmRegistMessage;
+import com.pokerweb.mail.SendConfirmSettingMessage;
 import com.pokerweb.registration.UserBasicInformation;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -99,6 +100,37 @@ public class DBManager{
         }
     }
     
+    public boolean SendConfirmNewSettingsCurrUser(){
+        try {
+            UUID uuid = UUID.randomUUID();
+              String Login = GetCurrentUserLogin();
+              String query="insert into token_user("
+                       + "id,"
+                       + "token_confirm,"
+                       + "type_confirm,"
+                       + "date_request,"
+                       + "date_response,"
+                       + "confirmed) "
+                       + "values((select id from users where login=?),'"
+                       +uuid.toString()+"',2,now(),now(),false)";
+               stmt = connection.prepareStatement(query);
+               stmt.setString(1, Login);
+               stmt.executeUpdate();
+               SendConfirmSettingMessage SendCSM = new SendConfirmSettingMessage();
+               ResultSet rs = GetCurrentUserAllInfo();
+               rs.first();
+               String Mail = rs.getString("email");
+               SendCSM.SetMail(Mail);
+               SendCSM.SetToken(uuid.toString());
+               Thread myT = new Thread(SendCSM);
+               myT.start();
+               return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
     public ResultSet GetPaymentInfoCurrentUser(){
         try {
             int idUser = GetCurrentUserId();
@@ -114,21 +146,186 @@ public class DBManager{
         }
         return null;
     }
-    //Метод пишется
-//    public boolean UpdateCurrentUserTempInfoMail(){
-//        try {
-//            String query="select id,login from token_user where token_confirm=? and type_confirm=2 and confirmed=false";
-//            stmt = connection.prepareStatement(query);
-//            stmt.setString(1, token);
-//            ResultSet rs = stmt.executeQuery();
-//              if(!rs.first())
-//                  return false;
-//              return true;
-//        } catch (SQLException ex) {
-//            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-//            return false;
-//        }
-//    }
+    
+    public boolean NewTempSettingsCurrentUser(){
+        try {
+            String Login = GetCurrentUserLogin();
+            int Id = GetIdFromLogin(Login);
+            String query="insert into new_user_info("
+                              + "id_user,"
+                              + "new_mail,"
+                              + "mail_editing,"
+                              + "new_password,"
+                              + "password_editing,"
+                              + "new_phone,"
+                              + "phone_editing,"
+                              + "new_passport,"
+                              + "passport_editing,"
+                              + "new_pay_sys,"
+                              + "pay_sys_editing,"
+                              + "new_num_pay_sys,"
+                              + "num_pay_sys_editing"
+                              + ") values(?,'',false,'',false,'',false,'',false,0,false,'',false) ";
+                stmt = connection.prepareStatement(query);
+                stmt.setInt(1, Id);
+                stmt.executeUpdate();
+                return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean ExistsNewSettingsCurUser(int Id){
+        try {
+            String query="select * from new_user_info where id_user=?";
+                    stmt = connection.prepareStatement(query);
+                    stmt.setInt(1, Id);
+                   ResultSet rs = stmt.executeQuery();
+                      if(!rs.first())
+                          return false;
+                      else
+                          return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean UpdateCurrentUserTempInfoScore(String Score){
+        try {
+            ResultSet rs = GetPaymentInfoCurrentUser();
+            String OldScore = rs.getString("score");
+            if(Score.equals(OldScore))
+                return true;
+            String Login = GetCurrentUserLogin();
+            int Id = GetIdFromLogin(Login);
+            if(!ExistsNewSettingsCurUser(Id))
+                  NewTempSettingsCurrentUser();
+              
+             String query="UPDATE new_user_info SET new_num_pay_sys=?,num_pay_sys_editing=true WHERE id_user=?";
+             stmt = connection.prepareStatement(query);
+             stmt.setString(1, Score);
+             stmt.setInt(2, Id);
+              return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean UpdateCurrentUserTempInfoPaySys(int PaySys){
+        try {
+            ResultSet rs = GetPaymentInfoCurrentUser();
+            int OldPaySys = rs.getInt("pay_sys");
+            if(PaySys == OldPaySys)
+                return true;
+            String Login = GetCurrentUserLogin();
+            int Id = GetIdFromLogin(Login);
+            if(!ExistsNewSettingsCurUser(Id))
+                  NewTempSettingsCurrentUser();
+              
+             String query="UPDATE new_user_info SET new_pay_sys=?,pay_sys_editing=true WHERE id_user=?";
+              stmt = connection.prepareStatement(query);
+              stmt.setInt(1, PaySys);
+              stmt.setInt(2, Id);
+              return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean UpdateCurrentUserTempInfoPassport(String Passport){
+        try {
+            ResultSet rs = GetPaymentInfoCurrentUser();
+            String OldPassport = rs.getString("passport");
+            if(Passport.equals(OldPassport))
+                return true;
+            String Login = GetCurrentUserLogin();
+            int Id = GetIdFromLogin(Login);
+            if(!ExistsNewSettingsCurUser(Id))
+                  NewTempSettingsCurrentUser();
+              
+             String query="UPDATE new_user_info SET new_passport=?,passport_editing=true WHERE id_user=?";
+              stmt = connection.prepareStatement(query);
+              stmt.setString(1, Passport);
+              stmt.setInt(2, Id);
+              return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean UpdateCurrentUserTempInfoPhone(String Phone){
+        try {
+            ResultSet rs = GetCurrentUserAllInfo();
+            String OldPhone = rs.getString("tel");
+            if(Phone.equals(OldPhone))
+                return true;
+            String Login = GetCurrentUserLogin();
+            int Id = GetIdFromLogin(Login);
+            if(!ExistsNewSettingsCurUser(Id))
+                  NewTempSettingsCurrentUser();
+              
+             String query="UPDATE new_user_info SET new_phone=?,phone_editing=true WHERE id_user=?";
+              stmt = connection.prepareStatement(query);
+              stmt.setString(1, Phone);
+              stmt.setInt(2, Id);
+              return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean UpdateCurrentUserTempInfoPassword(String Password){
+        try {
+            ResultSet rs = GetCurrentUserAllInfo();
+            String OldPass = rs.getString("password");
+            String EncodePass = CryptoManager.GetEnctyptPassword(Password, "");
+            if(EncodePass.equals(OldPass))
+                return true;
+            String Login = GetCurrentUserLogin();
+            int Id = GetIdFromLogin(Login);
+           if(!ExistsNewSettingsCurUser(Id))
+                  NewTempSettingsCurrentUser();
+              
+             String query="UPDATE new_user_info SET new_password=?,password_editing=true WHERE id_user=?";
+              stmt = connection.prepareStatement(query);
+              stmt.setString(1, EncodePass);
+              stmt.setInt(2, Id);
+              return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean UpdateCurrentUserTempInfoMail(String Mail){
+        try {
+            ResultSet rs = GetCurrentUserAllInfo();
+            rs.first();
+            String OldMail = rs.getString("email");
+            if(Mail.equals(OldMail))
+                return true;
+            String Login = GetCurrentUserLogin();
+            int Id = GetIdFromLogin(Login);
+            if(!ExistsNewSettingsCurUser(Id))
+                  NewTempSettingsCurrentUser();
+              
+             String query="UPDATE new_user_info SET new_mail=?,mail_editing=true WHERE id_user=?";
+              stmt = connection.prepareStatement(query);
+              stmt.setString(1, Mail);
+              stmt.setInt(2, Id);
+              stmt.executeUpdate();
+              return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
     
     public ResultSet GetCurrentUserAllInfo(){
         String query="select "
@@ -138,7 +335,8 @@ public class DBManager{
                 + "country,"
                 + "balance,"
                 + "email,"
-                + "tel"
+                + "tel,"
+                + "password"
                 + " from users where login=?";
         try {
             stmt = connection.prepareStatement(query);
@@ -260,7 +458,7 @@ public class DBManager{
             stmt.setString(1, ubi.login);
             stmt.executeUpdate();
             
-            SendConfirmMessage sm=new SendConfirmMessage();
+            SendConfirmRegistMessage sm=new SendConfirmRegistMessage();
             sm.SetMail(ubi.email);
             sm.SetToken(uuid.toString());
             Thread myT = new Thread(sm);
@@ -275,14 +473,15 @@ public class DBManager{
     
     public boolean ConfirmPrivatAreaToken(String token){
         try {
-          String query="select id,login from token_user where token_confirm=? and type_confirm=2 and confirmed=false";
+          String query="select id from token_user where token_confirm=? and type_confirm=2 and confirmed=false";
           stmt = connection.prepareStatement(query);
           stmt.setString(1, token);
           ResultSet rs = stmt.executeQuery();
           if(!rs.first())
               return false;
-         String Login = rs.getString(2);
-         String Id = rs.getString(1);
+         int Id = rs.getInt(1);
+         String Login = GetLoginFromId(Id);
+         
           query="select "
                   + "new_mail,"
                   + "mail_editing,"
@@ -298,7 +497,7 @@ public class DBManager{
                   + "num_pay_sys_editing"
                   + " from new_user_info where id_user=?";
           stmt = connection.prepareStatement(query);
-          stmt.setString(1, rs.getString(1));
+          stmt.setInt(1, Id);
           rs = stmt.executeQuery();
           if(!rs.first())
               return false;
@@ -317,7 +516,7 @@ public class DBManager{
          
           query="Delete from new_user_info WHERE id_user=?";
           stmt = connection.prepareStatement(query);
-          stmt.setString(1, Id);
+          stmt.setInt(1, Id);
           stmt.executeUpdate();
         return true;
         } catch (SQLException ex) {
@@ -326,12 +525,12 @@ public class DBManager{
         }
     }
     
-    public boolean SetUserNewScore(String Score,String Id){
+    public boolean SetUserNewScore(String Score,int Id){
         try {
             String query="UPDATE payment_info SET score=? WHERE id_user=?";
                     stmt = connection.prepareStatement(query);
                     stmt.setString(1, Score);
-                    stmt.setString(2, Id);
+                    stmt.setInt(2, Id);
                     stmt.executeUpdate();
                     return true;
         } catch (SQLException ex) {
@@ -340,12 +539,12 @@ public class DBManager{
         }
     }
     
-     public boolean SetUserNewPaySys(String PaySys,String Id){
+     public boolean SetUserNewPaySys(String PaySys,int Id){
         try {
             String query="UPDATE payment_info SET pay_sys=? WHERE id_user=?";
                     stmt = connection.prepareStatement(query);
                     stmt.setString(1, PaySys);
-                    stmt.setString(2, Id);
+                    stmt.setInt(2, Id);
                     stmt.executeUpdate();
                     return true;
         } catch (SQLException ex) {
@@ -354,12 +553,12 @@ public class DBManager{
         }
     }
     
-     public boolean SetUserNewPassport(String Passport,String Id){
+     public boolean SetUserNewPassport(String Passport,int Id){
         try {
             String query="UPDATE payment_info SET passport=? WHERE id_user=?";
                     stmt = connection.prepareStatement(query);
                     stmt.setString(1, Passport);
-                    stmt.setString(2, Id);
+                    stmt.setInt(2, Id);
                     stmt.executeUpdate();
                     return true;
         } catch (SQLException ex) {
@@ -427,6 +626,22 @@ public class DBManager{
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         return false;
+        }
+    }
+    
+    private String GetLoginFromId(int Id){
+        try {
+            String query="(select login from users where id=?)";
+                 stmt = connection.prepareStatement(query);
+                 stmt.setInt(1, Id);
+                 ResultSet rs = stmt.executeQuery();
+                 if(!rs.first())
+                     return null;
+                 else
+                     return rs.getString("login");
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
     

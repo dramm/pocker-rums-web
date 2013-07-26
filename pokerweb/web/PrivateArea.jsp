@@ -108,7 +108,7 @@
        </div>
         <div id="NewMailPassPrivateError" class="errorMessage"></div>
         </div>
-    <input type="button" id="SaveNewMail" onclick="" value="Сохранить" class="button"/> 
+    <input type="button" id="SaveNewMail" onclick="SaveTab3Info()" value="Сохранить" class="button"/> 
 </div>
     <div id="tabs-4">
         <div style="height: 45px;">

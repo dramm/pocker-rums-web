@@ -8,7 +8,7 @@ package com.pokerweb.mail;
  *
  * @author vadim
  */
-public class SendConfirmMessage implements Runnable{
+public class SendConfirmRegistMessage implements Runnable{
     private String Mail;
     private String Token;
    @Override

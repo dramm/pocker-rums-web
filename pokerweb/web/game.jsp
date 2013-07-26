@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="slider/themes/dark/dark.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="slider/themes/bar/bar.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="slider/nivo-slider.css" type="text/css" media="screen" />
-<
+
     </head>
     <body>
         <div id="header">
