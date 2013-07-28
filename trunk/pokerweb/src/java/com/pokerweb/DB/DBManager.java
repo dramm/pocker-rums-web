@@ -105,7 +105,7 @@ public class DBManager{
             UUID uuid = UUID.randomUUID();
               String Login = GetCurrentUserLogin();
               String query="insert into token_user("
-                       + "id,"
+                       + "id_user,"
                        + "token_confirm,"
                        + "type_confirm,"
                        + "date_request,"
@@ -440,7 +440,7 @@ public class DBManager{
             UUID uuid = UUID.randomUUID();
             
             query="insert into token_user("
-                    + "id,"
+                    + "id_user,"
                     + "token_confirm,"
                     + "type_confirm,"
                     + "date_request,"
@@ -473,7 +473,7 @@ public class DBManager{
     
     public boolean ConfirmPrivatAreaToken(String token){
         try {
-          String query="select id from token_user where token_confirm=? and type_confirm=2 and confirmed=false";
+          String query="select id_user from token_user where token_confirm=? and type_confirm=2 and confirmed=false";
           stmt = connection.prepareStatement(query);
           stmt.setString(1, token);
           ResultSet rs = stmt.executeQuery();
@@ -611,7 +611,7 @@ public class DBManager{
   
     public boolean ConfirmRegistToken(String token){
         try {
-          String query="(select id from token_user where token_confirm=? and type_confirm=1 and confirmed=false)";
+          String query="(select id_user from token_user where token_confirm=? and type_confirm=1 and confirmed=false)";
           stmt = connection.prepareStatement(query);
           stmt.setString(1, token);
           ResultSet rs = stmt.executeQuery();
