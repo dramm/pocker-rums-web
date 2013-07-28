@@ -131,7 +131,7 @@
         <input type="password" style="float: right;" id="CurPassPrivateEdit" onkeyup="RegistFieldChanged()"/>
         <div id="CurPassPrivateError" class="errorMessage"></div>
             </div></div>
-        <input type="button" id="SaveNewPass" onclick="" value="Сохранить" class="button"/> 
+        <input type="button" id="SaveNewPass" onclick="SaveTab4Info()" value="Сохранить" class="button"/> 
     </div>
     
     <div id="tabs-5">

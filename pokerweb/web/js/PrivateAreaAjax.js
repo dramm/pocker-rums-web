@@ -104,6 +104,31 @@ function initPrivateBody() {
     FieldLoadFromDB();
 }
 
+function SaveTab4Info() {
+    var values =  {  
+                "NewPassword": NewPasPrivateEdit.value,
+                "ConfNewPassword":ConfPassPrivateEdit.value,
+                "CurrentPassword": CurPassPrivateEdit.value
+            };
+    var url = "SaveInfoTab4";
+    reqPrivate = new XMLHttpRequest();
+    reqPrivate.open("POST", url, true);
+    reqPrivate.onreadystatechange = CallbackSaveTab1Info;
+    reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    reqPrivate.send(JSON.stringify(values));
+}
+
+function CallbackSaveTab4Info() {
+    if (reqPrivate.readyState == 4) {
+        if (reqPrivate.status == 200) {
+            if(reqPrivate.responseText != null && reqPrivate.responseText.length > 0){
+            var ErrorS = JSON.parse(reqPrivate.responseText);
+            SaveDialog(ErrorS.Message);
+            }
+        }
+    }
+}
+
 function SaveTab3Info() {
     var values =  {  
                 "NewMail": NewMailPrivateEdit.value,
