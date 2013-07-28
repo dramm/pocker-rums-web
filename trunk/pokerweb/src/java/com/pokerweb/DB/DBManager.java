@@ -195,6 +195,7 @@ public class DBManager{
     public boolean UpdateCurrentUserTempInfoScore(String Score){
         try {
             ResultSet rs = GetPaymentInfoCurrentUser();
+            rs.first();
             String OldScore = rs.getString("score");
             if(Score.equals(OldScore))
                 return true;
@@ -217,6 +218,7 @@ public class DBManager{
     public boolean UpdateCurrentUserTempInfoPaySys(int PaySys){
         try {
             ResultSet rs = GetPaymentInfoCurrentUser();
+            rs.first();
             int OldPaySys = rs.getInt("pay_sys");
             if(PaySys == OldPaySys)
                 return true;
@@ -239,6 +241,7 @@ public class DBManager{
     public boolean UpdateCurrentUserTempInfoPassport(String Passport){
         try {
             ResultSet rs = GetPaymentInfoCurrentUser();
+            rs.first();
             String OldPassport = rs.getString("passport");
             if(Passport.equals(OldPassport))
                 return true;
@@ -261,6 +264,7 @@ public class DBManager{
     public boolean UpdateCurrentUserTempInfoPhone(String Phone){
         try {
             ResultSet rs = GetCurrentUserAllInfo();
+            rs.first();
             String OldPhone = rs.getString("tel");
             if(Phone.equals(OldPhone))
                 return true;
@@ -283,6 +287,7 @@ public class DBManager{
     public boolean UpdateCurrentUserTempInfoPassword(String Password){
         try {
             ResultSet rs = GetCurrentUserAllInfo();
+            rs.first();
             String OldPass = rs.getString("password");
             String EncodePass = CryptoManager.GetEnctyptPassword(Password, "");
             if(EncodePass.equals(OldPass))
@@ -296,6 +301,7 @@ public class DBManager{
               stmt = connection.prepareStatement(query);
               stmt.setString(1, EncodePass);
               stmt.setInt(2, Id);
+              stmt.executeUpdate();
               return true;
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
