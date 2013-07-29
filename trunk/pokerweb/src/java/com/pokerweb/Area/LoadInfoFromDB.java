@@ -73,7 +73,6 @@ public class LoadInfoFromDB extends HttpServlet {
             ResultSet Pay_info = DBManager.GetInstance().GetPaymentInfoCurrentUser();
             ResultSet PaySysResultSet = DBManager.GetInstance().GetAllPaySys();
             boolean res = rs.first();
-            PaySysResultSet.first();
             ubi.name = rs.getString(1);
             ubi.surname = rs.getString(2);
             ubi.second_name = rs.getString(3);

@@ -4,6 +4,10 @@
     Author     : vadim
 --%>
 
+<%@page import="org.springframework.security.core.GrantedAuthority"%>
+<%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
+<%@page import="org.springframework.security.core.context.SecurityContext"%>
+<%@page import="org.springframework.security.core.Authentication"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -155,10 +159,10 @@
            <div style="height: 45px;">                                
         <div style="display: block">
                <div style="float: left;">Введите текущий пароль</div>
-        <input type="text" style="float: right;" id="CurPassTelPrivateEdit" onkeyup="RegistFieldChanged()"/>
+        <input type="text" style="float: right;" id="CurPassPhonePrivateEdit" onkeyup="RegistFieldChanged()"/>
         <div id="CurPassTelPrivateError" class="errorMessage"></div>
         </div></div>
-        <input type="button" id="SaveNewTel" onclick="" value="Сохранить" class="button"/>
+        <input type="button" id="SaveNewTel" onclick="SaveTab5Info()" value="Сохранить" class="button"/>
     </div>
     <div id="tabs-6">
         <div style="height: 45px;">                                
@@ -188,7 +192,7 @@
         <input type="text" style="float: right;" id="CurPassPayPrivateEdit" onkeyup="RegistFieldChanged()"/>
         <div id="CurPassPayPrivateError" class="errorMessage"></div>
             </div></div>
-        <input type="button" id="SaveNewPaySys" onclick="" value="Сохранить" class="button"/>
+        <input type="button" id="SaveNewPaySys" onclick="SaveTab6Info()" value="Сохранить" class="button"/>
     </div>
     
     <div id="tabs-7">
@@ -196,15 +200,30 @@
             </div>
     
     <div id="tabs-8">
-        <div style="float: left;">Ваш баланс: <label id="Balance"/></div>
-        <div style="height: 45px;">                                
+        <div>Ваш баланс: <label id="BalanceTab8"></label></div>
+        <div style="height: 45px;float: left">                                
             <div style="display: block">
             <div style="float: left;">Введите выводимую сумму</div>
         <input type="text" style="float: right;" id="OutMoneyPrivateEdit" onkeyup="RegistFieldChanged()"/>
         <div id="OutMoneyPrivateError" class="errorMessage"></div>
             </div></div>
-               <input type="button" id="SaveOutMoney" onclick="" value="Сохранить" class="button"/>
-            </div>
+        <input type="button" style="display:block;" id="SaveOutMoney" onclick="RequestOutMoney()" value="Вывести деньги" class="button"/>
+       
+        <%SecurityContext context = SecurityContextHolder.getContext();
+        String role = "ROLE_MANAGER";
+        if (context == null)
+            return;
+        Authentication authentication = context.getAuthentication();
+        if (authentication == null)
+            return;
+        for (GrantedAuthority auth : authentication.getAuthorities()) 
+            if (role.equals(auth.getAuthority())){
+                   
+        %>
+        <b>Ты еще и менеджер</b>
+        <%return;}%>
+        
+    </div>
 </div>
                     </div>
                 </div>

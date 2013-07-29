@@ -121,7 +121,7 @@ public class AjaxController extends HttpServlet {
                         namesAdded = true;
                     }
                     
-                    if(!ValidationField.ValidTel(ubi.tel)){
+                    if(!ValidationField.ValidPhone(ubi.tel)){
                         js.append("Tel","телефон введена не корректно");
                         namesAdded = true;
                     }

@@ -45,9 +45,11 @@ var CurPassPayPrivateError;
 
 var Balance;
 
+var BalanceTab8;
 var CurrentEmail;
 
 var CurrentPhone;
+var OutMoneyPrivateEdit;
 function initPrivateBody() {
     init();
     NamePrivateEdit = document.getElementById("NamePrivateEdit");
@@ -67,8 +69,7 @@ function initPrivateBody() {
     
     NewPhonePrivateEdit = document.getElementById("NewPhonePrivateEdit");
     NewPhoneConfPrivateEdit = document.getElementById("NewPhoneConfPrivateEdit");
-    CurPhonePrivateEdit = document.getElementById("CurPhonePrivateEdit");
-    CurPassTelPrivateEdit = document.getElementById("CurPassTelPrivateEdit");
+    CurPassPhonePrivateEdit = document.getElementById("CurPassPhonePrivateEdit");
     
     PassportPrivateEdit = document.getElementById("PassportPrivateEdit");
     PaySystemPrivateEdit = document.getElementById("PaySystemPrivateEdit");
@@ -95,7 +96,9 @@ function initPrivateBody() {
     CurPhonePrivateError = document.getElementById("CurPhonePrivateError");
     CurPassTelPrivateError = document.getElementById("CurPassTelPrivateError");
     
+    OutMoneyPrivateEdit = document.getElementById("OutMoneyPrivateEdit");
     Balance = document.getElementById("Balance");
+    BalanceTab8 = document.getElementById("BalanceTab8");
     
     CurrentEmail = document.getElementById("CurrentEmail");
     
@@ -103,6 +106,48 @@ function initPrivateBody() {
     
     FieldLoadFromDB();
 }
+
+function RequestOutMoney() {
+    var values =  {  
+                "Sum": OutMoneyPrivateEdit.value
+            };
+    var url = "RequestOutMoney";
+    reqPrivate = new XMLHttpRequest();
+    reqPrivate.open("POST", url, true);
+    reqPrivate.onreadystatechange = CallbackSave;
+    reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    reqPrivate.send(JSON.stringify(values));
+}
+
+function SaveTab6Info() {
+    var values =  {  
+                "NewPassport": PassportPrivateEdit.value,
+                "NewPaySys":PaySystemPrivateEdit.options.selectedIndex,
+                "NewPayNum":PayNumPrivateEdit.value,
+                "CurrentPassword": CurPassPayPrivateEdit.value
+            };
+    var url = "SaveInfoTab6";
+    reqPrivate = new XMLHttpRequest();
+    reqPrivate.open("POST", url, true);
+    reqPrivate.onreadystatechange = CallbackSave;
+    reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    reqPrivate.send(JSON.stringify(values));
+}
+
+function SaveTab5Info() {
+    var values =  {  
+                "NewPhone": NewPhonePrivateEdit.value,
+                "ConfNewPhone":NewPhoneConfPrivateEdit.value,
+                "CurrentPassword": CurPassPhonePrivateEdit.value
+            };
+    var url = "SaveInfoTab5";
+    reqPrivate = new XMLHttpRequest();
+    reqPrivate.open("POST", url, true);
+    reqPrivate.onreadystatechange = CallbackSave;
+    reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    reqPrivate.send(JSON.stringify(values));
+}
+
 
 function SaveTab4Info() {
     var values =  {  
@@ -113,21 +158,11 @@ function SaveTab4Info() {
     var url = "SaveInfoTab4";
     reqPrivate = new XMLHttpRequest();
     reqPrivate.open("POST", url, true);
-    reqPrivate.onreadystatechange = CallbackSaveTab1Info;
+    reqPrivate.onreadystatechange = CallbackSave;
     reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     reqPrivate.send(JSON.stringify(values));
 }
 
-function CallbackSaveTab4Info() {
-    if (reqPrivate.readyState == 4) {
-        if (reqPrivate.status == 200) {
-            if(reqPrivate.responseText != null && reqPrivate.responseText.length > 0){
-            var ErrorS = JSON.parse(reqPrivate.responseText);
-            SaveDialog(ErrorS.Message);
-            }
-        }
-    }
-}
 
 function SaveTab3Info() {
     var values =  {  
@@ -138,20 +173,9 @@ function SaveTab3Info() {
     var url = "SaveInfoTab3";
     reqPrivate = new XMLHttpRequest();
     reqPrivate.open("POST", url, true);
-    reqPrivate.onreadystatechange = CallbackSaveTab1Info;
+    reqPrivate.onreadystatechange = CallbackSave;
     reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     reqPrivate.send(JSON.stringify(values));
-}
-
-function CallbackSaveTab3Info() {
-    if (reqPrivate.readyState == 4) {
-        if (reqPrivate.status == 200) {
-            if(reqPrivate.responseText != null && reqPrivate.responseText.length > 0){
-            var ErrorS = JSON.parse(reqPrivate.responseText);
-            SaveDialog(ErrorS.Message);
-            }
-        }
-    }
 }
 
 function SaveTab1Info() {
@@ -164,13 +188,13 @@ function SaveTab1Info() {
     var url = "SaveInfoTab1";
     reqPrivate = new XMLHttpRequest();
     reqPrivate.open("POST", url, true);
-    reqPrivate.onreadystatechange = CallbackSaveTab1Info;
+    reqPrivate.onreadystatechange = CallbackSave;
     reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     reqPrivate.send(JSON.stringify(values));
 }
 
 
-function CallbackSaveTab1Info() {
+function CallbackSave() {
     if (reqPrivate.readyState == 4) {
         if (reqPrivate.status == 200) {
             if(reqPrivate.responseText != null && reqPrivate.responseText.length>0){
@@ -224,8 +248,10 @@ function CallbackLoadInfo() {
 }
 
 function AppendFieldInfoFromDB(Message) {
-        if(Message.Balance != null)
+        if(Message.Balance !== null){
             Balance.innerHTML = Message.Balance;
+            BalanceTab8.innerHTML = Message.Balance;
+        }
        if(Message.Name != null)
             NamePrivateEdit.value = Message.Name;
        

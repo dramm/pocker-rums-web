@@ -5,9 +5,6 @@ SET foreign_key_checks = 0;
 SET time_zone = '+03:00';
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
-CREATE DATABASE `pokerwebdb` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `pokerwebdb`;
-
 DROP TABLE IF EXISTS `new_user_info`;
 CREATE TABLE `new_user_info` (
   `id_user` int(10) unsigned NOT NULL COMMENT 'Идентификатор пользователя',
@@ -37,7 +34,9 @@ CREATE TABLE `payment_info` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Платежная информация';
 
 INSERT INTO `payment_info` (`id_user`, `passport`, `pay_sys`, `score`) VALUES
-(5,	'4355',	2,	'1');
+(5,	'4355',	2,	'1'),
+(6,	'',	1,	''),
+(7,	'серия и номер',	0,	'номер платежки');
 
 DROP TABLE IF EXISTS `pay_sys`;
 CREATE TABLE `pay_sys` (
@@ -57,15 +56,17 @@ INSERT INTO `pay_sys` (`id`, `title`) VALUES
 DROP TABLE IF EXISTS `request_out_money`;
 CREATE TABLE `request_out_money` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Идентификатор заявки',
-  `data` datetime NOT NULL COMMENT 'Время подачи заявки',
   `id_user` int(10) unsigned NOT NULL COMMENT 'Идентификатор пользователя',
   `sum` float unsigned NOT NULL COMMENT 'Запрошенная сумма',
-  `data_out` datetime NOT NULL COMMENT 'Время выдачи средств',
-  `id_manager` int(10) unsigned NOT NULL COMMENT 'Идентификатор выдавшего менеджера',
+  `data_request` datetime NOT NULL COMMENT 'Время подачи заявки',
+  `data_response` datetime NOT NULL COMMENT 'Время выдачи средств',
+  `id_manager` int(10) unsigned NOT NULL COMMENT 'Идентификатор менеджера выдавшего средства',
   `processed` bit(1) NOT NULL COMMENT 'Статус выдачи',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Заявки на выплату средств';
 
+INSERT INTO `request_out_money` (`id`, `id_user`, `sum`, `data_request`, `data_response`, `id_manager`, `processed`) VALUES
+(2,	7,	60.5,	'2013-07-29 20:55:37',	'1999-01-01 00:00:00',	0,	CONV('0', 2, 10) + 0);
 
 DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles` (
@@ -107,7 +108,33 @@ INSERT INTO `stat_logins` (`id`, `user_id`, `login_time`, `logout`, `ip`, `user_
 (113,	5,	'2013-07-26 21:18:22',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
 (114,	5,	'2013-07-26 21:28:08',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
 (115,	5,	'2013-07-28 14:40:05',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
-(116,	5,	'2013-07-28 14:50:29',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0');
+(116,	5,	'2013-07-28 14:50:29',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(117,	5,	'2013-07-29 15:30:28',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(118,	5,	'2013-07-29 15:32:32',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(119,	5,	'2013-07-29 15:33:24',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(120,	5,	'2013-07-29 15:44:17',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(121,	5,	'2013-07-29 16:05:58',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(122,	5,	'2013-07-29 16:07:07',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(123,	5,	'2013-07-29 16:11:50',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(124,	6,	'2013-07-29 16:17:14',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(125,	7,	'2013-07-29 16:19:58',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(126,	7,	'2013-07-29 16:24:57',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(127,	7,	'2013-07-29 19:05:01',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(128,	7,	'2013-07-29 19:12:49',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(129,	7,	'2013-07-29 19:16:57',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(130,	7,	'2013-07-29 19:18:49',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(131,	7,	'2013-07-29 19:20:18',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(132,	7,	'2013-07-29 19:39:24',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(133,	7,	'2013-07-29 19:46:36',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(134,	7,	'2013-07-29 19:51:00',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(135,	7,	'2013-07-29 19:52:38',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(136,	7,	'2013-07-29 19:58:18',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(137,	7,	'2013-07-29 20:53:37',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(138,	7,	'2013-07-29 20:55:06',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(139,	7,	'2013-07-29 21:23:49',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(140,	7,	'2013-07-29 21:27:53',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(141,	7,	'2013-07-29 21:28:24',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(142,	7,	'2013-07-29 21:28:58',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0');
 
 DROP TABLE IF EXISTS `token_user`;
 CREATE TABLE `token_user` (
@@ -123,7 +150,20 @@ CREATE TABLE `token_user` (
 
 INSERT INTO `token_user` (`id`, `id_user`, `token_confirm`, `type_confirm`, `date_request`, `date_response`, `confirmed`) VALUES
 (6,	5,	'646ae913-fffc-478f-9857-3010750811eb',	2,	'2013-07-28 14:51:56',	'2013-07-28 14:51:56',	CONV('0', 2, 10) + 0),
-(7,	5,	'c64b7042-0eb2-4f40-a2e0-849f688a28cc',	2,	'2013-07-28 14:53:41',	'2013-07-28 14:53:41',	CONV('0', 2, 10) + 0);
+(7,	5,	'c64b7042-0eb2-4f40-a2e0-849f688a28cc',	2,	'2013-07-28 14:53:41',	'2013-07-28 14:53:41',	CONV('0', 2, 10) + 0),
+(8,	5,	'ea6b4661-0ef4-4239-a773-2915d122e9bd',	2,	'2013-07-29 15:31:52',	'2013-07-29 15:31:52',	CONV('0', 2, 10) + 0),
+(9,	5,	'fb898caa-054f-4aaf-a3b8-ccd217fb20ee',	2,	'2013-07-29 15:32:48',	'2013-07-29 15:32:48',	CONV('0', 2, 10) + 0),
+(10,	5,	'9fb4d3a7-a63a-47a3-a3b2-151da39dbd9d',	2,	'2013-07-29 16:07:21',	'2013-07-29 16:07:21',	CONV('0', 2, 10) + 0),
+(11,	5,	'b49e7624-9753-456c-ba93-2ea7e53c0e47',	2,	'2013-07-29 16:12:01',	'2013-07-29 16:12:01',	CONV('0', 2, 10) + 0),
+(12,	6,	'ef5f878b-48e5-4b59-a1f4-65419cd21d39',	1,	'2013-07-29 16:16:50',	'2013-07-29 16:17:08',	CONV('1', 2, 10) + 0),
+(13,	6,	'8f85913d-3c1b-4eaf-acd0-d1e8db559c2b',	2,	'2013-07-29 16:17:26',	'2013-07-29 16:17:26',	CONV('0', 2, 10) + 0),
+(14,	7,	'5a446f1c-87d3-4ed5-bc83-9d786df510b4',	1,	'2013-07-29 16:19:19',	'2013-07-29 19:39:57',	CONV('1', 2, 10) + 0),
+(15,	7,	'73c6805a-830b-453f-a095-8fb48c93359f',	2,	'2013-07-29 16:20:12',	'2013-07-29 19:39:57',	CONV('1', 2, 10) + 0),
+(16,	7,	'9c3d3ba8-fb4d-49b2-a77c-f707c3089fdc',	2,	'2013-07-29 19:22:58',	'2013-07-29 19:39:57',	CONV('1', 2, 10) + 0),
+(17,	7,	'fcd3d456-1d91-417d-96bf-64a129b9ff26',	2,	'2013-07-29 19:24:34',	'2013-07-29 19:39:57',	CONV('1', 2, 10) + 0),
+(18,	7,	'77692708-d2ea-476d-b9b1-8d980110c459',	2,	'2013-07-29 19:25:22',	'2013-07-29 19:39:57',	CONV('1', 2, 10) + 0),
+(19,	7,	'e5de7d4f-8009-44b5-a00d-15c80a2cd95a',	2,	'2013-07-29 19:25:31',	'2013-07-29 19:39:57',	CONV('1', 2, 10) + 0),
+(20,	7,	'80aa9b88-2352-4309-835b-9302f06e094d',	2,	'2013-07-29 19:39:35',	'2013-07-29 19:39:57',	CONV('1', 2, 10) + 0);
 
 DROP TABLE IF EXISTS `type_confirm`;
 CREATE TABLE `type_confirm` (
@@ -161,18 +201,21 @@ CREATE TABLE `users` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Личные данные пользователей';
 
 INSERT INTO `users` (`id`, `login`, `password`, `email`, `surname`, `name`, `second_name`, `country`, `tel`, `register_date`, `last_login`, `balance`, `banned`, `banned_date`, `banned_comment`, `banned_admin_id`, `activated`) VALUES
-(5,	'root',	'4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',	'dizinor@gmail.com',	'fds',	'имя3',	'ee',	'fdf',	'4324321',	'2013-07-24 22:22:16',	'2013-07-28 14:50:29',	0,	CONV('0', 2, 10) + 0,	'1999-01-01 00:00:00',	'',	0,	CONV('1', 2, 10) + 0);
+(7,	'root',	'4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',	'dizinor@gmail.com',	'fds',	'ef',	'',	'',	'13',	'2013-07-29 16:19:19',	'2013-07-29 21:28:58',	12000,	CONV('0', 2, 10) + 0,	'1999-01-01 00:00:00',	'',	0,	CONV('1', 2, 10) + 0);
 
 DROP TABLE IF EXISTS `user_roles`;
 CREATE TABLE `user_roles` (
   `role_id` int(11) unsigned NOT NULL COMMENT 'Идентификатор роли',
-  `user_id` int(11) unsigned NOT NULL COMMENT 'Идентификатор пользователя'
+  `user_id` int(11) unsigned NOT NULL COMMENT 'Идентификатор пользователя',
+  PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Соответствие ролей пользователям';
 
 INSERT INTO `user_roles` (`role_id`, `user_id`) VALUES
 (3,	2),
 (3,	3),
 (3,	4),
-(3,	5);
+(3,	5),
+(3,	6),
+(2,	7);
 
--- 2013-07-28 14:58:19
+-- 2013-07-29 22:15:53

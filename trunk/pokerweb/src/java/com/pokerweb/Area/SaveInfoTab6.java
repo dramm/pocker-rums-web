@@ -10,6 +10,7 @@ import com.pokerweb.crypto.CryptoManager;
 import com.pokerweb.registration.UserAllInformation;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -26,8 +27,8 @@ import org.json.JSONObject;
  *
  * @author vadim
  */
-@WebServlet(name = "SaveInfoTab3", urlPatterns = {"/SaveInfoTab3"})
-public class SaveInfoTab3 extends HttpServlet {
+@WebServlet(name = "SaveInfoTab6", urlPatterns = {"/SaveInfoTab6"})
+public class SaveInfoTab6 extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -39,7 +40,6 @@ public class SaveInfoTab3 extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -54,7 +54,6 @@ public class SaveInfoTab3 extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-  
     }
 
     /**
@@ -69,8 +68,7 @@ public class SaveInfoTab3 extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try{
-            boolean namesAdded = false;
+  try{
             StringBuilder jb = new StringBuilder();
             String line = null;
             UserAllInformation ubi=new UserAllInformation();
@@ -80,27 +78,28 @@ public class SaveInfoTab3 extends HttpServlet {
                 jb.append(line);
             
             JSONObject jsonObject = new JSONObject(jb.toString());
-            String NewMail = jsonObject.getString("NewMail");
-            String ConfNewMail = jsonObject.getString("ConfNewMail");
-            ResultSet rs = DBM.GetCurrentUserAllInfo();
-            rs.first();
-            String CurrentPassword = rs.getString("password");
+            String NewPassport = jsonObject.getString("NewPassport");
+            int NewPaySys = jsonObject.getInt("NewPaySys");
+            String NewPayNum = jsonObject.getString("NewPayNum");
+           
+            ResultSet rsUser = DBM.GetCurrentUserAllInfo();
+            rsUser.first();
+            String CurrentPassword = rsUser.getString("password");
             String ReceptCurrentPassword = jsonObject.getString("CurrentPassword");
             String ReceptCurrentPasswordEn = CryptoManager.GetEnctyptPassword(ReceptCurrentPassword, "");
             JSONObject js = new JSONObject();
             
-            if(ValidationField.ValidConfPassword(CurrentPassword,ReceptCurrentPasswordEn) &&
-                    ValidationField.ValidEmail(NewMail) &&
-                    ValidationField.ValidEmailConf(NewMail,ConfNewMail)){
-                boolean res = DBM.UpdateCurrentUserTempInfoMail(NewMail);
-                               if(res){
+            if(ValidationField.ValidConfPassword(CurrentPassword,ReceptCurrentPasswordEn)){
+                boolean resPassport = DBM.UpdateCurrentUserTempInfoPassport(NewPassport);
+                boolean resPaySys = DBM.UpdateCurrentUserTempInfoPaySys(NewPaySys);
+                boolean resPayNum = DBM.UpdateCurrentUserTempInfoScore(NewPayNum);
+                               if(resPassport && resPaySys && resPayNum){
                                    js.append("Message","Для подтверждения перейдите по ссылке в письме отправленное вам на почту");
                                    DBM.SendConfirmNewSettingsCurrUser();
                                }else
                                    js.append("Message","Данные введены не корректно");
-                             }
-                             else
-                                 js.append("Message","Данные введены не корректно");
+                             }else
+                                  js.append("Message","Данные введены не корректно");
             
                             response.setContentType("application/json; charset=utf-8");
                             response.setHeader("Cache-Control", "no-cache");
@@ -111,6 +110,7 @@ public class SaveInfoTab3 extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(SaveInfoTab3.class.getName()).log(Level.SEVERE, null, ex);
         }
+    
     }
 
     /**
