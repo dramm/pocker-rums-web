@@ -4,6 +4,11 @@
  */
 package com.pokerweb.mail;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author vadim
@@ -11,12 +16,18 @@ package com.pokerweb.mail;
 public class SendConfirmSettingMessage implements Runnable{
     private String Mail;
     private String Token;
+    private String Address;
    @Override
    public void run(){
-      SendMail.GetInstance().SendOneAddress(Mail,
-                   "Для подтверждения изменения настроек перейдите по ссылке"+
-                   " <a href='http://localhost:8080/?privat-token="+Token+"'>Подтверждение</a>",
-                   "Welcome to SergioRio"); 
+        try {
+            String hostname = InetAddress.getLocalHost().getHostAddress();
+           SendMail.GetInstance().SendOneAddress(Mail,
+                        "Для подтверждения изменения настроек перейдите по ссылке"+
+                        " <a href='http://"+hostname+"/?privat-token="+Token+"'>Подтверждение</a>", 
+                        "Welcome to SergioRio");
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(SendConfirmSettingMessage.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
    
    public String GetMail(){
