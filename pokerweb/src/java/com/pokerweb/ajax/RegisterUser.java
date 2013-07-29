@@ -89,7 +89,7 @@ public class RegisterUser extends HttpServlet {
                             ValidationField.ValidConfPassword(ubi.password, ubi.confpassword) &&
                             ValidationField.ValidName(ubi.name) &&
                             ValidationField.ValidSurname(ubi.surname) &&
-                            ValidationField.ValidTel(ubi.tel)
+                            ValidationField.ValidPhone(ubi.tel)
                             ){
                         DBManager v = DBManager.GetInstance();
                         boolean res = v.SetNewUser(ubi);

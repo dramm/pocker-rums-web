@@ -49,8 +49,12 @@ public class ValidationField {
         return Surname.length() > 0;
     }
     
-    public static boolean ValidTel(String Tel){
-        return Tel.length() > 0;
+    public static boolean ValidPhone(String Phone){
+        return Phone.length() > 0;
+    }
+    
+    public static boolean ValidConfPhone(String Phone,String ConfPhone){
+        return Phone.equals(ConfPhone);
     }
     
     public static boolean ValidSecond(String Second_name){

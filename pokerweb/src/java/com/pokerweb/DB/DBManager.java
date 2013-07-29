@@ -20,6 +20,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 /**
  *
  * @author vadim
@@ -112,7 +114,7 @@ public class DBManager{
                        + "date_response,"
                        + "confirmed) "
                        + "values((select id from users where login=?),'"
-                       +uuid.toString()+"',2,now(),now(),false)";
+                       +uuid.toString()+"',2,now(),'1999-01-01 00:00:00',false)";
                stmt = connection.prepareStatement(query);
                stmt.setString(1, Login);
                stmt.executeUpdate();
@@ -208,6 +210,7 @@ public class DBManager{
              stmt = connection.prepareStatement(query);
              stmt.setString(1, Score);
              stmt.setInt(2, Id);
+             stmt.executeUpdate();
               return true;
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -231,6 +234,7 @@ public class DBManager{
               stmt = connection.prepareStatement(query);
               stmt.setInt(1, PaySys);
               stmt.setInt(2, Id);
+              stmt.executeUpdate();
               return true;
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -254,6 +258,7 @@ public class DBManager{
               stmt = connection.prepareStatement(query);
               stmt.setString(1, Passport);
               stmt.setInt(2, Id);
+              stmt.executeUpdate();
               return true;
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -277,6 +282,7 @@ public class DBManager{
               stmt = connection.prepareStatement(query);
               stmt.setString(1, Phone);
               stmt.setInt(2, Id);
+              stmt.executeUpdate();
               return true;
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -512,7 +518,7 @@ public class DBManager{
           if(rs.getBoolean(4))
               SetUserNewPassword(rs.getString(3), Login);
           if(rs.getBoolean(6))
-              SetUserNewPassword(rs.getString(3), Login);
+              SetUserNewPhone(rs.getString(5), Login);
           if(rs.getBoolean(8))
               SetUserNewPassport(rs.getString(7), Id);
           if(rs.getBoolean(10))
@@ -521,6 +527,10 @@ public class DBManager{
               SetUserNewScore(rs.getString(11), Id);
          
           query="Delete from new_user_info WHERE id_user=?";
+          stmt = connection.prepareStatement(query);
+          stmt.setInt(1, Id);
+          stmt.executeUpdate();
+          query="Update token_user Set date_response=now(),confirmed=true WHERE id_user=?";
           stmt = connection.prepareStatement(query);
           stmt.setInt(1, Id);
           stmt.executeUpdate();
@@ -664,6 +674,29 @@ public class DBManager{
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
+        }
+    }
+    
+    public boolean SetNewRequestOutMoney(float Sum){
+        try {
+            String Login = GetCurrentUserLogin();
+                    int Id = GetIdFromLogin(Login);
+                    String query="insert into request_out_money("
+                                      + "id_user,"
+                                      + "sum,"
+                                      + "data_request,"
+                                      + "data_response,"
+                                      + "id_manager,"
+                                      + "processed) "
+                            + "values(?,?,now(),'1999-01-01 00:00:00',0,false) ";
+                        stmt = connection.prepareStatement(query);
+                        stmt.setInt(1, Id);
+                        stmt.setFloat(2, Sum);
+                        stmt.executeUpdate();
+                        return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
     }
     
