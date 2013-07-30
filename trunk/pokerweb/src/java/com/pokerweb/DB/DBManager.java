@@ -20,8 +20,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 /**
  *
  * @author vadim
@@ -29,7 +27,7 @@ import org.springframework.security.web.servletapi.SecurityContextHolderAwareReq
 public class DBManager{
     private PreparedStatement stmt;
     private Connection connection;
-    private static DBManager instanse=new DBManager();
+    private static DBManager instanse = new DBManager();
     private DBManager(){
         try {
             FieldJdbc FieldJ; 
@@ -46,7 +44,26 @@ public class DBManager{
         }
     }
     
+    private DBManager CreateNewInstanse(){
+        instanse = new DBManager();
+        return instanse;
+    }
+    
+    private boolean ConnectIsStable(){
+        try {
+            String query="select 1";
+            stmt = connection.prepareStatement(query);
+            stmt.executeQuery(query);
+            return true;
+        } catch (Exception e) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
+        return false;
+        }
+    }
+    
     public static DBManager GetInstance(){
+            if(!instanse.ConnectIsStable())
+               instanse.CreateNewInstanse();
         return instanse;
     }
     
