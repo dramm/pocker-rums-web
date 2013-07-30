@@ -88,6 +88,28 @@ public class DBManager{
         return auth.getName();
     }
     
+    public boolean SetNewDateOnline(){
+        try {
+            int idUser = GetCurrentUserId();
+            if(idUser==0)
+                return false;
+            String query="Update stat_logins Set logout=now() "
+                + "where id=(select id "
+                + "from (select * from stat_logins) as t1 "
+                + "where t1.user_id=? and "
+                + "t1.id=any(select max(id) "
+                + "from (select * from stat_logins) as t2 "
+                + "where t2.user_id=t1.user_id))";
+            stmt = connection.prepareStatement(query);
+                   stmt.setInt(1, idUser);
+                   stmt.executeUpdate();
+                   return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
     public int GetCurrentUserId(){
         try {
             String query="select id from users where login=?";
@@ -155,7 +177,7 @@ public class DBManager{
             int idUser = GetCurrentUserId();
             if(idUser == 0)
                 return null;
-            String query="select passport,pay_sys,score from pokerwebdb.payment_info where id_user=?";
+            String query="select passport,pay_sys,score from payment_info where id_user=?";
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idUser);
             ResultSet rs = stmt.executeQuery();
@@ -165,39 +187,10 @@ public class DBManager{
         }
         return null;
     }
-    
-    public boolean NewTempSettingsCurrentUser(){
-        try {
-            String Login = GetCurrentUserLogin();
-            int Id = GetIdFromLogin(Login);
-            String query="insert into new_user_info("
-                              + "id_user,"
-                              + "new_mail,"
-                              + "mail_editing,"
-                              + "new_password,"
-                              + "password_editing,"
-                              + "new_phone,"
-                              + "phone_editing,"
-                              + "new_passport,"
-                              + "passport_editing,"
-                              + "new_pay_sys,"
-                              + "pay_sys_editing,"
-                              + "new_num_pay_sys,"
-                              + "num_pay_sys_editing"
-                              + ") values(?,'',false,'',false,'',false,'',false,0,false,'',false) ";
-                stmt = connection.prepareStatement(query);
-                stmt.setInt(1, Id);
-                stmt.executeUpdate();
-                return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-    }
-    
+      
     public boolean ExistsNewSettingsCurUser(int Id){
         try {
-            String query="select * from new_user_info where id_user=?";
+            String query="select * from request_edit_user_info where id_user=? and processed=true";
                     stmt = connection.prepareStatement(query);
                     stmt.setInt(1, Id);
                    ResultSet rs = stmt.executeQuery();
@@ -220,14 +213,17 @@ public class DBManager{
                 return true;
             String Login = GetCurrentUserLogin();
             int Id = GetIdFromLogin(Login);
-            if(!ExistsNewSettingsCurUser(Id))
-                  NewTempSettingsCurrentUser();
-              
-             String query="UPDATE new_user_info SET new_num_pay_sys=?,num_pay_sys_editing=true WHERE id_user=?";
-             stmt = connection.prepareStatement(query);
-             stmt.setString(1, Score);
-             stmt.setInt(2, Id);
-             stmt.executeUpdate();
+            String query="INSERT INTO request_edit_user_info("
+                     + "id_user,"
+                     + "type,"
+                     + "date_request,"
+                     + "data"
+                     + ") "
+                     + "values(?,6,now(),?)";
+              stmt = connection.prepareStatement(query);
+              stmt.setInt(1, Id);
+              stmt.setString(2, Score);
+              stmt.executeUpdate();
               return true;
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -244,13 +240,16 @@ public class DBManager{
                 return true;
             String Login = GetCurrentUserLogin();
             int Id = GetIdFromLogin(Login);
-            if(!ExistsNewSettingsCurUser(Id))
-                  NewTempSettingsCurrentUser();
-              
-             String query="UPDATE new_user_info SET new_pay_sys=?,pay_sys_editing=true WHERE id_user=?";
+            String query="INSERT INTO request_edit_user_info("
+                     + "id_user,"
+                     + "type,"
+                     + "date_request,"
+                     + "data"
+                     + ") "
+                     + "values(?,5,now(),?)";
               stmt = connection.prepareStatement(query);
-              stmt.setInt(1, PaySys);
-              stmt.setInt(2, Id);
+              stmt.setInt(1, Id);
+              stmt.setInt(2, PaySys);
               stmt.executeUpdate();
               return true;
         } catch (SQLException ex) {
@@ -268,13 +267,16 @@ public class DBManager{
                 return true;
             String Login = GetCurrentUserLogin();
             int Id = GetIdFromLogin(Login);
-            if(!ExistsNewSettingsCurUser(Id))
-                  NewTempSettingsCurrentUser();
-              
-             String query="UPDATE new_user_info SET new_passport=?,passport_editing=true WHERE id_user=?";
+             String query="INSERT INTO request_edit_user_info("
+                     + "id_user,"
+                     + "type,"
+                     + "date_request,"
+                     + "data"
+                     + ") "
+                     + "values(?,4,now(),?)";
               stmt = connection.prepareStatement(query);
-              stmt.setString(1, Passport);
-              stmt.setInt(2, Id);
+              stmt.setInt(1, Id);
+              stmt.setString(2, Passport);
               stmt.executeUpdate();
               return true;
         } catch (SQLException ex) {
@@ -292,13 +294,17 @@ public class DBManager{
                 return true;
             String Login = GetCurrentUserLogin();
             int Id = GetIdFromLogin(Login);
-            if(!ExistsNewSettingsCurUser(Id))
-                  NewTempSettingsCurrentUser();
               
-             String query="UPDATE new_user_info SET new_phone=?,phone_editing=true WHERE id_user=?";
+           String query="INSERT INTO request_edit_user_info("
+                     + "id_user,"
+                     + "type,"
+                     + "date_request,"
+                     + "data"
+                     + ") "
+                     + "values(?,3,now(),?)";
               stmt = connection.prepareStatement(query);
-              stmt.setString(1, Phone);
-              stmt.setInt(2, Id);
+              stmt.setInt(1, Id);
+              stmt.setString(2, Phone);
               stmt.executeUpdate();
               return true;
         } catch (SQLException ex) {
@@ -312,18 +318,21 @@ public class DBManager{
             ResultSet rs = GetCurrentUserAllInfo();
             rs.first();
             String OldPass = rs.getString("password");
-            String EncodePass = CryptoManager.GetEnctyptPassword(Password, "");
+            String EncodePass = CryptoManager.GetEnctyptPassword(Password);
             if(EncodePass.equals(OldPass))
                 return true;
             String Login = GetCurrentUserLogin();
             int Id = GetIdFromLogin(Login);
-           if(!ExistsNewSettingsCurUser(Id))
-                  NewTempSettingsCurrentUser();
-              
-             String query="UPDATE new_user_info SET new_password=?,password_editing=true WHERE id_user=?";
+            String query="INSERT INTO request_edit_user_info("
+                     + "id_user,"
+                     + "type,"
+                     + "date_request,"
+                     + "data"
+                     + ") "
+                     + "values(?,2,now(),?)";
               stmt = connection.prepareStatement(query);
-              stmt.setString(1, EncodePass);
-              stmt.setInt(2, Id);
+              stmt.setInt(1, Id);
+              stmt.setString(2, Password);
               stmt.executeUpdate();
               return true;
         } catch (SQLException ex) {
@@ -341,13 +350,16 @@ public class DBManager{
                 return true;
             String Login = GetCurrentUserLogin();
             int Id = GetIdFromLogin(Login);
-            if(!ExistsNewSettingsCurUser(Id))
-                  NewTempSettingsCurrentUser();
-              
-             String query="UPDATE new_user_info SET new_mail=?,mail_editing=true WHERE id_user=?";
+             String query="INSERT INTO request_edit_user_info("
+                     + "id_user,"
+                     + "type,"
+                     + "date_request,"
+                     + "data"
+                     + ") "
+                     + "values(?,1,now(),?)";
               stmt = connection.prepareStatement(query);
-              stmt.setString(1, Mail);
-              stmt.setInt(2, Id);
+              stmt.setInt(1, Id);
+              stmt.setString(2, Mail);
               stmt.executeUpdate();
               return true;
         } catch (SQLException ex) {
@@ -426,31 +438,14 @@ public class DBManager{
                     + "email,"
                     + "surname,"
                     + "name,"
-                    + "second_name,"
-                    + "country,"
                     + "tel,"
-                    + "register_date,"
-                    + "last_login,"
-                    + "balance,"
-                    + "banned,"
-                    + "banned_date,"
-                    + "banned_comment,"
-                    + "banned_admin_id,"
-                    + "activated)" +
-                    "values(?,?,?,?,?,'','',?,"
-                    + "now(),"
-                    + "'1999-01-01 00:00:00',"
-                    + "0.0,"
-                    + "false,"
-                    + "'1999-01-01 00:00:00',"
-                    + "'',"
-                    + "0,"
-                    + "false);";
+                    + "register_date)" +
+                    "values(?,?,?,?,?,?,now());";
           //  java.util.Date dt = new java.util.Date();
           //  java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
           //  String currentTime = sdf.format(dt);
             stmt = connection.prepareStatement(query);
-            String EncoderS = CryptoManager.GetEnctyptPassword(ubi.password, "");
+            String EncoderS = CryptoManager.GetEnctyptPassword(ubi.password);
             stmt.setString(1, ubi.login);
             stmt.setString(2, EncoderS);
             stmt.setString(3, ubi.email);
@@ -472,17 +467,15 @@ public class DBManager{
                     + "id_user,"
                     + "token_confirm,"
                     + "type_confirm,"
-                    + "date_request,"
-                    + "date_response,"
-                    + "confirmed) "
+                    + "date_request) "
                     + "values((select id from users where login=?),'"
-                    +uuid.toString()+"',1,now(),now(),false)";
+                    +uuid.toString()+"',1,now())";
             stmt = connection.prepareStatement(query);
             stmt.setString(1, ubi.login);
             stmt.executeUpdate();
             
             query="insert into payment_info(id_user,passport,pay_sys,score) "
-                    + "values((select id from users where login=?),'',1,score)";
+                    + "values((select id from users where login=?),'',0,'')";
             stmt = connection.prepareStatement(query);
             stmt.setString(1, ubi.login);
             stmt.executeUpdate();
@@ -510,40 +503,44 @@ public class DBManager{
               return false;
          int Id = rs.getInt(1);
          String Login = GetLoginFromId(Id);
-         
-          query="select "
-                  + "new_mail,"
-                  + "mail_editing,"
-                  + "new_password,"
-                  + "password_editing,"
-                  + "new_phone,"
-                  + "phone_editing,"
-                  + "new_passport,"
-                  + "passport_editing,"
-                  + "new_pay_sys,"
-                  + "pay_sys_editing,"
-                  + "new_num_pay_sys,"
-                  + "num_pay_sys_editing"
-                  + " from new_user_info where id_user=?";
+         query="select t1.type,t1.data"
+                  + " from request_edit_user_info as t1"
+                  + " where id_user=? and processed=false and "
+                  + "date_request=(select max(t2.date_request) "
+                  + "from request_edit_user_info as t2 "
+                  + "where t2.type=t1.type and t2.id_user=t1.id_user and t2.processed=false)";
           stmt = connection.prepareStatement(query);
           stmt.setInt(1, Id);
           rs = stmt.executeQuery();
-          if(!rs.first())
-              return false;
-          if(rs.getBoolean(2))
-              SetUserNewMail(rs.getString(1),Login);
-          if(rs.getBoolean(4))
-              SetUserNewPassword(rs.getString(3), Login);
-          if(rs.getBoolean(6))
-              SetUserNewPhone(rs.getString(5), Login);
-          if(rs.getBoolean(8))
-              SetUserNewPassport(rs.getString(7), Id);
-          if(rs.getBoolean(10))
-              SetUserNewPaySys(rs.getString(9), Id);
-          if(rs.getBoolean(12))
-              SetUserNewScore(rs.getString(11), Id);
-         
-          query="Delete from new_user_info WHERE id_user=?";
+          while(rs.next()){
+              switch(rs.getInt("type")){
+                  case 1:
+                      SetUserNewMail(rs.getString("data"),Login);
+                      break;
+                  case 2:
+                      SetUserNewPassword(rs.getString("data"), Login);
+                      break;
+                  case 3:
+                      SetUserNewPhone(rs.getString("data"), Login);
+                      break;
+                  case 4:
+                      SetUserNewPassport(rs.getString("data"), Id);
+                      break;
+                  case 5:
+                      SetUserNewPaySys(rs.getString("data"), Id);
+                      break;
+                  case 6:
+                      SetUserNewScore(rs.getString("data"), Id);
+                      break;
+              }
+          }
+          query="Update request_edit_user_info Set processed=true,date_response=now()"
+                  + " where id in (select t1.id "
+                  + "from (select * from request_edit_user_info) as t1"
+                  + " where t1.id_user=? and t1.processed=false and "
+                  + "t1.date_request=(select max(t2.date_request)"
+                  + " from (select * from request_edit_user_info) as t2"
+                  + " where t2.type=t1.type and t2.id_user=t1.id_user and t2.processed=false));";
           stmt = connection.prepareStatement(query);
           stmt.setInt(1, Id);
           stmt.executeUpdate();
@@ -551,7 +548,7 @@ public class DBManager{
           stmt = connection.prepareStatement(query);
           stmt.setInt(1, Id);
           stmt.executeUpdate();
-        return true;
+          return true;
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -701,11 +698,8 @@ public class DBManager{
                     String query="insert into request_out_money("
                                       + "id_user,"
                                       + "sum,"
-                                      + "data_request,"
-                                      + "data_response,"
-                                      + "id_manager,"
-                                      + "processed) "
-                            + "values(?,?,now(),'1999-01-01 00:00:00',0,false) ";
+                                      + "data_request) "
+                            + "values(?,?,now()) ";
                         stmt = connection.prepareStatement(query);
                         stmt.setInt(1, Id);
                         stmt.setFloat(2, Sum);
