@@ -9,6 +9,20 @@
 <%@page import="org.springframework.security.core.context.SecurityContext"%>
 <%@page import="org.springframework.security.core.Authentication"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%SecurityContext context = SecurityContextHolder.getContext();
+        String role = "ROLE_MANAGER";
+        boolean IsManager = false;
+        if (context == null)
+            return;
+        Authentication authentication = context.getAuthentication();
+        if (authentication == null)
+            return;
+        for (GrantedAuthority auth : authentication.getAuthorities()) 
+            if (role.equals(auth.getAuthority())){
+            IsManager = true;
+            break;
+            }            
+        %>
 <!DOCTYPE html>
 <html>
    <head>
@@ -38,6 +52,9 @@
 <li><a href="#tabs-6">Платежная информация</a></li>
 <li><a href="#tabs-7">Статистика пользователя</a></li>
 <li><a href="#tabs-8">Вывод средств</a></li>
+<%if(IsManager){%>
+<li><a href="#tabs-9">Заявки на выплату</a></li>
+<%}%>
 </ul>
     
 <div id="tabs-1">
@@ -209,21 +226,14 @@
             </div></div>
         <input type="button" style="display:block;" id="SaveOutMoney" onclick="RequestOutMoney()" value="Вывести деньги" class="button"/>
        
-        <%SecurityContext context = SecurityContextHolder.getContext();
-        String role = "ROLE_MANAGER";
-        if (context == null)
-            return;
-        Authentication authentication = context.getAuthentication();
-        if (authentication == null)
-            return;
-        for (GrantedAuthority auth : authentication.getAuthorities()) 
-            if (role.equals(auth.getAuthority())){
-                   
-        %>
-        <b>Ты еще и менеджер</b>
-        <%return;}%>
+        
         
     </div>
+<%if(IsManager){%>
+<div id="tabs-9">
+    <b>Вывод средств</b>
+    </div>
+<%}%>
 </div>
                     </div>
                 </div>

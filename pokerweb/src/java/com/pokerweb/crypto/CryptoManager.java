@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  * @author vadim
  */
 public class CryptoManager {
-    public static String GetEnctyptPassword(String pass,String Date){
+    public static String GetEnctyptPassword(String pass){
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.update(pass.getBytes());

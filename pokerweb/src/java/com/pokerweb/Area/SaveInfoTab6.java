@@ -86,7 +86,7 @@ public class SaveInfoTab6 extends HttpServlet {
             rsUser.first();
             String CurrentPassword = rsUser.getString("password");
             String ReceptCurrentPassword = jsonObject.getString("CurrentPassword");
-            String ReceptCurrentPasswordEn = CryptoManager.GetEnctyptPassword(ReceptCurrentPassword, "");
+            String ReceptCurrentPasswordEn = CryptoManager.GetEnctyptPassword(ReceptCurrentPassword);
             JSONObject js = new JSONObject();
             
             if(ValidationField.ValidConfPassword(CurrentPassword,ReceptCurrentPasswordEn)){

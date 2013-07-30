@@ -49,8 +49,15 @@ function init() {
         ConfirmRegist(ConfirmReg);
     if(PrivatToken != 'null')
         ConfirmEdit(PrivatToken);
-  //   document.getElementById("modalWait").className='modal';
+ 
 }
+
+setInterval(function() {
+    var url = "IsOnline";
+    req = new XMLHttpRequest();
+    req.open("POST", url, true);
+    req.send();  
+}, 15000);
 
 function RegistClickButton() {
      document.getElementById("modalWait").className='modal';
