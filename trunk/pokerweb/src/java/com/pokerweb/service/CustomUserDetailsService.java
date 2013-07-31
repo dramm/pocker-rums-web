@@ -1,12 +1,12 @@
 package com.pokerweb.service;
 
+import com.pokerweb.DB.DBManager;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import com.pokerweb.dao.UserDAO;
-import com.pokerweb.domain.DbUser;
+import java.sql.ResultSet;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,23 +22,24 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	protected static Logger logger = Logger.getLogger("service");
 
-	private UserDAO userDAO = new UserDAO();
-
         @Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException, DataAccessException {
             
 		UserDetails user = null;
 		try {
-                    DbUser dbUser = userDAO.searchDatabase(username);
+                    ResultSet rs = DBManager.GetInstance().GetUserAccessFromLogin(username);
+                    //if(rs==null)
+                    //    return null;
+                    
                     user =  new User(
-                            dbUser.getUsername(),
-                            dbUser.getPassword().toLowerCase(),
+                            username,
+                            rs.getString("password"),
                             true,
                             true,
                             true,
                             true,
-                            getAuthorities(dbUser.getAccess()) );
+                            getAuthorities(rs.getInt("role_id")) );
                      
 		} catch (Exception e) {
 			logger.error("Error in retrieving user");

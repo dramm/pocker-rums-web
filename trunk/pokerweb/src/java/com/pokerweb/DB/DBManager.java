@@ -4,6 +4,7 @@
  */
 package com.pokerweb.DB;
 
+import com.pokerweb.Area.FieldOutMoney;
 import com.pokerweb.Config.ConfigManager;
 import com.pokerweb.Config.FieldJdbc;
 import com.pokerweb.crypto.CryptoManager;
@@ -15,6 +16,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,6 +62,43 @@ public class DBManager{
         } catch (Exception e) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
         return false;
+        }
+    }
+    
+    public List<FieldOutMoney> GetRequestOutMoneyNoAccepted(int PageNum){
+        try {
+            String query="SELECT login,sum,data_request,balance FROM request_out_money as t1,users as t2 where t1.id_user=t2.id LIMIT 10 OFFSET ? ";
+            List<FieldOutMoney> LFOM = new ArrayList<FieldOutMoney>();
+            FieldOutMoney FOM;
+            stmt = connection.prepareStatement(query);
+            stmt.setInt(1, PageNum);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                FOM=new FieldOutMoney();
+                FOM.Date = rs.getString("data_request");
+                FOM.Login = rs.getString("login");
+                FOM.Sum = rs.getFloat("sum");
+                FOM.Balance = rs.getFloat("balance");
+                LFOM.add(FOM);
+            }
+            return LFOM;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public ResultSet GetUserAccessFromLogin(String Login){
+        try {
+            String query="select password,role_id from users,user_roles where login=? and activated=true and user_id=id";
+            stmt = connection.prepareStatement(query);
+            stmt.setString(1, Login);
+            ResultSet rs = stmt.executeQuery();
+            rs.first();
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
     
@@ -377,8 +418,8 @@ public class DBManager{
                 + "balance,"
                 + "email,"
                 + "tel,"
-                + "password"
-                + " from users where login=?";
+                + "password,role_id"
+                + " from users,user_roles where login=? and user_id=id";
         try {
             stmt = connection.prepareStatement(query);
             String name = GetCurrentUserLogin();

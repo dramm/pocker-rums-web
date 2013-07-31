@@ -107,6 +107,85 @@ function initPrivateBody() {
     FieldLoadFromDB();
 }
 
+
+$(function() {
+$( "#tabs" ).tabs({
+beforeActivate: function(event, ui) {
+var selected = ui.newTab.index();
+if(selected == 8)
+    GetRequestOutMoney();
+}
+}).addClass( "ui-tabs-vertical ui-helper-clearfix" );
+$( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+
+});
+
+function GetRequestOutMoney() {
+    var values =  {  
+                "PageNum": 0
+            };
+    var url = "ResponseOutMoney";
+    reqPrivate = new XMLHttpRequest();
+    reqPrivate.open("POST", url, true);
+    reqPrivate.onreadystatechange = CallbackResponseOutMoney;
+    reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    reqPrivate.send(JSON.stringify(values));
+}
+
+
+function CallbackResponseOutMoney() {
+    if (reqPrivate.readyState == 4) {
+        if (reqPrivate.status == 200) {
+            if(reqPrivate.responseText != null && reqPrivate.responseText.length>0){
+            var Message = JSON.parse(reqPrivate.responseText);
+                    ShowRequestList(Message);
+            }
+        }
+    }
+}
+
+function ShowRequestList(responseText){
+    var rootDiv = document.createElement("div");
+    var NewDivLogin = document.createElement("div");
+    var NewDivDate = document.createElement("div");
+    var NewDivSum = document.createElement("div");
+    var NewDivBalance = document.createElement("div");
+    var CurrentDiv = document.getElementById("RequestList");
+    NewDivLogin.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    NewDivDate.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    NewDivSum.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    NewDivBalance.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    rootDiv.style.cssText = "text-align: left; border: solid red 1px";
+    CurrentDiv.innerHTML = "";
+    var NewPLogin = document.createElement("p");
+    var NewPDate = document.createElement("p");
+    var NewPSum = document.createElement("p");
+    var NewPBalance = document.createElement("p");
+    NewPLogin.style.cssText = "text-align:center";
+    NewPDate.style.cssText = "text-align:center";
+    NewPSum.style.cssText = "text-align:center";
+    NewPBalance.style.cssText = "text-align:center";
+    NewPLogin.innerHTML = "Login";
+    NewPDate.innerHTML = "Date";
+    NewPSum.innerHTML = "Sum";
+    NewPBalance.innerHTML = "Balance";
+    NewDivLogin.appendChild(NewPLogin);
+    NewDivDate.appendChild(NewPDate);
+    NewDivSum.appendChild(NewPSum);
+    NewDivBalance.appendChild(NewPBalance);
+    for (var i=0; i<responseText.User.length;i++){
+       NewDivLogin.innerHTML+=responseText.User[i].Login+"</br>";
+       NewDivDate.innerHTML+=responseText.User[i].Date+"</br>";
+       NewDivSum.innerHTML+=responseText.User[i].Sum+"</br>";
+       NewDivBalance.innerHTML+=responseText.User[i].Balance+"</br>";
+       rootDiv.appendChild(NewDivLogin);
+       rootDiv.appendChild(NewDivDate);
+       rootDiv.appendChild(NewDivSum);
+       rootDiv.appendChild(NewDivBalance);
+    }
+    CurrentDiv.appendChild(rootDiv);
+}
+
 function RequestOutMoney() {
     var values =  {  
                 "Sum": OutMoneyPrivateEdit.value
@@ -234,6 +313,8 @@ function FieldLoadFromDB() {
     reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     reqPrivate.send();
 }
+
+
 
 function CallbackLoadInfo() {
     if (reqPrivate.readyState == 4) {

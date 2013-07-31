@@ -231,7 +231,10 @@
     </div>
 <%if(IsManager){%>
 <div id="tabs-9">
-    <b>Вывод средств</b>
+    <b>Заявки</b>
+    <div id="RequestList">
+        
+    </div>
     </div>
 <%}%>
 </div>

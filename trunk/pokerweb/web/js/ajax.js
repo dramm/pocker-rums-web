@@ -45,11 +45,13 @@ function init() {
     RegisterButton.disabled=true;
     var ConfirmReg = getURLParameter("confirm-reg");
     var PrivatToken = getURLParameter("privat-token");
+    var Autorization = getURLParameter("autor");
    if(ConfirmReg != 'null')
         ConfirmRegist(ConfirmReg);
     if(PrivatToken != 'null')
         ConfirmEdit(PrivatToken);
- 
+    if(Autorization != 'null')
+        registDialog("Ошибка авторизации");
 }
 
 setInterval(function() {
@@ -269,8 +271,3 @@ formReadReminder.appendChild(newInput);
 $( formReadReminder).dialog({ modal: true,/*title:"Подтвердите регистрацию",*/maxHeight:200,maxWidth:400,minHeight:200,minWidth:400});
  }
 
-
-$(function() {
-$( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
-$( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-});
