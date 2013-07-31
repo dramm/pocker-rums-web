@@ -24,7 +24,7 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
   @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
       try {
-          response.sendRedirect("/index");
+          response.sendRedirect("/");
       } catch (IOException ex) {
           Logger.getLogger(CustomAuthenticationSuccessHandler.class.getName()).log(Level.SEVERE, null, ex);
       }

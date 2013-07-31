@@ -4,7 +4,7 @@
     <jdbc>
         <serverName>localhost</serverName>
         <database>pokerwebdb</database>
-        <port>3307</port>
+        <port>3306</port>
         <username>root</username>
         <password>P0laroid</password>
     </jdbc>

@@ -17,16 +17,17 @@
     <http pattern="/ConfirmRegistration" security="none"/>
     <http pattern="/RegisterUser" security="none"/>
     
-    <http auto-config="true" access-denied-page="/index.htm?accessDeniedError=1">
+    <http auto-config="true" access-denied-page="/">
         <intercept-url pattern="/game" access="ROLE_USER,ROLE_ADMIN,ROLE_MANAGER" />
         <intercept-url pattern="/game.jsp" access="ROLE_USER,ROLE_ADMIN,ROLE_MANAGER" />
         <intercept-url pattern="/PrivateArea.jsp" access="ROLE_USER,ROLE_ADMIN,ROLE_MANAGER" />
          <intercept-url pattern="/PrivateArea" access="ROLE_USER,ROLE_ADMIN,ROLE_MANAGER" />
         <form-login 
-            login-page="/index"
+            login-page="/"
             login-processing-url="/j_spring_security_check"
-            always-use-default-target="true" default-target-url="/index" 
-            authentication-success-handler-ref="loginSuccessHandler"
+            always-use-default-target="true" default-target-url="/" 
+            authentication-success-handler-ref="loginSuccessHandler" 
+            authentication-failure-handler-ref="loginFailureHandler"
                     />
     </http>
     
@@ -43,9 +44,9 @@
     <beans:bean id="customUserDetailsService" class="com.pokerweb.service.CustomUserDetailsService"/>
    
     <beans:bean id="loginSuccessHandler" class="com.pokerweb.dao.CustomAuthenticationSuccessHandler" >
-        <beans:property name="defaultTargetUrl" value="/index"/>
+        <beans:property name="defaultTargetUrl" value="/"/>
     </beans:bean>
     <beans:bean id="loginFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler" >
-        <beans:property name="defaultFailureUrl" value="/login.htm?loginError=1" />
+        <beans:property name="defaultFailureUrl" value="/index?autor=false" />
     </beans:bean>  
 </beans:beans>    
