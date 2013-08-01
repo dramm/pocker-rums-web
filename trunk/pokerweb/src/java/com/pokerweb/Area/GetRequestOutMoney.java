@@ -8,12 +8,8 @@ import com.pokerweb.DB.DBManager;
 import com.pokerweb.registration.UserAllInformation;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.AbstractList;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +18,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,8 +25,8 @@ import org.json.JSONObject;
  *
  * @author vadim
  */
-@WebServlet(name = "ResponseOutMoney", urlPatterns = {"/ResponseOutMoney"})
-public class ResponseOutMoney extends HttpServlet {
+@WebServlet(name = "GetRequestOutMoney", urlPatterns = {"/GetRequestOutMoney"})
+public class GetRequestOutMoney extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -43,9 +38,8 @@ public class ResponseOutMoney extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
      * <code>GET</code> method.
@@ -72,8 +66,7 @@ public class ResponseOutMoney extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-  
-    try{
+        try{
             StringBuilder jb = new StringBuilder();
             String line = null;
             UserAllInformation ubi=new UserAllInformation();
@@ -81,22 +74,32 @@ public class ResponseOutMoney extends HttpServlet {
             DBManager DBM = DBManager.GetInstance();
             while ((line = reader.readLine()) != null)
                 jb.append(line);
+            
             JSONObject jsonObject = new JSONObject(jb.toString());
-            JSONArray jsonArr = new JSONArray(jsonObject.getString("CheckedItems"));
+            int PageNum = jsonObject.getInt("PageNum");
+            int Range = jsonObject.getInt("Range");
             ResultSet rs = DBM.GetCurrentUserAllInfo();
             rs.first();
             int Role = rs.getInt("role_id");
             if(Role <= 1)
                 return;
-            List arr = new ArrayList();
-            for(int i = 0; i < jsonArr.length(); i++)
-                arr.add(jsonArr.getString(i));
-            boolean res = DBM.AcceptOutMoney(arr);
             JSONObject js = new JSONObject();
-            if(res)
-                js.append("Message", "Оплата прошла успешно");
-            else
-                js.append("Message", "Оплата не прошла");
+            List<FieldOutMoney> LFOM = DBM.GetRequestOutMoneyNoAccepted(PageNum,Range);
+            JSONObject UserData;
+            if(LFOM != null)
+                for(FieldOutMoney item : LFOM){
+                    UserData = new JSONObject();
+                    UserData.append("Login", item.Login);
+                    UserData.append("Date", item.Date);
+                    UserData.append("Sum", item.Sum);
+                    UserData.append("Balance", item.Balance);
+                    UserData.append("Id", item.Id);
+                    js.append("User", UserData);
+                }
+            int CountRequest = DBM.GetCountRequestOutMoneyNoAccepted();
+            if(CountRequest != 0)
+            js.append("Count", CountRequest);
+            
             response.setContentType("application/json; charset=utf-8");
             response.setHeader("Cache-Control", "no-cache");
             response.getWriter().write(js.toString());

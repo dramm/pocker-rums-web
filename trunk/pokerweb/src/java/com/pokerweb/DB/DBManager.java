@@ -11,6 +11,7 @@ import com.pokerweb.crypto.CryptoManager;
 import com.pokerweb.mail.SendConfirmRegistMessage;
 import com.pokerweb.mail.SendConfirmSettingMessage;
 import com.pokerweb.registration.UserBasicInformation;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -65,13 +66,58 @@ public class DBManager{
         }
     }
     
-    public List<FieldOutMoney> GetRequestOutMoneyNoAccepted(int PageNum){
+    public int GetCountRequestOutMoneyNoAccepted(){
         try {
-            String query="SELECT login,sum,data_request,balance FROM request_out_money as t1,users as t2 where t1.id_user=t2.id LIMIT 10 OFFSET ? ";
+            String query="SELECT count(id) as count FROM request_out_money where processed=false";
+             stmt = connection.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery();
+                if(!rs.first())
+                    return 0;
+                else
+                    return rs.getInt("count");
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+    }
+    
+    public boolean AcceptOutMoney(List ArrayId){
+        try {
+            int IdManager = GetCurrentUserId();
+            String query = " Update users as t1 ,request_out_money as t4"
+                    + " Set t4.id_manager=?,t4.data_response=now(),t4.processed=true,"
+                    + " t1.balance = t1.balance-(select sum(sum) "
+                    + "from (select * from request_out_money) as t3 "
+                    + "where t3.id=? and t3.id_user=t1.id  and "
+                    + "processed=false and id_manager=0) "
+                    + "where t1.id in (select t3.id_user "
+                    + "from (select * from request_out_money) as t3"
+                    + " where t3.id=? and processed=false and id_manager=0) "
+                    + "and t4.id_user=t1.id and t4.id=?;";
+            for (int i=0;i< ArrayId.size(); i++) {
+                stmt = connection.prepareStatement(query);
+                stmt.setInt(1, IdManager);
+                stmt.setString(2, ArrayId.get(i).toString());
+                stmt.setString(3, ArrayId.get(i).toString());
+                stmt.setString(4, ArrayId.get(i).toString());
+                stmt.executeUpdate();
+            }
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+            
+    }
+    
+    public List<FieldOutMoney> GetRequestOutMoneyNoAccepted(int PageNum,int Range){
+        try {
+            String query="SELECT login,sum,data_request,balance,t1.id as id FROM request_out_money as t1,users as t2 where t1.id_user=t2.id and t1.processed=false LIMIT ? OFFSET ? ";
             List<FieldOutMoney> LFOM = new ArrayList<FieldOutMoney>();
             FieldOutMoney FOM;
             stmt = connection.prepareStatement(query);
-            stmt.setInt(1, PageNum);
+            stmt.setInt(1, Range);
+            stmt.setInt(2, PageNum);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 FOM=new FieldOutMoney();
@@ -79,6 +125,7 @@ public class DBManager{
                 FOM.Login = rs.getString("login");
                 FOM.Sum = rs.getFloat("sum");
                 FOM.Balance = rs.getFloat("balance");
+                FOM.Id = rs.getInt("id");
                 LFOM.add(FOM);
             }
             return LFOM;
