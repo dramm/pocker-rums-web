@@ -250,6 +250,8 @@ function ResponseOutMoney(){
         }
     child = child.nextSibling;
 }
+    if(i == 0)
+        return;
     var url = "ResponseOutMoney";
     reqPrivate = new XMLHttpRequest();
     reqPrivate.open("POST", url, true);
