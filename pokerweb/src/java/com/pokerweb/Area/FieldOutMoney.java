@@ -9,6 +9,7 @@ package com.pokerweb.Area;
  * @author vadim
  */
 public class FieldOutMoney {
+    public int Id;
     public String Login;
     public Float Sum;
     public String Date;
