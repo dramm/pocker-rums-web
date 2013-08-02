@@ -11,8 +11,8 @@ package com.pokerweb.Area;
 public class FieldOutMoney {
     public int Id;
     public String Login;
-    public Float Sum;
+    public double Sum;
     public String Date;
-    public float Balance;
+    public double Balance;
     public boolean Processed;
 }
