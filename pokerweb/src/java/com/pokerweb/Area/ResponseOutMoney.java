@@ -8,11 +8,8 @@ import com.pokerweb.DB.DBManager;
 import com.pokerweb.registration.UserAllInformation;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -79,6 +76,7 @@ public class ResponseOutMoney extends HttpServlet {
             UserAllInformation ubi=new UserAllInformation();
             BufferedReader reader = request.getReader();
             DBManager DBM = DBManager.GetInstance();
+            String userAgent = request.getHeader("User-Agent");
             while ((line = reader.readLine()) != null)
                 jb.append(line);
             JSONObject jsonObject = new JSONObject(jb.toString());
@@ -91,7 +89,7 @@ public class ResponseOutMoney extends HttpServlet {
             List arr = new ArrayList();
             for(int i = 0; i < jsonArr.length(); i++)
                 arr.add(jsonArr.getString(i));
-            boolean res = DBM.AcceptOutMoney(arr);
+            boolean res = DBM.AcceptOutMoney(arr,userAgent);
             JSONObject js = new JSONObject();
             if(res)
                 js.append("Message", "Оплата прошла успешно");

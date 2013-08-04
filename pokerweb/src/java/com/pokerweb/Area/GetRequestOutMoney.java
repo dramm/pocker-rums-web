@@ -90,13 +90,13 @@ public class GetRequestOutMoney extends HttpServlet {
                 for(FieldOutMoney item : LFOM){
                     UserData = new JSONObject();
                     UserData.append("Login", item.Login);
-                    UserData.append("Date", item.Date);
+                    UserData.append("Date", item.Date_request);
                     UserData.append("Sum", item.Sum);
-                    UserData.append("Balance", item.Balance);
+                    UserData.append("Balance", item.Balance_request);
                     UserData.append("Id", item.Id);
                     js.append("User", UserData);
                 }
-            int CountRequest = DBM.GetCountRequestOutMoneyNoAccepted();
+            long CountRequest = DBM.GetCountRequestOutMoneyNoAccepted();
             if(CountRequest != 0)
             js.append("Count", CountRequest);
             

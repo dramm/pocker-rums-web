@@ -8,8 +8,10 @@ import com.pokerweb.DB.DBManager;
 import com.pokerweb.registration.UserAllInformation;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -24,8 +26,8 @@ import org.json.JSONObject;
  *
  * @author vadim
  */
-@WebServlet(name = "RequestOutMoney", urlPatterns = {"/RequestOutMoney"})
-public class RequestOutMoney extends HttpServlet {
+@WebServlet(name = "GetRequestOutMoneyCurrentUser", urlPatterns = {"/GetRequestOutMoneyCurrentUser"})
+public class GetRequestOutMoneyCurrentUser extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -37,7 +39,7 @@ public class RequestOutMoney extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
- 
+  
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -52,6 +54,7 @@ public class RequestOutMoney extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+  
     }
 
     /**
@@ -66,7 +69,7 @@ public class RequestOutMoney extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         try{
+        try{
             StringBuilder jb = new StringBuilder();
             String line = null;
             UserAllInformation ubi=new UserAllInformation();
@@ -76,25 +79,33 @@ public class RequestOutMoney extends HttpServlet {
                 jb.append(line);
             
             JSONObject jsonObject = new JSONObject(jb.toString());
-            float RequestSum = Float.parseFloat(jsonObject.getString("Sum"));
-            
-            ResultSet rsUser = DBM.GetCurrentUserAllInfo();
-            rsUser.first();
-            float Balance = rsUser.getFloat("balance");
+            int PageNum = jsonObject.getInt("PageNum");
+            int Range = jsonObject.getInt("Range");
+            ResultSet rs = DBM.GetCurrentUserAllInfo();
+            rs.first();
+            int Role = rs.getInt("role_id");
+            if(Role <= 1)
+                return;
             JSONObject js = new JSONObject();
-            String userAgent = request.getHeader("User-Agent");
-            if(Balance>RequestSum){
-               boolean res = DBM.SetNewRequestOutMoney(RequestSum,userAgent);
-                               if(res){
-                                   js.append("Message","Заявка на выдачу средств принята");
-                               }else
-                                   js.append("Message","Заявка не принята, свяжитесь с администрацией");
-                             }else
-                                  js.append("Message","Запрашиваемая сумма больше вашего баланса");
+            List<FieldOutMoney> LFOM = DBM.GetRequestOutMoneyNoAccepted(PageNum,Range);
+            JSONObject UserData;
+            if(LFOM != null)
+                for(FieldOutMoney item : LFOM){
+                    UserData = new JSONObject();
+                    UserData.append("Login", item.Login);
+                    UserData.append("Date", item.Date_request);
+                    UserData.append("Sum", item.Sum);
+                    UserData.append("Balance", item.Balance_request);
+                    UserData.append("Id", item.Id);
+                    js.append("User", UserData);
+                }
+            long CountRequest = DBM.GetCountRequestOutMoneyNoAccepted();
+            if(CountRequest != 0)
+            js.append("Count", CountRequest);
             
-                            response.setContentType("application/json; charset=utf-8");
-                            response.setHeader("Cache-Control", "no-cache");
-                            response.getWriter().write(js.toString());
+            response.setContentType("application/json; charset=utf-8");
+            response.setHeader("Cache-Control", "no-cache");
+            response.getWriter().write(js.toString());
                         
         } catch (JSONException ex) {
             Logger.getLogger(ValidateTab1.class.getName()).log(Level.SEVERE, null, ex);

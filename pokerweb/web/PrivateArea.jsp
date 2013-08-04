@@ -12,6 +12,7 @@
 <%SecurityContext context = SecurityContextHolder.getContext();
         String role = "ROLE_MANAGER";
         boolean IsManager = false;
+        boolean IsAdministrator = false;
         if (context == null)
             return;
         Authentication authentication = context.getAuthentication();
@@ -21,7 +22,11 @@
             if (role.equals(auth.getAuthority())){
             IsManager = true;
             break;
-            }            
+            }else
+                if(role.equals(auth.getAuthority())){
+                    IsAdministrator = true;
+                    break;
+                }
         %>
 <!DOCTYPE html>
 <html>
@@ -52,8 +57,12 @@
 <li><a href="#tabs-6">Платежная информация</a></li>
 <li><a href="#tabs-7">Статистика пользователя</a></li>
 <li><a href="#tabs-8">Вывод средств</a></li>
-<%if(IsManager){%>
-<li><a href="#tabs-9">Заявки на выплату</a></li>
+<li><a href="#tabs-10">Ваши заявки на выплату</a></li>
+<%if(IsManager || IsAdministrator){%>
+<li><a href="#tabs-9">Обработка заявок</a></li>
+<%}%>
+<%if(IsAdministrator){%>
+<li><a href="#tabs-11">Управление пользователями</a></li>
 <%}%>
 </ul>
     
@@ -225,11 +234,8 @@
         <div id="OutMoneyPrivateError" class="errorMessage"></div>
             </div></div>
         <input type="button" style="display:block;" id="SaveOutMoney" onclick="RequestOutMoney()" value="Вывести деньги" class="button"/>
-       
-        
-        
     </div>
-<%if(IsManager){%>
+<%if(IsManager || IsAdministrator){%>
 <div id="tabs-9">
     <b>Заявки</b>
     <select id="SelectRange" onchange="SelectRangeChange()">
@@ -244,6 +250,40 @@
        
     <div id="RequestList">
         
+    </div>
+    </div>
+<%}%>
+
+<div id="tabs-10">
+    <b>Заявки</b>
+    <select id="SelectUserRange" onchange="SelectRangeChangeUserRequest()">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="40">40</option>
+        <option value="50">50</option>
+        <option value="60">60</option>
+    </select>
+    <input type="button" style="display:block;" id="CancelRequestOutMoney" onclick="CancelRequestOutMoney()" value="Отменить заявку" class="button"/>
+       
+    <div id="RequestListUser">
+        
+    </div>
+    </div>
+
+<%if(IsAdministrator){%>
+<div id="tabs-11">
+    <b>Управление пользователями</b>
+    <select id="SelectRange" onchange="SelectRangeChange()">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="40">40</option>
+        <option value="50">50</option>
+        <option value="60">60</option>
+    </select>
+    <input type="button" style="display:block;" id="SendResponseOutMoney" onclick="ResponseOutMoney()" value="Сделать менеджера" class="button"/>
+    <div id="RequestList">
     </div>
     </div>
 <%}%>
