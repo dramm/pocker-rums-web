@@ -5,6 +5,29 @@ SET foreign_key_checks = 0;
 SET time_zone = '+03:00';
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
+DROP TABLE IF EXISTS `log_money_transaction`;
+CREATE TABLE `log_money_transaction` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Идентификатор лога',
+  `id_user` int(10) unsigned NOT NULL COMMENT 'Идентификатор пользователя',
+  `sum` decimal(9,2) unsigned NOT NULL COMMENT 'Запрошенная сумма',
+  `current_balance` decimal(9,2) unsigned NOT NULL COMMENT 'Состояние баланса в момент запроса выдачи средств',
+  `date_request` datetime NOT NULL COMMENT 'Время в момент запроса средств',
+  `user_agent` varchar(200) NOT NULL COMMENT 'юзер агент пользователя в момент запроса',
+  `ip_user` int(10) unsigned NOT NULL COMMENT 'ip адрес пользователя в момент запроса',
+  `date_starting_response` datetime NOT NULL DEFAULT '1999-01-01 00:00:00' COMMENT 'Дата начала выполнения выдачи средств пользователю',
+  `id_manager` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Идентификатор менеджера инициализировавшего выдачу средств',
+  `ip_manager` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ip адрес менеджера в момент инициализации выдачи средств',
+  `balance_starting_response` decimal(9,2) unsigned NOT NULL DEFAULT '0.00' COMMENT 'Баланс пользователя в момент инициализации выдачи средств',
+  `date_completed` datetime NOT NULL DEFAULT '1999-01-01 00:00:00' COMMENT 'Дата окончания транзакции',
+  `balance_completed_response` decimal(9,2) unsigned NOT NULL DEFAULT '0.00' COMMENT 'Баланс пользователя после выдачи средств',
+  `manager_agent` varchar(200) NOT NULL DEFAULT '' COMMENT 'юзер агент менеджера инициализировавшего выдачу средств',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Таблица логирования обработки выдачи средств';
+
+INSERT INTO `log_money_transaction` (`id`, `id_user`, `sum`, `current_balance`, `date_request`, `user_agent`, `ip_user`, `date_starting_response`, `id_manager`, `ip_manager`, `balance_starting_response`, `date_completed`, `balance_completed_response`, `manager_agent`) VALUES
+(1,	7,	20.00,	9000000.00,	'2013-08-04 03:16:55',	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0',	2130706433,	'2013-08-04 03:56:16',	7,	2130706433,	8999940.00,	'2013-08-04 03:56:16',	8999920.00,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(2,	7,	2.00,	8999920.00,	'2013-08-04 19:33:46',	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0',	2130706433,	'1999-01-01 00:00:00',	0,	0,	0.00,	'1999-01-01 00:00:00',	0.00,	'');
+
 DROP TABLE IF EXISTS `payment_info`;
 CREATE TABLE `payment_info` (
   `id_user` int(11) unsigned NOT NULL COMMENT 'Идентификатор пользователя',
@@ -58,33 +81,15 @@ CREATE TABLE `request_out_money` (
   `data_request` datetime NOT NULL COMMENT 'Время подачи заявки',
   `balance_request` decimal(9,2) NOT NULL DEFAULT '0.00' COMMENT 'Баланс пользователя во время запроса средств',
   `data_response` datetime NOT NULL DEFAULT '1999-01-01 00:00:00' COMMENT 'Время выдачи средств',
-  `balance_to_response` decimal(9,2) NOT NULL DEFAULT '0.00' COMMENT 'Баланс до произведения выплаты',
-  `balance_post_response` decimal(9,2) NOT NULL DEFAULT '0.00' COMMENT 'Баланс после произведения выплаты',
+  `balance_response` decimal(9,2) NOT NULL DEFAULT '0.00' COMMENT 'Баланс после произведения выплаты',
   `id_manager` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Идентификатор менеджера выдавшего средства',
-  `processed` bit(1) NOT NULL DEFAULT b'0' COMMENT 'Статус выдачи',
+  `status` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Текущий статус оплаты',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Заявки на выплату средств';
 
-INSERT INTO `request_out_money` (`id`, `id_user`, `sum`, `data_request`, `balance_request`, `data_response`, `balance_to_response`, `balance_post_response`, `id_manager`, `processed`) VALUES
-(1,	7,	200.00,	'2013-07-31 17:14:55',	0.00,	'2013-08-01 22:25:07',	11800.00,	11600.00,	7,	CONV('1', 2, 10) + 0),
-(2,	7,	4000.00,	'2013-07-31 17:15:03',	0.00,	'2013-08-01 22:25:26',	0.00,	0.00,	0,	CONV('0', 2, 10) + 0),
-(3,	7,	12.00,	'2013-07-31 17:15:11',	0.00,	'2013-08-01 22:25:26',	0.00,	0.00,	0,	CONV('0', 2, 10) + 0),
-(4,	7,	2222.00,	'2013-07-31 17:15:20',	0.00,	'2013-08-01 22:25:26',	0.00,	0.00,	0,	CONV('0', 2, 10) + 0),
-(5,	7,	2321.00,	'2013-07-31 17:15:38',	0.00,	'2013-08-01 22:25:26',	0.00,	0.00,	0,	CONV('0', 2, 10) + 0),
-(6,	8,	2000.00,	'2013-07-31 17:16:12',	0.00,	'2013-08-01 22:26:12',	6537.00,	4537.00,	7,	CONV('1', 2, 10) + 0),
-(7,	8,	120.00,	'2013-07-31 17:16:19',	0.00,	'2013-08-01 22:26:12',	0.00,	0.00,	0,	CONV('0', 2, 10) + 0),
-(8,	8,	990.00,	'2013-07-31 17:16:27',	0.00,	'2013-08-01 22:26:12',	0.00,	0.00,	0,	CONV('0', 2, 10) + 0),
-(9,	8,	1232.00,	'2013-07-31 17:16:34',	0.00,	'2013-08-01 22:26:12',	0.00,	0.00,	0,	CONV('0', 2, 10) + 0),
-(10,	8,	1121.00,	'2013-07-31 17:16:41',	0.00,	'2013-08-01 22:26:12',	0.00,	0.00,	0,	CONV('0', 2, 10) + 0),
-(11,	8,	9232.00,	'2013-07-31 17:16:50',	0.00,	'2013-08-01 20:13:53',	0.00,	0.00,	0,	CONV('0', 2, 10) + 0),
-(12,	7,	2.00,	'2013-07-31 20:10:40',	0.00,	'2013-08-01 22:25:43',	0.00,	0.00,	0,	CONV('0', 2, 10) + 0),
-(13,	7,	21.00,	'2013-08-01 15:37:32',	0.00,	'2013-08-01 20:13:53',	0.00,	0.00,	0,	CONV('0', 2, 10) + 0),
-(14,	7,	3232.00,	'2013-08-01 15:37:41',	0.00,	'2013-08-01 22:25:43',	0.00,	0.00,	0,	CONV('0', 2, 10) + 0),
-(15,	7,	32.00,	'2013-08-01 15:38:05',	0.00,	'2013-08-01 20:13:53',	0.00,	0.00,	0,	CONV('0', 2, 10) + 0),
-(16,	7,	3324.00,	'2013-08-01 15:38:14',	0.00,	'2013-08-01 20:13:53',	0.00,	0.00,	0,	CONV('0', 2, 10) + 0),
-(17,	7,	111.00,	'2013-08-01 15:38:19',	0.00,	'2013-08-01 20:13:53',	0.00,	0.00,	0,	CONV('0', 2, 10) + 0),
-(18,	7,	1.00,	'2013-08-02 21:22:32',	11600.00,	'1999-01-01 00:00:00',	11600.00,	11599.00,	7,	CONV('1', 2, 10) + 0),
-(19,	7,	0.10,	'2013-08-02 21:22:59',	11599.00,	'1999-01-01 00:00:00',	11599.00,	11598.90,	7,	CONV('1', 2, 10) + 0);
+INSERT INTO `request_out_money` (`id`, `id_user`, `sum`, `data_request`, `balance_request`, `data_response`, `balance_response`, `id_manager`, `status`) VALUES
+(1,	7,	20.00,	'2013-08-04 03:16:55',	9000000.00,	'2013-08-04 03:56:16',	8999920.00,	7,	2),
+(2,	7,	2.00,	'2013-08-04 19:33:46',	8999920.00,	'1999-01-01 00:00:00',	0.00,	0,	0);
 
 DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles` (
@@ -98,6 +103,19 @@ INSERT INTO `roles` (`id`, `role_name`, `comment`) VALUES
 (1,	'admin',	'Администраторы'),
 (2,	'manager',	'Менеджеры'),
 (3,	'user',	'Пользователи');
+
+DROP TABLE IF EXISTS `status_processing`;
+CREATE TABLE `status_processing` (
+  `id` int(10) unsigned NOT NULL COMMENT 'Идентификатор статуса обработки',
+  `title` varchar(200) NOT NULL COMMENT 'Название статуса обработки',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Статусы обработки транзакций';
+
+INSERT INTO `status_processing` (`id`, `title`) VALUES
+(0,	'not running'),
+(1,	'running'),
+(2,	'completed'),
+(3,	'canceled');
 
 DROP TABLE IF EXISTS `stat_logins`;
 CREATE TABLE `stat_logins` (
@@ -209,7 +227,32 @@ INSERT INTO `stat_logins` (`id`, `user_id`, `login_time`, `logout`, `ip`, `user_
 (96,	7,	'2013-08-01 22:30:02',	'2013-08-01 22:51:41',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
 (97,	7,	'2013-08-02 21:14:57',	'2013-08-02 21:19:03',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
 (98,	7,	'2013-08-02 21:19:41',	'2013-08-02 21:21:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
-(99,	7,	'2013-08-02 21:21:50',	'2013-08-02 21:34:45',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0');
+(99,	7,	'2013-08-02 21:21:50',	'2013-08-02 21:36:22',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(100,	7,	'2013-08-02 22:46:21',	'2013-08-03 12:57:59',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(101,	7,	'2013-08-04 03:05:27',	'2013-08-04 03:07:01',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(102,	7,	'2013-08-04 03:10:48',	'2013-08-04 03:12:51',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(103,	7,	'2013-08-04 03:13:13',	'2013-08-04 03:15:45',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(104,	7,	'2013-08-04 03:16:40',	'2013-08-04 03:17:58',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(105,	7,	'2013-08-04 03:18:25',	'2013-08-04 03:19:12',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(106,	7,	'2013-08-04 03:19:55',	'2013-08-04 03:22:58',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(107,	7,	'2013-08-04 03:23:27',	'2013-08-04 03:32:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(108,	7,	'2013-08-04 03:33:03',	'2013-08-04 03:34:17',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(109,	7,	'2013-08-04 03:34:48',	'2013-08-04 03:35:50',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(110,	7,	'2013-08-04 03:36:34',	'2013-08-04 03:41:40',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(111,	7,	'2013-08-04 03:42:21',	'2013-08-04 03:44:55',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(112,	7,	'2013-08-04 03:45:18',	'2013-08-04 03:46:50',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(113,	7,	'2013-08-04 03:49:10',	'2013-08-04 03:53:51',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(114,	7,	'2013-08-04 03:54:41',	'2013-08-04 03:55:29',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(115,	7,	'2013-08-04 03:56:09',	'2013-08-04 04:10:51',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(116,	7,	'2013-08-04 04:13:59',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(117,	7,	'2013-08-04 04:14:48',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(118,	7,	'2013-08-04 04:21:06',	'2013-08-04 04:21:07',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(119,	7,	'2013-08-04 19:33:32',	'2013-08-04 19:37:06',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(120,	7,	'2013-08-04 19:37:33',	'2013-08-04 19:38:50',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(121,	7,	'2013-08-04 19:41:28',	'2013-08-04 19:44:30',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(122,	7,	'2013-08-04 19:45:03',	'2013-08-04 19:46:51',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(123,	7,	'2013-08-04 19:47:25',	'2013-08-04 22:14:58',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0'),
+(124,	7,	'2013-08-04 23:39:15',	'2013-08-04 23:39:34',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0');
 
 DROP TABLE IF EXISTS `token_user`;
 CREATE TABLE `token_user` (
@@ -277,8 +320,8 @@ CREATE TABLE `users` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Личные данные пользователей';
 
 INSERT INTO `users` (`id`, `login`, `password`, `email`, `surname`, `name`, `second_name`, `country`, `tel`, `register_date`, `last_login`, `balance`, `banned`, `banned_date`, `banned_comment`, `banned_admin_id`, `activated`) VALUES
-(7,	'root',	'4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',	'dizinor@gmail.com',	'fds',	'ef',	'',	'',	'12',	'2013-07-29 16:19:19',	'2013-08-02 21:21:50',	9000000.00,	CONV('0', 2, 10) + 0,	'1999-01-01 00:00:00',	'',	0,	CONV('1', 2, 10) + 0),
-(8,	'admin',	'8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918',	'dizinor@gmail.com',	'dsa',	'ew',	'',	'',	'4321',	'2013-07-30 20:38:36',	'2013-07-31 20:56:44',	4537.00,	CONV('0', 2, 10) + 0,	'1999-01-01 00:00:00',	'',	0,	CONV('1', 2, 10) + 0);
+(7,	'root',	'4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2',	'dizinor@gmail.com',	'fds',	'ef',	'',	'',	'12',	'2013-07-29 16:19:19',	'2013-08-04 23:39:15',	8999920.00,	CONV('0', 2, 10) + 0,	'1999-01-01 00:00:00',	'',	0,	CONV('1', 2, 10) + 0),
+(1,	'admin',	'8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918',	'dizinor@gmail.com',	'dsa',	'ew',	'',	'',	'4321',	'2013-07-30 20:38:36',	'2013-07-31 20:56:44',	4537.00,	CONV('0', 2, 10) + 0,	'1999-01-01 00:00:00',	'',	0,	CONV('1', 2, 10) + 0);
 
 DROP TABLE IF EXISTS `user_roles`;
 CREATE TABLE `user_roles` (
@@ -294,6 +337,6 @@ INSERT INTO `user_roles` (`role_id`, `user_id`) VALUES
 (3,	5),
 (3,	6),
 (2,	7),
-(3,	8);
+(1,	1);
 
--- 2013-08-02 21:34:48
+-- 2013-08-04 23:39:58

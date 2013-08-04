@@ -23,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 /**
  *
  * @author vadim
@@ -34,7 +35,7 @@ public class DBManager{
     private DBManager(){
         try {
             FieldJdbc FieldJ; 
-            FieldJ=new  ConfigManager().GetPropJdbc();
+            FieldJ = new ConfigManager().GetPropJdbc();
             
             String driverName = "com.mysql.jdbc.Driver";
             Class.forName(driverName);
@@ -62,17 +63,19 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
         return false;
         }
+       
     }
     
-    public int GetCountRequestOutMoneyNoAccepted(){
+    
+    public long GetCountRequestOutMoneyNoAccepted(){
         try {
-            String query="SELECT count(id) as count FROM request_out_money where processed=false";
+            String query="SELECT count(id) as count FROM request_out_money where status=0";
              stmt = connection.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
                 if(!rs.first())
                     return 0;
                 else
-                    return rs.getInt("count");
+                    return rs.getLong("count");
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
@@ -81,27 +84,52 @@ public class DBManager{
     
    
     
-    public boolean AcceptOutMoney(List ArrayId){
+    public boolean AcceptOutMoney(List ArrayId,String UserAgent){
         try {
-            int IdManager = GetCurrentUserId();
-            String query = "Update request_out_money as t1,users as t2 "
-                    + "Set t1.balance_to_response=t2.balance,"
-                    + "id_manager=? where t1.id=? and t2.id=t1.id_user";
+            long IdManager = GetCurrentUserId();
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            WebAuthenticationDetails details =  (WebAuthenticationDetails) auth.getDetails();
+            String remoteAddress = details.getRemoteAddress();
+            String query = "Update request_out_money "
+                    + "Set status=1,"
+                    + "id_manager=?"
+                    + " where id=?";
             
+            String queryLog="Update log_money_transaction as t1,"
+                    + "request_out_money as t2,"
+                    + "users as t3 "
+                    + "SET t1.date_starting_response=now(),"
+                    + "t1.id_manager=?,"
+                    + "t1.ip_manager=INET_ATON(?),"
+                    + "t1.balance_starting_response=t3.balance,"
+                    + "t1.manager_agent=?"
+                    + " where t1.id_user=t3.id and"
+                    + " t2.id_user=t3.id and"
+                    + " t2.id=? and"
+                    + " t2.status=1;";
             for (int i=0;i< ArrayId.size(); i++) {
-            stmt = connection.prepareStatement(query);
-            stmt.setInt(1, IdManager);
-            stmt.setString(2,ArrayId.get(i).toString());
-            stmt.executeUpdate();
+                stmt = connection.prepareStatement(query);
+                stmt.setLong(1, IdManager);
+                stmt.setString(2,ArrayId.get(i).toString());
+                stmt.executeUpdate();
+            
+                stmt = connection.prepareStatement(queryLog);
+                stmt.setLong(1, IdManager);
+                stmt.setString(2, remoteAddress);
+                stmt.setString(3,UserAgent);
+                stmt.setString(4,ArrayId.get(i).toString());
+                stmt.executeUpdate();
+                
             }
+            
             query = " Update users as t1,request_out_money as t4 "
                     + "Set t1.balance = t1.balance-(select sum(sum) "
                     + "from (select * from request_out_money) as t3 "
                     + "where t3.id=? and t3.id_user=t1.id  and "
-                    + "processed=false) "
+                    + "status=1) "
                     + "where t1.id in (select t3.id_user "
                     + "from (select * from request_out_money) as t3"
-                    + " where t3.id=? and processed=false) "
+                    + " where t3.id=? and status=1) "
                     + "and t4.id_user=t1.id and t4.id=?;";
             for (int i=0;i< ArrayId.size(); i++) {
                 stmt = connection.prepareStatement(query);
@@ -110,15 +138,28 @@ public class DBManager{
                 stmt.setString(3, ArrayId.get(i).toString());
                 stmt.executeUpdate();
             }
+            
             query = "Update request_out_money as t1,users as t2 "
-                    + "Set t1.balance_post_response=t2.balance,"
-                    + "t1.id_manager=?,t1.processed=true,data_response=now() "
+                    + "Set t1.balance_response=t2.balance,t1.status=2,"
+                    + "data_response=now() "
                     + "where t1.id=? and t2.id=t1.id_user";
             
+            queryLog="Update log_money_transaction as t1,"
+                    + " request_out_money as t2,"
+                    + "users as t3 "
+                    + "SET t1.date_completed=now(),"
+                    + "t1.balance_completed_response=t3.balance "
+                    + "where t1.id_user=t3.id and"
+                    + " t2.id_user=t3.id and"
+                    + " t2.id=? and"
+                    + " t2.status=2";
             for (int i=0;i< ArrayId.size(); i++) {
                 stmt = connection.prepareStatement(query);
-                stmt.setInt(1, IdManager);
-                stmt.setString(2,ArrayId.get(i).toString());
+                stmt.setString(1,ArrayId.get(i).toString());
+                stmt.executeUpdate();
+                
+                stmt = connection.prepareStatement(queryLog);
+                stmt.setString(1,ArrayId.get(i).toString());
                 stmt.executeUpdate();
             }
             return true;
@@ -126,12 +167,69 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-            
+    }
+    
+    public List<FieldOutMoney> GetRequestOutMoneyNoAcceptedCurrUser(int PageNum,int Range){
+        try {
+            Long IdUser=GetCurrentUserId();
+            String query="SELECT '' as id_manager,"
+                    + "sum,"
+                    + "balance_request,"
+                    + "'' as balance_responce,"
+                    + "data_request,"
+                    + "data_response,"
+                    + "processed"
+                    + " from request_out_money as t4 "
+                    + "where t4.id_user=? and t4.processed=false "
+                    + "union all"
+                    + " SELECT login,"
+                    + "sum,"
+                    + "balance_request,"
+                    + "balance_response,"
+                    + "data_request,"
+                    + "data_response,"
+                    + "processed "
+                    + "from users as t1,"
+                    + "request_out_money as t2 "
+                    + "where t2.id_user=? and t1.id=t2.id_manager and t2.processed=true"
+                    + "LIMIT ? OFFSET ? ";
+            List<FieldOutMoney> LFOM = new ArrayList<FieldOutMoney>();
+            FieldOutMoney FOM;
+            stmt = connection.prepareStatement(query);
+            stmt.setLong(1, IdUser);
+            stmt.setLong(2, IdUser);
+            stmt.setInt(3, Range);
+            stmt.setInt(4, PageNum);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                FOM = new FieldOutMoney();
+                FOM.Id_Manager = rs.getLong("id_manager");
+                FOM.Sum = rs.getDouble("sum");
+                FOM.Balance_request = rs.getDouble("balance_request");
+                FOM.Balance_post_response = rs.getDouble("balance_responce");
+                FOM.Date_request = rs.getString("data_request");
+                FOM.Date_response = rs.getString("data_response");
+                FOM.Processed = rs.getBoolean("status");
+                LFOM.add(FOM);
+            }
+            return LFOM;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
     
     public List<FieldOutMoney> GetRequestOutMoneyNoAccepted(int PageNum,int Range){
         try {
-            String query="SELECT login,sum,data_request,balance,t1.id as id FROM request_out_money as t1,users as t2 where t1.id_user=t2.id and t1.processed=false LIMIT ? OFFSET ? ";
+            String query="SELECT login,"
+                    + "sum,"
+                    + "data_request,"
+                    + "balance,"
+                    + "t1.id as id "
+                    + "FROM request_out_money as t1,"
+                    + "users as t2 "
+                    + "where t1.id_user=t2.id and t1.status=0"
+                    + " LIMIT ? OFFSET ? ";
             List<FieldOutMoney> LFOM = new ArrayList<FieldOutMoney>();
             FieldOutMoney FOM;
             stmt = connection.prepareStatement(query);
@@ -140,11 +238,11 @@ public class DBManager{
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 FOM=new FieldOutMoney();
-                FOM.Date = rs.getString("data_request");
+                FOM.Date_request = rs.getString("data_request");
                 FOM.Login = rs.getString("login");
                 FOM.Sum = rs.getFloat("sum");
-                FOM.Balance = rs.getDouble("balance");
-                FOM.Id = rs.getInt("id");
+                FOM.Balance_request = rs.getDouble("balance");
+                FOM.Id = rs.getLong("id");
                 LFOM.add(FOM);
             }
             return LFOM;
@@ -156,7 +254,11 @@ public class DBManager{
     
     public ResultSet GetUserAccessFromLogin(String Login){
         try {
-            String query="select password,role_id from users,user_roles where login=? and activated=true and user_id=id";
+            String query="select password,"
+                    + "role_id "
+                    + "from users,"
+                    + "user_roles "
+                    + "where login=? and activated=true and user_id=id";
             stmt = connection.prepareStatement(query);
             stmt.setString(1, Login);
             ResultSet rs = stmt.executeQuery();
@@ -176,7 +278,12 @@ public class DBManager{
     
     
     public ResultSet GetUserAutorizationInfo(){
-            String query="select login,password,role_id from users,user_roles where activated=true and user_id=id";
+            String query="select login,"
+                    + "password,"
+                    + "role_id "
+                    + "from users,"
+                    + "user_roles "
+                    + "where activated=true and user_id=id";
         try {
             stmt = connection.prepareStatement(query);
             ResultSet rs = stmt.executeQuery(query);
@@ -197,7 +304,7 @@ public class DBManager{
     
     public boolean SetNewDateOnline(){
         try {
-            int idUser = GetCurrentUserId();
+            long idUser = GetCurrentUserId();
             if(idUser==0)
                 return false;
             String query="Update stat_logins Set logout=now() "
@@ -208,7 +315,7 @@ public class DBManager{
                 + "from (select * from stat_logins) as t2 "
                 + "where t2.user_id=t1.user_id))";
             stmt = connection.prepareStatement(query);
-                   stmt.setInt(1, idUser);
+                   stmt.setLong(1, idUser);
                    stmt.executeUpdate();
                    return true;
         } catch (SQLException ex) {
@@ -217,7 +324,7 @@ public class DBManager{
         }
     }
     
-    public int GetCurrentUserId(){
+    public long GetCurrentUserId(){
         try {
             String query="select id from users where login=?";
             stmt = connection.prepareStatement(query);
@@ -228,7 +335,7 @@ public class DBManager{
             ResultSet rs = stmt.executeQuery();
             if(!rs.first())
                 return 0;
-            return rs.getInt(1);
+            return rs.getLong(1);
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
@@ -281,12 +388,12 @@ public class DBManager{
     
     public ResultSet GetPaymentInfoCurrentUser(){
         try {
-            int idUser = GetCurrentUserId();
+            long idUser = GetCurrentUserId();
             if(idUser == 0)
                 return null;
             String query="select passport,pay_sys,score from payment_info where id_user=?";
             stmt = connection.prepareStatement(query);
-            stmt.setInt(1, idUser);
+            stmt.setLong(1, idUser);
             ResultSet rs = stmt.executeQuery();
             return rs;
         } catch (SQLException ex) {
@@ -295,11 +402,13 @@ public class DBManager{
         return null;
     }
       
-    public boolean ExistsNewSettingsCurUser(int Id){
+    public boolean ExistsNewSettingsCurUser(long Id){
         try {
-            String query="select * from request_edit_user_info where id_user=? and processed=true";
+            String query="select * "
+                    + "from request_edit_user_info "
+                    + "where id_user=? and processed=true";
                     stmt = connection.prepareStatement(query);
-                    stmt.setInt(1, Id);
+                    stmt.setLong(1, Id);
                    ResultSet rs = stmt.executeQuery();
                       if(!rs.first())
                           return false;
@@ -319,7 +428,7 @@ public class DBManager{
             if(Score.equals(OldScore))
                 return true;
             String Login = GetCurrentUserLogin();
-            int Id = GetIdFromLogin(Login);
+            long Id = GetIdFromLogin(Login);
             String query="INSERT INTO request_edit_user_info("
                      + "id_user,"
                      + "type,"
@@ -328,7 +437,7 @@ public class DBManager{
                      + ") "
                      + "values(?,6,now(),?)";
               stmt = connection.prepareStatement(query);
-              stmt.setInt(1, Id);
+              stmt.setLong(1, Id);
               stmt.setString(2, Score);
               stmt.executeUpdate();
               return true;
@@ -346,7 +455,7 @@ public class DBManager{
             if(PaySys == OldPaySys)
                 return true;
             String Login = GetCurrentUserLogin();
-            int Id = GetIdFromLogin(Login);
+            long Id = GetIdFromLogin(Login);
             String query="INSERT INTO request_edit_user_info("
                      + "id_user,"
                      + "type,"
@@ -355,7 +464,7 @@ public class DBManager{
                      + ") "
                      + "values(?,5,now(),?)";
               stmt = connection.prepareStatement(query);
-              stmt.setInt(1, Id);
+              stmt.setLong(1, Id);
               stmt.setInt(2, PaySys);
               stmt.executeUpdate();
               return true;
@@ -373,7 +482,7 @@ public class DBManager{
             if(Passport.equals(OldPassport))
                 return true;
             String Login = GetCurrentUserLogin();
-            int Id = GetIdFromLogin(Login);
+            long Id = GetIdFromLogin(Login);
              String query="INSERT INTO request_edit_user_info("
                      + "id_user,"
                      + "type,"
@@ -382,7 +491,7 @@ public class DBManager{
                      + ") "
                      + "values(?,4,now(),?)";
               stmt = connection.prepareStatement(query);
-              stmt.setInt(1, Id);
+              stmt.setLong(1, Id);
               stmt.setString(2, Passport);
               stmt.executeUpdate();
               return true;
@@ -400,7 +509,7 @@ public class DBManager{
             if(Phone.equals(OldPhone))
                 return true;
             String Login = GetCurrentUserLogin();
-            int Id = GetIdFromLogin(Login);
+            long Id = GetIdFromLogin(Login);
               
            String query="INSERT INTO request_edit_user_info("
                      + "id_user,"
@@ -410,7 +519,7 @@ public class DBManager{
                      + ") "
                      + "values(?,3,now(),?)";
               stmt = connection.prepareStatement(query);
-              stmt.setInt(1, Id);
+              stmt.setLong(1, Id);
               stmt.setString(2, Phone);
               stmt.executeUpdate();
               return true;
@@ -429,7 +538,7 @@ public class DBManager{
             if(EncodePass.equals(OldPass))
                 return true;
             String Login = GetCurrentUserLogin();
-            int Id = GetIdFromLogin(Login);
+            Long Id = GetIdFromLogin(Login);
             String query="INSERT INTO request_edit_user_info("
                      + "id_user,"
                      + "type,"
@@ -438,7 +547,7 @@ public class DBManager{
                      + ") "
                      + "values(?,2,now(),?)";
               stmt = connection.prepareStatement(query);
-              stmt.setInt(1, Id);
+              stmt.setLong(1, Id);
               stmt.setString(2, Password);
               stmt.executeUpdate();
               return true;
@@ -456,7 +565,7 @@ public class DBManager{
             if(Mail.equals(OldMail))
                 return true;
             String Login = GetCurrentUserLogin();
-            int Id = GetIdFromLogin(Login);
+            long Id = GetIdFromLogin(Login);
              String query="INSERT INTO request_edit_user_info("
                      + "id_user,"
                      + "type,"
@@ -465,7 +574,7 @@ public class DBManager{
                      + ") "
                      + "values(?,1,now(),?)";
               stmt = connection.prepareStatement(query);
-              stmt.setInt(1, Id);
+              stmt.setLong(1, Id);
               stmt.setString(2, Mail);
               stmt.executeUpdate();
               return true;
@@ -608,7 +717,7 @@ public class DBManager{
           ResultSet rs = stmt.executeQuery();
           if(!rs.first())
               return false;
-         int Id = rs.getInt(1);
+         long Id = rs.getLong("id_user");
          String Login = GetLoginFromId(Id);
          query="select t1.type,t1.data"
                   + " from request_edit_user_info as t1"
@@ -617,7 +726,7 @@ public class DBManager{
                   + "from request_edit_user_info as t2 "
                   + "where t2.type=t1.type and t2.id_user=t1.id_user and t2.processed=false)";
           stmt = connection.prepareStatement(query);
-          stmt.setInt(1, Id);
+          stmt.setLong(1, Id);
           rs = stmt.executeQuery();
           while(rs.next()){
               switch(rs.getInt("type")){
@@ -649,11 +758,11 @@ public class DBManager{
                   + " from (select * from request_edit_user_info) as t2"
                   + " where t2.type=t1.type and t2.id_user=t1.id_user and t2.processed=false));";
           stmt = connection.prepareStatement(query);
-          stmt.setInt(1, Id);
+          stmt.setLong(1, Id);
           stmt.executeUpdate();
           query="Update token_user Set date_response=now(),confirmed=true WHERE id_user=?";
           stmt = connection.prepareStatement(query);
-          stmt.setInt(1, Id);
+          stmt.setLong(1, Id);
           stmt.executeUpdate();
           return true;
         } catch (SQLException ex) {
@@ -662,12 +771,12 @@ public class DBManager{
         }
     }
     
-    public boolean SetUserNewScore(String Score,int Id){
+    public boolean SetUserNewScore(String Score,long Id){
         try {
             String query="UPDATE payment_info SET score=? WHERE id_user=?";
                     stmt = connection.prepareStatement(query);
                     stmt.setString(1, Score);
-                    stmt.setInt(2, Id);
+                    stmt.setLong(2, Id);
                     stmt.executeUpdate();
                     return true;
         } catch (SQLException ex) {
@@ -676,12 +785,12 @@ public class DBManager{
         }
     }
     
-     public boolean SetUserNewPaySys(String PaySys,int Id){
+     public boolean SetUserNewPaySys(String PaySys,long Id){
         try {
             String query="UPDATE payment_info SET pay_sys=? WHERE id_user=?";
                     stmt = connection.prepareStatement(query);
                     stmt.setString(1, PaySys);
-                    stmt.setInt(2, Id);
+                    stmt.setLong(2, Id);
                     stmt.executeUpdate();
                     return true;
         } catch (SQLException ex) {
@@ -690,12 +799,12 @@ public class DBManager{
         }
     }
     
-     public boolean SetUserNewPassport(String Passport,int Id){
+     public boolean SetUserNewPassport(String Passport,long Id){
         try {
             String query="UPDATE payment_info SET passport=? WHERE id_user=?";
                     stmt = connection.prepareStatement(query);
                     stmt.setString(1, Passport);
-                    stmt.setInt(2, Id);
+                    stmt.setLong(2, Id);
                     stmt.executeUpdate();
                     return true;
         } catch (SQLException ex) {
@@ -766,11 +875,11 @@ public class DBManager{
         }
     }
     
-    private String GetLoginFromId(int Id){
+    private String GetLoginFromId(long Id){
         try {
-            String query="(select login from users where id=?)";
+            String query="select login from users where id=?";
                  stmt = connection.prepareStatement(query);
-                 stmt.setInt(1, Id);
+                 stmt.setLong(1, Id);
                  ResultSet rs = stmt.executeQuery();
                  if(!rs.first())
                      return null;
@@ -782,7 +891,7 @@ public class DBManager{
         }
     }
     
-    private int GetIdFromLogin(String login){
+    private long GetIdFromLogin(String login){
         try {
             String query="(select id from users where login=?)";
                  stmt = connection.prepareStatement(query);
@@ -791,21 +900,22 @@ public class DBManager{
                  if(!rs.first())
                      return -1;
                  else
-                     return rs.getInt(1);
+                     return rs.getLong("id");
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         }
     }
     
-    public boolean SetNewRequestOutMoney(double Sum){
+    
+    public boolean SetNewRequestOutMoney(double Sum,String UserAgent){
         try {
             ResultSet rs = GetCurrentUserAllInfo();
             double BalanceUser = 0;
             if(rs.first())
                    BalanceUser = rs.getDouble("balance");
             String Login = GetCurrentUserLogin();
-            int Id = GetIdFromLogin(Login);
+            long Id = GetIdFromLogin(Login);
             String query="insert into request_out_money("
                     + "id_user,"
                     + "sum,"
@@ -813,9 +923,27 @@ public class DBManager{
                     + "balance_request) "
                     + "values(?,?,now(),?) ";
             stmt = connection.prepareStatement(query);
-            stmt.setInt(1, Id);
+            stmt.setLong(1, Id);
             stmt.setDouble(2, Sum);
             stmt.setDouble(3, BalanceUser);
+            stmt.executeUpdate();
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            WebAuthenticationDetails details =  (WebAuthenticationDetails) auth.getDetails();
+            String remoteAddress = details.getRemoteAddress();  
+            query="insert into log_money_transaction("
+                    + "id_user,"
+                    + "sum,"
+                    + "current_balance,"
+                    + "date_request,"
+                    + "user_agent,"
+                    + "ip_user) "
+                    + "values(?,?,?,now(),?,INET_ATON(?)) ";
+            stmt = connection.prepareStatement(query);
+            stmt.setLong(1, Id);
+            stmt.setDouble(2, Sum);
+            stmt.setDouble(3, BalanceUser);
+            stmt.setString(4, UserAgent);
+            stmt.setString(5, remoteAddress);
             stmt.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -845,12 +973,12 @@ public class DBManager{
                     + "'1999-01-01 00:00:00',"
                     + "INET_ATON(?),"
                     + "?)";
-            int UserId=GetIdFromLogin(login);
+            long UserId = GetIdFromLogin(login);
             if(UserId<0)
                 return false;
             
             stmt = connection.prepareStatement(query);
-            stmt.setInt(1, UserId);
+            stmt.setLong(1, UserId);
             stmt.setString(2, ipAddress);
             stmt.setString(3, userAgent);
             stmt.executeUpdate();

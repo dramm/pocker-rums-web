@@ -113,6 +113,8 @@ $( "#tabs" ).tabs({
 beforeActivate: function(event, ui) {
 var selected = ui.newTab.index();
 if(selected == 8)
+    GetRequestUserOutMoney(0,10);
+if(selected == 9)
     GetRequestOutMoney(0,10);
 }
 }).addClass( "ui-tabs-vertical ui-helper-clearfix" );
@@ -132,6 +134,110 @@ function SelectRangeChange() {
     var Range = GetRange();
     GetRequestOutMoney(0,Range)
 }
+
+function GetRequestUserOutMoney(PageNum,Range) {
+    var values =  {  
+                "PageNum": PageNum,
+                "Range": Range
+            };
+    var url = "GetRequestOutMoneyCurrentUser";
+    reqPrivate = new XMLHttpRequest();
+    reqPrivate.open("POST", url, true);
+    reqPrivate.onreadystatechange = CallbackResponseUserOutMoney;
+    reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    reqPrivate.send(JSON.stringify(values));
+}
+
+function CallbackResponseUserOutMoney() {
+    if (reqPrivate.readyState == 4) {
+        if (reqPrivate.status == 200) {
+            if(reqPrivate.responseText != null && reqPrivate.responseText.length > 0){
+            var Message = JSON.parse(reqPrivate.responseText);
+                    ShowRequestUserList(Message);
+            }
+        }
+    }
+}
+
+function ShowRequestUserList(responseText){
+    var rootDiv = document.createElement("div");
+    var NewDivLogin = document.createElement("div");
+    var NewDivDate = document.createElement("div");
+    var NewDivSum = document.createElement("div");
+    var NewDivBalance = document.createElement("div");
+   // var NewDivChecked = document.createElement("div");
+    var CurrentDiv = document.getElementById("RequestListUser");
+    NewDivLogin.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    NewDivDate.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    NewDivSum.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    NewDivBalance.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+   // NewDivChecked.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    rootDiv.style.cssText = "text-align: left; border: solid red 1px";
+    CurrentDiv.innerHTML = "";
+    var NewPLogin = document.createElement("p");
+    var NewPDate = document.createElement("p");
+    var NewPSum = document.createElement("p");
+    var NewPBalance = document.createElement("p");
+    var NewPChecked = document.createElement("p");
+    NewPLogin.style.cssText = "text-align:center";
+    NewPDate.style.cssText = "text-align:center";
+    NewPSum.style.cssText = "text-align:center";
+    NewPBalance.style.cssText = "text-align:center";
+    NewPChecked.style.cssText = "text-align:center";
+    NewPLogin.innerHTML = "Login";
+    NewPDate.innerHTML = "Date";
+    NewPSum.innerHTML = "Sum";
+    NewPBalance.innerHTML = "Balance";
+    NewPChecked.innerHTML = "Выбор";
+    NewDivLogin.appendChild(NewPLogin);
+    NewDivDate.appendChild(NewPDate);
+    NewDivSum.appendChild(NewPSum);
+    NewDivBalance.appendChild(NewPBalance);
+   // NewDivChecked.appendChild(NewPChecked);
+   // NewDivChecked.setAttribute("id","CheckedDiv")
+    var NewInputChecked;
+    for (var i=0; i<responseText.User.length;i++){
+       NewDivLogin.innerHTML+=responseText.User[i].Login+"</br>";
+       NewDivDate.innerHTML+=responseText.User[i].Date+"</br>";
+       NewDivSum.innerHTML+=responseText.User[i].Sum+"</br>";
+       NewDivBalance.innerHTML+=responseText.User[i].Balance+"</br>";
+       NewInputChecked = document.createElement("input");
+       NewInputChecked.type = "checkbox";
+       NewInputChecked.style.cssText = "float:left";
+       NewInputChecked.setAttribute('id',responseText.User[i].Id);
+    //   NewDivChecked.appendChild(NewInputChecked);
+    //   NewDivChecked.innerHTML += "<br/>";
+    }
+    
+       rootDiv.appendChild(NewDivLogin);
+       rootDiv.appendChild(NewDivDate);
+       rootDiv.appendChild(NewDivSum);
+       rootDiv.appendChild(NewDivBalance);
+      // rootDiv.appendChild(NewDivChecked);
+    
+    var NewDivLink = document.createElement("div");
+    NewDivLink.style.cssText = "display:block;";
+    var NewLink;
+   // var NewSelect = document.createElement("select");
+   // NewSelect.id = "SelectRange";
+    var SelectRange = document.getElementById("SelectUserRange");
+    var SelectedIndex = SelectRange.options.selectedIndex;
+    var ArraySelect = SelectRange.options;
+    var Range = ArraySelect[SelectedIndex].text;
+    var CountUserRequest = responseText.Count;
+    var LinkId = 0;
+    for(var i=0; i < (CountUserRequest < Range ? 1 : (CountUserRequest / Range) < 20 ? (CountUserRequest / Range) : 20); i++){
+        NewLink = document.createElement("a");
+        NewLink.setAttribute('href',"#");
+        NewLink.style.cssText = "margin-left: 3px";
+        NewLink.setAttribute('onclick',"GetRequestUserOutMoney(" + i * Range + "," + Range + ");return false;");
+        NewLink.innerHTML = i + 1;
+        NewDivLink.appendChild(NewLink);
+    }
+    CurrentDiv.appendChild(NewDivLink);
+    CurrentDiv.appendChild(rootDiv);
+}
+
 
 function GetRequestOutMoney(PageNum,Range) {
     var values =  {  
