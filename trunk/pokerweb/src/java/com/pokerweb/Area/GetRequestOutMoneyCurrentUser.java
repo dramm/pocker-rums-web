@@ -81,22 +81,26 @@ public class GetRequestOutMoneyCurrentUser extends HttpServlet {
             JSONObject jsonObject = new JSONObject(jb.toString());
             int PageNum = jsonObject.getInt("PageNum");
             int Range = jsonObject.getInt("Range");
-            ResultSet rs = DBM.GetCurrentUserAllInfo();
-            rs.first();
-            int Role = rs.getInt("role_id");
-            if(Role <= 1)
+            UserAllInformation UserInfo = null;
+            UserInfo = DBM.GetCurrentUserAllInfo();
+            int Role = UserInfo.Role;
+            if(UserInfo == null )
                 return;
             JSONObject js = new JSONObject();
-            List<FieldOutMoney> LFOM = DBM.GetRequestOutMoneyNoAccepted(PageNum,Range);
+            List<FieldOutMoney> LFOM = DBM.GetRequestOutMoneyNoAcceptedCurrUser(PageNum,Range);
             JSONObject UserData;
             if(LFOM != null)
                 for(FieldOutMoney item : LFOM){
                     UserData = new JSONObject();
-                    UserData.append("Login", item.Login);
-                    UserData.append("Date", item.Date_request);
+                    UserData.append("DateRequest", item.Date_request);
                     UserData.append("Sum", item.Sum);
-                    UserData.append("Balance", item.Balance_request);
-                    UserData.append("Id", item.Id);
+                    UserData.append("BalanceRequest", item.Balance_request);
+                    UserData.append("Manager", item.Id_Manager);
+                    UserData.append("BalanceResponse", item.Balance_post_response);
+                    UserData.append("DateResponse", item.Date_response);
+                    UserData.append("Status", item.Status);
+                    
+                    
                     js.append("User", UserData);
                 }
             long CountRequest = DBM.GetCountRequestOutMoneyNoAccepted();
@@ -109,8 +113,6 @@ public class GetRequestOutMoneyCurrentUser extends HttpServlet {
                         
         } catch (JSONException ex) {
             Logger.getLogger(ValidateTab1.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(SaveInfoTab3.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

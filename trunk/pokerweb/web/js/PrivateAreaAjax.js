@@ -111,11 +111,13 @@ function initPrivateBody() {
 $(function() {
 $( "#tabs" ).tabs({
 beforeActivate: function(event, ui) {
-var selected = ui.newTab.index();
-if(selected == 8)
+var selected = ui.newTab.find("a").attr("href");
+if(selected == '#tabs-10')
     GetRequestUserOutMoney(0,10);
-if(selected == 9)
+if(selected == '#tabs-9')
     GetRequestOutMoney(0,10);
+if(selected == '#tabs-11')
+    GetUsers(0,10);
 }
 }).addClass( "ui-tabs-vertical ui-helper-clearfix" );
 $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
@@ -130,9 +132,154 @@ var SelectRange = document.getElementById("SelectRange");
     return Range;
 }
 
+function GetRangeUserRequest(){
+var SelectRange = document.getElementById("SelectUserRange");
+    var SelectedIndex = SelectRange.options.selectedIndex;
+    var ArraySelect = SelectRange.options;
+    var Range = ArraySelect[SelectedIndex].text;
+    return Range;
+}
+
+function GetRangeUsersList(){
+var SelectRange = document.getElementById("SelectRangeUsersList");
+    var SelectedIndex = SelectRange.options.selectedIndex;
+    var ArraySelect = SelectRange.options;
+    var Range = ArraySelect[SelectedIndex].text;
+    return Range;
+}
+
 function SelectRangeChange() {
     var Range = GetRange();
     GetRequestOutMoney(0,Range)
+}
+
+function SelectRangeChangeUserRequest() {
+    var Range = GetRangeUserRequest();
+    GetRequestUserOutMoney(0,Range)
+}
+
+function SelectRangeChangeUsersList() {
+    var Range = GetRangeUsersList();
+    GetUsers(0,Range)
+}
+
+function GetUsers(PageNum,Range) {
+    var values =  {  
+                "PageNum": PageNum,
+                "Range": Range
+            };
+    var url = "GetAllUser";
+    reqPrivate = new XMLHttpRequest();
+    reqPrivate.open("POST", url, true);
+    reqPrivate.onreadystatechange = CallbackShowUsersList;
+    reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    reqPrivate.send(JSON.stringify(values));
+}
+
+function CallbackShowUsersList() {
+    if (reqPrivate.readyState == 4) {
+        if (reqPrivate.status == 200) {
+            if(reqPrivate.responseText != null && reqPrivate.responseText.length > 0){
+            var Message = JSON.parse(reqPrivate.responseText);
+                    ShowUsersList(Message);
+            }
+        }
+    }
+}
+
+function ShowUsersList(responseText){
+    var rootDiv = document.createElement("div");
+    var NewDivLogin = document.createElement("div");
+    var NewDivDate = document.createElement("div");
+    var NewDivRole = document.createElement("div");
+    var NewDivBalance = document.createElement("div");
+    var NewDivActiveted = document.createElement("div");
+    var NewDivBaned = document.createElement("div");
+    var NewDivSelectActions = document.createElement("div");
+    var CurrentDiv = document.getElementById("ListUsers");
+    NewDivLogin.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    NewDivDate.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    NewDivRole.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    NewDivBalance.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    NewDivActiveted.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    NewDivBaned.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    NewDivSelectActions.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    rootDiv.style.cssText = "text-align: left; border: solid red 1px";
+    CurrentDiv.innerHTML = "";
+    var NewPLogin = document.createElement("p");
+    var NewPDate = document.createElement("p");
+    var NewPRole = document.createElement("p");
+    var NewPBalance = document.createElement("p");
+    var NewPBaned = document.createElement("p");
+    var NewPActivated = document.createElement("p");
+    var NewPChecked = document.createElement("p");
+    NewPLogin.style.cssText = "text-align:center";
+    NewPDate.style.cssText = "text-align:center";
+    NewPRole.style.cssText = "text-align:center";
+    NewPBalance.style.cssText = "text-align:center";
+    NewPChecked.style.cssText = "text-align:center";
+    NewPLogin.innerHTML = "Логин";
+    NewPDate.innerHTML = "Дата регистрации";
+    NewPRole.innerHTML = "Роль";
+    NewPBalance.innerHTML = "Баланс";
+    NewPActivated.innerHTML = "Активирован";
+    NewPBaned.innerHTML = "Блокирован";
+    NewPChecked.innerHTML = "Выбор";
+    NewDivLogin.appendChild(NewPLogin);
+    NewDivDate.appendChild(NewPDate);
+    NewDivRole.appendChild(NewPRole);
+    NewDivBalance.appendChild(NewPBalance);
+    NewDivActiveted.appendChild(NewPActivated);
+    NewDivBaned.appendChild(NewPBaned);
+    NewDivSelectActions.appendChild(NewPChecked);
+    NewDivSelectActions.setAttribute("id","SelectedAction")
+    var NewSelectedAction;
+    for (var i=0; i<responseText.User.length;i++){
+       NewDivLogin.innerHTML+=responseText.User[i].Login+"</br>";
+       NewDivDate.innerHTML+=responseText.User[i].DateRegist+"</br>";
+       NewDivRole.innerHTML+=responseText.User[i].Role+"</br>";
+       NewDivBalance.innerHTML+=responseText.User[i].Balance+"</br>";
+       NewDivBaned.innerHTML+=responseText.User[i].Banned+"</br>";
+       NewDivActiveted.innerHTML+=responseText.User[i].Activated+"</br>";
+       NewSelectedAction = document.createElement("select");
+       NewSelectedAction.style.cssText = "float:left;font-size:11px";
+       NewSelectedAction.setAttribute('id',responseText.User[i].Id);
+       NewSelectedAction.options[NewSelectedAction.options.length] = new Option("Выбор", 0);
+       NewSelectedAction.options[NewSelectedAction.options.length] = new Option("Менеджер", 1);
+       NewSelectedAction.options[NewSelectedAction.options.length] = new Option("Пользователь", 2);
+       NewSelectedAction.options[NewSelectedAction.options.length] = new Option("Блокировать", 3);
+       NewSelectedAction.options[NewSelectedAction.options.length] = new Option("Разблокировать", 4);
+       NewDivSelectActions.appendChild(NewSelectedAction);
+       NewDivSelectActions.innerHTML += "<br/>";
+    }
+       rootDiv.appendChild(NewDivLogin);
+       rootDiv.appendChild(NewDivDate);
+       rootDiv.appendChild(NewDivRole);
+       rootDiv.appendChild(NewDivBalance);
+       rootDiv.appendChild(NewDivBaned);
+       rootDiv.appendChild(NewDivActiveted);
+       rootDiv.appendChild(NewDivSelectActions);
+    
+    var NewDivLink = document.createElement("div");
+    NewDivLink.style.cssText = "display:block;";
+    var NewLink;
+   // var NewSelect = document.createElement("select");
+   // NewSelect.id = "SelectRange";
+    var SelectRange = document.getElementById("SelectRangeUsersList");
+    var SelectedIndex = SelectRange.options.selectedIndex;
+    var ArraySelect = SelectRange.options;
+    var Range = ArraySelect[SelectedIndex].text;
+    var CountUserRequest = responseText.Count;
+    for(var i=0; i < (CountUserRequest < Range ? 1 : (CountUserRequest / Range) < 20 ? (CountUserRequest / Range) : 20); i++){
+        NewLink = document.createElement("a");
+        NewLink.setAttribute('href',"#");
+        NewLink.style.cssText = "margin-left: 3px";
+        NewLink.setAttribute('onclick',"GetRequestOutMoney(" + i * Range + "," + Range + ");return false;");
+        NewLink.innerHTML = i + 1;
+        NewDivLink.appendChild(NewLink);
+    }
+    CurrentDiv.appendChild(NewDivLink);
+    CurrentDiv.appendChild(rootDiv);
 }
 
 function GetRequestUserOutMoney(PageNum,Range) {
@@ -161,81 +308,87 @@ function CallbackResponseUserOutMoney() {
 
 function ShowRequestUserList(responseText){
     var rootDiv = document.createElement("div");
-    var NewDivLogin = document.createElement("div");
-    var NewDivDate = document.createElement("div");
+    var NewDivDateRequest = document.createElement("div");
+    var NewDivDateResponse = document.createElement("div");
+    var NewDivBalanceRequest = document.createElement("div");
+    var NewDivBalanceResponse = document.createElement("div");
+    var NewDivManager = document.createElement("div");
+    var NewDivStatus = document.createElement("div");
     var NewDivSum = document.createElement("div");
-    var NewDivBalance = document.createElement("div");
-   // var NewDivChecked = document.createElement("div");
     var CurrentDiv = document.getElementById("RequestListUser");
-    NewDivLogin.style.cssText = "float:left;font-size:18px; border: solid red 1px";
-    NewDivDate.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    NewDivDateRequest.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    NewDivDateResponse.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    NewDivBalanceRequest.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    NewDivBalanceResponse.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    NewDivManager.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    NewDivStatus.style.cssText = "float:left;font-size:18px; border: solid red 1px";
     NewDivSum.style.cssText = "float:left;font-size:18px; border: solid red 1px";
-    NewDivBalance.style.cssText = "float:left;font-size:18px; border: solid red 1px";
-   // NewDivChecked.style.cssText = "float:left;font-size:18px; border: solid red 1px";
     rootDiv.style.cssText = "text-align: left; border: solid red 1px";
     CurrentDiv.innerHTML = "";
-    var NewPLogin = document.createElement("p");
-    var NewPDate = document.createElement("p");
+    var NewPDateRequest = document.createElement("p");
+    var NewPDateResponse = document.createElement("p");
+    var NewPBalanceRequest = document.createElement("p");
+    var NewPBalanceResponse = document.createElement("p");
+    var NewPManager = document.createElement("p");
+    var NewPStatus = document.createElement("p");
     var NewPSum = document.createElement("p");
-    var NewPBalance = document.createElement("p");
-    var NewPChecked = document.createElement("p");
-    NewPLogin.style.cssText = "text-align:center";
-    NewPDate.style.cssText = "text-align:center";
+    NewPDateRequest.style.cssText = "text-align:center";
+    NewPDateResponse.style.cssText = "text-align:center";
+    NewPBalanceRequest.style.cssText = "text-align:center";
+    NewPBalanceResponse.style.cssText = "text-align:center";
+    NewPManager.style.cssText = "text-align:center";
+    NewPStatus.style.cssText = "text-align:center";
     NewPSum.style.cssText = "text-align:center";
-    NewPBalance.style.cssText = "text-align:center";
-    NewPChecked.style.cssText = "text-align:center";
-    NewPLogin.innerHTML = "Login";
-    NewPDate.innerHTML = "Date";
+    NewPDateRequest.innerHTML = "Дата запроса";
+    NewPDateResponse.innerHTML = "Дата обработки";
+    NewPBalanceRequest.innerHTML = "Баланс до";
+    NewPBalanceResponse.innerHTML = "Баланс после";
+    NewPManager.innerHTML = "Обработал";
+    NewPStatus.innerHTML = "Статус";
     NewPSum.innerHTML = "Sum";
-    NewPBalance.innerHTML = "Balance";
-    NewPChecked.innerHTML = "Выбор";
-    NewDivLogin.appendChild(NewPLogin);
-    NewDivDate.appendChild(NewPDate);
+    NewDivDateRequest.appendChild(NewPDateRequest);
+    NewDivDateResponse.appendChild(NewPDateResponse);
+    NewDivBalanceRequest.appendChild(NewPBalanceRequest);
+    NewDivBalanceResponse.appendChild(NewPBalanceResponse);
+    NewDivManager.appendChild(NewPManager);
+    NewDivStatus.appendChild(NewPStatus);
     NewDivSum.appendChild(NewPSum);
-    NewDivBalance.appendChild(NewPBalance);
-   // NewDivChecked.appendChild(NewPChecked);
-   // NewDivChecked.setAttribute("id","CheckedDiv")
-    var NewInputChecked;
+    
+   
     for (var i=0; i<responseText.User.length;i++){
-       NewDivLogin.innerHTML+=responseText.User[i].Login+"</br>";
-       NewDivDate.innerHTML+=responseText.User[i].Date+"</br>";
+       NewDivDateRequest.innerHTML+=responseText.User[i].DateRequest+"</br>";
+       NewDivDateResponse.innerHTML+=responseText.User[i].DateResponse+"</br>";
+       NewDivBalanceRequest.innerHTML+=responseText.User[i].BalanceRequest+"</br>";
+       NewDivBalanceResponse.innerHTML+=responseText.User[i].BalanceResponse+"</br>";
        NewDivSum.innerHTML+=responseText.User[i].Sum+"</br>";
-       NewDivBalance.innerHTML+=responseText.User[i].Balance+"</br>";
-       NewInputChecked = document.createElement("input");
-       NewInputChecked.type = "checkbox";
-       NewInputChecked.style.cssText = "float:left";
-       NewInputChecked.setAttribute('id',responseText.User[i].Id);
-    //   NewDivChecked.appendChild(NewInputChecked);
-    //   NewDivChecked.innerHTML += "<br/>";
+       NewDivManager.innerHTML+=responseText.User[i].Manager+"</br>";
+       NewDivStatus.innerHTML+=responseText.User[i].Status+"</br>";
     }
-    
-       rootDiv.appendChild(NewDivLogin);
-       rootDiv.appendChild(NewDivDate);
+       rootDiv.appendChild(NewDivDateRequest);
+       rootDiv.appendChild(NewDivDateResponse);
+       rootDiv.appendChild(NewDivBalanceRequest);
+       rootDiv.appendChild(NewDivBalanceResponse);
+       rootDiv.appendChild(NewDivManager);
        rootDiv.appendChild(NewDivSum);
-       rootDiv.appendChild(NewDivBalance);
-      // rootDiv.appendChild(NewDivChecked);
-    
-    var NewDivLink = document.createElement("div");
-    NewDivLink.style.cssText = "display:block;";
-    var NewLink;
-   // var NewSelect = document.createElement("select");
-   // NewSelect.id = "SelectRange";
-    var SelectRange = document.getElementById("SelectUserRange");
-    var SelectedIndex = SelectRange.options.selectedIndex;
-    var ArraySelect = SelectRange.options;
-    var Range = ArraySelect[SelectedIndex].text;
-    var CountUserRequest = responseText.Count;
-    var LinkId = 0;
-    for(var i=0; i < (CountUserRequest < Range ? 1 : (CountUserRequest / Range) < 20 ? (CountUserRequest / Range) : 20); i++){
-        NewLink = document.createElement("a");
-        NewLink.setAttribute('href',"#");
-        NewLink.style.cssText = "margin-left: 3px";
-        NewLink.setAttribute('onclick',"GetRequestUserOutMoney(" + i * Range + "," + Range + ");return false;");
-        NewLink.innerHTML = i + 1;
-        NewDivLink.appendChild(NewLink);
-    }
-    CurrentDiv.appendChild(NewDivLink);
-    CurrentDiv.appendChild(rootDiv);
+       rootDiv.appendChild(NewDivStatus);
+       var NewDivLink = document.createElement("div");
+       NewDivLink.style.cssText = "display:block;";
+       var NewLink;
+       var SelectRange = document.getElementById("SelectUserRange");
+       var SelectedIndex = SelectRange.options.selectedIndex;
+       var ArraySelect = SelectRange.options;
+       var Range = ArraySelect[SelectedIndex].text;
+       var CountUserRequest = responseText.Count;
+        for(var i=0; i < (CountUserRequest < Range ? 1 : (CountUserRequest / Range) < 20 ? (CountUserRequest / Range) : 20); i++){
+            NewLink = document.createElement("a");
+            NewLink.setAttribute('href',"#");
+            NewLink.style.cssText = "margin-left: 3px";
+            NewLink.setAttribute('onclick',"GetRequestUserOutMoney(" + i * Range + "," + Range + ");return false;");
+            NewLink.innerHTML = i + 1;
+            NewDivLink.appendChild(NewLink);
+        }
+        CurrentDiv.appendChild(NewDivLink);
+        CurrentDiv.appendChild(rootDiv);
 }
 
 
@@ -323,8 +476,6 @@ function ShowRequestList(responseText){
     var NewDivLink = document.createElement("div");
     NewDivLink.style.cssText = "display:block;";
     var NewLink;
-   // var NewSelect = document.createElement("select");
-   // NewSelect.id = "SelectRange";
     var SelectRange = document.getElementById("SelectRange");
     var SelectedIndex = SelectRange.options.selectedIndex;
     var ArraySelect = SelectRange.options;
@@ -342,6 +493,33 @@ function ShowRequestList(responseText){
     CurrentDiv.appendChild(NewDivLink);
     CurrentDiv.appendChild(rootDiv);
 }
+
+function ExecuteSelectedActions(){
+    var parent = document.getElementById("SelectedAction");
+    var child = parent.firstChild;
+    var json = { };
+    var i = 0;
+    while(child) {
+        if(child.id > 0){
+            var SelectAction = document.getElementById(child.id);
+            var SelectActionIndex = SelectAction.options.selectedIndex;
+            if(SelectActionIndex != 0){ 
+                     json[child.id]=SelectActionIndex;
+                     i++;
+                 }
+             }
+    child = child.nextSibling;
+}
+    if(i == 0)
+        return;
+    var url = "ExecuteActionOverUsers";
+    reqPrivate = new XMLHttpRequest();
+    reqPrivate.open("POST", url, true);
+    reqPrivate.onreadystatechange = CallbackSave;
+    reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    reqPrivate.send(JSON.stringify(json));
+}
+
 
 function ResponseOutMoney(){
     var parent = document.getElementById("CheckedDiv");
