@@ -95,7 +95,7 @@ public class GetRequestOutMoneyCurrentUser extends HttpServlet {
                     UserData.append("DateRequest", item.Date_request);
                     UserData.append("Sum", item.Sum);
                     UserData.append("BalanceRequest", item.Balance_request);
-                    UserData.append("Manager", item.Id_Manager);
+                    UserData.append("Manager", item.Login_Manager);
                     UserData.append("BalanceResponse", item.Balance_post_response);
                     UserData.append("DateResponse", item.Date_response);
                     UserData.append("Status", item.Status);

@@ -296,7 +296,7 @@ public class DBManager{
                     + "from request_out_money as t4"
                     + " where t4.id_user=? and t4.status=0 "
                     + "union all "
-                    + "SELECT t2.id_manager,"
+                    + "SELECT t1.login,"
                     + "sum,"
                     + "balance_request,"
                     + "balance_response,"
@@ -318,7 +318,7 @@ public class DBManager{
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 FOM = new FieldOutMoney();
-                FOM.Id_Manager = rs.getLong("id_manager");
+                FOM.Login_Manager = rs.getString("id_manager");
                 FOM.Sum = rs.getDouble("sum");
                 FOM.Balance_request = rs.getDouble("balance_request");
                 FOM.Balance_post_response = rs.getDouble("balance_responce");
