@@ -82,9 +82,8 @@ public class SaveInfoTab6 extends HttpServlet {
             int NewPaySys = jsonObject.getInt("NewPaySys");
             String NewPayNum = jsonObject.getString("NewPayNum");
            
-            ResultSet rsUser = DBM.GetCurrentUserAllInfo();
-            rsUser.first();
-            String CurrentPassword = rsUser.getString("password");
+            UserAllInformation UserInfo = DBM.GetCurrentUserAllInfo();
+            String CurrentPassword = UserInfo.Passport;
             String ReceptCurrentPassword = jsonObject.getString("CurrentPassword");
             String ReceptCurrentPasswordEn = CryptoManager.GetEnctyptPassword(ReceptCurrentPassword);
             JSONObject js = new JSONObject();
@@ -107,9 +106,7 @@ public class SaveInfoTab6 extends HttpServlet {
                         
         } catch (JSONException ex) {
             Logger.getLogger(ValidateTab1.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(SaveInfoTab3.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     
     }
 

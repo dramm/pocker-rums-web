@@ -10,6 +10,7 @@ import com.pokerweb.Config.FieldJdbc;
 import com.pokerweb.crypto.CryptoManager;
 import com.pokerweb.mail.SendConfirmRegistMessage;
 import com.pokerweb.mail.SendConfirmSettingMessage;
+import com.pokerweb.registration.UserAllInformation;
 import com.pokerweb.registration.UserBasicInformation;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,6 +19,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +31,6 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
  * @author vadim
  */
 public class DBManager{
-    private PreparedStatement stmt;
     private Connection connection;
     private static DBManager instanse = new DBManager();
     private DBManager(){
@@ -54,6 +55,7 @@ public class DBManager{
     }
     
     private boolean ConnectIsStable(){
+        PreparedStatement stmt = null;
         try {
             String query="select 1";
             stmt = connection.prepareStatement(query);
@@ -63,11 +65,43 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
         return false;
         }
-       
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+    }
+    
+     public long GetCountAllUser(){
+        PreparedStatement stmt = null;
+        try {
+            String query="SELECT count(id) as count FROM users";
+             stmt = connection.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery();
+                if(!rs.first())
+                    return 0;
+                else
+                    return rs.getLong("count");
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
     
     public long GetCountRequestOutMoneyNoAccepted(){
+        PreparedStatement stmt = null;
         try {
             String query="SELECT count(id) as count FROM request_out_money where status=0";
              stmt = connection.prepareStatement(query);
@@ -80,11 +114,80 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
         }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
-   
+   public boolean ExecuteActionOverUser(Map<Long,Integer> lst){
+       PreparedStatement stmt = null;
+       Long UserId = GetCurrentUserId();
+       String BlockUserQuery = "Update users "
+               + "Set banned=true,"
+               + "banned_date=now(),"
+               + "banned_admin_id = ? "
+               + "where id = ?";
+       String UnBlockUserQuery = "Update users "
+               + "Set banned = false,"
+               + "banned_date='1999-01-01 00:00:00',"
+               + "banned_admin_id = 0 "
+               + "where id = ?";
+       String ConvertToUserQuery = "Update user_roles "
+               + "Set role_id = 3 "
+               + "where user_id = ?";
+       String ConvertToManagerQuery = "Update user_roles "
+               + "Set role_id = 2 "
+               + "where user_id = ?";
+       try {
+       for (Map.Entry<Long, Integer> entry : lst.entrySet()){
+           if(entry.getValue() == 1){  
+                   stmt = connection.prepareStatement(ConvertToManagerQuery);
+                   stmt.setLong(1, entry.getKey());
+                   stmt.executeUpdate();
+                   stmt.close();
+           }
+           if(entry.getValue() == 2){  
+                   stmt = connection.prepareStatement(ConvertToUserQuery);
+                   stmt.setLong(1, entry.getKey());
+                   stmt.executeUpdate();
+                   stmt.close();
+           }
+           if(entry.getValue() == 3){  
+                   stmt = connection.prepareStatement(BlockUserQuery);
+                   stmt.setLong(1, UserId);
+                   stmt.setLong(2, entry.getKey());
+                   stmt.executeUpdate();
+                   stmt.close();
+           }
+           if(entry.getValue() == 4){  
+                   stmt = connection.prepareStatement(UnBlockUserQuery);
+                   stmt.setLong(1, entry.getKey());
+                   stmt.executeUpdate();
+                   stmt.close();
+           }
+       }
+       return true;
+       } catch (SQLException ex) {
+           Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+           return false;
+       }
+       finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+   }
     
     public boolean AcceptOutMoney(List ArrayId,String UserAgent){
+        PreparedStatement stmt = null;
         try {
             long IdManager = GetCurrentUserId();
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -112,14 +215,14 @@ public class DBManager{
                 stmt.setLong(1, IdManager);
                 stmt.setString(2,ArrayId.get(i).toString());
                 stmt.executeUpdate();
-            
+                stmt.close();
                 stmt = connection.prepareStatement(queryLog);
                 stmt.setLong(1, IdManager);
                 stmt.setString(2, remoteAddress);
                 stmt.setString(3,UserAgent);
                 stmt.setString(4,ArrayId.get(i).toString());
                 stmt.executeUpdate();
-                
+                stmt.close();
             }
             
             query = " Update users as t1,request_out_money as t4 "
@@ -137,6 +240,7 @@ public class DBManager{
                 stmt.setString(2, ArrayId.get(i).toString());
                 stmt.setString(3, ArrayId.get(i).toString());
                 stmt.executeUpdate();
+                stmt.close();
             }
             
             query = "Update request_out_money as t1,users as t2 "
@@ -157,19 +261,29 @@ public class DBManager{
                 stmt = connection.prepareStatement(query);
                 stmt.setString(1,ArrayId.get(i).toString());
                 stmt.executeUpdate();
-                
+                stmt.close();
                 stmt = connection.prepareStatement(queryLog);
                 stmt.setString(1,ArrayId.get(i).toString());
                 stmt.executeUpdate();
+                stmt.close();
             }
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
     public List<FieldOutMoney> GetRequestOutMoneyNoAcceptedCurrUser(int PageNum,int Range){
+        PreparedStatement stmt = null;
         try {
             Long IdUser=GetCurrentUserId();
             String query="SELECT '' as id_manager,"
@@ -178,21 +292,22 @@ public class DBManager{
                     + "'' as balance_responce,"
                     + "data_request,"
                     + "data_response,"
-                    + "processed"
-                    + " from request_out_money as t4 "
-                    + "where t4.id_user=? and t4.processed=false "
-                    + "union all"
-                    + " SELECT login,"
+                    + "status "
+                    + "from request_out_money as t4"
+                    + " where t4.id_user=? and t4.status=0 "
+                    + "union all "
+                    + "SELECT t2.id_manager,"
                     + "sum,"
                     + "balance_request,"
                     + "balance_response,"
                     + "data_request,"
                     + "data_response,"
-                    + "processed "
+                    + "status "
                     + "from users as t1,"
-                    + "request_out_money as t2 "
-                    + "where t2.id_user=? and t1.id=t2.id_manager and t2.processed=true"
-                    + "LIMIT ? OFFSET ? ";
+                    + "request_out_money as t2"
+                    + " where t2.id_user=? and"
+                    + " t1.id=t2.id_manager and t2.status=2"
+                    + " LIMIT ? OFFSET ? ";
             List<FieldOutMoney> LFOM = new ArrayList<FieldOutMoney>();
             FieldOutMoney FOM;
             stmt = connection.prepareStatement(query);
@@ -209,7 +324,7 @@ public class DBManager{
                 FOM.Balance_post_response = rs.getDouble("balance_responce");
                 FOM.Date_request = rs.getString("data_request");
                 FOM.Date_response = rs.getString("data_response");
-                FOM.Processed = rs.getBoolean("status");
+                FOM.Status = rs.getInt("status");
                 LFOM.add(FOM);
             }
             return LFOM;
@@ -217,9 +332,66 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+    }
+    
+    public List<UserAllInformation> GetAllUserInfo(int PageNum,int Range){
+        PreparedStatement stmt = null;
+        try {
+            String query="SELECT t1.id,"
+                    + "t1.login,"
+                    + "t1.register_date,"
+                    + "t3.role_name,"
+                    + "t1.balance,"
+                    + "t1.banned,"
+                    + "t1.activated "
+                    + "from users as t1,"
+                    + "user_roles as t2,"
+                    + "roles as t3 "
+                    + "where t3.id=t2.role_id and"
+                    + " t2.user_id=t1.id "
+                    + "LIMIT ? OFFSET ? ";
+            List<UserAllInformation> UsersInfo = new ArrayList<UserAllInformation>();
+            UserAllInformation UserInfo;
+            stmt = connection.prepareStatement(query);
+            stmt.setInt(1, Range);
+            stmt.setInt(2, PageNum);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                UserInfo = new UserAllInformation();
+                UserInfo.Id= rs.getLong("id");
+                UserInfo.login = rs.getString("login");
+                UserInfo.register_date = rs.getString("register_date");
+                UserInfo.RoleName = rs.getString("role_name");
+                UserInfo.balance = rs.getDouble("balance");
+                UserInfo.banned = rs.getBoolean("banned");
+                UserInfo.Activated = rs.getBoolean("activated");
+                UsersInfo.add(UserInfo);
+            }
+            return UsersInfo;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
     public List<FieldOutMoney> GetRequestOutMoneyNoAccepted(int PageNum,int Range){
+        PreparedStatement stmt = null;
         try {
             String query="SELECT login,"
                     + "sum,"
@@ -250,23 +422,44 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
-    public ResultSet GetUserAccessFromLogin(String Login){
+    public AuthenticationField GetUserAccessFromLogin(String Login){
+        AuthenticationField autF = new AuthenticationField();
+        PreparedStatement stmt = null;
         try {
             String query="select password,"
                     + "role_id "
                     + "from users,"
                     + "user_roles "
-                    + "where login=? and activated=true and user_id=id";
+                    + "where login=? and activated=true and user_id=id and banned=false";
             stmt = connection.prepareStatement(query);
             stmt.setString(1, Login);
             ResultSet rs = stmt.executeQuery();
-            rs.first();
-            return rs;
+            if(rs.first()){
+            autF.Password = rs.getString("password");
+            autF.Role = rs.getInt("role_id");
+            }
+            return autF;
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
         }
     }
     
@@ -274,25 +467,6 @@ public class DBManager{
             if(!instanse.ConnectIsStable())
                instanse.CreateNewInstanse();
         return instanse;
-    }
-    
-    
-    public ResultSet GetUserAutorizationInfo(){
-            String query="select login,"
-                    + "password,"
-                    + "role_id "
-                    + "from users,"
-                    + "user_roles "
-                    + "where activated=true and user_id=id";
-        try {
-            stmt = connection.prepareStatement(query);
-            ResultSet rs = stmt.executeQuery(query);
-            return rs;
-        } catch (SQLException ex) {
-            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    
     }
     
     public String GetCurrentUserLogin(){
@@ -303,6 +477,7 @@ public class DBManager{
     }
     
     public boolean SetNewDateOnline(){
+        PreparedStatement stmt = null;
         try {
             long idUser = GetCurrentUserId();
             if(idUser==0)
@@ -322,9 +497,18 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
     public long GetCurrentUserId(){
+        PreparedStatement stmt = null;
         try {
             String query="select id from users where login=?";
             stmt = connection.prepareStatement(query);
@@ -340,22 +524,43 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
         }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     } 
     
     
-    public ResultSet GetAllPaySys(){
+    public List<String> GetAllPaySys(){
+        PreparedStatement stmt = null;
+        List<String> ListPaySys = new ArrayList<String>();
         try {
             String query="select title from pay_sys";
             stmt = connection.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
-            return rs;
+            while(rs.next())
+                ListPaySys.add(rs.getString("title"));
+            return ListPaySys;
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
     public boolean SendConfirmNewSettingsCurrUser(){
+        PreparedStatement stmt = null;
         try {
             UUID uuid = UUID.randomUUID();
               String Login = GetCurrentUserLogin();
@@ -372,10 +577,8 @@ public class DBManager{
                stmt.setString(1, Login);
                stmt.executeUpdate();
                SendConfirmSettingMessage SendCSM = new SendConfirmSettingMessage();
-               ResultSet rs = GetCurrentUserAllInfo();
-               rs.first();
-               String Mail = rs.getString("email");
-               SendCSM.SetMail(Mail);
+               UserAllInformation UserInfo = GetCurrentUserAllInfo();
+               SendCSM.SetMail(UserInfo.email);
                SendCSM.SetToken(uuid.toString());
                Thread myT = new Thread(SendCSM);
                myT.start();
@@ -384,25 +587,54 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
-    public ResultSet GetPaymentInfoCurrentUser(){
+    public PaymentField GetPaymentInfoCurrentUser(){
+        PaymentField PF = new PaymentField();
+        PreparedStatement stmt = null;
         try {
             long idUser = GetCurrentUserId();
             if(idUser == 0)
                 return null;
-            String query="select passport,pay_sys,score from payment_info where id_user=?";
+            String query="select passport,"
+                    + "pay_sys,"
+                    + "score "
+                    + "from payment_info "
+                    + "where id_user=?";
             stmt = connection.prepareStatement(query);
             stmt.setLong(1, idUser);
             ResultSet rs = stmt.executeQuery();
-            return rs;
+            if(rs.first()){
+                PF.Passport = rs.getString("passport");
+                PF.Pay_sys = rs.getInt("pay_sys");
+                PF.Score = rs.getString("score");
+            }
+            return PF;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        }
+        
     }
       
     public boolean ExistsNewSettingsCurUser(long Id){
+        PreparedStatement stmt = null;
         try {
             String query="select * "
                     + "from request_edit_user_info "
@@ -418,13 +650,21 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
     public boolean UpdateCurrentUserTempInfoScore(String Score){
+        PreparedStatement stmt = null;
         try {
-            ResultSet rs = GetPaymentInfoCurrentUser();
-            rs.first();
-            String OldScore = rs.getString("score");
+            PaymentField PF = GetPaymentInfoCurrentUser();
+            String OldScore = PF.Score;
             if(Score.equals(OldScore))
                 return true;
             String Login = GetCurrentUserLogin();
@@ -445,13 +685,21 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
     public boolean UpdateCurrentUserTempInfoPaySys(int PaySys){
+        PreparedStatement stmt = null;
         try {
-            ResultSet rs = GetPaymentInfoCurrentUser();
-            rs.first();
-            int OldPaySys = rs.getInt("pay_sys");
+            PaymentField PF = GetPaymentInfoCurrentUser();
+            int OldPaySys = PF.Pay_sys;
             if(PaySys == OldPaySys)
                 return true;
             String Login = GetCurrentUserLogin();
@@ -472,13 +720,21 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
     public boolean UpdateCurrentUserTempInfoPassport(String Passport){
+        PreparedStatement stmt = null;
         try {
-            ResultSet rs = GetPaymentInfoCurrentUser();
-            rs.first();
-            String OldPassport = rs.getString("passport");
+            PaymentField PF = GetPaymentInfoCurrentUser();
+            String OldPassport = PF.Passport;
             if(Passport.equals(OldPassport))
                 return true;
             String Login = GetCurrentUserLogin();
@@ -499,14 +755,21 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
     public boolean UpdateCurrentUserTempInfoPhone(String Phone){
+        PreparedStatement stmt = null;
         try {
-            ResultSet rs = GetCurrentUserAllInfo();
-            rs.first();
-            String OldPhone = rs.getString("tel");
-            if(Phone.equals(OldPhone))
+            UserAllInformation UserInfo = GetCurrentUserAllInfo();
+            if(Phone.equals(UserInfo.tel))
                 return true;
             String Login = GetCurrentUserLogin();
             long Id = GetIdFromLogin(Login);
@@ -527,15 +790,22 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
     public boolean UpdateCurrentUserTempInfoPassword(String Password){
+        PreparedStatement stmt = null;
         try {
-            ResultSet rs = GetCurrentUserAllInfo();
-            rs.first();
-            String OldPass = rs.getString("password");
+            UserAllInformation UserInfo = GetCurrentUserAllInfo();
             String EncodePass = CryptoManager.GetEnctyptPassword(Password);
-            if(EncodePass.equals(OldPass))
+            if(EncodePass.equals(UserInfo.password))
                 return true;
             String Login = GetCurrentUserLogin();
             Long Id = GetIdFromLogin(Login);
@@ -555,14 +825,21 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
     public boolean UpdateCurrentUserTempInfoMail(String Mail){
+        PreparedStatement stmt = null;
         try {
-            ResultSet rs = GetCurrentUserAllInfo();
-            rs.first();
-            String OldMail = rs.getString("email");
-            if(Mail.equals(OldMail))
+            UserAllInformation UserInfo = GetCurrentUserAllInfo();
+            if(Mail.equals(UserInfo.email))
                 return true;
             String Login = GetCurrentUserLogin();
             long Id = GetIdFromLogin(Login);
@@ -582,9 +859,19 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
-    public ResultSet GetCurrentUserAllInfo(){
+    public UserAllInformation GetCurrentUserAllInfo(){
+        UserAllInformation UserInfo = new UserAllInformation();
+        PreparedStatement stmt = null;
         String query="select "
                 + "name,"
                 + "surname,"
@@ -602,15 +889,36 @@ public class DBManager{
                 return null;
             stmt.setString(1, name);
             ResultSet rs = stmt.executeQuery();
-            return rs;
+            if(rs.first()){
+                UserInfo.name = rs.getString("name");
+                UserInfo.surname = rs.getString("surname");
+                UserInfo.second_name = rs.getString("second_name");
+                UserInfo.country = rs.getString("country");
+                UserInfo.balance = rs.getDouble("balance");
+                UserInfo.email = rs.getString("email");
+                UserInfo.tel = rs.getString("tel");
+                UserInfo.password = rs.getString("password");
+                UserInfo.Role = rs.getInt("role_id");
+            }
+            return UserInfo;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        }
+        
     
     }
     
     public boolean UserExists(String login){
+        PreparedStatement stmt = null;
      String query="select * from users where login=?";
         try {
             stmt = connection.prepareStatement(query);
@@ -624,9 +932,21 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+          finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
-    public boolean UpdateUserInfoAreaT1(String Name, String Surname, String Second_name, String Country){
+    public boolean UpdateUserInfoAreaT1(String Name,
+            String Surname,
+            String Second_name,
+            String Country){
+        PreparedStatement stmt = null;
         try {
             String query="UPDATE users SET name=?,surname=?,second_name=?,country=? WHERE login=?";
             String login = GetCurrentUserLogin();
@@ -644,9 +964,18 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+          finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
     public boolean SetNewUser(UserBasicInformation ubi){
+        PreparedStatement stmt = null;
         try {
             String query="insert into users("
                     + "login,"
@@ -669,14 +998,14 @@ public class DBManager{
             stmt.setString(5, ubi.name);
             stmt.setString(6, ubi.tel);
             stmt.executeUpdate();
-            
+            stmt.close();
             query="insert into user_roles("
                     + "role_id,user_id)"
                     + " values(3,(select id from users where login=?))";
             stmt = connection.prepareStatement(query);
             stmt.setString(1, ubi.login);
             stmt.executeUpdate();
-            
+            stmt.close();
             UUID uuid = UUID.randomUUID();
             
             query="insert into token_user("
@@ -689,13 +1018,13 @@ public class DBManager{
             stmt = connection.prepareStatement(query);
             stmt.setString(1, ubi.login);
             stmt.executeUpdate();
-            
+            stmt.close();
             query="insert into payment_info(id_user,passport,pay_sys,score) "
                     + "values((select id from users where login=?),'',0,'')";
             stmt = connection.prepareStatement(query);
             stmt.setString(1, ubi.login);
             stmt.executeUpdate();
-            
+            stmt.close();
             SendConfirmRegistMessage sm=new SendConfirmRegistMessage();
             sm.SetMail(ubi.email);
             sm.SetToken(uuid.toString());
@@ -706,10 +1035,19 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         return false;
         }
+          finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
     
     public boolean ConfirmPrivatAreaToken(String token){
+        PreparedStatement stmt = null;
         try {
           String query="select id_user from token_user where token_confirm=? and type_confirm=2 and confirmed=false";
           stmt = connection.prepareStatement(query);
@@ -718,6 +1056,7 @@ public class DBManager{
           if(!rs.first())
               return false;
          long Id = rs.getLong("id_user");
+         stmt.close();
          String Login = GetLoginFromId(Id);
          query="select t1.type,t1.data"
                   + " from request_edit_user_info as t1"
@@ -750,6 +1089,7 @@ public class DBManager{
                       break;
               }
           }
+          stmt.close();
           query="Update request_edit_user_info Set processed=true,date_response=now()"
                   + " where id in (select t1.id "
                   + "from (select * from request_edit_user_info) as t1"
@@ -760,18 +1100,29 @@ public class DBManager{
           stmt = connection.prepareStatement(query);
           stmt.setLong(1, Id);
           stmt.executeUpdate();
+          stmt.close();
           query="Update token_user Set date_response=now(),confirmed=true WHERE id_user=?";
           stmt = connection.prepareStatement(query);
           stmt.setLong(1, Id);
           stmt.executeUpdate();
+          stmt.close();
           return true;
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+          finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
     public boolean SetUserNewScore(String Score,long Id){
+        PreparedStatement stmt = null;
         try {
             String query="UPDATE payment_info SET score=? WHERE id_user=?";
                     stmt = connection.prepareStatement(query);
@@ -783,9 +1134,18 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+          finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
      public boolean SetUserNewPaySys(String PaySys,long Id){
+         PreparedStatement stmt = null;
         try {
             String query="UPDATE payment_info SET pay_sys=? WHERE id_user=?";
                     stmt = connection.prepareStatement(query);
@@ -797,9 +1157,18 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+          finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
      public boolean SetUserNewPassport(String Passport,long Id){
+         PreparedStatement stmt = null;
         try {
             String query="UPDATE payment_info SET passport=? WHERE id_user=?";
                     stmt = connection.prepareStatement(query);
@@ -811,9 +1180,18 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+          finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
      public boolean SetUserNewPhone(String Phone,String Login){
+         PreparedStatement stmt = null;
         try {
             String query="UPDATE users SET tel=? WHERE login=?";
                     stmt = connection.prepareStatement(query);
@@ -825,9 +1203,18 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+          finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
      public boolean SetUserNewPassword(String Password,String Login){
+         PreparedStatement stmt = null;
         try {
             String query="UPDATE users SET password=? WHERE login=?";
                     stmt = connection.prepareStatement(query);
@@ -839,9 +1226,18 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+          finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
     public boolean SetUserNewMail(String Mail,String Login){
+        PreparedStatement stmt = null;
         try {
             String query="UPDATE users SET email=? WHERE login=?";
                     stmt = connection.prepareStatement(query);
@@ -853,9 +1249,18 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+          finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
   
     public boolean ConfirmRegistToken(String token){
+        PreparedStatement stmt = null;
         try {
           String query="(select id_user from token_user where token_confirm=? and type_confirm=1 and confirmed=false)";
           stmt = connection.prepareStatement(query);
@@ -863,19 +1268,32 @@ public class DBManager{
           ResultSet rs = stmt.executeQuery();
           if(!rs.first())
               return false;
-          stmt.executeUpdate("UPDATE users SET activated=true WHERE id="+rs.getString(1));
+          long IdUser = rs.getLong("id_user");
+          stmt.close();
+          stmt.executeUpdate("UPDATE users SET activated=true WHERE id="+IdUser);
+          stmt.close();
           query="UPDATE token_user SET confirmed=true,date_response=now() WHERE token_confirm=?";
           stmt = connection.prepareStatement(query);
           stmt.setString(1, token);
           stmt.executeUpdate();
+          stmt.close();
         return true;
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         return false;
         }
+          finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
     private String GetLoginFromId(long Id){
+        PreparedStatement stmt = null;
         try {
             String query="select login from users where id=?";
                  stmt = connection.prepareStatement(query);
@@ -889,9 +1307,18 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+          finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
     private long GetIdFromLogin(String login){
+        PreparedStatement stmt = null;
         try {
             String query="(select id from users where login=?)";
                  stmt = connection.prepareStatement(query);
@@ -905,15 +1332,21 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         }
+          finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
     
     public boolean SetNewRequestOutMoney(double Sum,String UserAgent){
+        PreparedStatement stmt = null;
         try {
-            ResultSet rs = GetCurrentUserAllInfo();
-            double BalanceUser = 0;
-            if(rs.first())
-                   BalanceUser = rs.getDouble("balance");
+            UserAllInformation UserInfo = GetCurrentUserAllInfo();
             String Login = GetCurrentUserLogin();
             long Id = GetIdFromLogin(Login);
             String query="insert into request_out_money("
@@ -925,8 +1358,9 @@ public class DBManager{
             stmt = connection.prepareStatement(query);
             stmt.setLong(1, Id);
             stmt.setDouble(2, Sum);
-            stmt.setDouble(3, BalanceUser);
+            stmt.setDouble(3, UserInfo.balance);
             stmt.executeUpdate();
+            stmt.close();
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             WebAuthenticationDetails details =  (WebAuthenticationDetails) auth.getDetails();
             String remoteAddress = details.getRemoteAddress();  
@@ -941,25 +1375,35 @@ public class DBManager{
             stmt = connection.prepareStatement(query);
             stmt.setLong(1, Id);
             stmt.setDouble(2, Sum);
-            stmt.setDouble(3, BalanceUser);
+            stmt.setDouble(3, UserInfo.balance);
             stmt.setString(4, UserAgent);
             stmt.setString(5, remoteAddress);
             stmt.executeUpdate();
+            stmt.close();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+          finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     
     
     public boolean SetStatisticUserLogin(String login,String ipAddress,String userAgent){
+        PreparedStatement stmt = null;
         try {
             String query="UPDATE users SET last_login=now() WHERE login=?";
             stmt = connection.prepareStatement(query);
             stmt.setString(1, login);
             stmt.executeUpdate();
-            
+            stmt.close();
             query="insert into stat_logins("
                     + "user_id,"
                     + "login_time,"
@@ -976,16 +1420,24 @@ public class DBManager{
             long UserId = GetIdFromLogin(login);
             if(UserId<0)
                 return false;
-            
             stmt = connection.prepareStatement(query);
             stmt.setLong(1, UserId);
             stmt.setString(2, ipAddress);
             stmt.setString(3, userAgent);
             stmt.executeUpdate();
+            stmt.close();
                return true;
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        }
+          finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
         }
     }
 }

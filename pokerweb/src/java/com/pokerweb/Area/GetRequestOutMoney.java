@@ -78,9 +78,8 @@ public class GetRequestOutMoney extends HttpServlet {
             JSONObject jsonObject = new JSONObject(jb.toString());
             int PageNum = jsonObject.getInt("PageNum");
             int Range = jsonObject.getInt("Range");
-            ResultSet rs = DBM.GetCurrentUserAllInfo();
-            rs.first();
-            int Role = rs.getInt("role_id");
+            UserAllInformation UserInfo = DBM.GetCurrentUserAllInfo();
+            int Role = UserInfo.Role;
             if(Role <= 1)
                 return;
             JSONObject js = new JSONObject();
@@ -106,8 +105,6 @@ public class GetRequestOutMoney extends HttpServlet {
                         
         } catch (JSONException ex) {
             Logger.getLogger(ValidateTab1.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(SaveInfoTab3.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

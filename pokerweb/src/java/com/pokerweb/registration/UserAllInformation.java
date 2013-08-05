@@ -23,9 +23,12 @@ public class UserAllInformation {
     public String banned_date;
     public String banned_comment;
     public String banned_admin_id;
-    public float balance;
+    public double balance;
     public String Passport;
     public int Pay_sys;
     public String Score;
-    
+    public int Role;
+    public String RoleName;
+    public boolean Activated;
+    public long Id;
 }

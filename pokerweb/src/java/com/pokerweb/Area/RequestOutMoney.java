@@ -8,8 +8,6 @@ import com.pokerweb.DB.DBManager;
 import com.pokerweb.registration.UserAllInformation;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -76,14 +74,11 @@ public class RequestOutMoney extends HttpServlet {
                 jb.append(line);
             
             JSONObject jsonObject = new JSONObject(jb.toString());
-            float RequestSum = Float.parseFloat(jsonObject.getString("Sum"));
-            
-            ResultSet rsUser = DBM.GetCurrentUserAllInfo();
-            rsUser.first();
-            float Balance = rsUser.getFloat("balance");
+            double RequestSum = Double.parseDouble(jsonObject.getString("Sum"));
+            UserAllInformation UserInfo = DBM.GetCurrentUserAllInfo();
             JSONObject js = new JSONObject();
             String userAgent = request.getHeader("User-Agent");
-            if(Balance>RequestSum){
+            if(UserInfo.balance > RequestSum){
                boolean res = DBM.SetNewRequestOutMoney(RequestSum,userAgent);
                                if(res){
                                    js.append("Message","Заявка на выдачу средств принята");
@@ -98,9 +93,7 @@ public class RequestOutMoney extends HttpServlet {
                         
         } catch (JSONException ex) {
             Logger.getLogger(ValidateTab1.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(SaveInfoTab3.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
 
     /**

@@ -8,8 +8,6 @@ import com.pokerweb.DB.DBManager;
 import com.pokerweb.registration.UserAllInformation;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -73,7 +71,6 @@ public class ResponseOutMoney extends HttpServlet {
     try{
             StringBuilder jb = new StringBuilder();
             String line = null;
-            UserAllInformation ubi=new UserAllInformation();
             BufferedReader reader = request.getReader();
             DBManager DBM = DBManager.GetInstance();
             String userAgent = request.getHeader("User-Agent");
@@ -81,12 +78,11 @@ public class ResponseOutMoney extends HttpServlet {
                 jb.append(line);
             JSONObject jsonObject = new JSONObject(jb.toString());
             JSONArray jsonArr = new JSONArray(jsonObject.getString("CheckedItems"));
-            ResultSet rs = DBM.GetCurrentUserAllInfo();
-            rs.first();
-            int Role = rs.getInt("role_id");
+            UserAllInformation UserInfo = DBM.GetCurrentUserAllInfo();
+            int Role = UserInfo.Role;
             if(Role <= 1)
                 return;
-            List arr = new ArrayList();
+            List<String> arr = new ArrayList<String>();
             for(int i = 0; i < jsonArr.length(); i++)
                 arr.add(jsonArr.getString(i));
             boolean res = DBM.AcceptOutMoney(arr,userAgent);
@@ -101,8 +97,6 @@ public class ResponseOutMoney extends HttpServlet {
                         
         } catch (JSONException ex) {
             Logger.getLogger(ValidateTab1.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(SaveInfoTab3.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

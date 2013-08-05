@@ -65,7 +65,6 @@ public class SaveInfoTab1 extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try{
-        boolean namesAdded = false;
                 StringBuilder jb = new StringBuilder();
                 String line = null;
                 UserAllInformation ubi=new UserAllInformation();

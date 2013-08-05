@@ -1,5 +1,6 @@
 package com.pokerweb.service;
 
+import com.pokerweb.DB.AuthenticationField;
 import com.pokerweb.DB.DBManager;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,18 +29,15 @@ public class CustomUserDetailsService implements UserDetailsService {
             
 		UserDetails user = null;
 		try {
-                    ResultSet rs = DBManager.GetInstance().GetUserAccessFromLogin(username);
-                    //if(rs==null)
-                    //    return null;
-                    
+                    AuthenticationField AutF = DBManager.GetInstance().GetUserAccessFromLogin(username);
                     user =  new User(
                             username,
-                            rs.getString("password"),
+                            AutF.Password,
                             true,
                             true,
                             true,
                             true,
-                            getAuthorities(rs.getInt("role_id")) );
+                            getAuthorities(AutF.Role) );
                      
 		} catch (Exception e) {
 			logger.error("Error in retrieving user");

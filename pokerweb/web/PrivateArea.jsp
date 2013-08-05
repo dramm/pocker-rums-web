@@ -10,7 +10,8 @@
 <%@page import="org.springframework.security.core.Authentication"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%SecurityContext context = SecurityContextHolder.getContext();
-        String role = "ROLE_MANAGER";
+        String RoleManager = "ROLE_MANAGER";
+        String RoleAdmin = "ROLE_ADMIN";
         boolean IsManager = false;
         boolean IsAdministrator = false;
         if (context == null)
@@ -19,11 +20,11 @@
         if (authentication == null)
             return;
         for (GrantedAuthority auth : authentication.getAuthorities()) 
-            if (role.equals(auth.getAuthority())){
+            if (RoleManager.equals(auth.getAuthority())){
             IsManager = true;
             break;
             }else
-                if(role.equals(auth.getAuthority())){
+                if(RoleAdmin.equals(auth.getAuthority())){
                     IsAdministrator = true;
                     break;
                 }
@@ -45,7 +46,7 @@
             <div class="rightCol"> </div>      
         </div>
             <div id="center">
-                <div id="smallContainer">
+               
                     <div id="PrivatArea">
 <div id="tabs">
 <ul>
@@ -58,7 +59,7 @@
 <li><a href="#tabs-7">Статистика пользователя</a></li>
 <li><a href="#tabs-8">Вывод средств</a></li>
 <li><a href="#tabs-10">Ваши заявки на выплату</a></li>
-<%if(IsManager || IsAdministrator){%>
+<%if(IsManager){%>
 <li><a href="#tabs-9">Обработка заявок</a></li>
 <%}%>
 <%if(IsAdministrator){%>
@@ -235,7 +236,7 @@
             </div></div>
         <input type="button" style="display:block;" id="SaveOutMoney" onclick="RequestOutMoney()" value="Вывести деньги" class="button"/>
     </div>
-<%if(IsManager || IsAdministrator){%>
+<%if(IsManager){%>
 <div id="tabs-9">
     <b>Заявки</b>
     <select id="SelectRange" onchange="SelectRangeChange()">
@@ -264,7 +265,6 @@
         <option value="50">50</option>
         <option value="60">60</option>
     </select>
-    <input type="button" style="display:block;" id="CancelRequestOutMoney" onclick="CancelRequestOutMoney()" value="Отменить заявку" class="button"/>
        
     <div id="RequestListUser">
         
@@ -274,7 +274,7 @@
 <%if(IsAdministrator){%>
 <div id="tabs-11">
     <b>Управление пользователями</b>
-    <select id="SelectRange" onchange="SelectRangeChange()">
+    <select id="SelectRangeUsersList" onchange="SelectRangeChangeUsersList()">
         <option value="10">10</option>
         <option value="20">20</option>
         <option value="30">30</option>
@@ -282,14 +282,14 @@
         <option value="50">50</option>
         <option value="60">60</option>
     </select>
-    <input type="button" style="display:block;" id="SendResponseOutMoney" onclick="ResponseOutMoney()" value="Сделать менеджера" class="button"/>
-    <div id="RequestList">
+    <input type="button" style="display:block;" id="ExecuteSelectedActions" onclick="ExecuteSelectedActions()" value="Выполнить действия" class="button"/>
+    <div id="ListUsers">
     </div>
     </div>
 <%}%>
 </div>
                     </div>
-                </div>
+                
                 </div>
 </body>
 </html>

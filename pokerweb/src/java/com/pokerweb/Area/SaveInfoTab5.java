@@ -10,7 +10,6 @@ import com.pokerweb.crypto.CryptoManager;
 import com.pokerweb.registration.UserAllInformation;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -81,9 +80,8 @@ public class SaveInfoTab5 extends HttpServlet {
             JSONObject jsonObject = new JSONObject(jb.toString());
             String NewPhone = jsonObject.getString("NewPhone");
             String ConfNewPhone = jsonObject.getString("ConfNewPhone");
-            ResultSet rs = DBM.GetCurrentUserAllInfo();
-            rs.first();
-            String CurrentPassword = rs.getString("password");
+            UserAllInformation UserInfo = DBM.GetCurrentUserAllInfo();
+            String CurrentPassword = UserInfo.Passport;
             String ReceptCurrentPassword = jsonObject.getString("CurrentPassword");
             String ReceptCurrentPasswordEn = CryptoManager.GetEnctyptPassword(ReceptCurrentPassword);
             JSONObject js = new JSONObject();
@@ -106,8 +104,6 @@ public class SaveInfoTab5 extends HttpServlet {
                         
         } catch (JSONException ex) {
             Logger.getLogger(ValidateTab1.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(SaveInfoTab3.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

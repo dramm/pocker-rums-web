@@ -5,10 +5,10 @@
 package com.pokerweb.Area;
 
 import com.pokerweb.DB.DBManager;
+import com.pokerweb.DB.PaymentField;
 import com.pokerweb.registration.UserAllInformation;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -68,41 +68,29 @@ public class LoadInfoFromDB extends HttpServlet {
             throws ServletException, IOException {
         try {
             JSONObject js = new JSONObject();
-            UserAllInformation ubi=new UserAllInformation();
-            ResultSet rs = DBManager.GetInstance().GetCurrentUserAllInfo();
-            ResultSet Pay_info = DBManager.GetInstance().GetPaymentInfoCurrentUser();
-            ResultSet PaySysResultSet = DBManager.GetInstance().GetAllPaySys();
-            boolean res = rs.first();
-            ubi.name = rs.getString(1);
-            ubi.surname = rs.getString(2);
-            ubi.second_name = rs.getString(3);
-            ubi.country = rs.getString(4);
-            ubi.balance = rs.getFloat(5);
-            ubi.email = rs.getString(6);
-            ubi.tel = rs.getString(7);
-            if(Pay_info.first()){
-                ubi.Passport = Pay_info.getString(1);
-                ubi.Pay_sys = Pay_info.getInt(2);
-                ubi.Score = Pay_info.getString(3);
-               
-                js.append("Score",ubi.Score);
-                js.append("Passport",ubi.Passport);
-                js.append("Pay_sys",ubi.Pay_sys);
+            UserAllInformation UserInfo = DBManager.GetInstance().GetCurrentUserAllInfo();
+            PaymentField Pay_info = DBManager.GetInstance().GetPaymentInfoCurrentUser();
+            List<String> PaySys = DBManager.GetInstance().GetAllPaySys();
+            if(Pay_info != null){
+                js.append("Score",UserInfo.Score);
+                js.append("Passport",UserInfo.Passport);
+                js.append("Pay_sys",UserInfo.Pay_sys);
             }               
             JSONArray arrayOptionPaySystem = new JSONArray();
-            while (PaySysResultSet.next()) 
-                arrayOptionPaySystem.put(PaySysResultSet.getString(1));
-            
-            js.append("Name",ubi.name);
-            js.append("Surname",ubi.surname);
-            js.append("Second",ubi.second_name);
-            js.append("Country",ubi.country);
-            js.append("Balance",ubi.balance);
-            String email = ubi.email.substring(0,1);
+         
+            for (String sys : PaySys)
+                arrayOptionPaySystem.put(sys);
+         
+            js.append("Name",UserInfo.name);
+            js.append("Surname",UserInfo.surname);
+            js.append("Second",UserInfo.second_name);
+            js.append("Country",UserInfo.country);
+            js.append("Balance",UserInfo.balance);
+            String email = UserInfo.email.substring(0,1);
             email += "***";
-            email += ubi.email.substring(ubi.email.indexOf("@"),ubi.email.length());
+            email += UserInfo.email.substring(UserInfo.email.indexOf("@"),UserInfo.email.length());
             js.append("Email",email);
-            js.append("Phone",ubi.tel);
+            js.append("Phone",UserInfo.tel);
             js.append("SelectOptions",arrayOptionPaySystem.toString());
             
             response.setContentType("application/json; charset=utf-8");
@@ -110,10 +98,9 @@ public class LoadInfoFromDB extends HttpServlet {
             response.getWriter().write(js.toString());                  
         } catch (JSONException ex) {
             Logger.getLogger(LoadInfoFromDB.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(LoadInfoFromDB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch(IOException e){
+            Logger.getLogger(LoadInfoFromDB.class.getName()).log(Level.SEVERE, null, e);
         }
-                        
     }
 
     /**

@@ -19,5 +19,5 @@ public class FieldOutMoney {
     public double Balance_post_response;
     public long Id_Manager;
     public String Login_Manager;
-    public boolean Processed;
+    public int Status;
 }
