@@ -362,7 +362,14 @@ function ShowRequestUserList(responseText){
        NewDivBalanceResponse.innerHTML+=responseText.User[i].BalanceResponse+"</br>";
        NewDivSum.innerHTML+=responseText.User[i].Sum+"</br>";
        NewDivManager.innerHTML+=responseText.User[i].Manager+"</br>";
-       NewDivStatus.innerHTML+=responseText.User[i].Status+"</br>";
+       if(responseText.User[i].Status == 0)
+        NewDivStatus.innerHTML+="Ожидает"+"</br>";
+    if(responseText.User[i].Status == 1)
+        NewDivStatus.innerHTML+="Обрабатывается"+"</br>";
+    if(responseText.User[i].Status == 2)
+        NewDivStatus.innerHTML+="Выполнено"+"</br>";
+    if(responseText.User[i].Status == 3)
+        NewDivStatus.innerHTML+="Отменено"+"</br>";
     }
        rootDiv.appendChild(NewDivDateRequest);
        rootDiv.appendChild(NewDivDateResponse);
