@@ -63,7 +63,7 @@
 <li><a href="#tabs-9">Обработка заявок</a></li>
 <%}%>
 <%if(IsAdministrator){%>
-<li><a href="#tabs-11">Управление пользователями</a></li>
+<li><a href="#tabs-11">Пользователи</a></li>
 <%}%>
 </ul>
     

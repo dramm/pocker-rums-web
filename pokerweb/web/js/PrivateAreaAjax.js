@@ -345,7 +345,7 @@ function ShowRequestUserList(responseText){
     NewPBalanceResponse.innerHTML = "Баланс после";
     NewPManager.innerHTML = "Обработал";
     NewPStatus.innerHTML = "Статус";
-    NewPSum.innerHTML = "Sum";
+    NewPSum.innerHTML = "Cумма";
     NewDivDateRequest.appendChild(NewPDateRequest);
     NewDivDateResponse.appendChild(NewPDateResponse);
     NewDivBalanceRequest.appendChild(NewPBalanceRequest);
