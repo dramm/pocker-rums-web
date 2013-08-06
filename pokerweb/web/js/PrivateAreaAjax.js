@@ -263,8 +263,6 @@ function ShowUsersList(responseText){
     var NewDivLink = document.createElement("div");
     NewDivLink.style.cssText = "display:block;";
     var NewLink;
-   // var NewSelect = document.createElement("select");
-   // NewSelect.id = "SelectRange";
     var SelectRange = document.getElementById("SelectRangeUsersList");
     var SelectedIndex = SelectRange.options.selectedIndex;
     var ArraySelect = SelectRange.options;
@@ -430,13 +428,13 @@ function ShowRequestList(responseText){
     var NewDivDate = document.createElement("div");
     var NewDivSum = document.createElement("div");
     var NewDivBalance = document.createElement("div");
-    var NewDivChecked = document.createElement("div");
+    var NewDivSelectActionsMoney = document.createElement("div");
     var CurrentDiv = document.getElementById("RequestList");
     NewDivLogin.style.cssText = "float:left;font-size:18px; border: solid red 1px";
     NewDivDate.style.cssText = "float:left;font-size:18px; border: solid red 1px";
     NewDivSum.style.cssText = "float:left;font-size:18px; border: solid red 1px";
     NewDivBalance.style.cssText = "float:left;font-size:18px; border: solid red 1px";
-    NewDivChecked.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    NewDivSelectActionsMoney.style.cssText = "float:left;font-size:18px; border: solid red 1px";
     rootDiv.style.cssText = "text-align: left; border: solid red 1px";
     CurrentDiv.innerHTML = "";
     var NewPLogin = document.createElement("p");
@@ -458,27 +456,29 @@ function ShowRequestList(responseText){
     NewDivDate.appendChild(NewPDate);
     NewDivSum.appendChild(NewPSum);
     NewDivBalance.appendChild(NewPBalance);
-    NewDivChecked.appendChild(NewPChecked);
-    NewDivChecked.setAttribute("id","CheckedDiv")
-    var NewInputChecked;
+    NewDivSelectActionsMoney.appendChild(NewPChecked);
+    NewDivSelectActionsMoney.setAttribute("id","NewDivSelectActionsMoney")
+    var NewSelectedActionMoney;
     for (var i=0; i<responseText.User.length;i++){
        NewDivLogin.innerHTML+=responseText.User[i].Login+"</br>";
        NewDivDate.innerHTML+=responseText.User[i].Date+"</br>";
        NewDivSum.innerHTML+=responseText.User[i].Sum+"</br>";
        NewDivBalance.innerHTML+=responseText.User[i].Balance+"</br>";
-       NewInputChecked = document.createElement("input");
-       NewInputChecked.type = "checkbox";
-       NewInputChecked.style.cssText = "float:left";
-       NewInputChecked.setAttribute('id',responseText.User[i].Id);
-       NewDivChecked.appendChild(NewInputChecked);
-       NewDivChecked.innerHTML += "<br/>";
+       NewSelectedActionMoney = document.createElement("select");
+       NewSelectedActionMoney.style.cssText = "float:left;font-size:11px";
+       NewSelectedActionMoney.setAttribute('id',responseText.User[i].Id);
+       NewSelectedActionMoney.options[NewSelectedActionMoney.options.length] = new Option("Выбор", 0);
+       NewSelectedActionMoney.options[NewSelectedActionMoney.options.length] = new Option("Оплатить", 1);
+       NewSelectedActionMoney.options[NewSelectedActionMoney.options.length] = new Option("Отказать", 2);
+       NewDivSelectActionsMoney.appendChild(NewSelectedActionMoney);
+       NewDivSelectActionsMoney.innerHTML += "<br/>";
     }
     
        rootDiv.appendChild(NewDivLogin);
        rootDiv.appendChild(NewDivDate);
        rootDiv.appendChild(NewDivSum);
        rootDiv.appendChild(NewDivBalance);
-       rootDiv.appendChild(NewDivChecked);
+       rootDiv.appendChild(NewDivSelectActionsMoney);
     
     var NewDivLink = document.createElement("div");
     NewDivLink.style.cssText = "display:block;";
@@ -529,13 +529,21 @@ function ExecuteSelectedActions(){
 
 
 function ResponseOutMoney(){
-    var parent = document.getElementById("CheckedDiv");
+    var parent = document.getElementById("NewDivSelectActionsMoney");
     var child = parent.firstChild;
     var myObject = {};
-    myObject["CheckedItems"] = [];
     var i = 0;
+    //myObject["Comment"] = [];
     while(child) {
         if(child.id > 0){
+            var SelectAction = document.getElementById(child.id);
+            var SelectActionIndex = SelectAction.options.selectedIndex;
+            if(SelectActionIndex != 0){ 
+                myObject[child.id] = [];//SelectActionIndex;
+                myObject[child.id][0] = SelectActionIndex;
+                myObject[child.id][1] = "какой-то комент №"+i;
+                i++;
+                 }
             if(child.checked)
              myObject.CheckedItems[i++] = child.id;
         }
@@ -651,25 +659,25 @@ function CallbackSave() {
 }
 
 function SaveDialog(message){
-var formReadReminder=document.createElement("form");
-var newInput=document.createElement("input");
-formReadReminder.style.cssText="background-color: #285F74;text-align:center;"
-var newP=document.createElement("p");
-newP.style.cssText="color:#FFFFFF;";
-newP.innerHTML=message;
-formReadReminder.appendChild(newP);
-newInput.setAttribute("type","submit");
-newInput.style.cssText="color: white;padding: 1px;display:inline-block;border: solid 2px #285F74;"+
+    var formReadReminder=document.createElement("form");
+    var newInput=document.createElement("input");
+    formReadReminder.style.cssText="background-color: #285F74;text-align:center;"
+    var newP=document.createElement("p");
+    newP.style.cssText="color:#FFFFFF;";
+    newP.innerHTML=message;
+    formReadReminder.appendChild(newP);
+    newInput.setAttribute("type","submit");
+    newInput.style.cssText="color: white;padding: 1px;display:inline-block;border: solid 2px #285F74;"+
     "border-radius: 6px;min-width: 76px;text-align: center;background: #000000;"+
     "background: -moz-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
     "background: -webkit-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
     "background: -o-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
     "background: -ms-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
     "background: linear-gradient(top, #285F74 0%, #0d2a34 100%);";
-newInput.setAttribute("value","OK");
-formReadReminder.appendChild(newInput);
-$( formReadReminder).dialog({ modal: true,/*title:"Подтвердите регистрацию",*/maxHeight:200,maxWidth:400,minHeight:200,minWidth:400});
- }
+    newInput.setAttribute("value","OK");
+    formReadReminder.appendChild(newInput);
+    $( formReadReminder).dialog({ modal: true,maxHeight:200,maxWidth:400,minHeight:200,minWidth:400});
+}
 
 function FieldLoadFromDB() {
     var url = "LoadInfoFromDB";
@@ -680,15 +688,13 @@ function FieldLoadFromDB() {
     reqPrivate.send();
 }
 
-
-
 function CallbackLoadInfo() {
     if (reqPrivate.readyState == 4) {
         if (reqPrivate.status == 200) {
             if(reqPrivate.responseText != null)
                 if(reqPrivate.responseText.length > 0){
-            var ErrorS = JSON.parse(reqPrivate.responseText);
-            AppendFieldInfoFromDB(ErrorS);
+                    var ErrorS = JSON.parse(reqPrivate.responseText);
+                    AppendFieldInfoFromDB(ErrorS);
             }
         }
     }
@@ -699,6 +705,7 @@ function AppendFieldInfoFromDB(Message) {
             Balance.innerHTML = Message.Balance;
             BalanceTab8.innerHTML = Message.Balance;
         }
+        
        if(Message.Name != null)
             NamePrivateEdit.value = Message.Name;
        
@@ -724,7 +731,7 @@ function AppendFieldInfoFromDB(Message) {
            var OptionsPay = JSON.parse(Message.SelectOptions);
            
         for (var i=0; i<OptionsPay.length;i++)
-                PaySystemPrivateEdit.options[PaySystemPrivateEdit.options.length] = new Option(OptionsPay[i], i);
+            PaySystemPrivateEdit.options[PaySystemPrivateEdit.options.length] = new Option(OptionsPay[i], i);
         }
         
        if(Message.Pay_sys != null)

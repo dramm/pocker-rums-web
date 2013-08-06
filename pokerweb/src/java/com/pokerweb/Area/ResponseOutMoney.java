@@ -9,7 +9,9 @@ import com.pokerweb.registration.UserAllInformation;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -67,7 +69,6 @@ public class ResponseOutMoney extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-  
     try{
             StringBuilder jb = new StringBuilder();
             String line = null;
@@ -77,14 +78,25 @@ public class ResponseOutMoney extends HttpServlet {
             while ((line = reader.readLine()) != null)
                 jb.append(line);
             JSONObject jsonObject = new JSONObject(jb.toString());
-            JSONArray jsonArr = new JSONArray(jsonObject.getString("CheckedItems"));
+          //  JSONArray jsonArr = new JSONArray(jsonObject.getString("CheckedItems"));
             UserAllInformation UserInfo = DBM.GetCurrentUserAllInfo();
-            int Role = UserInfo.Role;
-            if(Role <= 1)
+            if(UserInfo == null)
                 return;
-            List<String> arr = new ArrayList<String>();
-            for(int i = 0; i < jsonArr.length(); i++)
-                arr.add(jsonArr.getString(i));
+         //   List<String> arr = new ArrayList<String>();
+         //   for(int i = 0; i < jsonArr.length(); i++)
+         //       arr.add(jsonArr.getString(i));
+           Map<Long,Map<Integer,String>> arr = new HashMap<Long, Map<Integer,String>>();
+           Map<Integer,String> act;
+           
+           for(int i = 0; i < jsonObject.length(); i++){
+                //String r1 = jsonObject.names().getString(i);
+                //String r2 = jsonObject.getString(jsonObject.names().getString(i));
+                //String r3 = jsonObject.getJSONArray("Comment").getString(i);
+                //String r4 = "";
+               act = new HashMap<Integer,String>();
+               act.put(jsonObject.getJSONArray(jsonObject.names().getString(i)).getInt(0),jsonObject.getJSONArray(jsonObject.names().getString(i)).getString(1));
+               arr.put(jsonObject.names().getLong(i),act);
+            }
             boolean res = DBM.AcceptOutMoney(arr,userAgent);
             JSONObject js = new JSONObject();
             if(res)
