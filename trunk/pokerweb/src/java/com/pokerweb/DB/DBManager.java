@@ -186,7 +186,7 @@ public class DBManager{
         }
    }
     
-    public boolean AcceptOutMoney(List ArrayId,String UserAgent){
+    public boolean AcceptOutMoney(Map<Long,Map<Integer,String>> arr,String UserAgent){
         PreparedStatement stmt = null;
         try {
             long IdManager = GetCurrentUserId();
@@ -194,9 +194,9 @@ public class DBManager{
             WebAuthenticationDetails details =  (WebAuthenticationDetails) auth.getDetails();
             String remoteAddress = details.getRemoteAddress();
             String query = "Update request_out_money "
-                    + "Set status=1,"
+                    + "Set status=?,comment=?,"
                     + "id_manager=?"
-                    + " where id=?";
+                    + " where id=? and status = 0";
             
             String queryLog="Update log_money_transaction as t1,"
                     + "request_out_money as t2,"
@@ -205,25 +205,38 @@ public class DBManager{
                     + "t1.id_manager=?,"
                     + "t1.ip_manager=INET_ATON(?),"
                     + "t1.balance_starting_response=t3.balance,"
-                    + "t1.manager_agent=?"
+                    + "t1.manager_agent=?,t1.comment=?"
                     + " where t1.id_user=t3.id and"
                     + " t2.id_user=t3.id and"
-                    + " t2.id=? and"
-                    + " t2.status=1;";
-            for (int i=0;i< ArrayId.size(); i++) {
-                stmt = connection.prepareStatement(query);
-                stmt.setLong(1, IdManager);
-                stmt.setString(2,ArrayId.get(i).toString());
-                stmt.executeUpdate();
-                stmt.close();
-                stmt = connection.prepareStatement(queryLog);
-                stmt.setLong(1, IdManager);
-                stmt.setString(2, remoteAddress);
-                stmt.setString(3,UserAgent);
-                stmt.setString(4,ArrayId.get(i).toString());
-                stmt.executeUpdate();
-                stmt.close();
-            }
+                    + " t2.id=? and t2.id=t1.id and"
+                    + " t2.status=?;";
+             for (Map.Entry<Long,Map<Integer,String>> entry : arr.entrySet()){
+                 for (Map.Entry<Integer,String> item : entry.getValue().entrySet()) {
+                     stmt = connection.prepareStatement(query);
+                     if(item.getKey() == 1)
+                         stmt.setInt(1, 1);
+                     else
+                         stmt.setInt(1, 3);
+                     stmt.setString(2, item.getValue());
+                     stmt.setLong(3, IdManager);
+                     stmt.setLong(4,entry.getKey());
+                     stmt.executeUpdate();
+                     stmt.close();
+                     
+                     stmt = connection.prepareStatement(queryLog);
+                     stmt.setLong(1, IdManager);
+                     stmt.setString(2, remoteAddress);
+                     stmt.setString(3,UserAgent);
+                     stmt.setString(4,item.getValue());
+                     stmt.setLong(5,entry.getKey());
+                     if(item.getKey() == 1)
+                         stmt.setInt(6,1);
+                     else
+                         stmt.setInt(6,3);
+                     stmt.executeUpdate();
+                     stmt.close();
+                 }
+             }
             
             query = " Update users as t1,request_out_money as t4 "
                     + "Set t1.balance = t1.balance-(select sum(sum) "
@@ -234,17 +247,22 @@ public class DBManager{
                     + "from (select * from request_out_money) as t3"
                     + " where t3.id=? and status=1) "
                     + "and t4.id_user=t1.id and t4.id=?;";
-            for (int i=0;i< ArrayId.size(); i++) {
-                stmt = connection.prepareStatement(query);
-                stmt.setString(1, ArrayId.get(i).toString());
-                stmt.setString(2, ArrayId.get(i).toString());
-                stmt.setString(3, ArrayId.get(i).toString());
-                stmt.executeUpdate();
-                stmt.close();
-            }
+            
+            for (Map.Entry<Long,Map<Integer,String>> entry : arr.entrySet()){
+                 for (Map.Entry<Integer,String> item : entry.getValue().entrySet()) {
+                     if(item.getKey() == 2)
+                         continue;
+                     stmt = connection.prepareStatement(query);
+                     stmt.setLong(1, entry.getKey());
+                     stmt.setLong(2, entry.getKey());
+                     stmt.setLong(3, entry.getKey());
+                     stmt.executeUpdate();
+                     stmt.close();
+                 }
+             }
             
             query = "Update request_out_money as t1,users as t2 "
-                    + "Set t1.balance_response=t2.balance,t1.status=2,"
+                    + "Set t1.balance_response=t2.balance,t1.status=?,"
                     + "data_response=now() "
                     + "where t1.id=? and t2.id=t1.id_user";
             
@@ -256,17 +274,26 @@ public class DBManager{
                     + "where t1.id_user=t3.id and"
                     + " t2.id_user=t3.id and"
                     + " t2.id=? and"
-                    + " t2.status=2";
-            for (int i=0;i< ArrayId.size(); i++) {
-                stmt = connection.prepareStatement(query);
-                stmt.setString(1,ArrayId.get(i).toString());
-                stmt.executeUpdate();
-                stmt.close();
-                stmt = connection.prepareStatement(queryLog);
-                stmt.setString(1,ArrayId.get(i).toString());
-                stmt.executeUpdate();
-                stmt.close();
-            }
+                    + " t2.status=?";
+            
+            for (Map.Entry<Long,Map<Integer,String>> entry : arr.entrySet()){
+                 for (Map.Entry<Integer,String> item : entry.getValue().entrySet()) {
+                     if(item.getKey() == 2)
+                         continue;
+                      stmt = connection.prepareStatement(query);
+                      stmt.setInt(1,item.getKey());
+                      stmt.setLong(2,entry.getKey());
+                      stmt.executeUpdate();
+                      stmt.close();
+                      
+                      stmt = connection.prepareStatement(queryLog);
+                      stmt.setLong(1,entry.getKey());
+                      stmt.setInt(2,item.getKey());
+                      stmt.executeUpdate();
+                      stmt.close();
+              
+                 }
+             }
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);

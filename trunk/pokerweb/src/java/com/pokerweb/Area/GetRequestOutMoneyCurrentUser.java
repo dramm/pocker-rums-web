@@ -99,8 +99,6 @@ public class GetRequestOutMoneyCurrentUser extends HttpServlet {
                     UserData.append("BalanceResponse", item.Balance_post_response);
                     UserData.append("DateResponse", item.Date_response);
                     UserData.append("Status", item.Status);
-                    
-                    
                     js.append("User", UserData);
                 }
             long CountRequest = DBM.GetCountRequestOutMoneyNoAccepted();

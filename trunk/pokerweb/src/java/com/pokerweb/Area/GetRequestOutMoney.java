@@ -79,8 +79,7 @@ public class GetRequestOutMoney extends HttpServlet {
             int PageNum = jsonObject.getInt("PageNum");
             int Range = jsonObject.getInt("Range");
             UserAllInformation UserInfo = DBM.GetCurrentUserAllInfo();
-            int Role = UserInfo.Role;
-            if(Role <= 1)
+            if(UserInfo == null)
                 return;
             JSONObject js = new JSONObject();
             List<FieldOutMoney> LFOM = DBM.GetRequestOutMoneyNoAccepted(PageNum,Range);

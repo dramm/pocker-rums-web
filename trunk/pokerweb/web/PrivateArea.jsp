@@ -59,7 +59,7 @@
 <li><a href="#tabs-7">Статистика пользователя</a></li>
 <li><a href="#tabs-8">Вывод средств</a></li>
 <li><a href="#tabs-10">Ваши заявки на выплату</a></li>
-<%if(IsManager){%>
+<%if(IsManager || IsAdministrator){%>
 <li><a href="#tabs-9">Обработка заявок</a></li>
 <%}%>
 <%if(IsAdministrator){%>
@@ -236,7 +236,7 @@
             </div></div>
         <input type="button" style="display:block;" id="SaveOutMoney" onclick="RequestOutMoney()" value="Вывести деньги" class="button"/>
     </div>
-<%if(IsManager){%>
+<%if(IsManager || IsAdministrator){%>
 <div id="tabs-9">
     <b>Заявки</b>
     <select id="SelectRange" onchange="SelectRangeChange()">
