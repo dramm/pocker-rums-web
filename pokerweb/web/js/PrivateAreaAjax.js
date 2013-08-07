@@ -795,3 +795,41 @@ function parseMessagesTab1Error(responseText) {
        if(Message.Country!=null)
            CountryPrivateError.innerHTML = Message.Country;
    }
+   
+   function selectMail(){
+       
+       
+   }
+   
+   function SendTokenNewMail(){
+    var url = "ValidateTab1";
+    reqPrivate = new XMLHttpRequest();
+    reqPrivate.open("POST", url, true);
+    reqPrivate.onreadystatechange = CallbackTab1Changet;
+    reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    reqPrivate.send(JSON.stringify(values)); 
+   }
+   
+   function MailDialog(){
+    var formReadReminder=document.createElement("form");
+    var NewInput = document.createElement("input");
+    var newInput=document.createElement("input");
+    formReadReminder.style.cssText="background-color: #285F74;text-align:center;"
+    var newP=document.createElement("p");
+    newP.style.cssText="color:#FFFFFF;";
+    newP.innerHTML = message;
+    formReadReminder.appendChild(newP);
+    NewInput.setAttribute("type","text");
+    newInput.setAttribute("type","submit");
+   // newInput.setAttribute("onclick",);
+    newInput.style.cssText="color: white;padding: 1px;display:inline-block;border: solid 2px #285F74;"+
+    "border-radius: 6px;min-width: 76px;text-align: center;background: #000000;"+
+    "background: -moz-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
+    "background: -webkit-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
+    "background: -o-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
+    "background: -ms-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
+    "background: linear-gradient(top, #285F74 0%, #0d2a34 100%);";
+    newInput.setAttribute("value","OK");
+    formReadReminder.appendChild(newInput);
+    $( formReadReminder).dialog({ modal: true,maxHeight:200,maxWidth:400,minHeight:200,minWidth:400});
+}

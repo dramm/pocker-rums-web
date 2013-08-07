@@ -39,13 +39,107 @@ function init() {
     var ConfirmReg = getURLParameter("confirm-reg");
     var PrivatToken = getURLParameter("privat-token");
     var Autorization = getURLParameter("autor");
+    var emailT = getURLParameter("pass-token");
    if(ConfirmReg != 'null')
         ConfirmRegist(ConfirmReg);
     if(PrivatToken != 'null')
         ConfirmEdit(PrivatToken);
     if(Autorization != 'null')
         registDialog("Ошибка авторизации");
+    if(emailT != 'null')
+        ConfirmRestor(emailT);
 }
+
+function ConfirmRestor(token) {
+    var values =  {"token": token};
+    var url = "ConfRest";
+    req = new XMLHttpRequest();
+    req.open("POST", url, true);
+    req.onreadystatechange = callbackConfRegist;
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(JSON.stringify(values));   
+}
+
+function callbackConfRegist() {
+    if (req.readyState == 4) {
+        if (req.status == 200) {
+            parseMessagesConfRest(req.responseText);
+        }
+    }
+}
+
+function parseMessagesConfRest(responseText) {
+    if (responseText == null) {
+        return false;
+    } else {
+        if (responseText.length > 0) {
+        var ErrorS = JSON.parse(responseText);
+      if(ErrorS.ConfRegist!=null)
+          if(ErrorS.ConfRegist == "true")
+              restDialog(ErrorS.token)
+              else
+                  registDialog("Востановление не удалось");
+        } 
+   }
+   }
+   
+   
+
+function restDialog(token){
+var formReadReminder=document.createElement("form");
+var newInput=document.createElement("input");
+var newPass=document.createElement("input");
+var newConfPass=document.createElement("input");
+formReadReminder.style.cssText="background-color: #285F74;text-align:center;"
+var newP=document.createElement("p");
+newP.style.cssText="color:#FFFFFF;";
+newP.innerHTML=message;//"На указаный вами адрес отправленно сообщение для подтверждения регистрации, перейдите пожалуйста по ссылке";
+formReadReminder.appendChild(newP);
+formReadReminder.appendChild(newPass);
+formReadReminder.appendChild(newConfPass);
+newInput.setAttribute("type","submit");
+newInput.style.cssText="color: white;padding: 1px;display:inline-block;border: solid 2px #285F74;"+
+    "border-radius: 6px;min-width: 76px;text-align: center;background: #000000;"+
+    "background: -moz-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
+    "background: -webkit-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
+    "background: -o-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
+    "background: -ms-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
+    "background: linear-gradient(top, #285F74 0%, #0d2a34 100%);";
+newInput.setAttribute("value","OK");
+formReadReminder.appendChild(newInput);
+$( formReadReminder).dialog({ modal: true,maxHeight:200,maxWidth:400,minHeight:200,minWidth:400});
+ }
+
+
+function RegistClickButton() {
+     document.getElementById("modalWait").className='modal';
+    // init();
+    var values =  {  
+                "login": FieldLogin.value,
+                "password":FieldPass.value,
+                "confirmPassword": FieldConfPass.value,
+                "tel": FieldTel.value,
+                "email": FieldMail.value,
+                "name": FieldName.value,
+                "surname": FieldSurname.value
+            };
+    var url = "RegisterUser";
+    req = new XMLHttpRequest();
+    req.open("POST", url, true);
+    req.onreadystatechange = callbackRegist;
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(JSON.stringify(values));  
+}
+
+function callbackRegist() {
+     document.getElementById("modalWait").className='';
+    if (req.readyState == 4) {
+        if (req.status == 200) {
+            parseMessagesRegistration(req.responseText);
+        }
+    }
+}
+
 
 setInterval(function() {
     var url = "IsOnline";

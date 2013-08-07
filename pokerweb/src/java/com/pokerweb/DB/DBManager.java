@@ -8,6 +8,7 @@ import com.pokerweb.Area.FieldOutMoney;
 import com.pokerweb.Config.ConfigManager;
 import com.pokerweb.Config.FieldJdbc;
 import com.pokerweb.crypto.CryptoManager;
+import com.pokerweb.mail.NewPassFromMail;
 import com.pokerweb.mail.SendConfirmRegistMessage;
 import com.pokerweb.mail.SendConfirmSettingMessage;
 import com.pokerweb.registration.UserAllInformation;
@@ -1467,4 +1468,68 @@ public class DBManager{
         }
         }
     }
+    
+    public boolean SendNewPassFromLogin(String Login){
+        PreparedStatement stmt = null;
+        try {
+            UUID uuid = UUID.randomUUID();
+              String query="insert into token_user("
+                       + "id_user,"
+                       + "token_confirm,"
+                       + "type_confirm,"
+                       + "date_request,"
+                       + "date_response,"
+                       + "confirmed) "
+                       + "values((select id from users where login=?),'"
+                       +uuid.toString()+"',2,now(),'1999-01-01 00:00:00',false)";
+               stmt = connection.prepareStatement(query);
+               stmt.setString(1, Login);
+               stmt.executeUpdate();
+               NewPassFromMail SendCSM = new NewPassFromMail();
+               UserAllInformation UserInfo = GetCurrentUserAllInfo();
+               SendCSM.SetMail(UserInfo.email);
+               SendCSM.SetToken(uuid.toString());
+               Thread myT = new Thread(SendCSM);
+               myT.start();
+               return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+    }
+    
+    
+    public boolean ConfirmPass(String token){
+        PreparedStatement stmt = null;
+        try {
+          String query="select id_user from token_user where token_confirm=? and confirmed=false";
+          stmt = connection.prepareStatement(query);
+          stmt.setString(1, token);
+          ResultSet rs = stmt.executeQuery();
+          if(!rs.first())
+              return false;
+          return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+          finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+    }
 }
+
+

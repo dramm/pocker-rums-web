@@ -38,7 +38,7 @@
                         <div class="button">Регистрация
 
                         <form name="frm" class="dropdownMenu register" onSubmit="return Validate()">
-                            <div>Заполните пожалуйста все поля</div>
+                            <div class="errorMessage">Заполните пожалуйста все поля</div>
                             <div style="height: 45px;">                                
                                 <div class="caption">Логин:</div>
                                 <input type="text" id="login" name="login" placeholder="Введите логин" onkeyup="RegistFieldChanged()"/>
@@ -113,11 +113,11 @@
                         </div>
                       
                     </div>
-                        <a href="#">Забыли пароль?</a> 
+                        <a href="#" onclick="selectMail()">Забыли пароль?</a> 
                         <%}%>
                         
                     <div>
-                        <div class="button">Язык
+                        <div class="button" style="float: right;">Язык
                             <form class="dropdownMenu" id="language" method="GET" action="#">
                                 <input class="active" type="submit" name="language" value="Русский"/>
                                 <input type="submit" name="language" value="English"/>
