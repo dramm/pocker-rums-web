@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<div id="mainMenu"> 
+<div id="mainMenu" style="font-size: 13px;"> 
                     <div class="button">Спорт</div>
                     <div class="button">Live</div>
                     <div class="button">Футбол</div>
