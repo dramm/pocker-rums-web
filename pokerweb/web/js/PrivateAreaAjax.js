@@ -798,8 +798,86 @@ function parseMessagesTab1Error(responseText) {
    
    function selectMail(){
        
-       
+       var Login = document.getElementById("RestorePassEdit");
+       var values =  {  
+                "login": Login.value 
+            };
+    var url = "ResetPass";
+    reqPrivate = new XMLHttpRequest();
+    reqPrivate.open("POST", url, true);
+    reqPrivate.onreadystatechange = CallbackResetPass;
+    reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    reqPrivate.send(JSON.stringify(values));
    }
+   
+   function CallbackResetPass() {
+   
+    if (reqPrivate.readyState == 4) {
+        if (reqPrivate.status == 200) {
+            if(reqPrivate.responseText != null)
+            if(reqPrivate.responseText.length>0)
+            parseMessagesReset(reqPrivate.responseText);
+        }
+    }
+}
+
+
+function parseMessagesReset(responseText) {
+    if (responseText == null) {
+        return false;
+    } else {
+        if (responseText.length > 0) {
+        var ErrorS = JSON.parse(responseText);
+          if(ErrorS.Error != "true"){
+                registDialog("Инструкция для востановления пароля отправленна вам на e-mail");
+          }
+          else
+              registDialog("Пользователя не существует");
+        } 
+    }
+}
+  
+   function RestorePassFieldChanged() {
+   var Login = document.getElementById("RestorePassEdit");
+   
+    var values =  {  
+                "login": Login 
+            };
+    var url = "ValidLoginResetPass";
+    reqPrivate = new XMLHttpRequest();
+    reqPrivate.open("POST", url, true);
+    reqPrivate.onreadystatechange = CallbackResetPassChanget;
+    reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    reqPrivate.send(JSON.stringify(values));   
+}
+
+function CallbackResetPassChanget() {
+    var validMessage = document.getElementById("LoginResetPassError");
+    validMessage.innerHTML = "";
+    if (reqPrivate.readyState == 4) {
+        if (reqPrivate.status == 200) {
+            if(reqPrivate.responseText != null)
+            if(reqPrivate.responseText.length>0)
+            parseMessagesResetPass(reqPrivate.responseText);
+        }
+    }
+}
+   
+   function parseMessagesResetPass(responseText) {
+    if (responseText == null) {
+        return false;
+    } else {
+        if (responseText.length > 0) {
+        var ErrorS = JSON.parse(responseText);
+          if(ErrorS.Login != null){
+              var validMessage = document.getElementById("LoginResetPassError");
+              validMessage.innerHTML = ErrorS.Login;
+          }
+          else
+              document.getElementById("ResetPassButt").disabled = false;
+        } 
+    }
+}
    
    function SendTokenNewMail(){
     var url = "ValidateTab1";
