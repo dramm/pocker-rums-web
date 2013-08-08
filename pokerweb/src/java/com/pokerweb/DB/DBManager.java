@@ -103,9 +103,11 @@ public class DBManager{
     
     public long GetCountRequestOutMoneyNoAccepted(){
         PreparedStatement stmt = null;
+        Long IdUser = GetCurrentUserId();
         try {
-            String query="SELECT count(id) as count FROM request_out_money where status=0";
+            String query="SELECT count(id) as count FROM request_out_money where id_user=?";
              stmt = connection.prepareStatement(query);
+             stmt.setLong(1, IdUser);
                 ResultSet rs = stmt.executeQuery();
                 if(!rs.first())
                     return 0;
@@ -282,7 +284,10 @@ public class DBManager{
                      if(item.getKey() == 2)
                          continue;
                       stmt = connection.prepareStatement(query);
-                      stmt.setInt(1,item.getKey());
+                      if(item.getKey() == 1)
+                          stmt.setInt(1,2);
+                      else
+                          stmt.setInt(1,1);
                       stmt.setLong(2,entry.getKey());
                       stmt.executeUpdate();
                       stmt.close();
@@ -333,8 +338,8 @@ public class DBManager{
                     + "status "
                     + "from users as t1,"
                     + "request_out_money as t2"
-                    + " where t2.id_user=? and"
-                    + " t1.id=t2.id_manager and t2.status=2"
+                    + " where t2.id_user=? and t2.status>0 and"
+                    + " t1.id=t2.id_manager"
                     + " LIMIT ? OFFSET ? ";
             List<FieldOutMoney> LFOM = new ArrayList<FieldOutMoney>();
             FieldOutMoney FOM;
@@ -424,7 +429,7 @@ public class DBManager{
             String query="SELECT login,"
                     + "sum,"
                     + "data_request,"
-                    + "balance,"
+                    + "balance_request,balance,"
                     + "t1.id as id "
                     + "FROM request_out_money as t1,"
                     + "users as t2 "
@@ -437,11 +442,15 @@ public class DBManager{
             stmt.setInt(2, PageNum);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
+                if(rs.getDouble("balance") < rs.getDouble("sum")){
+                    SetRequestOutMoneyNoCash(rs.getLong("id"));
+                    continue;
+                }
                 FOM=new FieldOutMoney();
                 FOM.Date_request = rs.getString("data_request");
                 FOM.Login = rs.getString("login");
-                FOM.Sum = rs.getFloat("sum");
-                FOM.Balance_request = rs.getDouble("balance");
+                FOM.Sum = rs.getDouble("sum");
+                FOM.Balance_request = rs.getDouble("balance_request");
                 FOM.Id = rs.getLong("id");
                 LFOM.add(FOM);
             }
@@ -457,6 +466,37 @@ public class DBManager{
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }
+    }
+    
+    public boolean SetRequestOutMoneyNoCash(Long IdRequest){
+    PreparedStatement stmt = null;
+    Long UserId = GetCurrentUserId();
+        try {
+            String query="Update request_out_money "
+                    + "set status=3,"
+                    + "comment='Недостаточно средств на счету',"
+                    + "data_response=now(),"
+                    + "id_manager=? "
+                    + "where id=?";
+            List<FieldOutMoney> LFOM = new ArrayList<FieldOutMoney>();
+            FieldOutMoney FOM;
+            stmt = connection.prepareStatement(query);
+            stmt.setLong(1, UserId);
+            stmt.setLong(2, IdRequest);
+            stmt.executeUpdate();
+            return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+        finally{
+            if(stmt != null)
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
         }
     }
     
@@ -1473,17 +1513,22 @@ public class DBManager{
         PreparedStatement stmt = null;
         try {
                Long IdUser = 0L;
-               String query="select id_user from token_user where token_confirm=?";
+               String query="select id_user from token_user where token_confirm=? and confirmed=false";
                stmt = connection.prepareStatement(query);
                stmt.setString(1, token);
                ResultSet rs = stmt.executeQuery();
                if(!rs.first())
                    return false;
                IdUser = rs.getLong("id_user");
-              query="Update users Set password=? where id=?";
+               query="Update users Set password=? where id=?";
                stmt = connection.prepareStatement(query);
                stmt.setString(1, CryptoManager.GetEnctyptPassword(Pass));
                stmt.setLong(2,IdUser );
+               stmt.executeUpdate();
+               query="Update token_user Set confirmed=true,date_response=now() where id_user=? and token_confirm=?";
+               stmt = connection.prepareStatement(query);
+               stmt.setLong(1, IdUser);
+               stmt.setString(2, token);
                stmt.executeUpdate();
                    return true;
         } catch (SQLException ex) {
@@ -1504,7 +1549,7 @@ public class DBManager{
         PreparedStatement stmt = null;
         try {
             UUID uuid = UUID.randomUUID();
-              String query="select id_user from token_user where token_confirm=?";
+              String query="select id_user from token_user where token_confirm=? and confirmed=false";
                stmt = connection.prepareStatement(query);
                stmt.setString(1, token);
                ResultSet rs = stmt.executeQuery();
