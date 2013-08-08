@@ -363,7 +363,7 @@ function ShowRequestUserList(responseText){
        if(responseText.User[i].Status == 0)
         NewDivStatus.innerHTML+="Ожидает"+"</br>";
     if(responseText.User[i].Status == 1)
-        NewDivStatus.innerHTML+="Обрабатывается"+"</br>";
+        NewDivStatus.innerHTML+="Обработка"+"</br>";
     if(responseText.User[i].Status == 2)
         NewDivStatus.innerHTML+="Выполнено"+"</br>";
     if(responseText.User[i].Status == 3)
@@ -467,6 +467,7 @@ function ShowRequestList(responseText){
        NewSelectedActionMoney = document.createElement("select");
        NewSelectedActionMoney.style.cssText = "float:left;font-size:11px";
        NewSelectedActionMoney.setAttribute('id',responseText.User[i].Id);
+       NewSelectedActionMoney.setAttribute('onchange',"ChangeListOutMoney('"+responseText.User[i].Id+"')");
        NewSelectedActionMoney.options[NewSelectedActionMoney.options.length] = new Option("Выбор", 0);
        NewSelectedActionMoney.options[NewSelectedActionMoney.options.length] = new Option("Оплатить", 1);
        NewSelectedActionMoney.options[NewSelectedActionMoney.options.length] = new Option("Отказать", 2);
@@ -501,6 +502,13 @@ function ShowRequestList(responseText){
     CurrentDiv.appendChild(rootDiv);
 }
 
+function ChangeListOutMoney(UserId){
+    var SelectAction = document.getElementById(UserId);
+    var SelectActionIndex = SelectAction.options.selectedIndex;
+    if(SelectActionIndex != 0)
+        DialogComment(UserId);         
+}
+
 function ExecuteSelectedActions(){
     var parent = document.getElementById("SelectedAction");
     var child = parent.firstChild;
@@ -533,6 +541,7 @@ function ResponseOutMoney(){
     var child = parent.firstChild;
     var myObject = {};
     var i = 0;
+    var date = new Date(0);
     //myObject["Comment"] = [];
     while(child) {
         if(child.id > 0){
@@ -541,11 +550,10 @@ function ResponseOutMoney(){
             if(SelectActionIndex != 0){ 
                 myObject[child.id] = [];//SelectActionIndex;
                 myObject[child.id][0] = SelectActionIndex;
-                myObject[child.id][1] = "какой-то комент №"+i;
+                myObject[child.id][1] = getCookie("User"+child.id);
+                document.cookie="User"+child.id+"=; path=/; expires="+date.toUTCString();
                 i++;
                  }
-            if(child.checked)
-             myObject.CheckedItems[i++] = child.id;
         }
     child = child.nextSibling;
 }
@@ -910,4 +918,44 @@ function CallbackResetPassChanget() {
     newInput.setAttribute("value","OK");
     formReadReminder.appendChild(newInput);
     $( formReadReminder).dialog({ modal: true,maxHeight:200,maxWidth:400,minHeight:200,minWidth:400});
+}
+
+function DialogComment(useriId){
+var formReadReminder=document.createElement("form");
+var newInput=document.createElement("input");
+var newComment=document.createElement("input");
+formReadReminder.style.cssText="background-color: #285F74;text-align:center;"
+newComment.setAttribute("id","NewCommentArea");
+newComment.setAttribute("type","textarea");
+formReadReminder.innerHTML+="Введите коментарий</br>";
+formReadReminder.appendChild(newComment);
+formReadReminder.innerHTML+="</br>";
+formReadReminder.setAttribute("id","formReadReminder");
+newInput.setAttribute("type","button");
+newInput.setAttribute("onclick","SetNewCookie('User"+useriId+"');return false;");
+newInput.style.cssText="color: white;padding: 1px;display:inline-block;border: solid 2px #285F74;"+
+    "border-radius: 6px;min-width: 76px;text-align: center;background: #000000;"+
+    "background: -moz-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
+    "background: -webkit-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
+    "background: -o-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
+    "background: -ms-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
+    "background: linear-gradient(top, #285F74 0%, #0d2a34 100%);";
+newInput.setAttribute("value","OK");
+formReadReminder.innerHTML+="</br>";
+formReadReminder.appendChild(newInput);
+$( formReadReminder).dialog({ modal: true,maxHeight:200,maxWidth:400,minHeight:200,minWidth:400
+        });
+}
+
+function SetNewCookie(useriId){
+    var comment = document.getElementById("NewCommentArea");
+    document.cookie = useriId+"="+comment.value;
+    $("#formReadReminder").dialog('close');
+ }
+
+function getCookie(name) {
+  var matches = document.cookie.match(new RegExp(
+    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+  ));
+  return matches ? decodeURIComponent(matches[1]) : undefined;
 }

@@ -82,17 +82,9 @@ public class ResponseOutMoney extends HttpServlet {
             UserAllInformation UserInfo = DBM.GetCurrentUserAllInfo();
             if(UserInfo == null)
                 return;
-         //   List<String> arr = new ArrayList<String>();
-         //   for(int i = 0; i < jsonArr.length(); i++)
-         //       arr.add(jsonArr.getString(i));
            Map<Long,Map<Integer,String>> arr = new HashMap<Long, Map<Integer,String>>();
            Map<Integer,String> act;
-           
            for(int i = 0; i < jsonObject.length(); i++){
-                //String r1 = jsonObject.names().getString(i);
-                //String r2 = jsonObject.getString(jsonObject.names().getString(i));
-                //String r3 = jsonObject.getJSONArray("Comment").getString(i);
-                //String r4 = "";
                act = new HashMap<Integer,String>();
                act.put(jsonObject.getJSONArray(jsonObject.names().getString(i)).getInt(0),jsonObject.getJSONArray(jsonObject.names().getString(i)).getString(1));
                arr.put(jsonObject.names().getLong(i),act);
