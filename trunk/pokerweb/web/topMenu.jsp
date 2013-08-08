@@ -113,7 +113,19 @@
                         </div>
                       
                     </div>
-                        <a href="#" onclick="selectMail()">Забыли пароль?</a> 
+<!--                         -->
+                 <div class="button">Забыли пароль?
+                            <form class="dropdownMenu signIn" onSubmit="return Validate()">
+                            <div>                                
+                                <div class="caption">Логин:</div>
+                                <input type="text" size="20" id="RestorePassEdit" onkeyup="RestorePassFieldChanged()">
+                                <div class="wrongInput">введите логин</div>
+                            </div>                       
+                            <div class="centered">
+                                <input type="button" id="ResetPassButt" class="button" value="Востановить" onclick="selectMail()"/>
+                            </div>    
+                        </form>
+                        </div>
                         <%}%>
                         
                     <div>

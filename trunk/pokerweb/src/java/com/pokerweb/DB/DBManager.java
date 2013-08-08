@@ -1469,7 +1469,65 @@ public class DBManager{
         }
     }
     
-    public boolean SendNewPassFromLogin(String Login){
+    public boolean SetNewPassReset(String token,String Pass){
+        PreparedStatement stmt = null;
+        try {
+               Long IdUser = 0L;
+               String query="select id_user from token_user where token_confirm=?";
+               stmt = connection.prepareStatement(query);
+               stmt.setString(1, token);
+               ResultSet rs = stmt.executeQuery();
+               if(!rs.first())
+                   return false;
+               IdUser = rs.getLong("id_user");
+              query="Update users Set password=? where id=?";
+               stmt = connection.prepareStatement(query);
+               stmt.setString(1, CryptoManager.GetEnctyptPassword(Pass));
+               stmt.setLong(2,IdUser );
+               stmt.executeUpdate();
+                   return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+    }
+    
+    public boolean ConfirmNewPass(String token){
+        PreparedStatement stmt = null;
+        try {
+            UUID uuid = UUID.randomUUID();
+              String query="select id_user from token_user where token_confirm=?";
+               stmt = connection.prepareStatement(query);
+               stmt.setString(1, token);
+               ResultSet rs = stmt.executeQuery();
+               if(!rs.first())
+                   return false;
+               if(rs.getString("id_user") != null)
+                   return true;
+               return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+    }
+    
+    public boolean SendConfirmNewPass(String Login){
         PreparedStatement stmt = null;
         try {
             UUID uuid = UUID.randomUUID();
@@ -1481,13 +1539,19 @@ public class DBManager{
                        + "date_response,"
                        + "confirmed) "
                        + "values((select id from users where login=?),'"
-                       +uuid.toString()+"',2,now(),'1999-01-01 00:00:00',false)";
+                       +uuid.toString()+"',3,now(),'1999-01-01 00:00:00',false)";
                stmt = connection.prepareStatement(query);
                stmt.setString(1, Login);
                stmt.executeUpdate();
+               query="select email from users where login=?";
+               stmt = connection.prepareStatement(query);
+               stmt.setString(1, Login);
+               ResultSet rs = stmt.executeQuery();
+               if(!rs.first())
+                   return false;
+               String Mail = rs.getString("email");
                NewPassFromMail SendCSM = new NewPassFromMail();
-               UserAllInformation UserInfo = GetCurrentUserAllInfo();
-               SendCSM.SetMail(UserInfo.email);
+               SendCSM.SetMail(Mail);
                SendCSM.SetToken(uuid.toString());
                Thread myT = new Thread(SendCSM);
                myT.start();
@@ -1506,30 +1570,4 @@ public class DBManager{
         }
     }
     
-    
-    public boolean ConfirmPass(String token){
-        PreparedStatement stmt = null;
-        try {
-          String query="select id_user from token_user where token_confirm=? and confirmed=false";
-          stmt = connection.prepareStatement(query);
-          stmt.setString(1, token);
-          ResultSet rs = stmt.executeQuery();
-          if(!rs.first())
-              return false;
-          return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-          finally{
-        if(stmt != null)
-            try {
-            stmt.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        }
-    }
 }
-
-

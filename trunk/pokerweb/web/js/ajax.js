@@ -52,30 +52,30 @@ function init() {
 
 function ConfirmRestor(token) {
     var values =  {"token": token};
-    var url = "ConfRest";
+    var url = "ConfResetPass";
     req = new XMLHttpRequest();
     req.open("POST", url, true);
-    req.onreadystatechange = callbackConfRegist;
+    req.onreadystatechange = callbackConfRestore;
     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     req.send(JSON.stringify(values));   
 }
 
-function callbackConfRegist() {
+function callbackConfRestore() {
     if (req.readyState == 4) {
         if (req.status == 200) {
-            parseMessagesConfRest(req.responseText);
+            parseMessagesConfReset(req.responseText);
         }
     }
 }
 
-function parseMessagesConfRest(responseText) {
+function parseMessagesConfReset(responseText) {
     if (responseText == null) {
         return false;
     } else {
         if (responseText.length > 0) {
         var ErrorS = JSON.parse(responseText);
-      if(ErrorS.ConfRegist!=null)
-          if(ErrorS.ConfRegist == "true")
+      if(ErrorS.Error!=null)
+          if(ErrorS.Error == "false")
               restDialog(ErrorS.token)
               else
                   registDialog("Востановление не удалось");
@@ -93,11 +93,18 @@ var newConfPass=document.createElement("input");
 formReadReminder.style.cssText="background-color: #285F74;text-align:center;"
 var newP=document.createElement("p");
 newP.style.cssText="color:#FFFFFF;";
-newP.innerHTML=message;//"На указаный вами адрес отправленно сообщение для подтверждения регистрации, перейдите пожалуйста по ссылке";
-formReadReminder.appendChild(newP);
+newP.innerHTML= "";
+newPass.setAttribute("id","ResetNewPass");
+newConfPass.setAttribute("id","ResetNewConfPass");
+newPass.setAttribute("type","password");
+newConfPass.setAttribute("type","password");
+formReadReminder.innerHTML+="Введите новый пароль</br>";
 formReadReminder.appendChild(newPass);
+formReadReminder.innerHTML+="</br>";
+formReadReminder.innerHTML+="Повторите новый пароль</br>";
 formReadReminder.appendChild(newConfPass);
 newInput.setAttribute("type","submit");
+newInput.setAttribute("onclick","SendNewPass('"+token+"');return false;");
 newInput.style.cssText="color: white;padding: 1px;display:inline-block;border: solid 2px #285F74;"+
     "border-radius: 6px;min-width: 76px;text-align: center;background: #000000;"+
     "background: -moz-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
@@ -106,9 +113,75 @@ newInput.style.cssText="color: white;padding: 1px;display:inline-block;border: s
     "background: -ms-linear-gradient(top, #285F74 0%, #0d2a34 100%);"+
     "background: linear-gradient(top, #285F74 0%, #0d2a34 100%);";
 newInput.setAttribute("value","OK");
+formReadReminder.innerHTML+="</br>";
 formReadReminder.appendChild(newInput);
 $( formReadReminder).dialog({ modal: true,maxHeight:200,maxWidth:400,minHeight:200,minWidth:400});
- }
+ 
+  
+}
+
+function SendNewPass(token){
+    var values =  {  
+                "token": token,
+                "password":document.getElementById("ResetNewPass").value,
+                "confirmPassword": document.getElementById("ResetNewConfPass").value
+            };
+    var url = "SetNewPass";
+    req = new XMLHttpRequest();
+    req.open("POST", url, true);
+    req.onreadystatechange = callbackNewPass;
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(JSON.stringify(values));}
+
+function callbackNewPass() {
+    if (req.readyState == 4) {
+        if (req.status == 200) {
+            parseMessagesConfRest(req.responseText);
+        }
+    }
+}
+
+function parseMessagesConfRest(responseText) {
+    if (responseText == null) {
+        return false;
+    } else {
+        if (responseText.length > 0) {
+        var ErrorS = JSON.parse(responseText);
+      if(ErrorS.NotConf==null){
+          if(ErrorS.Error != "true")
+                registDialog("Новый пароль сохранен");
+              else
+                  registDialog("Востановление не удалось");
+      }
+              else
+                  registDialog(ErrorS.NotConf);
+        } 
+   }
+   }
+
+function callbackConfRestor() {
+    if (req.readyState == 4) {
+        if (req.status == 200) {
+            parseMessagesNewPass(req.responseText);
+        }
+    }
+}
+
+function parseMessagesNewPass(responseText) {
+    if (responseText == null) {
+        return false;
+    } else {
+        if (responseText.length > 0) {
+        var ErrorS = JSON.parse(responseText);
+      if(ErrorS.ConfRegist!=null)
+          if(ErrorS.Error == "true")
+                registDialog("Новый пароль сохранен");
+              else
+                  registDialog("Востановление не удалось");
+        } 
+   }
+   }
+   
 
 
 function RegistClickButton() {

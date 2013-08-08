@@ -119,27 +119,8 @@
             timer = setInterval(function(){ nivoRun(slider, kids, settings, false); }, settings.pauseTime);
         }
         
-        // Add Direction nav
-        if(settings.directionNav){
-            slider.append('<div class="nivo-directionNav"><a class="nivo-prevNav">'+ settings.prevText +'</a><a class="nivo-nextNav">'+ settings.nextText +'</a></div>');
-            
-            $(slider).on('click', 'a.nivo-prevNav', function(){
-                if(vars.running) { return false; }
-                clearInterval(timer);
-                timer = '';
-                vars.currentSlide -= 2;
-                nivoRun(slider, kids, settings, 'prev');
-            });
-            
-            $(slider).on('click', 'a.nivo-nextNav', function(){
-                if(vars.running) { return false; }
-                clearInterval(timer);
-                timer = '';
-                nivoRun(slider, kids, settings, 'next');
-            });
-        }
         
-        // Add Control nav
+         // Add Control nav
         if(settings.controlNav){
             vars.controlNavEl = $('<div class="nivo-controlNav"></div>');
             slider.after(vars.controlNavEl);
@@ -169,6 +150,28 @@
                 nivoRun(slider, kids, settings, 'control');
             });
         }
+        
+        // Add Direction nav
+        if(settings.directionNav){
+            slider.append('<div class="nivo-directionNav"><a class="nivo-prevNav">'+ settings.prevText +'</a><a class="nivo-nextNav">'+ settings.nextText +'</a></div>');
+            
+            $(slider).on('click', 'a.nivo-prevNav', function(){
+                if(vars.running) { return false; }
+                clearInterval(timer);
+                timer = '';
+                vars.currentSlide -= 2;
+                nivoRun(slider, kids, settings, 'prev');
+            });
+            
+            $(slider).on('click', 'a.nivo-nextNav', function(){
+                if(vars.running) { return false; }
+                clearInterval(timer);
+                timer = '';
+                nivoRun(slider, kids, settings, 'next');
+            });
+        }
+        
+       
         
         //For pauseOnHover setting
         if(settings.pauseOnHover){
