@@ -12,7 +12,7 @@
                     <div class="button">Казино</div>
                     <div class="button">Live казино</div>
                     <div class="button">Покер</div>
-                    <div class="button active">Игры</div>
+                    <div class="button active"><a href="/game">Игры</a></div>
                     <div class="button">Аркады</div>
                     <div class="button">Топ столы</div>
                     <div class="button">Акции</div>

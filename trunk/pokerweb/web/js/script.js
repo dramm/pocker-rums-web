@@ -54,6 +54,11 @@ $(document).ready(function(){
             $("#mainMenu .active").removeClass("active");
             $(this).addClass("active");
         });
+        
+         $("#menuGame .button").keyup(function()
+        {   
+            setButtonGradient($(this),false)
+        });
         /*$("input").keypress(function(){
             $(this).css("color","#000000");
         });*/
@@ -72,6 +77,13 @@ $(document).ready(function(){
             forma.addClass("started");
             forma.slideDown("fast");
         });
+        
+        $('#menuGame .button').click(function () {
+            var butt = $(this);
+            setButtonGradient(butt,true);
+            
+        });
+         
         
         $(document).click(function(){
             $(".dropdownMenu").each(function(){
