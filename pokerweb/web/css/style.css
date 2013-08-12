@@ -645,6 +645,8 @@ color: white !important;
     margin-left: 11px;
     text-align: center;
     border-radius: 8px 10px 10px 8px;
+    margin-top: 5px;
+    float: left;
 }
 
 #menuGame{
@@ -678,3 +680,294 @@ color: white !important;
 
 }
 
+#table .button{
+    color: white;
+    padding: 1px;
+    border: solid 2px #285F74;
+    border-radius: 6px;
+    min-width: 10px;
+    text-align: center;
+    background: #000000;
+    background: -moz-linear-gradient(top, #285F74 0%, #0d2a34 100%);
+    background: -webkit-linear-gradient(top, #285F74 0%, #0d2a34 100%);
+    background: -o-linear-gradient(top, #285F74 0%, #0d2a34 100%);
+    background: -ms-linear-gradient(top, #285F74 0%, #0d2a34 100%);
+    background: linear-gradient(top, #285F74 0%, #0d2a34 100%);
+    margin-left: 20px;
+}
+
+.flop{
+    float: left;
+    background-image: url(/pic/flop.png);
+    background-repeat: no-repeat; /* Отменяем повторение фона */
+    width: 42px;
+    height: 67px;
+    margin-left:2px;
+}
+.tern{
+    float: left;
+    background-image: url(/pic/tern.png);
+    background-repeat: no-repeat; /* Отменяем повторение фона */
+    width: 42px;
+    height: 67px;
+    margin-left:2px;
+}
+.river{
+    float: left;
+    background-image: url(/pic/river.png);
+    background-repeat: no-repeat; /* Отменяем повторение фона */
+    width: 42px;
+    height: 67px;
+    margin-left:2px;
+}
+
+.TableCart{
+    float: left;
+    margin-left: 10px;
+}
+
+.Table1User1Cart2{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table1User2Cart1{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table1User2Cart2{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table2User1Cart1{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table2User1Cart2{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table2User2Cart1{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table2User2Cart2{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table2User3Cart1{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table2User3Cart2{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table2User4Cart1{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table2User4Cart2{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+
+.Table3User1Cart1{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table3User1Cart2{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table3User2Cart1{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table3User2Cart2{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table3User3Cart1{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table3User3Cart2{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table3User4Cart1{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table3User4Cart2{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table3User5Cart1{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table3User5Cart2{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table3User6Cart1{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table3User6Cart2{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table3User7Cart1{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table3User7Cart2{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table3User8Cart1{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.Table3User8Cart2{
+    float: left;
+    background-image: url(/pic/ClearSubstrate.png);
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 58px;
+}
+
+.progressbar {
+
+ position: relative;
+} 
+.progressbar-value {
+font-family: Segoe UI,Arial,sans-serif;
+ position: absolute;
+ display: block;
+ margin: 0;
+ border: 0;
+ width: 5px;
+ height: 25px;
+ top: 45px;
+ overflow: hidden;
+ text-indent: -30px;
+ background: url(/pic/fullindicator.png) repeat scroll center center #0f0;
+ right: 0px;
+}
+.progressbar-cover {
+ position: absolute;
+ display: block;
+ width: 5px;
+ height: 25px;
+ border: 0;
+ left: 0;
+ bottom: 0%;
+ background: url(/pic/indicator.png) repeat-x scroll 0 0 transparent;
+}
