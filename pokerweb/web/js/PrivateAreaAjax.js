@@ -961,4 +961,56 @@ function getCookie(name) {
 }
 
 
+function StartGame(){setInterval(function() {
+    var values =  {  
+                "start": "" 
+            };
+    var url = "StartGame";
+    reqPrivate = new XMLHttpRequest();
+    reqPrivate.open("POST", url, true);
+    reqPrivate.onreadystatechange = StartGameCallback;
+    reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    reqPrivate.send(JSON.stringify(values));
+},5000);
+}
 
+function StartGameCallback() {
+    if (reqPrivate.readyState == 4) {
+        if (reqPrivate.status == 200) {
+            if(reqPrivate.responseText != null)
+            if(reqPrivate.responseText.length > 0){
+                var Message = JSON.parse(reqPrivate.responseText);
+                if(Message.Data != null){
+                    var Base = JSON.parse(Message.Data);
+                    var Data = JSON.parse(Base.Table1);
+                    var DataUser = JSON.parse(Base.Table1User);
+                    if(Data.Board != null){
+                    
+                    if(DataUser.Table == "First"){
+                     $('#Table1User1Cart1').css('background-image' , 'url(/pic/cart/'+DataUser.Player0[0]+'.png)');
+                     $('#Table1User1Cart2').css('background-image' , 'url(/pic/cart/'+DataUser.Player0[1]+'.png)');
+                     
+                     $('#Table1User2Cart1').css('background-image' , 'url(/pic/cart/'+DataUser.Player1[0]+'.png)');
+                     $('#Table1User2Cart2').css('background-image' , 'url(/pic/cart/'+DataUser.Player1[1]+'.png)');
+                     
+                     $('#Table1User3Cart1').css('background-image' , 'url(/pic/cart/'+DataUser.Player2[0]+'.png)');
+                     $('#Table1User3Cart2').css('background-image' , 'url(/pic/cart/'+DataUser.Player2[1]+'.png)');
+                     
+                     $('#Table1User4Cart1').css('background-image' , 'url(/pic/cart/'+DataUser.Player3[0]+'.png)');
+                     $('#Table1User4Cart2').css('background-image' , 'url(/pic/cart/'+DataUser.Player3[1]+'.png)');
+                    
+                    }
+                    
+                     $('#Table1Flop1').css('background-image' , 'url(/pic/cart/'+Data.Board[0]+'.png)');
+                     $('#Table1Flop2').css('background-image' , 'url(/pic/cart/'+Data.Board[1]+'.png)');
+                     $('#Table1Flop3').css('background-image' , 'url(/pic/cart/'+Data.Board[2]+'.png)');
+                     $('#Table1Tern').css('background-image' , 'url(/pic/cart/'+Data.Board[3]+'.png)');
+                     $('#Table1River').css('background-image' , 'url(/pic/cart/'+Data.Board[4]+'.png)');
+                    }
+                   
+                    console.log(Message.Data.toString());
+                
+                    }
+        }}
+    }
+}

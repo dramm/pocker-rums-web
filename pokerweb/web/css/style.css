@@ -633,6 +633,8 @@ color: white !important;
     background-size: 80%;
     width: 440px;
     height: 250px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .tableNumber{
@@ -659,6 +661,7 @@ color: white !important;
     border-bottom: solid black 2px;
     border-right: solid black 2px;
     font-size: 11px;   
+    height: 45px;
 }
 #menuGame *{
     vertical-align: middle;
@@ -724,223 +727,26 @@ color: white !important;
 .TableCart{
     float: left;
     margin-left: 10px;
+    
 }
 
-.Table1User1Cart2{
+.TableUserCart{
     float: left;
     background-image: url(/pic/ClearSubstrate.png);
     background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
+    width: 42px;
+    height: 70px;
 }
 
-.Table1User2Cart1{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table1User2Cart2{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table2User1Cart1{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table2User1Cart2{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table2User2Cart1{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table2User2Cart2{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table2User3Cart1{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table2User3Cart2{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table2User4Cart1{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table2User4Cart2{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-
-.Table3User1Cart1{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table3User1Cart2{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table3User2Cart1{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table3User2Cart2{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table3User3Cart1{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table3User3Cart2{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table3User4Cart1{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table3User4Cart2{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table3User5Cart1{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table3User5Cart2{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table3User6Cart1{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table3User6Cart2{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table3User7Cart1{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table3User7Cart2{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table3User8Cart1{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
-}
-
-.Table3User8Cart2{
-    float: left;
-    background-image: url(/pic/ClearSubstrate.png);
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 58px;
+.progressbar-cover {
+ position: absolute;
+ display: block;
+ width: 5px;
+ height: 25px;
+ border: 0;
+ left: 0;
+ bottom: 0%;
+ background: url(/pic/indicator.png) repeat-x scroll 0 0 transparent;
 }
 
 .progressbar {
@@ -961,13 +767,54 @@ font-family: Segoe UI,Arial,sans-serif;
  background: url(/pic/fullindicator.png) repeat scroll center center #0f0;
  right: 0px;
 }
-.progressbar-cover {
- position: absolute;
- display: block;
- width: 5px;
- height: 25px;
- border: 0;
- left: 0;
- bottom: 0%;
- background: url(/pic/indicator.png) repeat-x scroll 0 0 transparent;
+
+
+.ui-progressbar {
+	height: 10px;
+        width: 50px;
+	overflow: hidden;
+        background:white !important;
+        float:left;
+        height: 15px;
+        width: 150px;
+        margin-top: 10px;
+}
+
+.ui-progressbar .ui-progressbar-value {
+	margin: -1px;
+	height: 100%;
+}
+
+.ui-progressbar .ui-progressbar-overlay {
+	background: url("images/animated-overlay.gif");
+	height: 100%;
+	filter: alpha(opacity=25);
+	opacity: 0.25;
+}
+
+.ui-progressbar-indeterminate .ui-progressbar-value {
+	background:white !important;
+        
+}
+
+.ui-widget-header {
+	border: 1px solid #aaaaaa;
+	background: rgb(73,166,232) url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x !important;
+	color: rgb(73,166,232) !important;
+	font-weight: bold;
+}
+
+.SmallLogo{
+    background-image: url(/pic/texas-holdem-logo.png);
+    float:left;
+     background-repeat: no-repeat;
+     width: 62px;
+     height: 49px;
+}
+
+.TableUser{
+    width: 89px;
+    float: left;
+    text-align: center;
+    height: 80px;
 }
