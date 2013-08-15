@@ -4,6 +4,7 @@
  */
 package com.pokerweb.Server;
 
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
@@ -25,15 +26,26 @@ public class TableStatus {
     public String Table3;
     private TableStatus(){
         NewData = false;
+    Table1User = "";
+    Table2User = "";
+    Table3User = "";
+    Table1 = "";
+    Table2 = "";
+    Table3 = "";
     }
     
     public static TableStatus GetInstance(){
         return instanse;
     }
     
-    public String GetNewData(){
-        
+    public String GetNewData() throws JSONException{
         try {
+            if(!NewData){
+                byte[] byteCommand = Functions.intToByteArray(1010);
+                Connect.GetInstance().out.write(byteCommand);
+                Connect.GetInstance().out.flush();
+                return "Request";
+            }
             JSONObject jsonObject = new JSONObject();
             if(Table1.length() > 0)
             jsonObject.append("Table1", Table1);
@@ -54,8 +66,10 @@ public class TableStatus {
             Table2User = "";
             Table3User = "";
             NewData = false;
-            return  jsonObject.toString();
-        } catch (JSONException ex) {
+           return jsonObject.toString();
+            // return  JsonString;
+        
+        } catch (IOException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
@@ -63,7 +77,7 @@ public class TableStatus {
     
     public void SetNewUserData(String data){
         try {
-            JsonString = data;
+          //  JsonString = data;
             JSONObject jsonObject = new JSONObject(data);
             String Table = jsonObject.getString("Table");
             if(Table.equals("First"))
@@ -82,7 +96,7 @@ public class TableStatus {
     
     public void SetNewStageData(String data){
         try {
-            // JsonString = data;
+         //   JsonString = data;
             JSONObject jsonObject = new JSONObject(data);
             String Table = jsonObject.getString("Table");
             if(Table.equals("First"))
