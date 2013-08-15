@@ -980,35 +980,37 @@ function StartGameCallback() {
             if(reqPrivate.responseText != null)
             if(reqPrivate.responseText.length > 0){
                 var Message = JSON.parse(reqPrivate.responseText);
+                var tr = reqPrivate.responseText;
+                console.log(tr);
                 if(Message.Data != null){
-                    var Base = JSON.parse(Message.Data);
-                    var Data = JSON.parse(Base.Table1);
-                    var DataUser = JSON.parse(Base.Table1User);
-                    if(Data.Board != null){
-                    
-                    if(DataUser.Table == "First"){
-                     $('#Table1User1Cart1').css('background-image' , 'url(/pic/cart/'+DataUser.Player0[0]+'.png)');
-                     $('#Table1User1Cart2').css('background-image' , 'url(/pic/cart/'+DataUser.Player0[1]+'.png)');
-                     
-                     $('#Table1User2Cart1').css('background-image' , 'url(/pic/cart/'+DataUser.Player1[0]+'.png)');
-                     $('#Table1User2Cart2').css('background-image' , 'url(/pic/cart/'+DataUser.Player1[1]+'.png)');
-                     
-                     $('#Table1User3Cart1').css('background-image' , 'url(/pic/cart/'+DataUser.Player2[0]+'.png)');
-                     $('#Table1User3Cart2').css('background-image' , 'url(/pic/cart/'+DataUser.Player2[1]+'.png)');
-                     
-                     $('#Table1User4Cart1').css('background-image' , 'url(/pic/cart/'+DataUser.Player3[0]+'.png)');
-                     $('#Table1User4Cart2').css('background-image' , 'url(/pic/cart/'+DataUser.Player3[1]+'.png)');
-                    
-                    }
-                    
-                     $('#Table1Flop1').css('background-image' , 'url(/pic/cart/'+Data.Board[0]+'.png)');
-                     $('#Table1Flop2').css('background-image' , 'url(/pic/cart/'+Data.Board[1]+'.png)');
-                     $('#Table1Flop3').css('background-image' , 'url(/pic/cart/'+Data.Board[2]+'.png)');
-                     $('#Table1Tern').css('background-image' , 'url(/pic/cart/'+Data.Board[3]+'.png)');
-                     $('#Table1River').css('background-image' , 'url(/pic/cart/'+Data.Board[4]+'.png)');
-                    }
-                   
                     console.log(Message.Data.toString());
+                   var Data = JSON.parse(Message.Data);
+                   if(Data.Table1User != null){
+                    var TableUser = JSON.parse(Data.Table1User);   
+                    if(TableUser.Table == "First"){
+                     $('#Table1User1Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Player0[0]+'.png)');
+                     $('#Table1User1Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Player0[1]+'.png)');
+                     
+                     $('#Table1User2Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Player1[0]+'.png)');
+                     $('#Table1User2Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Player1[1]+'.png)');
+                     
+                     $('#Table1User3Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Player2[0]+'.png)');
+                     $('#Table1User3Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Player2[1]+'.png)');
+                     
+                     $('#Table1User4Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Player3[0]+'.png)');
+                     $('#Table1User4Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Player3[1]+'.png)');
+                    
+                    }}
+                    if(Data.Table1 != null){
+                    var Table = JSON.parse(Data.Table1);
+                     $('#Table1Flop1').css('background-image' , 'url(/pic/cart/'+Table.Board[0]+'.png)');
+                     $('#Table1Flop2').css('background-image' , 'url(/pic/cart/'+Table.Board[1]+'.png)');
+                     $('#Table1Flop3').css('background-image' , 'url(/pic/cart/'+Table.Board[2]+'.png)');
+                     $('#Table1Tern').css('background-image' , 'url(/pic/cart/'+Table.Board[3]+'.png)');
+                     $('#Table1River').css('background-image' , 'url(/pic/cart/'+Table.Board[4]+'.png)');
+                    }
+                
+                    
                 
                     }
         }}

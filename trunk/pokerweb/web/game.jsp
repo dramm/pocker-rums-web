@@ -43,7 +43,7 @@
             <div id="table" class="table1">
                  <div style="float: left;width: 360px;">
                 <div style="height: 95px;width: 360px;">
-                    <div style="float: left;margin-left: 15px;margin-left: 85px;">
+                    <div class="TableUser" style="margin-left: 85px;">
                         <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
                         <div id="Table1User1Cart1" class="TableUserCart"></div>
                         <div id="Table1User1Cart2" class="TableUserCart"></div>
@@ -54,9 +54,9 @@
                         </div>
                     </div>
                     <script>$('#Table1User1Progress').css('bottom' , 40 + '%');
-                       // StartGame();
+                    //    StartGame();
                     </script>
-                    <div style="float: left;margin-left: 15px;margin-left: 15px;">
+                    <div class="TableUser" style="margin-left: 15px;">
                         <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
                         <div id="Table1User2Cart1" class="TableUserCart"></div>
                         <div id="Table1User2Cart2" class="TableUserCart"></div>
@@ -80,7 +80,7 @@
                 <div id="Table1River" class="river"></div>
                 </div>
                 <div style="float: left;margin-top: 25px;">
-                    <div style="float: left;margin-left: 15px;margin-left: 85px;">
+                    <div class="TableUser" style="margin-left: 85px;">
                         <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
                         <div id="Table1User3Cart1" class="TableUserCart"></div>
                         <div id="Table1User3Cart2" class="TableUserCart"></div>
@@ -91,7 +91,7 @@
                         </div>
                     </div>
                     <script>$('#Table1User3Progress').css('bottom' , 40 + '%');</script>
-                    <div style="float: left;margin-left: 15px;margin-left: 15px;">
+                    <div class="TableUser" style="margin-left: 15px;">
                         <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
                         <div id="Table1User4Cart1" class="TableUserCart"></div>
                         <div id="Table1User4Cart2" class="TableUserCart"></div>

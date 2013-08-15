@@ -20,9 +20,10 @@ public class Listen extends Thread {
     @Override
     public void run(){
         int flag = 1;
-        while (flag > 0) {
+        try {
+        while (flag > 0 ) {
             byte[] bytes = new byte[4];
-            try {
+            
                 flag = in.read(bytes, 0, 4);
                 int command = Functions.byteArrayToInt(bytes);
                 switch (command) {
@@ -30,7 +31,7 @@ public class Listen extends Thread {
                         flag = in.read(bytes, 0, 4);
                         byte[] message = new byte[Functions.byteArrayToInt(bytes)];
                         flag = in.read(message, 0, message.length);
-                        String mess = new String(encode(message));
+                        String mess = new String(message);
                        // TableStatus.GetInstance().NewData = true;
                         TableStatus.GetInstance().SetNewUserData(mess);
                     break;
@@ -39,21 +40,25 @@ public class Listen extends Thread {
                         flag = in.read(bytes, 0, 4);
                         byte[] message = new byte[Functions.byteArrayToInt(bytes)];
                         flag = in.read(message, 0, message.length);
-                        String mess = new String(encode(message));
+                        String mess = new String(message);
                         TableStatus.GetInstance().SetNewStageData(mess);
                     break;
                     }
                             
                     default:{
-                        
+                        flag = in.read(bytes, 0, 4);
+                        byte[] message = new byte[Functions.byteArrayToInt(bytes)];
+                        flag = in.read(message, 0, message.length);
+                        String mess = new String(message);
+                        TableStatus.GetInstance().JsonString = mess;
                         break;    
                     }
                 }
-            } catch (IOException ex) {
+        }
+        } catch (IOException ex) {
                 Logger.getLogger(Listen.class.getName()).log(Level.SEVERE, null, ex);
                 
             }
-        }
     }
     
     public static byte[] encode(byte[] message){

@@ -80,7 +80,8 @@ public class StartGame extends HttpServlet {
                         JSONObject jsonObject = new JSONObject(jb.toString());
                         if(jsonObject.getString("start") != null)
                         Connect.GetInstance();
-                        if(TableStatus.GetInstance().NewData)
+                    //    if(TableStatus.GetInstance().NewData)
+                        //TableStatus.GetInstance().GetNewData();
                             js.append("Data",TableStatus.GetInstance().GetNewData());
                         response.setContentType("application/json; charset=utf-8");
                         response.setHeader("Cache-Control", "no-cache");
