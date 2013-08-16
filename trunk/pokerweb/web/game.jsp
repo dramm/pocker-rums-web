@@ -54,7 +54,7 @@
                         </div>
                     </div>
                     <script>$('#Table1User1Progress').css('bottom' , 40 + '%');
-                    //    StartGame();
+                        StartGame();
                     </script>
                     <div class="TableUser" style="margin-left: 15px;">
                         <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
@@ -372,27 +372,27 @@
                     <div class="button" style="float: left;">15.1</div>
                 </div>
                 <script>
-                    $('#Table3User1Cart1').css('background-image' , 'url(/pic/cart/2.png)');
-                    $('#Table3User1Cart2').css('background-image' , 'url(/pic/cart/12.png)');
-                    $('#Table3User2Cart1').css('background-image' , 'url(/pic/cart/13.png)');
-                    $('#Table3User2Cart2').css('background-image' , 'url(/pic/cart/22.png)');
-                    $('#Table3User3Cart1').css('background-image' , 'url(/pic/cart/32.png)');
-                    $('#Table3User3Cart2').css('background-image' , 'url(/pic/cart/25.png)');
-                    $('#Table3User4Cart1').css('background-image' , 'url(/pic/cart/11.png)');
-                    $('#Table3User4Cart2').css('background-image' , 'url(/pic/cart/8.png)');
-                    $('#Table3User5Cart1').css('background-image' , 'url(/pic/cart/33.png)');
-                    $('#Table3User5Cart2').css('background-image' , 'url(/pic/cart/26.png)');
-                    $('#Table3User6Cart1').css('background-image' , 'url(/pic/cart/38.png)');
-                    $('#Table3User6Cart2').css('background-image' , 'url(/pic/cart/52.png)');
-                    $('#Table3User7Cart1').css('background-image' , 'url(/pic/cart/33.png)');
-                    $('#Table3User7Cart2').css('background-image' , 'url(/pic/cart/44.png)');
-                    $('#Table3User8Cart1').css('background-image' , 'url(/pic/cart/45.png)');
-                    $('#Table3User8Cart2').css('background-image' , 'url(/pic/cart/51.png)');
-                    $('#Table3Flop1').css('background-image' , 'url(/pic/cart/49.png)');
-                    $('#Table3Flop2').css('background-image' , 'url(/pic/cart/48.png)');
-                    $('#Table3Flop3').css('background-image' , 'url(/pic/cart/47.png)');
-                    $('#Table3Tern').css('background-image' , 'url(/pic/cart/1.png)');
-                    $('#Table3River').css('background-image' , 'url(/pic/cart/41.png)');
+//                    $('#Table3User1Cart1').css('background-image' , 'url(/pic/cart/2.png)');
+//                    $('#Table3User1Cart2').css('background-image' , 'url(/pic/cart/12.png)');
+//                    $('#Table3User2Cart1').css('background-image' , 'url(/pic/cart/13.png)');
+//                    $('#Table3User2Cart2').css('background-image' , 'url(/pic/cart/22.png)');
+//                    $('#Table3User3Cart1').css('background-image' , 'url(/pic/cart/32.png)');
+//                    $('#Table3User3Cart2').css('background-image' , 'url(/pic/cart/25.png)');
+//                    $('#Table3User4Cart1').css('background-image' , 'url(/pic/cart/11.png)');
+//                    $('#Table3User4Cart2').css('background-image' , 'url(/pic/cart/8.png)');
+//                    $('#Table3User5Cart1').css('background-image' , 'url(/pic/cart/33.png)');
+//                    $('#Table3User5Cart2').css('background-image' , 'url(/pic/cart/26.png)');
+//                    $('#Table3User6Cart1').css('background-image' , 'url(/pic/cart/38.png)');
+//                    $('#Table3User6Cart2').css('background-image' , 'url(/pic/cart/52.png)');
+//                    $('#Table3User7Cart1').css('background-image' , 'url(/pic/cart/33.png)');
+//                    $('#Table3User7Cart2').css('background-image' , 'url(/pic/cart/44.png)');
+//                    $('#Table3User8Cart1').css('background-image' , 'url(/pic/cart/45.png)');
+//                    $('#Table3User8Cart2').css('background-image' , 'url(/pic/cart/51.png)');
+//                    $('#Table3Flop1').css('background-image' , 'url(/pic/cart/49.png)');
+//                    $('#Table3Flop2').css('background-image' , 'url(/pic/cart/48.png)');
+//                    $('#Table3Flop3').css('background-image' , 'url(/pic/cart/47.png)');
+//                    $('#Table3Tern').css('background-image' , 'url(/pic/cart/1.png)');
+//                    $('#Table3River').css('background-image' , 'url(/pic/cart/41.png)');
                    
                     
                 </script>
