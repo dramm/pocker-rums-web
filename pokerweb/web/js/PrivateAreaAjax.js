@@ -971,7 +971,7 @@ function StartGame(){setInterval(function() {
     reqPrivate.onreadystatechange = StartGameCallback;
     reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     reqPrivate.send(JSON.stringify(values));
-},5000);
+},1000);
 }
 
 function StartGameCallback() {
@@ -983,35 +983,218 @@ function StartGameCallback() {
                 var tr = reqPrivate.responseText;
                 console.log(tr);
                 if(Message.Data != null){
-                    console.log(Message.Data.toString());
-                   var Data = JSON.parse(Message.Data);
-                   if(Data.Table1User != null){
-                    var TableUser = JSON.parse(Data.Table1User);   
-                    if(TableUser.Table == "First"){
-                     $('#Table1User1Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Player0[0]+'.png)');
-                     $('#Table1User1Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Player0[1]+'.png)');
+                   console.log(Message.Data.toString());
+                   var Base = JSON.parse(Message.Data);
+                   var TableUser = null;
+                   var Table = null;
+                      for(var i=0; i<Base.length; i++){ 
+                          var obj = JSON.parse(Base[i]);
+                       if(obj.Table0.Bord == null)
+                           TableUser = obj;
+                       if(obj.Table0.Bord != null)
+                           Table = obj;
+                      }
+                   
+                   if(Table == null && TableUser == null){
                      
-                     $('#Table1User2Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Player1[0]+'.png)');
-                     $('#Table1User2Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Player1[1]+'.png)');
+                            $('#Table1User1Cart1').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                            $('#Table1User1Cart2').css('background-image' , 'url(/pic/ClearSubstrate.png)');
                      
-                     $('#Table1User3Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Player2[0]+'.png)');
-                     $('#Table1User3Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Player2[1]+'.png)');
+                            $('#Table1User2Cart1').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                            $('#Table1User2Cart2').css('background-image' , 'url(/pic/ClearSubstrate.png)');
                      
-                     $('#Table1User4Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Player3[0]+'.png)');
-                     $('#Table1User4Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Player3[1]+'.png)');
+                     $('#Table1User3Cart1').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                     $('#Table1User3Cart2').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                     
+                     $('#Table1User4Cart1').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                     $('#Table1User4Cart2').css('background-image' , 'url(/pic/ClearSubstrate.png)');
                     
-                    }}
-                    if(Data.Table1 != null){
-                    var Table = JSON.parse(Data.Table1);
-                     $('#Table1Flop1').css('background-image' , 'url(/pic/cart/'+Table.Board[0]+'.png)');
-                     $('#Table1Flop2').css('background-image' , 'url(/pic/cart/'+Table.Board[1]+'.png)');
-                     $('#Table1Flop3').css('background-image' , 'url(/pic/cart/'+Table.Board[2]+'.png)');
-                     $('#Table1Tern').css('background-image' , 'url(/pic/cart/'+Table.Board[3]+'.png)');
-                     $('#Table1River').css('background-image' , 'url(/pic/cart/'+Table.Board[4]+'.png)');
+                     $('#Table1Flop1').css('background-image' , 'url(/pic/flop.png)');
+                     $('#Table1Flop2').css('background-image' , 'url(/pic/flop.png)');
+                     $('#Table1Flop3').css('background-image' , 'url(/pic/flop.png)');
+                     $('#Table1Tern').css('background-image' , 'url(/pic/tern.png)');
+                     $('#Table1River').css('background-image' , 'url(/pic/river.png)');
+                     
+                     $('#Table2User1Cart1').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                     $('#Table2User1Cart2').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                     
+                            $('#Table2User2Cart1').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                            $('#Table2User2Cart2').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                     
+                     $('#Table2User3Cart1').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                     $('#Table2User3Cart2').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                     
+                     $('#Table2User4Cart1').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                     $('#Table2User4Cart2').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                    
+                    $('#Table2User5Cart1').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                    $('#Table2User5Cart2').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                    
+                    $('#Table2User6Cart1').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                    $('#Table2User6Cart2').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                    
+                     $('#Table2Flop1').css('background-image' , 'url(/pic/flop.png)');
+                     $('#Table2Flop2').css('background-image' , 'url(/pic/flop.png)');
+                     $('#Table2Flop3').css('background-image' , 'url(/pic/flop.png)');
+                     $('#Table2Tern').css('background-image' , 'url(/pic/tern.png)');
+                     $('#Table2River').css('background-image' , 'url(/pic/river.png)');
+                     
+                     $('#Table3User1Cart1').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                     $('#Table3User1Cart2').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                     
+                     $('#Table3User2Cart1').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                     $('#Table3User2Cart2').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                     
+                     $('#Table3User3Cart1').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                     $('#Table3User3Cart2').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                     
+                     $('#Table3User4Cart1').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                     $('#Table3User4Cart2').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                    
+                    $('#Table3User5Cart1').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                     $('#Table3User5Cart2').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                    
+                    $('#Table3User6Cart1').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                     $('#Table3User6Cart2').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                    
+                    $('#Table3User7Cart1').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                     $('#Table3User7Cart2').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                    
+                    $('#Table3User8Cart1').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                     $('#Table3User8Cart2').css('background-image' , 'url(/pic/ClearSubstrate.png)');
+                    
+                     $('#Table3Flop1').css('background-image' , 'url(/pic/flop.png)');
+                     $('#Table3Flop2').css('background-image' , 'url(/pic/flop.png)');
+                     $('#Table3Flop3').css('background-image' , 'url(/pic/flop.png)');
+                     $('#Table3Tern').css('background-image' , 'url(/pic/tern.png)');
+                     $('#Table3River').css('background-image' , 'url(/pic/river.png)');
+                            return ;
+                        }
+                   if(TableUser != null){
+                     $('#Table1User1Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Table0.Player0[0]+'.png)');
+                     $('#Table1User1Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Table0.Player0[1]+'.png)');
+                     
+                     $('#Table1User2Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Table0.Player1[0]+'.png)');
+                     $('#Table1User2Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Table0.Player1[1]+'.png)');
+                     
+                     $('#Table1User3Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Table0.Player2[0]+'.png)');
+                     $('#Table1User3Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Table0.Player2[1]+'.png)');
+                     
+                     $('#Table1User4Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Table0.Player3[0]+'.png)');
+                     $('#Table1User4Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Table0.Player3[1]+'.png)');
+                     
+                        $('#Table1Flop1').css('background-image' , 'url(/pic/flop.png)');
+                     $('#Table1Flop2').css('background-image' , 'url(/pic/flop.png)');
+                     $('#Table1Flop3').css('background-image' , 'url(/pic/flop.png)');
+                     $('#Table1Tern').css('background-image' , 'url(/pic/tern.png)');
+                     $('#Table1River').css('background-image' , 'url(/pic/river.png)');
+                     
+                            }
+                    if(Table != null){
+                     $('#Table1Flop1').css('background-image' , 'url(/pic/cart/'+Table.Table0.Bord[0]+'.png)');
+                     $('#Table1Flop2').css('background-image' , 'url(/pic/cart/'+Table.Table0.Bord[1]+'.png)');
+                     $('#Table1Flop3').css('background-image' , 'url(/pic/cart/'+Table.Table0.Bord[2]+'.png)');
+                     if(Table.Table0.Bord[3] != null)
+                     $('#Table1Tern').css('background-image' , 'url(/pic/cart/'+Table.Table0.Bord[3]+'.png)');
+                 else
+                     $('#Table1Tern').css('background-image' , 'url(/pic/tern.png)');
+                     if(Table.Table0.Bord[4] != null)
+                     $('#Table1River').css('background-image' , 'url(/pic/cart/'+Table.Table0.Bord[4]+'.png)');
+                     else
+                     $('#Table1River').css('background-image' , 'url(/pic/river.png)');
+                         
                     }
-                
                     
-                
+                     if(TableUser != null){
+                     $('#Table2User1Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Table1.Player0[0]+'.png)');
+                     $('#Table2User1Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Table1.Player0[1]+'.png)');
+                     
+                     $('#Table2User2Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Table1.Player1[0]+'.png)');
+                     $('#Table2User2Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Table1.Player1[1]+'.png)');
+                     
+                     $('#Table2User3Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Table1.Player2[0]+'.png)');
+                     $('#Table2User3Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Table1.Player2[1]+'.png)');
+                     
+                     $('#Table2User4Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Table1.Player3[0]+'.png)');
+                     $('#Table2User4Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Table1.Player3[1]+'.png)');
+                     
+                     $('#Table2User5Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Table1.Player4[0]+'.png)');
+                     $('#Table2User5Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Table1.Player4[1]+'.png)');
+                     
+                     $('#Table2User6Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Table1.Player5[0]+'.png)');
+                     $('#Table2User6Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Table1.Player5[1]+'.png)');
+                   
+                            
+                     $('#Table2Flop1').css('background-image' , 'url(/pic/flop.png)');
+                     $('#Table2Flop2').css('background-image' , 'url(/pic/flop.png)');
+                     $('#Table2Flop3').css('background-image' , 'url(/pic/flop.png)');
+                     $('#Table2Tern').css('background-image' , 'url(/pic/tern.png)');
+                     $('#Table2River').css('background-image' , 'url(/pic/river.png)');
+                   
+                            }
+                    if(Table  != null){
+                     $('#Table2Flop1').css('background-image' , 'url(/pic/cart/'+Table.Table1.Bord[0]+'.png)');
+                     $('#Table2Flop2').css('background-image' , 'url(/pic/cart/'+Table.Table1.Bord[1]+'.png)');
+                     $('#Table2Flop3').css('background-image' , 'url(/pic/cart/'+Table.Table1.Bord[2]+'.png)');
+                     if(Table.Table1.Bord[3] != null)
+                     $('#Table2Tern').css('background-image' , 'url(/pic/cart/'+Table.Table1.Bord[3]+'.png)');
+                 else
+                     $('#Table2Tern').css('background-image' , 'url(/pic/tern.png)');
+                     if(Table.Table1.Bord[4] != null)
+                     $('#Table2River').css('background-image' , 'url(/pic/cart/'+Table.Table1.Bord[4]+'.png)');
+                     else
+                     $('#Table2River').css('background-image' , 'url(/pic/river.png)');
+                     
+                        }
+                    
+                     if(TableUser != null){
+                     $('#Table3User1Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Table2.Player0[0]+'.png)');
+                     $('#Table3User1Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Table2.Player0[1]+'.png)');
+                     
+                     $('#Table3User2Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Table2.Player1[0]+'.png)');
+                     $('#Table3User2Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Table2.Player1[1]+'.png)');
+                     
+                     $('#Table3User3Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Table2.Player2[0]+'.png)');
+                     $('#Table3User3Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Table2.Player2[1]+'.png)');
+                    
+                     $('#Table3User4Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Table2.Player3[0]+'.png)');
+                     $('#Table3User4Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Table2.Player3[1]+'.png)');
+                     
+                     $('#Table3User5Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Table2.Player4[0]+'.png)');
+                     $('#Table3User5Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Table2.Player4[1]+'.png)');
+                     
+                     $('#Table3User6Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Table2.Player5[0]+'.png)');
+                     $('#Table3User6Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Table2.Player5[1]+'.png)');
+                     
+                     $('#Table3User7Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Table2.Player6[0]+'.png)');
+                     $('#Table3User7Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Table2.Player6[1]+'.png)');
+                     
+                     $('#Table3User8Cart1').css('background-image' , 'url(/pic/cart/'+TableUser.Table2.Player7[0]+'.png)');
+                     $('#Table3User8Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Table2.Player7[1]+'.png)');
+                   
+                   
+                   $('#Table3Flop1').css('background-image' , 'url(/pic/flop.png)');
+                     $('#Table3Flop2').css('background-image' , 'url(/pic/flop.png)');
+                     $('#Table3Flop3').css('background-image' , 'url(/pic/flop.png)');
+                     $('#Table3Tern').css('background-image' , 'url(/pic/tern.png)');
+                     $('#Table3River').css('background-image' , 'url(/pic/river.png)');
+                   
+                        }
+                    if(Table  != null){
+                     $('#Table3Flop1').css('background-image' , 'url(/pic/cart/'+Table.Table2.Bord[0]+'.png)');
+                     $('#Table3Flop2').css('background-image' , 'url(/pic/cart/'+Table.Table2.Bord[1]+'.png)');
+                     $('#Table3Flop3').css('background-image' , 'url(/pic/cart/'+Table.Table2.Bord[2]+'.png)');
+                   if(Table.Table2.Bord[3] != null)
+                     $('#Table3Tern').css('background-image' , 'url(/pic/cart/'+Table.Table2.Bord[3]+'.png)');
+                 else
+                     $('#Table3Tern').css('background-image' , 'url(/pic/tern.png)');
+                     if(Table.Table2.Bord[4] != null)
+                     $('#Table3River').css('background-image' , 'url(/pic/cart/'+Table.Table2.Bord[4]+'.png)');
+                     else
+                     $('#Table3River').css('background-image' , 'url(/pic/river.png)');
+                     
+                        }
+                    
                     }
         }}
     }

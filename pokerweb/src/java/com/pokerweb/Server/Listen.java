@@ -7,6 +7,7 @@ package com.pokerweb.Server;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,10 +34,35 @@ public class Listen extends Thread {
                         flag = in.read(message, 0, message.length);
                         String mess = new String(message);
                        // TableStatus.GetInstance().NewData = true;
+                        TableStatus.GetInstance().Start(mess);
+                    break;
+                    }
+                    case 1510:{
+                        flag = in.read(bytes, 0, 4);
+                        byte[] message = new byte[Functions.byteArrayToInt(bytes)];
+                        flag = in.read(message, 0, message.length);
+                        String mess = new String(message);
+                       // TableStatus.GetInstance().NewData = true;
                         TableStatus.GetInstance().SetNewUserData(mess);
                     break;
                     }
-                        case 1510:{
+                        case 1520:{
+                        flag = in.read(bytes, 0, 4);
+                        byte[] message = new byte[Functions.byteArrayToInt(bytes)];
+                        flag = in.read(message, 0, message.length);
+                        String mess = new String(message);
+                        TableStatus.GetInstance().SetNewStageData(mess);
+                    break;
+                    }
+                            case 1530:{
+                        flag = in.read(bytes, 0, 4);
+                        byte[] message = new byte[Functions.byteArrayToInt(bytes)];
+                        flag = in.read(message, 0, message.length);
+                        String mess = new String(message);
+                        TableStatus.GetInstance().SetNewStageData(mess);
+                    break;
+                    }
+                                case 1540:{
                         flag = in.read(bytes, 0, 4);
                         byte[] message = new byte[Functions.byteArrayToInt(bytes)];
                         flag = in.read(message, 0, message.length);
@@ -57,8 +83,8 @@ public class Listen extends Thread {
         }
         } catch (IOException ex) {
                 Logger.getLogger(Listen.class.getName()).log(Level.SEVERE, null, ex);
-                
             }
+      
     }
     
     public static byte[] encode(byte[] message){
