@@ -31,7 +31,7 @@
             <div id="menuGame" >
                 <div class="SmallLogo"></div>
                 <div style="float: left;color: white;margin-top: 15px;">Время до Ривер-Раунд 5383</div>
-                <div id="progressbar"><b style="position: absolute;margin-left: 60px;">0.25</b></div>
+                <div id="progressbar"><b style="position: absolute;margin-left: 60px;" id="BaseProgressTime"></b></div>
                 <script> 
                     $( "#progressbar" ).progressbar({value: 37});
                 </script>
@@ -44,7 +44,7 @@
                  <div style="float: left;width: 360px;">
                 <div style="height: 95px;width: 360px;">
                     <div class="TableUser" style="margin-left: 85px;">
-                        <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
+                        <div class="button" id="Table1User1Factor">1.85</div>
                         <div id="Table1User1Cart1" class="TableUserCart"></div>
                         <div id="Table1User1Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -57,7 +57,7 @@
                         StartGame();
                     </script>
                     <div class="TableUser" style="margin-left: 15px;">
-                        <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
+                        <div class="button" id="Table1User2Factor">1.85</div>
                         <div id="Table1User2Cart1" class="TableUserCart"></div>
                         <div id="Table1User2Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -81,7 +81,7 @@
                 </div>
                 <div style="float: left;margin-top: 25px;">
                     <div class="TableUser" style="margin-left: 85px;">
-                        <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
+                        <div class="button" id="Table1User3Factor">1.85</div>
                         <div id="Table1User3Cart1" class="TableUserCart"></div>
                         <div id="Table1User3Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -92,7 +92,7 @@
                     </div>
                     <script>$('#Table1User3Progress').css('bottom' , 40 + '%');</script>
                     <div class="TableUser" style="margin-left: 15px;">
-                        <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
+                        <div class="button" id="Table1User4Factor">1.85</div>
                         <div id="Table1User4Cart1" class="TableUserCart"></div>
                         <div id="Table1User4Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -104,33 +104,12 @@
                     <script>$('#Table1User4Progress').css('bottom' , 40 + '%');</script>
                 </div>
             </div>
-                <div style="float: left">
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                </div>
-                </div>
+                               </div>
             <div id="table" class="table2">
                 <div style="float: left;width: 360px;">
                 <div style="height: 95px;width: 360px;">
                     <div class="TableUser" style="margin-left: 50px;">
-                        <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
+                        <div class="button" id="Table2User1Factor">1.85</div>
                         <div id="Table2User1Cart1" class="TableUserCart"></div>
                         <div id="Table2User1Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -140,7 +119,7 @@
                         </div>
                     </div>
                     <div class="TableUser">
-                        <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
+                        <div class="button" id="Table2User2Factor">1.85</div>
                         <div id="Table2User2Cart1" class="TableUserCart"></div>
                         <div id="Table2User2Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -150,7 +129,7 @@
                         </div>
                     </div>
                     <div class="TableUser">
-                        <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
+                        <div class="button" id="Table2User3Factor">1.85</div>
                         <div id="Table2User3Cart1" class="TableUserCart"></div>
                         <div id="Table2User3Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -178,7 +157,7 @@
                 <div style="float: left;margin-top: 25px;">
                     
                     <div class="TableUser" style="float: left;margin-left: 50px;">
-                        <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
+                        <div class="button" id="Table2User4Factor">1.85</div>
                         <div id="Table2User4Cart1" class="TableUserCart"></div>
                         <div id="Table2User4Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -188,7 +167,7 @@
                         </div>
                     </div>
                     <div class="TableUser" style="float: left;">
-                        <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
+                        <div class="button" id="Table2User5Factor">1.85</div>
                         <div id="Table2User5Cart1" class="TableUserCart"></div>
                         <div id="Table2User5Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -198,7 +177,7 @@
                         </div>
                     </div>
                     <div class="TableUser" style="float: left;">
-                        <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
+                        <div class="button" id="Table2User6Factor">1.85</div>
                         <div id="Table2User6Cart1" class="TableUserCart"></div>
                         <div id="Table2User6Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -214,35 +193,14 @@
                     </script>
                 </div>
             </div>
-                <div style="float: left">
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                </div>
-            </div>
+             </div>
             
             <div id="table" class="table3">
                 
                 <div style="float: left;width: 360px;">
                 <div style="height: 95px;width: 360px;">
                     <div class="TableUser">
-                        <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
+                        <div class="button" id="Table3User1Factor">1.85</div>
                         <div id="Table3User1Cart1" class="TableUserCart">
                         </div>
                         <div id="Table3User1Cart2" class="TableUserCart"></div>
@@ -256,7 +214,7 @@
                         $('#Table3User1Progress').css('bottom' , 40 + '%'); 
                     </script>
                     <div class="TableUser">
-                        <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
+                        <div class="button" id="Table3User2Factor">1.85</div>
                         <div id="Table3User2Cart1" class="TableUserCart"></div>
                         <div id="Table3User2Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -267,7 +225,7 @@
                     </div>
                     <script>$('#Table3User2Progress').css('bottom' , 40 + '%');</script>
                     <div  class="TableUser">
-                        <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
+                        <div class="button" id="Table3User3Factor">1.85</div>
                         <div id="Table3User3Cart1" class="TableUserCart"></div>
                         <div id="Table3User3Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -279,7 +237,7 @@
                     <script>$('#Table3User3Progress').css('bottom' , 40 + '%');</script>
                     
                     <div  class="TableUser">
-                        <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
+                        <div class="button" id="Table3User4Factor">1.85</div>
                         <div id="Table3User4Cart1" class="TableUserCart"></div>
                         <div id="Table3User4Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -303,7 +261,7 @@
                 </div>
                 <div style="float: left;margin-top: 25px;">
                     <div  class="TableUser">
-                        <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
+                        <div class="button" id="Table3User5Factor">1.85</div>
                         <div id="Table3User5Cart1" class="TableUserCart"></div>
                         <div id="Table3User5Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -316,7 +274,7 @@
                         $('#Table3User5Progress').css('bottom' , 40 + '%');                
                     </script>
                     <div  class="TableUser">
-                        <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
+                        <div class="button" id="Table3User6Factor">1.85</div>
                         <div id="Table3User6Cart1" class="TableUserCart"></div>
                         <div id="Table3User6Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -327,7 +285,7 @@
                     </div>
                     <script>$('#Table3User6Progress').css('bottom' , 40 + '%');</script>
                     <div  class="TableUser">
-                        <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
+                        <div class="button" id="Table3User7Factor">1.85</div>
                         <div id="Table3User7Cart1" class="TableUserCart"></div>
                         <div id="Table3User7Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -338,7 +296,7 @@
                     </div>
                     <script>$('#Table3User7Progress').css('bottom' , 40 + '%');</script>
                     <div  class="TableUser">
-                        <div class="button" style="float: left; position: absolute;margin-top: 43px;">1.85</div>
+                        <div class="button" id="Table3User8Factor">1.85</div>
                         <div id="Table3User8Cart1" class="TableUserCart"></div>
                         <div id="Table3User8Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -350,52 +308,7 @@
                    <script>$('#Table3User8Progress').css('bottom' , 40 + '%');</script>
                 </div>
             </div>
-                <div style="float: left">
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                    </br>
-                    <div class="button" style="float: left;">15.1</div>
-                </div>
-                <script>
-//                    $('#Table3User1Cart1').css('background-image' , 'url(/pic/cart/2.png)');
-//                    $('#Table3User1Cart2').css('background-image' , 'url(/pic/cart/12.png)');
-//                    $('#Table3User2Cart1').css('background-image' , 'url(/pic/cart/13.png)');
-//                    $('#Table3User2Cart2').css('background-image' , 'url(/pic/cart/22.png)');
-//                    $('#Table3User3Cart1').css('background-image' , 'url(/pic/cart/32.png)');
-//                    $('#Table3User3Cart2').css('background-image' , 'url(/pic/cart/25.png)');
-//                    $('#Table3User4Cart1').css('background-image' , 'url(/pic/cart/11.png)');
-//                    $('#Table3User4Cart2').css('background-image' , 'url(/pic/cart/8.png)');
-//                    $('#Table3User5Cart1').css('background-image' , 'url(/pic/cart/33.png)');
-//                    $('#Table3User5Cart2').css('background-image' , 'url(/pic/cart/26.png)');
-//                    $('#Table3User6Cart1').css('background-image' , 'url(/pic/cart/38.png)');
-//                    $('#Table3User6Cart2').css('background-image' , 'url(/pic/cart/52.png)');
-//                    $('#Table3User7Cart1').css('background-image' , 'url(/pic/cart/33.png)');
-//                    $('#Table3User7Cart2').css('background-image' , 'url(/pic/cart/44.png)');
-//                    $('#Table3User8Cart1').css('background-image' , 'url(/pic/cart/45.png)');
-//                    $('#Table3User8Cart2').css('background-image' , 'url(/pic/cart/51.png)');
-//                    $('#Table3Flop1').css('background-image' , 'url(/pic/cart/49.png)');
-//                    $('#Table3Flop2').css('background-image' , 'url(/pic/cart/48.png)');
-//                    $('#Table3Flop3').css('background-image' , 'url(/pic/cart/47.png)');
-//                    $('#Table3Tern').css('background-image' , 'url(/pic/cart/1.png)');
-//                    $('#Table3River').css('background-image' , 'url(/pic/cart/41.png)');
-                   
-                    
-                </script>
+                
                 </div>
         </div>
     

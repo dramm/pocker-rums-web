@@ -697,6 +697,9 @@ color: white !important;
     background: -ms-linear-gradient(top, #285F74 0%, #0d2a34 100%);
     background: linear-gradient(top, #285F74 0%, #0d2a34 100%);
     margin-left: 20px;
+    float: left;
+    position: absolute;
+    margin-top: 50px;
 }
 
 .flop{
@@ -817,4 +820,10 @@ font-family: Segoe UI,Arial,sans-serif;
     float: left;
     text-align: center;
     height: 80px;
+}
+
+.UserRate{
+    float: left;
+    position: absolute;
+    margin-top: 50px;
 }
