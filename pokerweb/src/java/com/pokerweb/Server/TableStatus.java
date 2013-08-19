@@ -18,35 +18,43 @@ import org.json.JSONObject;
  * @author vadim
  */
 public class TableStatus {
-    private static TableStatus instanse = new TableStatus();
+    private static TableStatus instanse;
     public boolean NewData;
     public String JsonString;
     public String TableUser;
     public String Table;
     public String Start;
+    public int Timer;
     private TableStatus(){
-   //     NewData = false;
-   //     TableUser = "";
-   //     Table = "";
-   //     Start = "";
-        Start = "";
-        java.util.Timer timer2 = new java.util.Timer();
+        Timer = 0;
+        java.util.Timer timer = new java.util.Timer();
         TimerTask task = new TimerTask() {
             public void run(){
+                if(TableStatus.GetInstance().Timer == 5){
                 try {
-                    byte[] byteCommand = Functions.intToByteArray(1010);
+                   byte[] byteCommand = Functions.intToByteArray(1010);
                    Connect.GetInstance().out.write(byteCommand);
                    Connect.GetInstance().out.flush();
+                   TableStatus.GetInstance().Timer = 0;
                 } catch (IOException ex) {
+                    Connect.GetInstance().NewConnect();
                     Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
-                    //Connect.GetInstance().NewConnect();
+                    
                 }
             }
+                else
+                    TableStatus.GetInstance().Timer++;
+            }
         };
-  timer2.schedule( task,0, 5000 );
+  timer.schedule( task,0, 1000 );
+  Table = "";
+  TableUser = "";
+  Start = "";
     }
     
     public static TableStatus GetInstance(){
+        if(instanse == null)
+            instanse = new TableStatus();
         return instanse;
     }
     
@@ -59,6 +67,9 @@ public class TableStatus {
             if(Start.length() > 0)
                js.put(Start);
             Start = "";
+            JSONObject jsO = new JSONObject();
+            jsO.append("Timer", Timer);
+            js.put(jsO);
           return js.toString();
     }
     
