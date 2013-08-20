@@ -5,6 +5,105 @@ SET foreign_key_checks = 0;
 SET time_zone = '+03:00';
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
+DROP TABLE IF EXISTS `bet_hand`;
+CREATE TABLE `bet_hand` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Идентификатор ставки на руку',
+  `id_bet_stage` int(10) unsigned NOT NULL COMMENT 'Идентификатор стадии на ставке',
+  `id_hand` int(10) unsigned NOT NULL COMMENT 'Идентификатор руки на столе',
+  `factor` float unsigned NOT NULL COMMENT 'Коефициент руки',
+  `date_bet` datetime NOT NULL COMMENT 'Дата ставки',
+  `cart_one` int(10) unsigned NOT NULL COMMENT 'Первая карта',
+  `cart_two` int(10) unsigned NOT NULL COMMENT 'Вторая карта',
+  `sum` decimal(11,2) unsigned NOT NULL COMMENT 'Сумма ставки',
+  `win` bit(1) NOT NULL COMMENT 'Индикатор выигрыша',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Ставка на руку';
+
+
+DROP TABLE IF EXISTS `bet_stage`;
+CREATE TABLE `bet_stage` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Идентификатор ставки на стол',
+  `id_bet_table` int(10) unsigned NOT NULL COMMENT 'Идентификатор стола на ставке',
+  `stage` int(10) unsigned NOT NULL COMMENT 'Идентификатор стадии',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Ставка на стадии';
+
+
+DROP TABLE IF EXISTS `bet_table`;
+CREATE TABLE `bet_table` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'идентификатор записи',
+  `id_bet` int(10) unsigned NOT NULL COMMENT 'Идентификатор ставки из таблицы user_bet',
+  `id_table` int(10) unsigned NOT NULL COMMENT 'Идентификатор стола',
+  `flop_one` int(10) unsigned NOT NULL COMMENT 'Идентификатор первой карта на флопе',
+  `flop_two` int(10) unsigned NOT NULL COMMENT 'Идентификатор второй карты на флопе',
+  `flop_three` int(10) unsigned NOT NULL COMMENT 'Идентификатор третьей карты на флопе',
+  `tern` int(10) unsigned NOT NULL COMMENT 'Идентификатор карты на терне',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Ставки на столе';
+
+
+DROP TABLE IF EXISTS `cards`;
+CREATE TABLE `cards` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Идентификатор карты(Добавленно)',
+  `suits_id` int(11) unsigned NOT NULL COMMENT 'Идентификатор масти',
+  `dignitys_id` int(11) unsigned NOT NULL COMMENT 'Идентификатор достоинства',
+  UNIQUE KEY `id` (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Карты';
+
+INSERT INTO `cards` (`id`, `suits_id`, `dignitys_id`) VALUES
+(1,	1,	2),
+(2,	2,	2),
+(3,	3,	2),
+(4,	4,	2),
+(5,	1,	3),
+(6,	2,	3),
+(7,	3,	3),
+(8,	4,	3),
+(9,	1,	4),
+(10,	2,	4),
+(11,	3,	4),
+(12,	4,	4),
+(13,	1,	5),
+(14,	2,	5),
+(15,	3,	5),
+(16,	4,	5),
+(17,	1,	6),
+(18,	2,	6),
+(19,	3,	6),
+(20,	4,	6),
+(21,	1,	7),
+(22,	2,	7),
+(23,	3,	7),
+(24,	4,	7),
+(25,	1,	8),
+(26,	2,	8),
+(27,	3,	8),
+(28,	4,	8),
+(29,	1,	9),
+(30,	2,	9),
+(31,	3,	9),
+(32,	4,	9),
+(33,	1,	10),
+(34,	2,	10),
+(35,	3,	10),
+(36,	4,	10),
+(37,	1,	11),
+(38,	2,	11),
+(39,	3,	11),
+(40,	4,	11),
+(41,	1,	12),
+(42,	2,	12),
+(43,	3,	12),
+(44,	4,	12),
+(45,	1,	13),
+(46,	2,	13),
+(47,	3,	13),
+(48,	4,	13),
+(49,	1,	14),
+(50,	2,	14),
+(51,	3,	14),
+(52,	4,	14);
+
 DROP TABLE IF EXISTS `log_money_transaction`;
 CREATE TABLE `log_money_transaction` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Идентификатор лога',
@@ -425,7 +524,11 @@ INSERT INTO `stat_logins` (`id`, `user_id`, `login_time`, `logout`, `ip`, `user_
 (264,	7,	'2013-08-08 23:53:10',	'2013-08-08 23:54:02',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
 (265,	7,	'2013-08-08 23:54:50',	'2013-08-08 23:55:44',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
 (266,	7,	'2013-08-08 23:56:17',	'2013-08-08 23:57:24',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
-(267,	7,	'2013-08-08 23:58:20',	'2013-08-08 23:59:38',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0');
+(267,	7,	'2013-08-08 23:58:20',	'2013-08-08 23:59:38',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(268,	7,	'2013-08-09 17:46:32',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(269,	7,	'2013-08-09 17:48:36',	'2013-08-09 17:49:55',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(270,	7,	'2013-08-09 17:50:29',	'2013-08-09 18:01:20',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(271,	7,	'2013-08-09 18:01:57',	'2013-08-09 18:06:05',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0');
 
 DROP TABLE IF EXISTS `token_user`;
 CREATE TABLE `token_user` (
@@ -501,8 +604,21 @@ CREATE TABLE `users` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Личные данные пользователей';
 
 INSERT INTO `users` (`id`, `login`, `password`, `email`, `surname`, `name`, `second_name`, `country`, `tel`, `register_date`, `last_login`, `balance`, `banned`, `banned_date`, `banned_comment`, `banned_admin_id`, `activated`) VALUES
-(7,	'root',	'25f43b1486ad95a1398e3eeb3d83bc4010015fcc9bedb35b432e00298d5021f7',	'dizinor@gmail.com',	'fds',	'ef',	'',	'',	'12',	'2013-07-29 16:19:19',	'2013-08-08 23:58:20',	8999173.00,	CONV('0', 2, 10) + 0,	'1999-01-01 00:00:00',	'',	0,	CONV('1', 2, 10) + 0),
+(7,	'root',	'25f43b1486ad95a1398e3eeb3d83bc4010015fcc9bedb35b432e00298d5021f7',	'dizinor@gmail.com',	'fds',	'ef',	'',	'',	'12',	'2013-07-29 16:19:19',	'2013-08-09 18:01:57',	8999173.00,	CONV('0', 2, 10) + 0,	'1999-01-01 00:00:00',	'',	0,	CONV('1', 2, 10) + 0),
 (1,	'admin',	'8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918',	'dizinor@gmail.com',	'dsa',	'ew',	'',	'',	'4321',	'2013-07-30 20:38:36',	'2013-08-07 23:29:51',	4535.00,	CONV('0', 2, 10) + 0,	'1999-01-01 00:00:00',	'',	0,	CONV('1', 2, 10) + 0);
+
+DROP TABLE IF EXISTS `user_bet`;
+CREATE TABLE `user_bet` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'идентификатор записи',
+  `id_user` int(10) unsigned NOT NULL COMMENT 'Идентификатор пользователя',
+  `id_game` int(10) unsigned NOT NULL COMMENT 'Инедтификатор игры',
+  `user_ip` int(10) unsigned NOT NULL COMMENT 'ip пользователя в момент игры',
+  `user_agent` int(11) NOT NULL COMMENT 'user agent пользователя в момент игры',
+  `balance_start` decimal(11,2) NOT NULL COMMENT 'Баланс пользователя в момент старта игры',
+  `balance_finish` decimal(11,2) NOT NULL COMMENT 'баланс пользователя после окончания',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Таблица ставок пользователя';
+
 
 DROP TABLE IF EXISTS `user_roles`;
 CREATE TABLE `user_roles` (
@@ -520,4 +636,4 @@ INSERT INTO `user_roles` (`role_id`, `user_id`) VALUES
 (2,	7),
 (1,	1);
 
--- 2013-08-09 00:00:55
+-- 2013-08-21 01:58:06

@@ -827,3 +827,9 @@ font-family: Segoe UI,Arial,sans-serif;
     position: absolute;
     margin-top: 50px;
 }
+
+.UserNumber{
+    color: white;
+    font-size: 12px;
+    margin-top: 75px;
+}

@@ -37,6 +37,16 @@ function setButtonGradient(button,active)
     }
 }
 
+function setButtonRateGradient(button,active)
+{
+        $(button).css("background"," -moz-linear-gradient(top, #bb3e2e 0%, #a01d0d 100%)");
+        $(button).css("background"," -webkit-linear-gradient(top, #bb3e2e 0%, #a01d0d 100%)");
+        $(button).css("background"," -o-linear-gradient(top, #bb3e2e 0%, #a01d0d 100%)");
+        $(button).css("background"," -ms-linear-gradient(top, #bb3e2e 0%, #a01d0d 100%)");
+        $(button).css("background"," linear-gradient(top, #bb3e2e 0%, #a01d0d 100%)");
+    
+}
+
 $(document).ready(function(){
         $("#game").css({"width":$(document).width()+"px"});
         
@@ -55,13 +65,16 @@ $(document).ready(function(){
             $(this).addClass("active");
         });
         
-         $("#menuGame .button").keyup(function()
+        $("#menuGame .button").keyup(function()
         {   
             setButtonGradient($(this),false)
         });
-        /*$("input").keypress(function(){
-            $(this).css("color","#000000");
-        });*/
+        
+        $("#table .button").click(function()
+        {   
+            setButtonRateGradient($(this),true)
+        });
+        
         
         $('#topMenu .button').click(function () {
             var butt = $(this);
@@ -83,6 +96,11 @@ $(document).ready(function(){
             setButtonGradient(butt,true);
             
         });
+//        $('#table .button').click(function () {
+//            var butt = $(this);
+//            setButtonGradient(butt,true);
+//            
+//        });
          
         
         $(document).click(function(){
