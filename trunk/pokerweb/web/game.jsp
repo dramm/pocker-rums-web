@@ -52,6 +52,7 @@
                                 <em id="Table1User1Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
+                        <div class="UserNumber">1</div>
                     </div>
                     <script>$('#Table1User1Progress').css('bottom' , 40 + '%');
                         StartGame();
@@ -65,6 +66,7 @@
                                 <em id="Table1User2Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
+                        <div class="UserNumber">2</div>
                     </div>
                     <script>$('#Table1User2Progress').css('bottom' , 40 + '%');</script>
                 </div>
@@ -89,6 +91,7 @@
                                 <em id="Table1User3Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
+                        <div class="UserNumber">3</div>
                     </div>
                     <script>$('#Table1User3Progress').css('bottom' , 40 + '%');</script>
                     <div class="TableUser" style="margin-left: 15px;">
@@ -100,6 +103,7 @@
                                 <em id="Table1User4Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
+                        <div class="UserNumber">4</div>
                     </div>
                     <script>$('#Table1User4Progress').css('bottom' , 40 + '%');</script>
                 </div>
@@ -117,6 +121,7 @@
                                 <em id="Table2User1Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
+                        <div class="UserNumber">1</div>
                     </div>
                     <div class="TableUser">
                         <div class="button" id="Table2User2Factor">1.85</div>
@@ -127,6 +132,7 @@
                                 <em id="Table2User2Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
+                        <div class="UserNumber">2</div>
                     </div>
                     <div class="TableUser">
                         <div class="button" id="Table2User3Factor">1.85</div>
@@ -135,8 +141,9 @@
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table2User3Progress" class="progressbar-cover"></em>
-                            </span>
+                            </span>  
                         </div>
+                        <div class="UserNumber">3</div>
                     </div>
                 </div>
                     <script>
@@ -165,6 +172,7 @@
                                 <em id="Table2User4Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
+                        <div class="UserNumber">4</div>
                     </div>
                     <div class="TableUser" style="float: left;">
                         <div class="button" id="Table2User5Factor">1.85</div>
@@ -175,6 +183,7 @@
                                 <em id="Table2User5Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
+                        <div class="UserNumber">5</div>
                     </div>
                     <div class="TableUser" style="float: left;">
                         <div class="button" id="Table2User6Factor">1.85</div>
@@ -185,6 +194,7 @@
                                 <em id="Table2User6Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
+                        <div class="UserNumber">6</div>
                     </div>
                     <script>
                         $('#Table2User4Progress').css('bottom' , 40 + '%');
@@ -209,6 +219,7 @@
                                 <em id="Table3User1Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
+                        <div class="UserNumber">1</div>
                     </div>
                     <script>
                         $('#Table3User1Progress').css('bottom' , 40 + '%'); 
@@ -222,6 +233,7 @@
                                 <em id="Table3User2Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
+                        <div class="UserNumber">2</div>
                     </div>
                     <script>$('#Table3User2Progress').css('bottom' , 40 + '%');</script>
                     <div  class="TableUser">
@@ -233,6 +245,7 @@
                                 <em id="Table3User3Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
+                        <div class="UserNumber">3</div>
                     </div>
                     <script>$('#Table3User3Progress').css('bottom' , 40 + '%');</script>
                     
@@ -245,6 +258,7 @@
                                 <em id="Table3User4Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
+                        <div class="UserNumber">4</div>
                     </div>
                     <script>$('#Table3User4Progress').css('bottom' , 40 + '%');</script>
                 </div>
@@ -269,6 +283,7 @@
                                 <em id="Table3User5Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
+                        <div class="UserNumber">5</div>
                     </div>
                     <script>
                         $('#Table3User5Progress').css('bottom' , 40 + '%');                
@@ -282,6 +297,7 @@
                                 <em id="Table3User6Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
+                        <div class="UserNumber">6</div>
                     </div>
                     <script>$('#Table3User6Progress').css('bottom' , 40 + '%');</script>
                     <div  class="TableUser">
@@ -293,6 +309,7 @@
                                 <em id="Table3User7Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
+                        <div class="UserNumber">7</div>
                     </div>
                     <script>$('#Table3User7Progress').css('bottom' , 40 + '%');</script>
                     <div  class="TableUser">
@@ -304,6 +321,7 @@
                                 <em id="Table3User8Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
+                        <div class="UserNumber">8</div>
                     </div>
                    <script>$('#Table3User8Progress').css('bottom' , 40 + '%');</script>
                 </div>

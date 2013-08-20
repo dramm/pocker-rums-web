@@ -26,9 +26,9 @@ public class Connect {
     }
     public void NewConnect(){
      try {
-         socket = new Socket("25.82.42.163", 7777);
+         socket = new Socket("127.0.0.1", 7777);
          while(!socket.isConnected())
-         socket = new Socket("25.82.42.163", 7777);
+         socket = new Socket("127.0.0.1", 7777);
          Listen listen = new Listen();
          listen.setIn(socket.getInputStream());
          listen.start();
