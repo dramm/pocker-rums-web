@@ -833,3 +833,92 @@ font-family: Segoe UI,Arial,sans-serif;
     font-size: 12px;
     margin-top: 75px;
 }
+
+.BetTable{
+    float:left;
+    width: 400px;
+    height: 250px;
+    background: #2f4554;
+    margin-top: 30px;
+    border-radius: 6px;
+}
+
+.BetTableInfoTop{
+    background: #1e2d37;
+    border-radius: 6px 6px 0px 0px;
+    width: 400px;
+    height: 30px;
+    color: white;
+}
+.BetTableSettings{
+    background: #395466;
+    width: 400px;
+    height: 40px;
+}
+
+.niceCheck {
+width: 10px;
+height: 10px;
+display: inline-block;
+cursor: pointer;
+background: url(/pic/CheckExpress.png);
+background-repeat: no-repeat;
+margin-left: 4px;
+margin-bottom: 1px;
+}
+.niceCheck input {
+display: none;
+}
+
+.ExpressBetElipse{
+    background: url(/pic/CheckExpressElipse.png);
+    background-repeat: no-repeat;
+    width: 18px;
+    height: 18px;
+    float: left;
+}
+
+.ExpressBet{
+    float: right;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.ButtonExpressBetSum{
+    color: white;
+    padding: 1px;
+    /*border: solid 2px #285F74;*/
+    border-radius: 6px;
+    min-width: 30px;
+    text-align: center;
+    background: #000000;
+    background: -moz-linear-gradient(top, #49a6e8 0%, #4281a9 100%);
+    background: -webkit-linear-gradient(top, #49a6e8 0%, #4281a9 100%);
+    background: -o-linear-gradient(top, #49a6e8 0%, #4281a9 100%);
+    background: -ms-linear-gradient(top, #49a6e8 0%, #4281a9 100%);
+    background: linear-gradient(top, #49a6e8 0%, #4281a9 100%);
+    margin-left: 10px;
+    float: left;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.ButtonExpressBetEnter{
+    color: white;
+    padding: 1px;
+    /*border: solid 2px #285F74;*/
+    border-radius: 6px;
+    min-width: 30px;
+    text-align: center;
+    background: #000000;
+    background: -moz-linear-gradient(top, #d52711 0%, #d76255 100%);
+    background: -webkit-linear-gradient(top, #d52711 0%, #d76255 100%);
+    background: -o-linear-gradient(top, #d52711 0%, #d76255 100%);
+    background: -ms-linear-gradient(top, #d52711 0%, #d76255 100%);
+    background: linear-gradient(top, #d52711 0%, #d76255 100%);
+    margin-left: 10px;
+    float: left;
+    margin-top: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
