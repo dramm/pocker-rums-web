@@ -206,7 +206,6 @@
              </div>
             
             <div id="table" class="table3">
-                
                 <div style="float: left;width: 360px;">
                 <div style="height: 95px;width: 360px;">
                     <div class="TableUser">
@@ -327,6 +326,37 @@
                 </div>
             </div>
                 
+                </div>
+                
+                <div class="BetTable">
+                    <div class="BetTableInfoTop">
+                        <div style="float: left;margin-left: 5px;margin-top: 5px;">
+                        <div style="float: left;">Коэф.</div>
+                        <div id="Factor" style="margin-right:10px;float: left;">6,00</div>
+                        <div style="float: left;">Мин.</div>
+                        <div id="MinBet" style="margin-right:10px;float: left">0,5</div>
+                        <div style="float: left;">Макс.</div>
+                        <div id="MaxBet" style="float: left;">50,00</div>
+                        </div>
+                        
+                        <div class="ExpressBet">
+                        <div class="ExpressBetElipse">
+                            <span class="niceCheck">
+                                <input type="checkbox" name="ch1" />
+                            </span>
+                        </div><b>Экспресс</b></div>
+                        </div>
+                    <div class="BetTableSettings">
+                        <div style="float: left;">    
+                        <div class="ButtonExpressBetSum">&lt</div>
+                        <div class="ButtonExpressBetSum">0,50</div>
+                        <div class="ButtonExpressBetSum">&gt;</div>
+                        </div>
+                        <div style="float: right;">
+                        <div class="ButtonExpressBetSum">X</div>
+                        <div class="ButtonExpressBetEnter">Сделать ставку</div>    
+                        </div>
+                        </div>
                 </div>
         </div>
     

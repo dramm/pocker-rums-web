@@ -1120,6 +1120,12 @@ function StartGameCallback() {
                      else
                      $('#Table1River').css('background-image' , 'url(/pic/river.png)');
                          
+                        document.getElementById("Table1User1Factor").innerHTML = Table.Table0[1].Player0.Factor;
+                        document.getElementById("Table1User2Factor").innerHTML = Table.Table0[1].Player1.Factor;
+                        document.getElementById("Table1User3Factor").innerHTML = Table.Table0[1].Player2.Factor;
+                        document.getElementById("Table1User4Factor").innerHTML = Table.Table0[1].Player3.Factor;
+                          
+                         
                     }
                     
                      if(TableUser != null){
@@ -1171,6 +1177,14 @@ function StartGameCallback() {
                      else
                      $('#Table2River').css('background-image' , 'url(/pic/river.png)');
                      
+                     
+                        document.getElementById("Table2User1Factor").innerHTML = Table.Table1[1].Player0.Factor;
+                        document.getElementById("Table2User2Factor").innerHTML = Table.Table1[1].Player1.Factor;
+                        document.getElementById("Table2User3Factor").innerHTML = Table.Table1[1].Player2.Factor;
+                        document.getElementById("Table2User4Factor").innerHTML = Table.Table1[1].Player3.Factor;
+                        document.getElementById("Table2User5Factor").innerHTML = Table.Table1[1].Player4.Factor;
+                        document.getElementById("Table2User6Factor").innerHTML = Table.Table1[1].Player5.Factor;
+                        
                         }
                     
                      if(TableUser != null){
@@ -1208,6 +1222,7 @@ function StartGameCallback() {
                          document.getElementById("Table3User7Factor").innerHTML = TableUser.Table2.Player6[2].Factor;
                          document.getElementById("Table3User8Factor").innerHTML = TableUser.Table2.Player7[2].Factor;
                      
+                     
                         }
                    
                    $('#Table3Flop1').css('background-image' , 'url(/pic/flop.png)');
@@ -1230,6 +1245,15 @@ function StartGameCallback() {
                      else
                      $('#Table3River').css('background-image' , 'url(/pic/river.png)');
                      
+                        document.getElementById("Table3User1Factor").innerHTML = Table.Table2[1].Player0.Factor;
+                        document.getElementById("Table3User2Factor").innerHTML = Table.Table2[1].Player1.Factor;
+                        document.getElementById("Table3User3Factor").innerHTML = Table.Table2[1].Player2.Factor;
+                        document.getElementById("Table3User4Factor").innerHTML = Table.Table2[1].Player3.Factor;
+                        document.getElementById("Table3User5Factor").innerHTML = Table.Table2[1].Player4.Factor;
+                        document.getElementById("Table3User6Factor").innerHTML = Table.Table2[1].Player5.Factor;
+                        document.getElementById("Table3User7Factor").innerHTML = Table.Table2[1].Player6.Factor;
+                        document.getElementById("Table3User8Factor").innerHTML = Table.Table2[1].Player7.Factor;
+                        
                         }
                     
                     }
