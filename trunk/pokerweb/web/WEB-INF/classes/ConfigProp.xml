@@ -5,7 +5,8 @@
         <serverName>localhost</serverName>
         <database>pokerwebdb</database>
         <port>3306</port>
-        <username>root</username>
+        <!--<username>root</username>-->
+        <password>i do root</password>
         <password>P0laroid</password>
     </jdbc>
     <mail>

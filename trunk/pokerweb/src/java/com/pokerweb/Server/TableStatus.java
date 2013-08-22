@@ -30,7 +30,7 @@ public class TableStatus {
         java.util.Timer timer = new java.util.Timer();
         TimerTask task = new TimerTask() {
             public void run(){
-                if(TableStatus.GetInstance().Timer == 5){
+                if(TableStatus.GetInstance().Timer >= 20){
                 try {
                    byte[] byteCommand = Functions.intToByteArray(1010);
                    Connect.GetInstance().out.write(byteCommand);
@@ -81,6 +81,7 @@ public class TableStatus {
     
     public void Start(String data){
         Start = data;
+        Timer = 20;
         Table = "";
         TableUser = "";        
     }

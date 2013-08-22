@@ -987,9 +987,9 @@ function StartGameCallback() {
                    var Base = JSON.parse(Message.Data);
                    for(var i=0;i<Base.length;i++){
                    if(Base[i].Timer != null){
-                       var valueBaseProgress = Base[i].Timer * 100 / 5;//Base.length > 2 ? JSON.parse(Base[2].Timer):Base.length == 1 ? JSON.parse(Base[0].Timer): JSON.parse(Base[1].Timer) * 100 / 5;
+                       var valueBaseProgress = Base[i].Timer * 100 / 20;//Base.length > 2 ? JSON.parse(Base[2].Timer):Base.length == 1 ? JSON.parse(Base[0].Timer): JSON.parse(Base[1].Timer) * 100 / 5;
                        $( "#progressbar" ).progressbar({value: valueBaseProgress}); 
-                       document.getElementById("BaseProgressTime").innerHTML = 5 - Base[i].Timer;//(Base.length > 2 ? JSON.parse(Base[2].Timer):Base.length == 1 ? JSON.parse(Base[0].Timer): JSON.parse(Base[1].Timer));
+                       document.getElementById("BaseProgressTime").innerHTML = 20 - Base[i].Timer;//(Base.length > 2 ? JSON.parse(Base[2].Timer):Base.length == 1 ? JSON.parse(Base[0].Timer): JSON.parse(Base[1].Timer));
                                 break;
                             }
                }
@@ -1094,10 +1094,10 @@ function StartGameCallback() {
                      $('#Table1User4Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Table0.Player3[1]+'.png)');
                      
                      if(Table == null){
-                         document.getElementById("Table1User1Factor").innerHTML = TableUser.Table0.Player0[2].Factor;
-                         document.getElementById("Table1User2Factor").innerHTML = TableUser.Table0.Player1[2].Factor;
-                         document.getElementById("Table1User3Factor").innerHTML = TableUser.Table0.Player2[2].Factor;
-                         document.getElementById("Table1User4Factor").innerHTML = TableUser.Table0.Player3[2].Factor;
+                         document.getElementById("Table1User1CheckBackground").innerHTML = TableUser.Table0.Player0[2].Factor;
+                         document.getElementById("Table1User2CheckBackground").innerHTML = TableUser.Table0.Player1[2].Factor;
+                         document.getElementById("Table1User3CheckBackground").innerHTML = TableUser.Table0.Player2[2].Factor;
+                         document.getElementById("Table1User4CheckBackground").innerHTML = TableUser.Table0.Player3[2].Factor;
                          }
                      
                      $('#Table1Flop1').css('background-image' , 'url(/pic/flop.png)');
@@ -1120,10 +1120,10 @@ function StartGameCallback() {
                      else
                      $('#Table1River').css('background-image' , 'url(/pic/river.png)');
                          
-                        document.getElementById("Table1User1Factor").innerHTML = Table.Table0[1].Player0.Factor;
-                        document.getElementById("Table1User2Factor").innerHTML = Table.Table0[1].Player1.Factor;
-                        document.getElementById("Table1User3Factor").innerHTML = Table.Table0[1].Player2.Factor;
-                        document.getElementById("Table1User4Factor").innerHTML = Table.Table0[1].Player3.Factor;
+                        document.getElementById("Table1User1CheckBackground").innerHTML = Table.Table0[1].Player0.Factor;
+                        document.getElementById("Table1User2CheckBackground").innerHTML = Table.Table0[1].Player1.Factor;
+                        document.getElementById("Table1User3CheckBackground").innerHTML = Table.Table0[1].Player2.Factor;
+                        document.getElementById("Table1User4CheckBackground").innerHTML = Table.Table0[1].Player3.Factor;
                           
                          
                     }
@@ -1148,12 +1148,12 @@ function StartGameCallback() {
                      $('#Table2User6Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Table1.Player5[1]+'.png)');
                    
                    if(Table == null){
-                         document.getElementById("Table2User1Factor").innerHTML = TableUser.Table1.Player0[2].Factor;
-                         document.getElementById("Table2User2Factor").innerHTML = TableUser.Table1.Player1[2].Factor;
-                         document.getElementById("Table2User3Factor").innerHTML = TableUser.Table1.Player2[2].Factor;
-                         document.getElementById("Table2User4Factor").innerHTML = TableUser.Table1.Player3[2].Factor;
-                         document.getElementById("Table2User5Factor").innerHTML = TableUser.Table1.Player4[2].Factor;
-                         document.getElementById("Table2User6Factor").innerHTML = TableUser.Table1.Player5[2].Factor;
+                         document.getElementById("Table2User1CheckBackground").innerHTML = TableUser.Table1.Player0[2].Factor;
+                         document.getElementById("Table2User2CheckBackground").innerHTML = TableUser.Table1.Player1[2].Factor;
+                         document.getElementById("Table2User3CheckBackground").innerHTML = TableUser.Table1.Player2[2].Factor;
+                         document.getElementById("Table2User4CheckBackground").innerHTML = TableUser.Table1.Player3[2].Factor;
+                         document.getElementById("Table2User5CheckBackground").innerHTML = TableUser.Table1.Player4[2].Factor;
+                         document.getElementById("Table2User6CheckBackground").innerHTML = TableUser.Table1.Player5[2].Factor;
                      
                         }
                             
@@ -1178,12 +1178,12 @@ function StartGameCallback() {
                      $('#Table2River').css('background-image' , 'url(/pic/river.png)');
                      
                      
-                        document.getElementById("Table2User1Factor").innerHTML = Table.Table1[1].Player0.Factor;
-                        document.getElementById("Table2User2Factor").innerHTML = Table.Table1[1].Player1.Factor;
-                        document.getElementById("Table2User3Factor").innerHTML = Table.Table1[1].Player2.Factor;
-                        document.getElementById("Table2User4Factor").innerHTML = Table.Table1[1].Player3.Factor;
-                        document.getElementById("Table2User5Factor").innerHTML = Table.Table1[1].Player4.Factor;
-                        document.getElementById("Table2User6Factor").innerHTML = Table.Table1[1].Player5.Factor;
+                        document.getElementById("Table2User1CheckBackground").innerHTML = Table.Table1[1].Player0.Factor;
+                        document.getElementById("Table2User2CheckBackground").innerHTML = Table.Table1[1].Player1.Factor;
+                        document.getElementById("Table2User3CheckBackground").innerHTML = Table.Table1[1].Player2.Factor;
+                        document.getElementById("Table2User4CheckBackground").innerHTML = Table.Table1[1].Player3.Factor;
+                        document.getElementById("Table2User5CheckBackground").innerHTML = Table.Table1[1].Player4.Factor;
+                        document.getElementById("Table2User6CheckBackground").innerHTML = Table.Table1[1].Player5.Factor;
                         
                         }
                     
@@ -1213,14 +1213,14 @@ function StartGameCallback() {
                      $('#Table3User8Cart2').css('background-image' , 'url(/pic/cart/'+TableUser.Table2.Player7[1]+'.png)');
                    
                    if(Table == null){
-                         document.getElementById("Table3User1Factor").innerHTML = TableUser.Table2.Player0[2].Factor;
-                         document.getElementById("Table3User2Factor").innerHTML = TableUser.Table2.Player1[2].Factor;
-                         document.getElementById("Table3User3Factor").innerHTML = TableUser.Table2.Player2[2].Factor;
-                         document.getElementById("Table3User4Factor").innerHTML = TableUser.Table2.Player3[2].Factor;
-                         document.getElementById("Table3User5Factor").innerHTML = TableUser.Table2.Player4[2].Factor;
-                         document.getElementById("Table3User6Factor").innerHTML = TableUser.Table2.Player5[2].Factor;
-                         document.getElementById("Table3User7Factor").innerHTML = TableUser.Table2.Player6[2].Factor;
-                         document.getElementById("Table3User8Factor").innerHTML = TableUser.Table2.Player7[2].Factor;
+                         document.getElementById("Table3User1CheckBackground").innerHTML = TableUser.Table2.Player0[2].Factor;
+                         document.getElementById("Table3User2CheckBackground").innerHTML = TableUser.Table2.Player1[2].Factor;
+                         document.getElementById("Table3User3CheckBackground").innerHTML = TableUser.Table2.Player2[2].Factor;
+                         document.getElementById("Table3User4CheckBackground").innerHTML = TableUser.Table2.Player3[2].Factor;
+                         document.getElementById("Table3User5CheckBackground").innerHTML = TableUser.Table2.Player4[2].Factor;
+                         document.getElementById("Table3User6CheckBackground").innerHTML = TableUser.Table2.Player5[2].Factor;
+                         document.getElementById("Table3User7CheckBackground").innerHTML = TableUser.Table2.Player6[2].Factor;
+                         document.getElementById("Table3User8CheckBackground").innerHTML = TableUser.Table2.Player7[2].Factor;
                      
                      
                         }
@@ -1245,14 +1245,14 @@ function StartGameCallback() {
                      else
                      $('#Table3River').css('background-image' , 'url(/pic/river.png)');
                      
-                        document.getElementById("Table3User1Factor").innerHTML = Table.Table2[1].Player0.Factor;
-                        document.getElementById("Table3User2Factor").innerHTML = Table.Table2[1].Player1.Factor;
-                        document.getElementById("Table3User3Factor").innerHTML = Table.Table2[1].Player2.Factor;
-                        document.getElementById("Table3User4Factor").innerHTML = Table.Table2[1].Player3.Factor;
-                        document.getElementById("Table3User5Factor").innerHTML = Table.Table2[1].Player4.Factor;
-                        document.getElementById("Table3User6Factor").innerHTML = Table.Table2[1].Player5.Factor;
-                        document.getElementById("Table3User7Factor").innerHTML = Table.Table2[1].Player6.Factor;
-                        document.getElementById("Table3User8Factor").innerHTML = Table.Table2[1].Player7.Factor;
+                        document.getElementById("Table3User1CheckBackground").innerHTML = Table.Table2[1].Player0.Factor;
+                        document.getElementById("Table3User2CheckBackground").innerHTML = Table.Table2[1].Player1.Factor;
+                        document.getElementById("Table3User3CheckBackground").innerHTML = Table.Table2[1].Player2.Factor;
+                        document.getElementById("Table3User4CheckBackground").innerHTML = Table.Table2[1].Player3.Factor;
+                        document.getElementById("Table3User5CheckBackground").innerHTML = Table.Table2[1].Player4.Factor;
+                        document.getElementById("Table3User6CheckBackground").innerHTML = Table.Table2[1].Player5.Factor;
+                        document.getElementById("Table3User7CheckBackground").innerHTML = Table.Table2[1].Player6.Factor;
+                        document.getElementById("Table3User8CheckBackground").innerHTML = Table.Table2[1].Player7.Factor;
                         
                         }
                     
