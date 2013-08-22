@@ -17,6 +17,7 @@
         <script type="text/javascript" src="js/script.js"></script>
         <script type="text/javascript" src="js/ajax.js"></script>
         <script type="text/javascript" src="js/PrivateAreaAjax.js"></script>
+        <script type="text/javascript" src="js/game.js"></script>
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
     
     <script type="text/javascript" src="slider/jquery.nivo.slider.js"></script>    

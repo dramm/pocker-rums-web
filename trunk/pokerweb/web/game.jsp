@@ -9,7 +9,6 @@
      <html>
    <head>
        <jsp:include page="headParam.jsp" flush="true" />
-       
 </head>
 <body style="background-image: url(/pic/backgroundGame.png);
     background-size: cover;
@@ -44,7 +43,12 @@
                  <div style="float: left;width: 360px;">
                 <div style="height: 95px;width: 360px;">
                     <div class="TableUser" style="margin-left: 85px;">
-                        <div class="button" id="Table1User1Factor">1.85</div>
+                        <div id="Table1User1Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="Table1User1CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="Table1User1Check">
+                                <input type="checkbox" name="Table1User1Check" />
+                            </span>
+                        </div>
                         <div id="Table1User1Cart1" class="TableUserCart"></div>
                         <div id="Table1User1Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -58,7 +62,12 @@
                         StartGame();
                     </script>
                     <div class="TableUser" style="margin-left: 15px;">
-                        <div class="button" id="Table1User2Factor">1.85</div>
+                        <div id="Table1User2Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="Table1User2CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="Table1User2Check">
+                                <input type="checkbox" name="Table1User2Check" />
+                            </span>
+                        </div>
                         <div id="Table1User2Cart1" class="TableUserCart"></div>
                         <div id="Table1User2Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -83,7 +92,12 @@
                 </div>
                 <div style="float: left;margin-top: 25px;">
                     <div class="TableUser" style="margin-left: 85px;">
-                        <div class="button" id="Table1User3Factor">1.85</div>
+                        <div id="Table1User3Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="Table1User3CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="Table1User3Check">
+                                <input type="checkbox" name="Table1User3Check" />
+                            </span>
+                        </div>
                         <div id="Table1User3Cart1" class="TableUserCart"></div>
                         <div id="Table1User3Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -95,7 +109,12 @@
                     </div>
                     <script>$('#Table1User3Progress').css('bottom' , 40 + '%');</script>
                     <div class="TableUser" style="margin-left: 15px;">
-                        <div class="button" id="Table1User4Factor">1.85</div>
+                        <div id="Table1User4Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="Table1User4CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="Table1User4Check">
+                                <input type="checkbox" name="Table1User4Check" />
+                            </span>
+                        </div>
                         <div id="Table1User4Cart1" class="TableUserCart"></div>
                         <div id="Table1User4Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -113,7 +132,12 @@
                 <div style="float: left;width: 360px;">
                 <div style="height: 95px;width: 360px;">
                     <div class="TableUser" style="margin-left: 50px;">
-                        <div class="button" id="Table2User1Factor">1.85</div>
+                        <div id="Table2User1Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="Table2User1CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="Table2User1Check">
+                                <input type="checkbox" name="Table2User1Check" />
+                            </span>
+                        </div>
                         <div id="Table2User1Cart1" class="TableUserCart"></div>
                         <div id="Table2User1Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -124,7 +148,12 @@
                         <div class="UserNumber">1</div>
                     </div>
                     <div class="TableUser">
-                        <div class="button" id="Table2User2Factor">1.85</div>
+                        <div id="Table2User2Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="Table2User2CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="Table2User2Check">
+                                <input type="checkbox" name="Table2User2Check" />
+                            </span>
+                        </div>
                         <div id="Table2User2Cart1" class="TableUserCart"></div>
                         <div id="Table2User2Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -135,7 +164,12 @@
                         <div class="UserNumber">2</div>
                     </div>
                     <div class="TableUser">
-                        <div class="button" id="Table2User3Factor">1.85</div>
+                        <div id="Table2User3Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="Table2User3CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="Table2User3Check">
+                                <input type="checkbox" name="Table2User3Check" />
+                            </span>
+                        </div>
                         <div id="Table2User3Cart1" class="TableUserCart"></div>
                         <div id="Table2User3Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -164,7 +198,12 @@
                 <div style="float: left;margin-top: 25px;">
                     
                     <div class="TableUser" style="float: left;margin-left: 50px;">
-                        <div class="button" id="Table2User4Factor">1.85</div>
+                        <div id="Table2User4Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="Table2User4CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="Table2User4Check">
+                                <input type="checkbox" name="Table2User4Check" />
+                            </span>
+                        </div>
                         <div id="Table2User4Cart1" class="TableUserCart"></div>
                         <div id="Table2User4Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -175,7 +214,12 @@
                         <div class="UserNumber">4</div>
                     </div>
                     <div class="TableUser" style="float: left;">
-                        <div class="button" id="Table2User5Factor">1.85</div>
+                        <div id="Table2User5Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="Table2User5CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="Table2User5Check">
+                                <input type="checkbox" name="Table2User5Check" />
+                            </span>
+                        </div>
                         <div id="Table2User5Cart1" class="TableUserCart"></div>
                         <div id="Table2User5Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -186,7 +230,12 @@
                         <div class="UserNumber">5</div>
                     </div>
                     <div class="TableUser" style="float: left;">
-                        <div class="button" id="Table2User6Factor">1.85</div>
+                        <div id="Table2User6Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="Table2User6CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="Table2User6Check">
+                                <input type="checkbox" name="Table2User6Check" />
+                            </span>
+                        </div>
                         <div id="Table2User6Cart1" class="TableUserCart"></div>
                         <div id="Table2User6Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -209,7 +258,12 @@
                 <div style="float: left;width: 360px;">
                 <div style="height: 95px;width: 360px;">
                     <div class="TableUser">
-                        <div class="button" id="Table3User1Factor">1.85</div>
+                        <div id="Table3User1Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="Table3User1CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="Table3User1Check">
+                                <input type="checkbox" name="Table3User1Check" />
+                            </span>
+                        </div>
                         <div id="Table3User1Cart1" class="TableUserCart">
                         </div>
                         <div id="Table3User1Cart2" class="TableUserCart"></div>
@@ -224,7 +278,12 @@
                         $('#Table3User1Progress').css('bottom' , 40 + '%'); 
                     </script>
                     <div class="TableUser">
-                        <div class="button" id="Table3User2Factor">1.85</div>
+                        <div id="Table3User2Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="Table3User2CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="Table3User2Check">
+                                <input type="checkbox" name="Table3User2Check" />
+                            </span>
+                        </div>
                         <div id="Table3User2Cart1" class="TableUserCart"></div>
                         <div id="Table3User2Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -236,7 +295,12 @@
                     </div>
                     <script>$('#Table3User2Progress').css('bottom' , 40 + '%');</script>
                     <div  class="TableUser">
-                        <div class="button" id="Table3User3Factor">1.85</div>
+                        <div id="Table3User3Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="Table3User3CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="Table3User3Check">
+                                <input type="checkbox" name="Table3User3Check" />
+                            </span>
+                        </div>
                         <div id="Table3User3Cart1" class="TableUserCart"></div>
                         <div id="Table3User3Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -249,7 +313,12 @@
                     <script>$('#Table3User3Progress').css('bottom' , 40 + '%');</script>
                     
                     <div  class="TableUser">
-                        <div class="button" id="Table3User4Factor">1.85</div>
+                        <div id="Table3User4Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="Table3User4CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="Table3User4Check">
+                                <input type="checkbox" name="Table3User4Check" />
+                            </span>
+                        </div>
                         <div id="Table3User4Cart1" class="TableUserCart"></div>
                         <div id="Table3User4Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -274,7 +343,12 @@
                 </div>
                 <div style="float: left;margin-top: 25px;">
                     <div  class="TableUser">
-                        <div class="button" id="Table3User5Factor">1.85</div>
+                        <div id="Table3User5Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="Table3User5CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="Table3User5Check">
+                                <input type="checkbox" name="Table3User5Check" />
+                            </span>
+                        </div>
                         <div id="Table3User5Cart1" class="TableUserCart"></div>
                         <div id="Table3User5Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -288,7 +362,12 @@
                         $('#Table3User5Progress').css('bottom' , 40 + '%');                
                     </script>
                     <div  class="TableUser">
-                        <div class="button" id="Table3User6Factor">1.85</div>
+                        <div id="Table3User6Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="Table3User6CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="Table3User6Check">
+                                <input type="checkbox" name="Table3User6Check" />
+                            </span>
+                        </div>
                         <div id="Table3User6Cart1" class="TableUserCart"></div>
                         <div id="Table3User6Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -300,7 +379,12 @@
                     </div>
                     <script>$('#Table3User6Progress').css('bottom' , 40 + '%');</script>
                     <div  class="TableUser">
-                        <div class="button" id="Table3User7Factor">1.85</div>
+                        <div id="Table3User7Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="Table3User7CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="Table3User7Check">
+                                <input type="checkbox" name="Table3User7Check" />
+                            </span>
+                        </div>
                         <div id="Table3User7Cart1" class="TableUserCart"></div>
                         <div id="Table3User7Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
@@ -312,7 +396,12 @@
                     </div>
                     <script>$('#Table3User7Progress').css('bottom' , 40 + '%');</script>
                     <div  class="TableUser">
-                        <div class="button" id="Table3User8Factor">1.85</div>
+                        <div id="Table3User8Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="Table3User8CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="Table3User8Check">
+                                <input type="checkbox" name="Table3User8Check" />
+                            </span>
+                        </div>
                         <div id="Table3User8Cart1" class="TableUserCart"></div>
                         <div id="Table3User8Cart2" class="TableUserCart"></div>
                         <div class="progressbar">
