@@ -10,16 +10,6 @@
                     <div class="firstText">Именно СЕЙЧАС 348 активных столов!</div>
                     <br><div class="secondText">
                        На сайте
-                        <%int p=0;servlet counter=(servlet)session.getAttribute("counter");%>
-                        <%=counter.getActiveSessionNumber()%>
-                        <%if(counter.getActiveSessionNumber()==1){%>
-                        посетитель
-                        <%}%>
-                        <%if(counter.getActiveSessionNumber()>1 && counter.getActiveSessionNumber()<5){%>
-                        посетителя
-                        <%}%>
-                        <%if(counter.getActiveSessionNumber() > 5){%>
-                        посетителей
-                        <%}%>
+                       3 посетителя
                          </div>
                 </div>

@@ -18,6 +18,7 @@ function changeCheck(el)
    	 if(!input.attr("checked")) {
 		el.css("background-position","0 -17px");	
 		input.attr("checked", true)
+                DisableOtherBet(null);
 	} else {
 		el.css("background-position","0 0");	
 		input.attr("checked", false)
@@ -36,6 +37,7 @@ var el = el,
 
 
 $(document).ready(function(){
+//    Первый стол
 $("#Table1User1Check").mousedown(
 function() {
 TableUserChangeCheck($("#Table1User1CheckBackground"),$("#Table1User1Check"));
@@ -72,7 +74,7 @@ function() {
     TableUserChangeCheckStart($("#Table1User4CheckBackground"),$("#Table1User4Check"));
 });
 
-
+// Второй стол
 
 $("#Table2User1Check").mousedown(
 function() {
@@ -128,7 +130,7 @@ function() {
     TableUserChangeCheckStart($("#Table2User6CheckBackground"),$("#Table2User6Check"));
 });
 
-
+// Третий стол
 
 $("#Table3User1Check").mousedown(
 function() {
@@ -203,16 +205,43 @@ function() {
 });
 });
 
+function DisableOtherBet(CurrentBet){
+for(var i = 1; i < 5; i++)
+    if($("#Table1User"+i.toString()+"Check") != CurrentBet)
+    DisableCheck($("#Table1User"+i.toString()+"Check"+"Background"),$("#Table1User"+i.toString()+"Check"));
+
+for(var i = 1; i < 7; i++)
+    if($("#Table2User"+i.toString()+"Check") != CurrentBet)
+    DisableCheck($("#Table2User"+i.toString()+"Check"+"Background"),$("#Table2User"+i.toString()+"Check"));
+
+for(var i = 1; i < 9; i++)
+    if($("#Table3User"+i.toString()+"Check") != CurrentBet)
+    DisableCheck($("#Table3User"+i.toString()+"Check"+"Background"),$("#Table3User"+i.toString()+"Check"));
+
+}
+
+function DisableCheck(el,input){
+    el.css("background","-moz-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
+    el.css("background","-webkit-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
+    el.css("background","-o-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
+    el.css("background","-ms-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
+    el.css("background","linear-gradient(top, #49a6e8 0%, #4281a9 100%)");	
+    input.attr("checked", false)
+}
+
 function TableUserChangeCheck(el,input)
 {
      var el = el,input = input;
    	 if(!input.attr("checked")) {
+             var exp = document.getElementById("ExpressCheck");
+             if(exp.getAttribute("checked"))
+                 DisableOtherBet(input);
 		el.css("background","-moz-linear-gradient(top, #d52711 0%, #d76255 100%)");
                 el.css("background","-webkit-linear-gradient(top, #d52711 0%, #d76255 100%)");
                 el.css("background","-o-linear-gradient(top, #d52711 0%, #d76255 100%)");
                 el.css("background","-ms-linear-gradient(top, #d52711 0%, #d76255 100%)");
                 el.css("background","linear-gradient(top, #d52711 0%, #d76255 100%)");
-        input.attr("checked", true)
+                input.attr("checked", true)
 	} else {
                 el.css("background","-moz-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
                 el.css("background","-webkit-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");

@@ -431,7 +431,7 @@
                         <div class="ExpressBet">
                         <div class="ExpressBetElipse">
                             <span class="niceCheck">
-                                <input type="checkbox" name="ch1" />
+                                <input type="checkbox" id="ExpressCheck" />
                             </span>
                         </div><b>Экспресс</b></div>
                         </div>
