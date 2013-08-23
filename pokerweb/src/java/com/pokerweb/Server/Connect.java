@@ -47,7 +47,6 @@ public class Connect {
         if(instanse == null){
             instanse = new Connect();
         }
-       // boolean connected = socket.isConnected();
         return instanse;
     }
     

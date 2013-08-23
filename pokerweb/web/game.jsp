@@ -23,16 +23,20 @@
             <div class="rightCol"> </div>      
         </div>
 
-<div id="center">
     <div class="leftCol"></div>
         <div id="centerCol" style="float: left;width: 70%;" >
             
             <div id="menuGame" >
                 <div class="SmallLogo"></div>
-                <div style="float: left;color: white;margin-top: 15px;">Время до Ривер-Раунд 5383</div>
-                <div id="progressbar"><b style="position: absolute;margin-left: 60px;" id="BaseProgressTime"></b></div>
+                <div style="float: left;color: white;margin-top: 15px;">
+                    <div style="display: none;" id="CurrentStage">-1</div> 
+                    Время до
+                    <b id="ShowNextStage">Ривер</b> Раунд <b id="ShowCurrentRaund">5383</b></div>
+                <div id="progressbar">
+                    <b style="position: absolute;margin-left: 60px;" id="BaseProgressTime"></b>
+                </div>
                 <script> 
-                    $( "#progressbar" ).progressbar({value: 37});
+                    $("#progressbar").progressbar({value: 37});
                 </script>
                 <div class="button">
                     Объяснение
