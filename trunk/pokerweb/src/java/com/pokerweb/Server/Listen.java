@@ -7,7 +7,6 @@ package com.pokerweb.Server;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,9 +21,8 @@ public class Listen extends Thread {
     public void run(){
         int flag = 1;
         try {
-        while (flag > 0 ) {
-            byte[] bytes = new byte[4];
-            
+            while (flag > 0 ) {
+                byte[] bytes = new byte[4];
                 flag = in.read(bytes, 0, 4);
                 int command = Functions.byteArrayToInt(bytes);
                 switch (command) {
@@ -33,7 +31,6 @@ public class Listen extends Thread {
                         byte[] message = new byte[Functions.byteArrayToInt(bytes)];
                         flag = in.read(message, 0, message.length);
                         String mess = new String(encode(message));
-                       // TableStatus.GetInstance().NewData = true;
                         TableStatus.GetInstance().Start(mess);
                     break;
                     }
@@ -43,34 +40,33 @@ public class Listen extends Thread {
                         flag = in.read(message, 0, message.length);
                         String mess = new String(encode(message));
                        // TableStatus.GetInstance().NewData = true;
-                        TableStatus.GetInstance().SetNewUserData(mess);
+                        TableStatus.GetInstance().SetPreflop(mess);
                     break;
                     }
-                        case 1520:{
+                    case 1520:{
                         flag = in.read(bytes, 0, 4);
                         byte[] message = new byte[Functions.byteArrayToInt(bytes)];
                         flag = in.read(message, 0, message.length);
                         String mess = new String(encode(message));
-                        TableStatus.GetInstance().SetNewStageData(mess);
+                        TableStatus.GetInstance().SetFlop(mess);
                     break;
                     }
-                            case 1530:{
+                    case 1530:{
                         flag = in.read(bytes, 0, 4);
                         byte[] message = new byte[Functions.byteArrayToInt(bytes)];
                         flag = in.read(message, 0, message.length);
                         String mess = new String(encode(message));
-                        TableStatus.GetInstance().SetNewStageData(mess);
+                        TableStatus.GetInstance().SetTern(mess);
                     break;
                     }
-                                case 1540:{
+                    case 1540:{
                         flag = in.read(bytes, 0, 4);
                         byte[] message = new byte[Functions.byteArrayToInt(bytes)];
                         flag = in.read(message, 0, message.length);
                         String mess = new String(encode(message));
-                        TableStatus.GetInstance().SetNewStageData(mess);
-                    break;
+                        TableStatus.GetInstance().SetRiver(mess);
+                        break;
                     }
-                            
                     default:{
                         flag = in.read(bytes, 0, 4);
                         byte[] message = new byte[Functions.byteArrayToInt(bytes)];
