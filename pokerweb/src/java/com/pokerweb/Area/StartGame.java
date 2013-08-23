@@ -80,10 +80,10 @@ public class StartGame extends HttpServlet {
                         JSONObject jsonObject = new JSONObject(jb.toString());
                         if(jsonObject.getInt("start") == -1)
                             Connect.GetInstance();
-                        js.append("Data",TableStatus.GetInstance().GetNewData());
+                        String Data = TableStatus.GetInstance().GetNewData(jsonObject.getInt("start"));
                         response.setContentType("application/json; charset=utf-8");
                         response.setHeader("Cache-Control", "no-cache");
-                        response.getWriter().write(js.toString());               
+                        response.getWriter().write(Data);               
         } catch (JSONException ex) {
             Logger.getLogger(ValidateTab1.class.getName()).log(Level.SEVERE, null, ex);
         }
