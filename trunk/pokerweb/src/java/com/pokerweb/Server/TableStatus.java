@@ -6,14 +6,12 @@ package com.pokerweb.Server;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 /**
  *
  * @author vadim
@@ -28,11 +26,20 @@ public class TableStatus {
     public Table TableThree;
     public int Stage;
     public int Timer;
+    public long Round;
     private TableStatus(){
         Timer = 0;
+        Stage = -1;
         java.util.Timer timer = new java.util.Timer();
         TimerTask task = new TimerTask() {
             public void run(){
+//                switch(Stage){
+//                case -1:
+//                    break;
+//                    case 0:
+//                        break;
+//                        
+//                }
                 if(TableStatus.GetInstance().Timer == 20){
                 try {
                    byte[] byteCommand = Functions.intToByteArray(1010);
@@ -53,34 +60,34 @@ public class TableStatus {
   Start = "";
         Stage = -1;
   if(TableOne == null)
-            TableOne = new Table();
-        if(TableTwo == null)
-            TableTwo = new Table();
-        if(TableThree == null)
-            TableThree = new Table();
-        if(TableOne.Hands == null)
-            TableOne.Hands = new ArrayList<Hand>();
-        if(TableOne.Hands.isEmpty())
-            for(int i = 0; i < 4; i++){
-                Hand h = new Hand();
-                TableOne.Hands.add(h); 
-            }
-        if(TableTwo.Hands == null)
-            TableTwo.Hands = new ArrayList<Hand>();
+      TableOne = new Table();
+  if(TableTwo == null)
+      TableTwo = new Table();
+  if(TableThree == null)
+      TableThree = new Table();
+  if(TableOne.Hands == null)
+      TableOne.Hands = new ArrayList<Hand>();
+  if(TableOne.Hands.isEmpty())
+      for(int i = 0; i < 4; i++){
+          Hand h = new Hand();
+          TableOne.Hands.add(h); 
+      }
+  if(TableTwo.Hands == null)
+      TableTwo.Hands = new ArrayList<Hand>();
   
-        if(TableTwo.Hands.isEmpty())          
-            for(int i = 0; i < 6; i++){
-                Hand h = new Hand();
-                TableTwo.Hands.add(h); 
-            }
+  if(TableTwo.Hands.isEmpty())          
+      for(int i = 0; i < 6; i++){
+          Hand h = new Hand();
+          TableTwo.Hands.add(h); 
+      }
  
-        if(TableThree.Hands == null)
-            TableThree.Hands = new ArrayList<Hand>();
-        if(TableThree.Hands.isEmpty()) 
-            for(int i = 0; i < 8; i++){
-                Hand h = new Hand();
-                TableThree.Hands.add(h); 
-            }
+  if(TableThree.Hands == null)
+      TableThree.Hands = new ArrayList<Hand>();
+  if(TableThree.Hands.isEmpty()) 
+      for(int i = 0; i < 8; i++){
+          Hand h = new Hand();
+          TableThree.Hands.add(h); 
+      }
     }
     
     public static TableStatus GetInstance(){
@@ -93,45 +100,130 @@ public class TableStatus {
         JSONObject jsO = new JSONObject();
         jsO.append("Timer", Timer);
         jsO.append("Stage", Stage);
+        JSONObject Table0 = new JSONObject();
         JSONObject Table1 = new JSONObject();
         JSONObject Table2 = new JSONObject();
-        JSONObject Table3 = new JSONObject();                
-        if(StageUser == -1){
-            if(Stage == 0){
+        if(StageUser == -1 || StageUser == 4)
+            if(Stage == 0)
+                jsO.append("Round", Round);
+        
+        if(StageUser == 0){
+            if(Stage == 1){
                 for(int i = 0; i < 4; i++){
-                    JSONArray User = new JSONArray();
-                    User.put(TableOne.Hands.get(i).CartOne);
-                    User.put(TableOne.Hands.get(i).CartTwo);
-                    User.put(TableOne.Hands.get(i).Factor);
-                    User.put(TableOne.Hands.get(i).Indicator);
-                    Table1.append("User"+String.valueOf(i), User);
+                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).CartOne);
+                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).CartTwo);
+                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).Factor);
+                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).Indicator);
                 }
                 for(int i = 0; i < 6; i++){
-                    JSONArray User = new JSONArray();
-                    User.put(TableTwo.Hands.get(i).CartOne);
-                    User.put(TableTwo.Hands.get(i).CartTwo);
-                    User.put(TableTwo.Hands.get(i).Factor);
-                    User.put(TableTwo.Hands.get(i).Indicator);
-                    Table2.append("User"+String.valueOf(i), User);
+                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).CartOne);
+                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).CartTwo);
+                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).Factor);
+                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).Indicator);
                 }
                 
                 for(int i = 0; i < 8; i++){
-                    JSONArray User = new JSONArray();
-                    User.put(TableThree.Hands.get(i).CartOne);
-                    User.put(TableThree.Hands.get(i).CartTwo);
-                    User.put(TableThree.Hands.get(i).Factor);
-                    User.put(TableThree.Hands.get(i).Indicator);
-                    Table3.append("User"+String.valueOf(i), User);
+                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).CartOne);
+                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).CartTwo);
+                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).Factor);
+                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).Indicator);
                 }
-            }}
+            }
+        }
+        if(StageUser == 1){
+            if(Stage == 2){
+                Table0.append("Bord",TableOne.FlopOne);
+                Table0.append("Bord",TableOne.FlopTwo);
+                Table0.append("Bord",TableOne.FlopThree);
+               
+                Table1.append("Bord",TableTwo.FlopOne);
+                Table1.append("Bord",TableTwo.FlopTwo);
+                Table1.append("Bord",TableTwo.FlopThree);
+                
+                Table2.append("Bord",TableThree.FlopOne);
+                Table2.append("Bord",TableThree.FlopTwo);
+                Table2.append("Bord",TableThree.FlopThree);
+                
+                for(int i = 0; i < 4; i++){
+                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).Factor);
+                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).Indicator);
+                }
+                for(int i = 0; i < 6; i++){
+                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).Factor);
+                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).Indicator);
+                }
+                
+                for(int i = 0; i < 8; i++){
+                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).Factor);
+                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).Indicator);
+                }
+            }
+        }
+        
+        if(StageUser == 2){
+            if(Stage == 3){
+                Table0.append("Bord",TableOne.Tern);
+               
+                Table1.append("Bord",TableTwo.Tern);
+                
+                Table2.append("Bord",TableThree.Tern);
+                for(int i = 0; i < 4; i++){
+                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).Factor);
+                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).Indicator);
+                }
+                for(int i = 0; i < 6; i++){
+                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).Factor);
+                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).Indicator);
+                }
+                
+                for(int i = 0; i < 8; i++){
+                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).Factor);
+                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).Indicator);
+                }
+            }
+        }
+        
+        if(StageUser == 3){
+            if(Stage == 4){
+                Table0.append("Bord",TableOne.River);
+               
+                Table1.append("Bord",TableTwo.River);
+                
+                Table2.append("Bord",TableThree.River);
+                
+                for(int i = 0; i < 4; i++){
+                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).Factor);
+                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).Indicator);
+                }
+                for(int i = 0; i < 6; i++){
+                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).Factor);
+                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).Indicator);
+                }
+                
+                for(int i = 0; i < 8; i++){
+                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).Factor);
+                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).Indicator);
+                }
+            }
+        }
+        
+        if(StageUser == 4){
+            if(Stage == 5){
+             //shutdown
+            }
+        }
+            
+        jsO.put("Table0", Table0);
+        jsO.put("Table1", Table1);
+        jsO.put("Table2", Table2);
+        
           return jsO.toString();
     }
     
     public void SetPreflop(String data){
         JsonString = data;
-      
         try {
-            Stage = 0;
+            Stage = 1;
             JSONObject js = new JSONObject(data);
             JSONObject T1 = js.getJSONObject("Table0");
             for(int i = 0; i < 4; i++){
@@ -164,7 +256,7 @@ public class TableStatus {
     public void SetFlop(String data){
         JsonString = data;
         try {
-            Stage = 1;
+            Stage = 2;
             JSONObject js = new JSONObject(data);
             JSONArray T1 = js.getJSONArray("Table0");
             TableOne.FlopOne = T1.getJSONObject(0).getJSONArray("Bord").getInt(0);
@@ -197,7 +289,7 @@ public class TableStatus {
     public void SetTern(String data){
         JsonString = data;
         try {
-            Stage = 2;
+            Stage = 3;
             JSONObject js = new JSONObject(data);
             JSONArray T1 = js.getJSONArray("Table0");
             TableOne.Tern = T1.getJSONObject(0).getJSONArray("Bord").getInt(3);
@@ -221,7 +313,7 @@ public class TableStatus {
     public void SetRiver(String data){
       JsonString = data;
         try {
-          Stage = 3;
+          Stage = 4;
           JSONObject js = new JSONObject(data);
           JSONArray T1 = js.getJSONArray("Table0");
           TableOne.River = T1.getJSONObject(0).getJSONArray("Bord").getInt(4);
@@ -243,8 +335,12 @@ public class TableStatus {
     }
     
     public void Start(String data){
-        Start = data;
-        
-      //  Timer = 20;        
+        try {
+            Stage = 0;
+            JSONObject js = new JSONObject(data);
+            Round = js.getLong("Round");
+        } catch (JSONException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
