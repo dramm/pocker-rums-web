@@ -203,6 +203,21 @@ $("#Table3User8Check").each(
 function() {
     TableUserChangeCheckStart($("#Table3User8CheckBackground"),$("#Table3User8Check"));
 });
+
+
+$("#SumBetUp").click(
+        function() {
+            var CurrentSum = parseFloat($("#SumBetUser").html());
+            $("#SumBetUser").html(CurrentSum + 0.50);
+});
+
+$("#SumBetDown").click(
+        function() {
+            var CurrentSum = parseFloat($("#SumBetUser").html());
+            if((CurrentSum - 0.50) > 0)
+                $("#SumBetUser").html(CurrentSum - 0.50);
+});
+
 });
 
 function DisableOtherBet(CurrentBet){
@@ -241,6 +256,7 @@ function TableUserChangeCheck(el,input)
                 el.css("background","-o-linear-gradient(top, #d52711 0%, #d76255 100%)");
                 el.css("background","-ms-linear-gradient(top, #d52711 0%, #d76255 100%)");
                 el.css("background","linear-gradient(top, #d52711 0%, #d76255 100%)");
+                SetBet(input,true);
                 input.attr("checked", true)
 	} else {
                 el.css("background","-moz-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
@@ -248,6 +264,7 @@ function TableUserChangeCheck(el,input)
                 el.css("background","-o-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
                 el.css("background","-ms-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
                 el.css("background","linear-gradient(top, #49a6e8 0%, #4281a9 100%)");	
+                SetBet(input,false);
                 input.attr("checked", false)
 	}
      return true;
@@ -290,13 +307,15 @@ function StartGameCallback() {
                 var Message = JSON.parse(reqPrivate.responseText);
                 var tr = reqPrivate.responseText;
                 console.log(tr);
-                if(Message.Stage != null)
+                if(Message.Stage != null && Message.Table0.User0 != null)
                 $("#CurrentStage").html(Message.Stage);
                 if(Message.Timer != null){
                        var valueBaseProgress = Message.Timer * 100 / 20;
                        $( "#progressbar" ).progressbar({value: valueBaseProgress}); 
                        $("#BaseProgressTime").html(20 - Message.Timer);
                        }
+                   if(Message.Stage != 0 && Message.Table0.User0 == null)
+                        return ;
                    if(Message.Stage == 0){
                        $("#ShowCurrentRaund").html(Message.Round);
                        for(var i=1;i<5;i++){
@@ -438,6 +457,107 @@ function StartGameCallback() {
                         return;     
                 }
                      if(Message.Stage == 2){
+                         if($("#CurrentStage").html() < 1){
+                            $('#Table1User1Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table0.User0[0]+'.png)');
+                            $('#Table1User1Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table0.User0[1]+'.png)');
+                        
+                            $('#Table1User2Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table0.User1[0]+'.png)');
+                            $('#Table1User2Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table0.User1[1]+'.png)');
+                        
+                            $('#Table1User3Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table0.User2[0]+'.png)');
+                            $('#Table1User3Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table0.User2[1]+'.png)');
+                        
+                            $('#Table1User4Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table0.User3[0]+'.png)');
+                            $('#Table1User4Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table0.User3[1]+'.png)');
+                        
+                        
+                            $('#Table2User1Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table1.User0[0]+'.png)');
+                            $('#Table2User1Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table1.User0[1]+'.png)');
+                        
+                            $('#Table2User2Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table1.User1[0]+'.png)');
+                            $('#Table2User2Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table1.User1[1]+'.png)');
+                        
+                            $('#Table2User3Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table1.User2[0]+'.png)');
+                            $('#Table2User3Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table1.User2[1]+'.png)');
+                        
+                            $('#Table2User4Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table1.User3[0]+'.png)');
+                            $('#Table2User4Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table1.User3[1]+'.png)');
+                        
+                            $('#Table2User5Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table1.User4[0]+'.png)');
+                            $('#Table2User5Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table1.User4[1]+'.png)');
+                        
+                            $('#Table2User6Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table1.User5[0]+'.png)');
+                            $('#Table2User6Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table1.User5[1]+'.png)');
+                        
+                        
+                            $('#Table3User1Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User0[0]+'.png)');
+                            $('#Table3User1Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User0[1]+'.png)');
+                        
+                            $('#Table3User2Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User1[0]+'.png)');
+                            $('#Table3User2Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User1[1]+'.png)');
+                        
+                            $('#Table3User3Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User2[0]+'.png)');
+                            $('#Table3User3Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User2[1]+'.png)');
+                        
+                            $('#Table3User4Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User3[0]+'.png)');
+                            $('#Table3User4Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User3[1]+'.png)');
+                        
+                            $('#Table3User5Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User4[0]+'.png)');
+                            $('#Table3User5Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User4[1]+'.png)');
+                        
+                            $('#Table3User6Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User5[0]+'.png)');
+                            $('#Table3User6Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User5[1]+'.png)');
+                        
+                            $('#Table3User7Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User6[0]+'.png)');
+                            $('#Table3User7Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User6[1]+'.png)');
+                      
+                            $('#Table3User8Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User7[0]+'.png)');
+                            $('#Table3User8Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User7[1]+'.png)');
+                       
+                    $('#Table1User1CheckBackground').html(Message.Table0.User0[2]);
+                        $('#Table1User1Progress').css('bottom' , Message.Table0.User0[3] + '%');
+                        
+                        $('#Table1User2CheckBackground').html(Message.Table0.User1[2]);
+                        $('#Table1User2Progress').css('bottom' , Message.Table0.User1[3] + '%');
+                        
+                        $('#Table1User3CheckBackground').html(Message.Table0.User2[2]);
+                        $('#Table1User3Progress').css('bottom' , Message.Table0.User2[3] + '%');
+                        
+                        $('#Table1User4CheckBackground').html(Message.Table0.User3[2]);
+                        $('#Table1User4Progress').css('bottom' , Message.Table0.User3[3] + '%');
+                        
+                        
+                        $('#Table2User1CheckBackground').html(Message.Table1.User0[2]);
+                        $('#Table2User1Progress').css('bottom' , Message.Table1.User0[3] + '%');
+                        $('#Table2User2CheckBackground').html(Message.Table1.User1[2]);
+                        $('#Table2User2Progress').css('bottom' , Message.Table1.User1[3] + '%');
+                        $('#Table2User3CheckBackground').html(Message.Table1.User2[2]);
+                        $('#Table2User3Progress').css('bottom' , Message.Table1.User2[3] + '%');
+                        $('#Table2User4CheckBackground').html(Message.Table1.User3[2]);
+                        $('#Table2User4Progress').css('bottom' , Message.Table1.User3[3] + '%');
+                        $('#Table2User5CheckBackground').html(Message.Table1.User4[2]);
+                        $('#Table2User5Progress').css('bottom' , Message.Table1.User4[3] + '%');
+                        $('#Table2User6CheckBackground').html(Message.Table1.User5[2]);
+                        $('#Table2User6Progress').css('bottom' , Message.Table1.User5[3] + '%');
+                        
+                        $('#Table3User1CheckBackground').html(Message.Table2.User0[2]);
+                        $('#Table3User1Progress').css('bottom' , Message.Table2.User0[3] + '%');
+                        $('#Table3User2CheckBackground').html(Message.Table2.User1[2]);
+                        $('#Table3User2Progress').css('bottom' , Message.Table2.User1[3] + '%');
+                        $('#Table3User3CheckBackground').html(Message.Table2.User2[2]);
+                        $('#Table3User3Progress').css('bottom' , Message.Table2.User2[3] + '%');
+                        $('#Table3User4CheckBackground').html(Message.Table2.User3[2]);
+                        $('#Table3User4Progress').css('bottom' , Message.Table2.User3[3] + '%');
+                        $('#Table3User5CheckBackground').html(Message.Table2.User4[2]);
+                        $('#Table3User5Progress').css('bottom' , Message.Table2.User4[3] + '%');
+                        $('#Table3User6CheckBackground').html(Message.Table2.User5[2]);
+                        $('#Table3User6Progress').css('bottom' , Message.Table2.User5[3] + '%');
+                        $('#Table3User7CheckBackground').html(Message.Table2.User6[2]);
+                        $('#Table3User7Progress').css('bottom' , Message.Table2.User6[3] + '%');
+                        $('#Table3User8CheckBackground').html(Message.Table2.User7[2]);
+                        $('#Table3User8Progress').css('bottom' , Message.Table2.User7[3] + '%');
+                    } else
+                            {
                         $('#Table1User1CheckBackground').html(Message.Table0.User0[0]);
                         $('#Table1User1Progress').css('bottom' , Message.Table0.User0[1] + '%');
                         
@@ -481,6 +601,7 @@ function StartGameCallback() {
                         $('#Table3User8CheckBackground').html(Message.Table2.User7[0]);
                         $('#Table3User8Progress').css('bottom' , Message.Table2.User7[1] + '%');
                         
+                        
                         $('#Table1Flop1').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[0]+'.png)');
                         $('#Table1Flop2').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[1]+'.png)');
                         $('#Table1Flop3').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[2]+'.png)');
@@ -492,11 +613,130 @@ function StartGameCallback() {
                         $('#Table3Flop1').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[0]+'.png)');
                         $('#Table3Flop2').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[1]+'.png)');
                         $('#Table3Flop3').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[2]+'.png)');
-                        return ;
+                            }
+                            return ;
                      }
                      
                      if(Message.Stage == 3){
-                         $('#Table1User1CheckBackground').html(Message.Table0.User0[0]);
+                         if($("#CurrentStage").html() < 1){
+                             $('#Table1User1Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table0.User0[0]+'.png)');
+                             $('#Table1User1Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table0.User0[1]+'.png)');
+                        
+                             $('#Table1User2Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table0.User1[0]+'.png)');
+                             $('#Table1User2Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table0.User1[1]+'.png)');
+                        
+                             $('#Table1User3Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table0.User2[0]+'.png)');
+                             $('#Table1User3Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table0.User2[1]+'.png)');
+                        
+                             $('#Table1User4Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table0.User3[0]+'.png)');
+                             $('#Table1User4Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table0.User3[1]+'.png)');
+                        
+                        
+                             $('#Table2User1Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table1.User0[0]+'.png)');
+                             $('#Table2User1Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table1.User0[1]+'.png)');
+                        
+                             $('#Table2User2Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table1.User1[0]+'.png)');
+                             $('#Table2User2Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table1.User1[1]+'.png)');
+                        
+                             $('#Table2User3Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table1.User2[0]+'.png)');
+                             $('#Table2User3Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table1.User2[1]+'.png)');
+                        
+                             $('#Table2User4Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table1.User3[0]+'.png)');
+                             $('#Table2User4Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table1.User3[1]+'.png)');
+                        
+                             $('#Table2User5Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table1.User4[0]+'.png)');
+                             $('#Table2User5Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table1.User4[1]+'.png)');
+                        
+                             $('#Table2User6Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table1.User5[0]+'.png)');
+                             $('#Table2User6Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table1.User5[1]+'.png)');
+                        
+                        
+                             $('#Table3User1Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User0[0]+'.png)');
+                             $('#Table3User1Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User0[1]+'.png)');
+                        
+                             $('#Table3User2Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User1[0]+'.png)');
+                             $('#Table3User2Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User1[1]+'.png)');
+                        
+                             $('#Table3User3Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User2[0]+'.png)');
+                             $('#Table3User3Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User2[1]+'.png)');
+                        
+                             $('#Table3User4Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User3[0]+'.png)');
+                             $('#Table3User4Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User3[1]+'.png)');
+                        
+                             $('#Table3User5Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User4[0]+'.png)');
+                             $('#Table3User5Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User4[1]+'.png)');
+                        
+                             $('#Table3User6Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User5[0]+'.png)');
+                             $('#Table3User6Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User5[1]+'.png)');
+                        
+                             $('#Table3User7Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User6[0]+'.png)');
+                             $('#Table3User7Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User6[1]+'.png)');
+                      
+                             $('#Table3User8Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User7[0]+'.png)');
+                             $('#Table3User8Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User7[1]+'.png)');
+                       
+                             $('#Table1User1CheckBackground').html(Message.Table0.User0[2]);
+                        $('#Table1User1Progress').css('bottom' , Message.Table0.User0[3] + '%');
+                        
+                        $('#Table1User2CheckBackground').html(Message.Table0.User1[2]);
+                        $('#Table1User2Progress').css('bottom' , Message.Table0.User1[3] + '%');
+                        
+                        $('#Table1User3CheckBackground').html(Message.Table0.User2[2]);
+                        $('#Table1User3Progress').css('bottom' , Message.Table0.User2[3] + '%');
+                        
+                        $('#Table1User4CheckBackground').html(Message.Table0.User3[2]);
+                        $('#Table1User4Progress').css('bottom' , Message.Table0.User3[3] + '%');
+                        
+                        
+                        $('#Table2User1CheckBackground').html(Message.Table1.User0[2]);
+                        $('#Table2User1Progress').css('bottom' , Message.Table1.User0[3] + '%');
+                        $('#Table2User2CheckBackground').html(Message.Table1.User1[2]);
+                        $('#Table2User2Progress').css('bottom' , Message.Table1.User1[3] + '%');
+                        $('#Table2User3CheckBackground').html(Message.Table1.User2[2]);
+                        $('#Table2User3Progress').css('bottom' , Message.Table1.User2[3] + '%');
+                        $('#Table2User4CheckBackground').html(Message.Table1.User3[2]);
+                        $('#Table2User4Progress').css('bottom' , Message.Table1.User3[3] + '%');
+                        $('#Table2User5CheckBackground').html(Message.Table1.User4[2]);
+                        $('#Table2User5Progress').css('bottom' , Message.Table1.User4[3] + '%');
+                        $('#Table2User6CheckBackground').html(Message.Table1.User5[2]);
+                        $('#Table2User6Progress').css('bottom' , Message.Table1.User5[3] + '%');
+                        
+                        $('#Table3User1CheckBackground').html(Message.Table2.User0[2]);
+                        $('#Table3User1Progress').css('bottom' , Message.Table2.User0[3] + '%');
+                        $('#Table3User2CheckBackground').html(Message.Table2.User1[2]);
+                        $('#Table3User2Progress').css('bottom' , Message.Table2.User1[3] + '%');
+                        $('#Table3User3CheckBackground').html(Message.Table2.User2[2]);
+                        $('#Table3User3Progress').css('bottom' , Message.Table2.User2[3] + '%');
+                        $('#Table3User4CheckBackground').html(Message.Table2.User3[2]);
+                        $('#Table3User4Progress').css('bottom' , Message.Table2.User3[3] + '%');
+                        $('#Table3User5CheckBackground').html(Message.Table2.User4[2]);
+                        $('#Table3User5Progress').css('bottom' , Message.Table2.User4[3] + '%');
+                        $('#Table3User6CheckBackground').html(Message.Table2.User5[2]);
+                        $('#Table3User6Progress').css('bottom' , Message.Table2.User5[3] + '%');
+                        $('#Table3User7CheckBackground').html(Message.Table2.User6[2]);
+                        $('#Table3User7Progress').css('bottom' , Message.Table2.User6[3] + '%');
+                        $('#Table3User8CheckBackground').html(Message.Table2.User7[2]);
+                        $('#Table3User8Progress').css('bottom' , Message.Table2.User7[3] + '%');
+                        
+                        $('#Table1Flop1').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[0]+'.png)');
+                        $('#Table1Flop2').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[1]+'.png)');
+                        $('#Table1Flop3').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[2]+'.png)');
+                     
+                        $('#Table2Flop1').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[0]+'.png)');
+                        $('#Table2Flop2').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[1]+'.png)');
+                        $('#Table2Flop3').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[2]+'.png)');
+                     
+                        $('#Table3Flop1').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[0]+'.png)');
+                        $('#Table3Flop2').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[1]+'.png)');
+                        $('#Table3Flop3').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[2]+'.png)');
+                         
+                        
+                        $('#Table1Tern').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[3]+'.png)');
+                        $('#Table2Tern').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[3]+'.png)');
+                        $('#Table3Tern').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[3]+'.png)');
+                    }
+                        else{
+                        $('#Table1User1CheckBackground').html(Message.Table0.User0[0]);
                         $('#Table1User1Progress').css('bottom' , Message.Table0.User0[1] + '%');
                         
                         $('#Table1User2CheckBackground').html(Message.Table0.User1[0]);
@@ -538,13 +778,136 @@ function StartGameCallback() {
                         $('#Table3User7Progress').css('bottom' , Message.Table2.User6[1] + '%');
                         $('#Table3User8CheckBackground').html(Message.Table2.User7[0]);
                         $('#Table3User8Progress').css('bottom' , Message.Table2.User7[1] + '%');
+                        
                         $('#Table1Tern').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[0]+'.png)');
                         $('#Table2Tern').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[0]+'.png)');
                         $('#Table3Tern').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[0]+'.png)');
+                        }
                         return ;  
                      }
                      
                      if(Message.Stage == 4){
+                          if($("#CurrentStage").html() < 1){
+                             $('#Table1User1Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table0.User0[0]+'.png)');
+                            $('#Table1User1Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table0.User0[1]+'.png)');
+                        
+                            $('#Table1User2Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table0.User1[0]+'.png)');
+                            $('#Table1User2Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table0.User1[1]+'.png)');
+                        
+                            $('#Table1User3Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table0.User2[0]+'.png)');
+                            $('#Table1User3Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table0.User2[1]+'.png)');
+                        
+                            $('#Table1User4Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table0.User3[0]+'.png)');
+                            $('#Table1User4Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table0.User3[1]+'.png)');
+                        
+                        
+                            $('#Table2User1Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table1.User0[0]+'.png)');
+                            $('#Table2User1Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table1.User0[1]+'.png)');
+                        
+                            $('#Table2User2Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table1.User1[0]+'.png)');
+                            $('#Table2User2Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table1.User1[1]+'.png)');
+                        
+                            $('#Table2User3Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table1.User2[0]+'.png)');
+                            $('#Table2User3Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table1.User2[1]+'.png)');
+                        
+                            $('#Table2User4Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table1.User3[0]+'.png)');
+                            $('#Table2User4Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table1.User3[1]+'.png)');
+                        
+                            $('#Table2User5Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table1.User4[0]+'.png)');
+                            $('#Table2User5Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table1.User4[1]+'.png)');
+                        
+                            $('#Table2User6Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table1.User5[0]+'.png)');
+                            $('#Table2User6Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table1.User5[1]+'.png)');
+                        
+                        
+                            $('#Table3User1Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User0[0]+'.png)');
+                            $('#Table3User1Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User0[1]+'.png)');
+                        
+                            $('#Table3User2Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User1[0]+'.png)');
+                            $('#Table3User2Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User1[1]+'.png)');
+                        
+                            $('#Table3User3Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User2[0]+'.png)');
+                            $('#Table3User3Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User2[1]+'.png)');
+                        
+                            $('#Table3User4Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User3[0]+'.png)');
+                            $('#Table3User4Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User3[1]+'.png)');
+                        
+                            $('#Table3User5Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User4[0]+'.png)');
+                            $('#Table3User5Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User4[1]+'.png)');
+                        
+                            $('#Table3User6Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User5[0]+'.png)');
+                            $('#Table3User6Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User5[1]+'.png)');
+                        
+                            $('#Table3User7Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User6[0]+'.png)');
+                            $('#Table3User7Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User6[1]+'.png)');
+                      
+                            $('#Table3User8Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table2.User7[0]+'.png)');
+                            $('#Table3User8Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User7[1]+'.png)');
+                       
+                        $('#Table1User1CheckBackground').html(Message.Table0.User0[2]);
+                        $('#Table1User1Progress').css('bottom' , Message.Table0.User0[3] + '%');
+                        
+                        $('#Table1User2CheckBackground').html(Message.Table0.User1[2]);
+                        $('#Table1User2Progress').css('bottom' , Message.Table0.User1[3] + '%');
+                        
+                        $('#Table1User3CheckBackground').html(Message.Table0.User2[2]);
+                        $('#Table1User3Progress').css('bottom' , Message.Table0.User2[3] + '%');
+                        
+                        $('#Table1User4CheckBackground').html(Message.Table0.User3[2]);
+                        $('#Table1User4Progress').css('bottom' , Message.Table0.User3[3] + '%');
+                        
+                        
+                        $('#Table2User1CheckBackground').html(Message.Table1.User0[2]);
+                        $('#Table2User1Progress').css('bottom' , Message.Table1.User0[3] + '%');
+                        $('#Table2User2CheckBackground').html(Message.Table1.User1[2]);
+                        $('#Table2User2Progress').css('bottom' , Message.Table1.User1[3] + '%');
+                        $('#Table2User3CheckBackground').html(Message.Table1.User2[2]);
+                        $('#Table2User3Progress').css('bottom' , Message.Table1.User2[3] + '%');
+                        $('#Table2User4CheckBackground').html(Message.Table1.User3[2]);
+                        $('#Table2User4Progress').css('bottom' , Message.Table1.User3[3] + '%');
+                        $('#Table2User5CheckBackground').html(Message.Table1.User4[2]);
+                        $('#Table2User5Progress').css('bottom' , Message.Table1.User4[3] + '%');
+                        $('#Table2User6CheckBackground').html(Message.Table1.User5[2]);
+                        $('#Table2User6Progress').css('bottom' , Message.Table1.User5[3] + '%');
+                        
+                        $('#Table3User1CheckBackground').html(Message.Table2.User0[2]);
+                        $('#Table3User1Progress').css('bottom' , Message.Table2.User0[3] + '%');
+                        $('#Table3User2CheckBackground').html(Message.Table2.User1[2]);
+                        $('#Table3User2Progress').css('bottom' , Message.Table2.User1[3] + '%');
+                        $('#Table3User3CheckBackground').html(Message.Table2.User2[2]);
+                        $('#Table3User3Progress').css('bottom' , Message.Table2.User2[3] + '%');
+                        $('#Table3User4CheckBackground').html(Message.Table2.User3[2]);
+                        $('#Table3User4Progress').css('bottom' , Message.Table2.User3[3] + '%');
+                        $('#Table3User5CheckBackground').html(Message.Table2.User4[2]);
+                        $('#Table3User5Progress').css('bottom' , Message.Table2.User4[3] + '%');
+                        $('#Table3User6CheckBackground').html(Message.Table2.User5[2]);
+                        $('#Table3User6Progress').css('bottom' , Message.Table2.User5[3] + '%');
+                        $('#Table3User7CheckBackground').html(Message.Table2.User6[2]);
+                        $('#Table3User7Progress').css('bottom' , Message.Table2.User6[3] + '%');
+                        $('#Table3User8CheckBackground').html(Message.Table2.User7[2]);
+                        $('#Table3User8Progress').css('bottom' , Message.Table2.User7[3] + '%');
+                        
+                        $('#Table1Flop1').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[0]+'.png)');
+                        $('#Table1Flop2').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[1]+'.png)');
+                        $('#Table1Flop3').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[2]+'.png)');
+                     
+                        $('#Table2Flop1').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[0]+'.png)');
+                        $('#Table2Flop2').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[1]+'.png)');
+                        $('#Table2Flop3').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[2]+'.png)');
+                     
+                        $('#Table3Flop1').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[0]+'.png)');
+                        $('#Table3Flop2').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[1]+'.png)');
+                        $('#Table3Flop3').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[2]+'.png)');
+                         
+                        
+                        $('#Table1Tern').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[3]+'.png)');
+                        $('#Table2Tern').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[3]+'.png)');
+                        $('#Table3Tern').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[3]+'.png)');
+                        $('#Table1River').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[4]+'.png)');
+                        $('#Table2River').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[4]+'.png)');
+                        $('#Table3River').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[4]+'.png)');
+                   
+                    }else{
                         $('#Table1User1CheckBackground').html(Message.Table0.User0[0]);
                         $('#Table1User1Progress').css('bottom' , Message.Table0.User0[1] + '%');
                         
@@ -590,8 +953,33 @@ function StartGameCallback() {
                         $('#Table1River').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[0]+'.png)');
                         $('#Table2River').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[0]+'.png)');
                         $('#Table3River').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[0]+'.png)');
-                        return ;     
+                    }return ;     
                 }
         }}
     }
 }
+
+function SetBet(Hand,IsAdd){
+    
+    var values =  {  
+                "Table": $(Hand).attr("id")[5],
+                "Hand": $(Hand).attr("id")[10],
+                "IsAdd": IsAdd,
+                "Sum": $("#SumBetUser").html()
+            };
+    var url = "NewBet";
+    reqPrivate = new XMLHttpRequest();
+    reqPrivate.open("POST", url, true);
+    reqPrivate.onreadystatechange = SaveNewBetCallback;
+    reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    reqPrivate.send(JSON.stringify(values));
+}
+
+function SaveNewBetCallback() {
+    if (reqPrivate.readyState == 4) {
+        if (reqPrivate.status == 200) {
+            if(reqPrivate.responseText != null)
+            if(reqPrivate.responseText.length > 0){
+                var Message = JSON.parse(reqPrivate.responseText);
+                alert(Message.Correct);
+            }}}}

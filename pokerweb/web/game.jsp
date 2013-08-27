@@ -441,9 +441,9 @@
                         </div>
                     <div class="BetTableSettings">
                         <div style="float: left;">    
-                        <div class="ButtonExpressBetSum">&lt</div>
-                        <div class="ButtonExpressBetSum">0,50</div>
-                        <div class="ButtonExpressBetSum">&gt;</div>
+                            <div class="ButtonExpressBetSum" id="SumBetDown">&lt</div>
+                            <div class="ButtonExpressBetSum" id="SumBetUser">0.50</div>
+                            <div class="ButtonExpressBetSum" id="SumBetUp">&gt;</div>
                         </div>
                         <div style="float: right;">
                         <div class="ButtonExpressBetSum">X</div>
@@ -452,7 +452,6 @@
                         </div>
                 </div>
         </div>
-    
 <div class="rightCol"></div>
     </div>
              <jsp:include page="footer.jsp" flush="true" />
