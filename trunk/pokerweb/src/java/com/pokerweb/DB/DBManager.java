@@ -1613,6 +1613,5 @@ public class DBManager{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         }
-    }
-    
+    }   
 }
