@@ -67,6 +67,14 @@ public class Listen extends Thread {
                         TableStatus.GetInstance().SetRiver(mess);
                         break;
                     }
+                    case 1550:{
+                        flag = in.read(bytes, 0, 4);
+                        byte[] message = new byte[Functions.byteArrayToInt(bytes)];
+                        flag = in.read(message, 0, message.length);
+                        String mess = new String(encode(message));
+                        TableStatus.GetInstance().SetShutdown(mess);
+                        break;
+                    }
                     default:{
                         flag = in.read(bytes, 0, 4);
                         byte[] message = new byte[Functions.byteArrayToInt(bytes)];

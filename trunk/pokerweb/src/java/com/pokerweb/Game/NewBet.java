@@ -74,7 +74,7 @@ public class NewBet extends HttpServlet {
             int Hand = jsonObject.getInt("Hand");
             boolean IsAdd = jsonObject.getBoolean("IsAdd");
             double Sum = jsonObject.getDouble("Sum");
-            boolean IsCorrect = TableStatus.GetInstance().SetNetBet(Table, Hand,Sum, IsAdd);
+            boolean IsCorrect = TableStatus.GetInstance().SetNewBet(Table, Hand,Sum, IsAdd);
             JSONObject js = new JSONObject();
             js.append("Correct", IsCorrect);
             response.setContentType("application/json; charset=utf-8");
