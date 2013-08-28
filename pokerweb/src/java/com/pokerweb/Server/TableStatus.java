@@ -29,6 +29,7 @@ public class TableStatus {
     public Table TableTwo;
     public Table TableThree;
     public Map<String,UserBet> Bets;
+    public JSONArray ShutdownInfo = new JSONArray();;
     public int Stage;
     public int Timer;
     public long Round;
@@ -53,7 +54,7 @@ public class TableStatus {
                         break;
                    
                     case 0:
-                        if(TableStatus.GetInstance().Timer == 2){             
+                        if(TableStatus.GetInstance().Timer >= 2){             
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
                             TableStatus.GetInstance().Timer = 0;
@@ -63,7 +64,7 @@ public class TableStatus {
                         break;
                         
                     case 1:
-                        if(TableStatus.GetInstance().Timer == 40){             
+                        if(TableStatus.GetInstance().Timer >= 30){             
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
                             TableStatus.GetInstance().Timer = 0;
@@ -73,7 +74,7 @@ public class TableStatus {
                         break;
                         
                     case 2:
-                        if(TableStatus.GetInstance().Timer == 40){             
+                        if(TableStatus.GetInstance().Timer >= 30){             
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
                             TableStatus.GetInstance().Timer = 0;
@@ -83,7 +84,7 @@ public class TableStatus {
                         break;
                             
                     case 3:
-                        if(TableStatus.GetInstance().Timer == 40){             
+                        if(TableStatus.GetInstance().Timer >= 30){             
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
                             TableStatus.GetInstance().Timer = 0;
@@ -93,7 +94,7 @@ public class TableStatus {
                         break;
                                 
                     case 4:
-                        if(TableStatus.GetInstance().Timer == 20){             
+                        if(TableStatus.GetInstance().Timer >= 30){             
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
                             TableStatus.GetInstance().Timer = 0;
@@ -101,6 +102,17 @@ public class TableStatus {
                         else
                             TableStatus.GetInstance().Timer++;
                         break;
+                    case 5:{
+                        if(TableStatus.GetInstance().Timer >= 30){             
+                            Connect.GetInstance().out.write(byteCommand);
+                            Connect.GetInstance().out.flush();
+                            TableStatus.GetInstance().Timer = 0;
+                        }
+                        else
+                            TableStatus.GetInstance().Timer++;
+                    break;
+                    }
+                        
                         
                 }
                 } catch (IOException ex) {
@@ -347,11 +359,11 @@ public class TableStatus {
             }
         }
         
-        if(StageUser == 4){
-            if(Stage == 5){
-             //shutdown
-            }
-        }
+        if(StageUser == 4)
+            if(Stage == 5)
+             jsO.put("Shutdown",ShutdownInfo);
+           
+            
             
         jsO.put("Table0", Table0);
         jsO.put("Table1", Table1);
@@ -492,17 +504,94 @@ public class TableStatus {
         }
     }
     
-    public void Start(String data){
+    public void SetShutdown(String data){
+        JsonString = data;
         try {
-            Stage = 0;
             JSONObject js = new JSONObject(data);
-            Round = js.getLong("Round");
+            JSONObject T1 = js.getJSONObject("Table0");
+            for(int i=0; i < T1.length(); i++){
+                for(int j = 0; j < T1.getJSONArray("Combination"+i).length(); j++){
+                    for(int h = 0; h < 4; h++){
+                      if(TableOne.Hands.get(h).CartOne == T1.getJSONArray("Combination"+i).getInt(j))
+                          ShutdownInfo.put("Table1User"+(h+1)+"Cart1");
+                      if(TableOne.Hands.get(h).CartTwo == T1.getJSONArray("Combination"+i).getInt(j))
+                          ShutdownInfo.put("Table1User"+(h+1)+"Cart2");
+                    }
+                    if(TableOne.FlopOne == T1.getJSONArray("Combination"+i).getInt(j))
+                        ShutdownInfo.put("Table1Flop1");
+                    if(TableOne.FlopTwo == T1.getJSONArray("Combination"+i).getInt(j))
+                        ShutdownInfo.put("Table1Flop2");
+                    if(TableOne.FlopThree == T1.getJSONArray("Combination"+i).getInt(j))
+                        ShutdownInfo.put("Table1Flop3");
+                    if(TableOne.Tern == T1.getJSONArray("Combination"+i).getInt(j))
+                        ShutdownInfo.put("Table1Tern");
+                    if(TableOne.River == T1.getJSONArray("Combination"+i).getInt(j))
+                        ShutdownInfo.put("Table1River");
+                }
+            }
+          
+            JSONObject T2 = js.getJSONObject("Table1");
+            for(int i=0; i < T2.length(); i++){
+                for(int j = 0; j < T2.getJSONArray("Combination"+i).length(); j++){
+                    for(int h = 0; h < 6; h++){
+                      if(TableTwo.Hands.get(h).CartOne == T2.getJSONArray("Combination"+i).getInt(j))
+                          ShutdownInfo.put("Table2User"+(h+1)+"Cart1");
+                      if(TableTwo.Hands.get(h).CartTwo == T2.getJSONArray("Combination"+i).getInt(j))
+                          ShutdownInfo.put("Table2User"+(h+1)+"Cart2");
+                    }
+                    if(TableTwo.FlopOne == T2.getJSONArray("Combination"+i).getInt(j))
+                        ShutdownInfo.put("Table2Flop1");
+                    if(TableTwo.FlopTwo == T2.getJSONArray("Combination"+i).getInt(j))
+                        ShutdownInfo.put("Table2Flop2");
+                    if(TableTwo.FlopThree == T2.getJSONArray("Combination"+i).getInt(j))
+                        ShutdownInfo.put("Table2Flop3");
+                    if(TableTwo.Tern == T2.getJSONArray("Combination"+i).getInt(j))
+                        ShutdownInfo.put("Table2Tern");
+                    if(TableTwo.River == T2.getJSONArray("Combination"+i).getInt(j))
+                        ShutdownInfo.put("Table2River");
+                }
+            }
+          
+            JSONObject T3 = js.getJSONObject("Table2");
+            for(int i=0; i < T3.length(); i++){
+                for(int j = 0; j < T3.getJSONArray("Combination"+i).length(); j++){
+                    for(int h = 0; h < 8; h++){
+                      if(TableThree.Hands.get(h).CartOne == T3.getJSONArray("Combination"+i).getInt(j))
+                          ShutdownInfo.put("Table3User"+(h+1)+"Cart1");
+                      if(TableThree.Hands.get(h).CartTwo == T3.getJSONArray("Combination"+i).getInt(j))
+                          ShutdownInfo.put("Table3User"+(h+1)+"Cart2");
+                    }
+                    if(TableThree.FlopOne == T3.getJSONArray("Combination"+i).getInt(j))
+                        ShutdownInfo.put("Table3Flop1");
+                    if(TableThree.FlopTwo == T3.getJSONArray("Combination"+i).getInt(j))
+                        ShutdownInfo.put("Table3Flop2");
+                    if(TableThree.FlopThree == T3.getJSONArray("Combination"+i).getInt(j))
+                        ShutdownInfo.put("Table3Flop3");
+                    if(TableThree.Tern == T3.getJSONArray("Combination"+i).getInt(j))
+                        ShutdownInfo.put("Table3Tern");
+                    if(TableThree.River == T3.getJSONArray("Combination"+i).getInt(j))
+                        ShutdownInfo.put("Table3River");
+                }
+            }
+          
+            Stage = 5;
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public synchronized boolean SetNetBet(int Table, int Hand,double Sum, boolean isAdd){
+    public void Start(String data){
+        try {
+            Stage = 0;
+            JSONObject js = new JSONObject(data);
+            Round = js.getLong("Round");
+            ShutdownInfo = new JSONArray();
+        } catch (JSONException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public synchronized boolean SetNewBet(int Table, int Hand,double Sum, boolean isAdd){
         if(isAdd){
             UserBet us = Bets.get(DBManager.GetInstance().GetCurrentUserLogin());
             if(us == null){
@@ -519,8 +608,7 @@ public class TableStatus {
                 else
                     Hands.add(Hand);
             }
-        }
-        else{
+        }else{
            UserBet us = Bets.get(DBManager.GetInstance().GetCurrentUserLogin());
            if(us != null){
              List<Integer> Hands = us.TableHand.get(Table);
