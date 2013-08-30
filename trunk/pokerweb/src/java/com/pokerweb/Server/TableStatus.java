@@ -8,7 +8,6 @@ import com.pokerweb.DB.DBManager;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -21,20 +20,21 @@ import org.json.JSONObject;
  * @author vadim
  */
 public class TableStatus {
-    private static TableStatus instanse;// = new TableStatus();
+    private static TableStatus instanse;
     public boolean NewData;
     public String JsonString;
     public String Start;
     public Table TableOne;
     public Table TableTwo;
     public Table TableThree;
-    public Map<String,UserBet> Bets;
-    public JSONArray ShutdownInfo = new JSONArray();;
+    public Map<Long,UserBet> Bets;
+    public JSONArray ShutdownInfo = new JSONArray();
+    public JSONArray UserBets = new JSONArray();
     public int Stage;
     public int Timer;
     public long Round;
     private TableStatus(){
-        this.Bets = new HashMap<String,UserBet>();
+        this.Bets = new HashMap<Long,UserBet>();
         Timer = 0;
         Stage = -1;
         java.util.Timer timer = new java.util.Timer();
@@ -166,6 +166,7 @@ public class TableStatus {
         JSONObject jsO = new JSONObject();
         jsO.append("Timer", Timer);
         jsO.append("Stage", Stage);
+        jsO.append("js", JsonString);
         JSONObject Table0 = new JSONObject();
         JSONObject Table1 = new JSONObject();
         JSONObject Table2 = new JSONObject();
@@ -591,31 +592,35 @@ public class TableStatus {
         }
     }
     
-    public synchronized boolean SetNewBet(int Table, int Hand,double Sum, boolean isAdd){
-        if(isAdd){
-            UserBet us = Bets.get(DBManager.GetInstance().GetCurrentUserLogin());
-            if(us == null){
-                UserBet UserData = new UserBet();
-                UserData.Sum = Sum;
-                List<Integer> Hands = new ArrayList<Integer>();
-                Hands.add(Hand);
-                UserData.TableHand.put(Table, Hands);
-                Bets.put(DBManager.GetInstance().GetCurrentUserLogin(),UserData);
-            }else{
-                List<Integer> Hands = us.TableHand.get(Table);
-                if(Hands == null)
-                    us.TableHand.put(Table, Hands);
-                else
-                    Hands.add(Hand);
-            }
-        }else{
-           UserBet us = Bets.get(DBManager.GetInstance().GetCurrentUserLogin());
-           if(us != null){
-             List<Integer> Hands = us.TableHand.get(Table);
-              if(!Hands.isEmpty())
-                  Hands.remove(Hands.indexOf(Hand));
-           }
+    public synchronized boolean SetNewBet(JSONArray Table1, JSONArray Table2, JSONArray Table3, double Sum){
+        try {
+            UserBet bet = new UserBet();
+            bet.Sum = Sum;
+            if(Table1.length() > 0){
+                Map<Integer,Double> hand = new HashMap<Integer, Double>();
+                for (int i = 0; i < Table1.length(); i++) 
+                    hand.put(Table1.getInt(i), TableOne.Hands.get(Table1.getInt(i)-1).Factor);
+                bet.TableHand.put(0,hand);
+                        }
+            if(Table2.length() > 0){
+                Map<Integer,Double> hand = new HashMap<Integer, Double>();
+                for (int i = 0; i < Table2.length(); i++) 
+                    hand.put(Table2.getInt(i), TableTwo.Hands.get(Table2.getInt(i)-1).Factor);
+                bet.TableHand.put(1,hand);
+                        }
+            if(Table3.length() > 0){
+                Map<Integer,Double> hand = new HashMap<Integer, Double>();
+                for (int i = 0; i < Table3.length(); i++) 
+                    hand.put(Table3.getInt(i), TableThree.Hands.get(Table3.getInt(i)-1).Factor);
+                bet.TableHand.put(2,hand);
+                        }
+            
+            Bets.put(DBManager.GetInstance().GetCurrentUserId(), bet);
+          
+            return true;
+        } catch (JSONException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-        return true;
     }
 }
