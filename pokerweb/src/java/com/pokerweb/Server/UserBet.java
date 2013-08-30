@@ -5,7 +5,6 @@
 package com.pokerweb.Server;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,10 +13,10 @@ import java.util.Map;
  */
 public class UserBet {
     public double Sum;
-    public Map<Integer,List<Integer>> TableHand;
+    public Map<Integer,Map<Integer,Double>> TableHand;
 
     public UserBet() {
-        TableHand = new HashMap<Integer, List<Integer>>();
+        TableHand = new HashMap<Integer,Map<Integer,Double>>();
     }
     
     

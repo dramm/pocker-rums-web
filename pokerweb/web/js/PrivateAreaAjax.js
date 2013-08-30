@@ -542,8 +542,7 @@ function ResponseOutMoney(){
     var myObject = {};
     var i = 0;
     var date = new Date(0);
-    //myObject["Comment"] = [];
-    while(child) {
+  while(child) {
         if(child.id > 0){
             var SelectAction = document.getElementById(child.id);
             var SelectActionIndex = SelectAction.options.selectedIndex;

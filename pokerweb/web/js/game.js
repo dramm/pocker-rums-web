@@ -220,7 +220,33 @@ $("#SumBetDown").click(
 
 $("#SendNewBet").click(
         function(){
-    alert("клац");
+    var json = { };
+    json["Table1"] = { };
+    json["Table2"] = { };
+    json["Table3"] = { };
+    json["Sum"] = $("#SumBetUser").html();
+    json.Table1 = [];
+    json.Table2 = [];
+    json.Table3 = [];
+    var index = 0;
+    for(var i = 1; i < 5; i++)
+        if($("#Table1User"+i+"Check").attr("checked")){
+           json.Table1[index++] = i;
+        }
+    index = 0;
+   for(var i = 1; i < 6; i++)
+        if($("#Table2User"+i+"Check").attr("checked"))
+           json.Table2[index++] = i;
+   index = 0;
+   for(var i = 1; i < 9; i++)
+        if($("#Table3User"+i+"Check").attr("checked"))
+           json.Table3[index++] = i;
+   var url = "NewBet";
+   reqPrivate = new XMLHttpRequest();
+   reqPrivate.open("POST", url, true);
+   reqPrivate.onreadystatechange = SaveNewBetCallback;
+   reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+   reqPrivate.send(JSON.stringify(json));
         }
             );
 
@@ -237,6 +263,18 @@ for(var i = 1; i < 7; i++)
 
 for(var i = 1; i < 9; i++)
     if($("#Table3User"+i.toString()+"Check") != CurrentBet)
+    DisableCheck($("#Table3User"+i.toString()+"Check"+"Background"),$("#Table3User"+i.toString()+"Check"));
+
+}
+
+function DisableAllBet(){
+for(var i = 1; i < 5; i++)
+    DisableCheck($("#Table1User"+i.toString()+"Check"+"Background"),$("#Table1User"+i.toString()+"Check"));
+
+for(var i = 1; i < 7; i++)
+    DisableCheck($("#Table2User"+i.toString()+"Check"+"Background"),$("#Table2User"+i.toString()+"Check"));
+
+for(var i = 1; i < 9; i++)
     DisableCheck($("#Table3User"+i.toString()+"Check"+"Background"),$("#Table3User"+i.toString()+"Check"));
 
 }
@@ -262,7 +300,7 @@ function TableUserChangeCheck(el,input)
                 el.css("background","-o-linear-gradient(top, #d52711 0%, #d76255 100%)");
                 el.css("background","-ms-linear-gradient(top, #d52711 0%, #d76255 100%)");
                 el.css("background","linear-gradient(top, #d52711 0%, #d76255 100%)");
-                SetBet(input,true);
+             //   SetBet(input,true);
                 input.attr("checked", true)
 	} else {
                 el.css("background","-moz-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
@@ -270,7 +308,7 @@ function TableUserChangeCheck(el,input)
                 el.css("background","-o-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
                 el.css("background","-ms-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
                 el.css("background","linear-gradient(top, #49a6e8 0%, #4281a9 100%)");	
-                SetBet(input,false);
+               // SetBet(input,false);
                 input.attr("checked", false)
 	}
      return true;
@@ -320,6 +358,8 @@ function StartGameCallback() {
                 }
             if(Message.Stage != 0 && Message.Stage != 5  && Message.Table0.User0 == null)
                 return ;
+            else
+                DisableAllBet();
             if(Message.Stage == 0){
                 $("#CurrentStage").html(Message.Stage);
                 $("#ShowCurrentRaund").html(Message.Round);
@@ -791,21 +831,6 @@ function StartGameCallback() {
     }
 }
 
-function SetBet(Hand,IsAdd){
-    
-    var values =  {  
-                "Table": $(Hand).attr("id")[5],
-                "Hand": $(Hand).attr("id")[10],
-                "IsAdd": IsAdd,
-                "Sum": $("#SumBetUser").html()
-            };
-    var url = "NewBet";
-    reqPrivate = new XMLHttpRequest();
-    reqPrivate.open("POST", url, true);
-    reqPrivate.onreadystatechange = SaveNewBetCallback;
-    reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    reqPrivate.send(JSON.stringify(values));
-}
 
 function SaveNewBetCallback() {
     if (reqPrivate.readyState == 4) {
@@ -813,7 +838,10 @@ function SaveNewBetCallback() {
             if(reqPrivate.responseText != null)
             if(reqPrivate.responseText.length > 0){
                 var Message = JSON.parse(reqPrivate.responseText);
-                alert(Message.Correct);
+                if(Message.Correct == true)
+                    alert("Ставка выполнена");
+                else
+                    alert("Ставка не выполнена");
             }
     }
 }

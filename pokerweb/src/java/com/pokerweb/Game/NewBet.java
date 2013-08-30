@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -70,13 +71,16 @@ public class NewBet extends HttpServlet {
             while ((line = reader.readLine()) != null)
                 jb.append(line);
             JSONObject jsonObject = new JSONObject(jb.toString());
-            int Table = jsonObject.getInt("Table");
-            int Hand = jsonObject.getInt("Hand");
-            boolean IsAdd = jsonObject.getBoolean("IsAdd");
+            JSONArray Table1 = jsonObject.getJSONArray("Table1");
+            JSONArray Table2 = jsonObject.getJSONArray("Table2");
+            JSONArray Table3 = jsonObject.getJSONArray("Table3");
             double Sum = jsonObject.getDouble("Sum");
-            boolean IsCorrect = TableStatus.GetInstance().SetNewBet(Table, Hand,Sum, IsAdd);
+            boolean Correct = TableStatus.GetInstance().SetNewBet(Table1,Table2,Table3,Sum);
             JSONObject js = new JSONObject();
-            js.append("Correct", IsCorrect);
+            if(Correct)
+                js.append("Correct", true);
+            else
+                js.append("Correct", false);
             response.setContentType("application/json; charset=utf-8");
                             response.setHeader("Cache-Control", "no-cache");
                             response.getWriter().write(js.toString());
