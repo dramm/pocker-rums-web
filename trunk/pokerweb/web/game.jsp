@@ -446,15 +446,16 @@
                                 <div class="CalculatorHeader">Выберите ставку</div>
                                 <div class="CalculatorDisplay" id="DisplayCalculator"></div>
                                 <div id="CalculatorButtons">
-                                    <div id="CalcButt1">1</div>
-                                    <div id="Butt2">2</div>
-                                    <div id="Butt3">3</div>
-                                    <div id="Butt4">4</div>
-                                    <div id="Butt5">5</div>
-                                    <div id="Butt6">6</div>
-                                    <div id="Butt7">7</div>
-                                    <div id="Butt8">8</div>
-                                    <div id="Butt9">9</div>
+                                    <div id="CalcButt1"><b style="margin-top: 5px">1</b></div>
+                                    <div id="CalcButt2"><b>2</b></div>
+                                    <div id="CalcButt3"><b>3</b></div>
+                                    <div id="CalcButt4"><b>4</b></div>
+                                    <div id="CalcButt5"><b>5</b></div>
+                                    <div id="CalcButt6"><b>6</b></div>
+                                    <div id="CalcButt7"><b>7</b></div>
+                                    <div id="CalcButt8"><b>8</b></div>
+                                    <div id="CalcButt9"><b>9</b></div>
+                                    <div id="CalcButt9"><b>0</b></div>
                                 </div>
                                 <div id="SumMinAndMax">
                                     <div id="CalcMinSumBet">4.0</div>
