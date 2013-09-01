@@ -442,6 +442,29 @@
                         <div style="float: left;">    
                             <div class="ButtonExpressBetSum" id="SumBetDown">&lt</div>
                             <div class="ButtonExpressBetSum" id="SumBetUser">4.00</div>
+                            <div class="Calculator" id="Calculator">
+                                <div class="CalculatorHeader">Выберите ставку</div>
+                                <div class="CalculatorDisplay" id="DisplayCalculator"></div>
+                                <div id="CalculatorButtons">
+                                    <div id="CalcButt1">1</div>
+                                    <div id="Butt2">2</div>
+                                    <div id="Butt3">3</div>
+                                    <div id="Butt4">4</div>
+                                    <div id="Butt5">5</div>
+                                    <div id="Butt6">6</div>
+                                    <div id="Butt7">7</div>
+                                    <div id="Butt8">8</div>
+                                    <div id="Butt9">9</div>
+                                </div>
+                                <div id="SumMinAndMax">
+                                    <div id="CalcMinSumBet">4.0</div>
+                                    <div id="CalcMaxSumBet">50.0</div>
+                                </div>
+                                <div id="CalcButAppendAndMax">
+                                    <div id="SetMaxBet">Макс.</div>
+                                    <div id="AppendSum">Принять</div>
+                                </div>
+                            </div>
                             <div class="ButtonExpressBetSum" id="SumBetUp">&gt;</div>
                         </div>
                         <div style="float: right;">

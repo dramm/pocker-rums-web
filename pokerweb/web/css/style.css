@@ -955,3 +955,24 @@ float: left;
 width: 50px;
 border-radius: 3px;
 }
+
+.Calculator{
+    display: none;
+    width: 100px;
+    height: 300px;
+    
+}
+
+.CalculatorDisplay{
+    background-color: white;
+    border-radius: 5px;
+    color: red;
+    font-size: 15px;
+    width: 70px;
+    height: 30px;
+}
+
+.CalculatorHeader{
+    border-radius: 6px 6px 0px 0px;
+    background-color: #1e2d37;
+}

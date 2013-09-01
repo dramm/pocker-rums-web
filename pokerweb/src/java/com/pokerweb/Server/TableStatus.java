@@ -5,6 +5,7 @@
 package com.pokerweb.Server;
 
 import com.pokerweb.DB.DBManager;
+import com.pokerweb.crypto.CryptoManager;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,21 +34,24 @@ public class TableStatus {
     public int Stage;
     public int Timer;
     public long Round;
+    public boolean ServerResponce;
     private TableStatus(){
         this.Bets = new HashMap<Long,UserBet>();
         Timer = 0;
         Stage = -1;
+        ServerResponce = true;
         java.util.Timer timer = new java.util.Timer();
         TimerTask task = new TimerTask() {
             public void run(){
                 byte[] byteCommand = Functions.intToByteArray(1010);
+                if(ServerResponce)
                 try{
                 switch(Stage){
                     case -1:
-                        if(TableStatus.GetInstance().Timer == 2){ 
-                        Connect.GetInstance().out.write(byteCommand);
-                        Connect.GetInstance().out.flush();
-                        TableStatus.GetInstance().Timer = 0;
+                        if(TableStatus.GetInstance().Timer == 2){
+                            Connect.GetInstance().out.write(byteCommand);
+                            Connect.GetInstance().out.flush();
+                            TableStatus.GetInstance().Timer = 0;
                         }
                         else
                             TableStatus.GetInstance().Timer++;
@@ -64,7 +68,8 @@ public class TableStatus {
                         break;
                         
                     case 1:
-                        if(TableStatus.GetInstance().Timer >= 30){             
+                        if(TableStatus.GetInstance().Timer >= 30){
+                            SendBetsToServer();
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
                             TableStatus.GetInstance().Timer = 0;
@@ -74,7 +79,8 @@ public class TableStatus {
                         break;
                         
                     case 2:
-                        if(TableStatus.GetInstance().Timer >= 30){             
+                        if(TableStatus.GetInstance().Timer >= 30){ 
+                            SendBetsToServer();
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
                             TableStatus.GetInstance().Timer = 0;
@@ -84,7 +90,8 @@ public class TableStatus {
                         break;
                             
                     case 3:
-                        if(TableStatus.GetInstance().Timer >= 30){             
+                        if(TableStatus.GetInstance().Timer >= 30){
+                            SendBetsToServer();
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
                             TableStatus.GetInstance().Timer = 0;
@@ -592,7 +599,10 @@ public class TableStatus {
         }
     }
     
-    public synchronized boolean SetNewBet(JSONArray Table1, JSONArray Table2, JSONArray Table3, double Sum){
+    public synchronized boolean SetNewBet(JSONArray Table1,
+            JSONArray Table2,
+            JSONArray Table3,
+            double Sum){
         try {
             UserBet bet = new UserBet();
             bet.Sum = Sum;
@@ -618,6 +628,38 @@ public class TableStatus {
             Bets.put(DBManager.GetInstance().GetCurrentUserId(), bet);
           
             return true;
+        } catch (JSONException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean SendBetsToServer(){
+        try {
+            JSONObject RootJs = new JSONObject();
+            JSONObject UserJs;
+            JSONObject HandJs;
+            for (Map.Entry<Long,UserBet> item : Bets.entrySet()) {
+                UserJs = new JSONObject();
+                UserJs.append("Id", item.getKey());
+                UserJs.append("Sum",item.getValue().Sum);
+                for(Map.Entry<Integer,Map<Integer,Double>> tables : item.getValue().TableHand.entrySet()){
+                    HandJs = new JSONObject();
+                    for (Map.Entry<Integer,Double> hands : tables.getValue().entrySet())
+                        HandJs.append(hands.getKey().toString(), hands.getValue());
+                    UserJs.append("Table" + tables.getKey().toString(),HandJs);
+                }
+                RootJs.append("Tables", UserJs);
+            }
+            
+            Connect.GetInstance().out.write(Functions.intToByteArray(1610));
+            Connect.GetInstance().out.write(Functions.intToByteArray(RootJs.toString().length()));
+            Connect.GetInstance().out.write(CryptoManager.encode(RootJs.toString().getBytes()));
+            Connect.GetInstance().out.flush();
+            return true;
+        } catch (IOException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
             return false;
