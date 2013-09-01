@@ -4,6 +4,7 @@
  */
 package com.pokerweb.Server;
 
+import com.pokerweb.crypto.CryptoManager;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,7 +17,6 @@ import java.util.logging.Logger;
  */
 public class Listen extends Thread {
     private InputStream in = null;
-    public static byte[] key = {(byte)0x89, (byte)0xC5, (byte)0xAF, (byte)0xF4, (byte)0x12, (byte)0x6D};
     @Override
     public void run(){
         int flag = 1;
@@ -30,7 +30,7 @@ public class Listen extends Thread {
                         flag = in.read(bytes, 0, 4);
                         byte[] message = new byte[Functions.byteArrayToInt(bytes)];
                         flag = in.read(message, 0, message.length);
-                        String mess = new String(encode(message));
+                        String mess = new String(CryptoManager.encode(message));
                         TableStatus.GetInstance().Start(mess);
                     break;
                     }
@@ -38,8 +38,7 @@ public class Listen extends Thread {
                         flag = in.read(bytes, 0, 4);
                         byte[] message = new byte[Functions.byteArrayToInt(bytes)];
                         flag = in.read(message, 0, message.length);
-                        String mess = new String(encode(message));
-                       // TableStatus.GetInstance().NewData = true;
+                        String mess = new String(CryptoManager.encode(message));
                         TableStatus.GetInstance().SetPreflop(mess);
                     break;
                     }
@@ -47,7 +46,7 @@ public class Listen extends Thread {
                         flag = in.read(bytes, 0, 4);
                         byte[] message = new byte[Functions.byteArrayToInt(bytes)];
                         flag = in.read(message, 0, message.length);
-                        String mess = new String(encode(message));
+                        String mess = new String(CryptoManager.encode(message));
                         TableStatus.GetInstance().SetFlop(mess);
                     break;
                     }
@@ -55,7 +54,7 @@ public class Listen extends Thread {
                         flag = in.read(bytes, 0, 4);
                         byte[] message = new byte[Functions.byteArrayToInt(bytes)];
                         flag = in.read(message, 0, message.length);
-                        String mess = new String(encode(message));
+                        String mess = new String(CryptoManager.encode(message));
                         TableStatus.GetInstance().SetTern(mess);
                     break;
                     }
@@ -63,7 +62,7 @@ public class Listen extends Thread {
                         flag = in.read(bytes, 0, 4);
                         byte[] message = new byte[Functions.byteArrayToInt(bytes)];
                         flag = in.read(message, 0, message.length);
-                        String mess = new String(encode(message));
+                        String mess = new String(CryptoManager.encode(message));
                         TableStatus.GetInstance().SetRiver(mess);
                         break;
                     }
@@ -71,7 +70,7 @@ public class Listen extends Thread {
                         flag = in.read(bytes, 0, 4);
                         byte[] message = new byte[Functions.byteArrayToInt(bytes)];
                         flag = in.read(message, 0, message.length);
-                        String mess = new String(encode(message));
+                        String mess = new String(CryptoManager.encode(message));
                         TableStatus.GetInstance().SetShutdown(mess);
                         break;
                     }
@@ -79,7 +78,7 @@ public class Listen extends Thread {
                         flag = in.read(bytes, 0, 4);
                         byte[] message = new byte[Functions.byteArrayToInt(bytes)];
                         flag = in.read(message, 0, message.length);
-                        String mess = new String(encode(message));
+                        String mess = new String(CryptoManager.encode(message));
                         TableStatus.GetInstance().JsonString = mess;
                         break;    
                     }
@@ -91,15 +90,7 @@ public class Listen extends Thread {
         }
       
     }
-    
-    public static byte[] encode(byte[] message){
-        byte[] result = new byte[message.length];
-        for (int i = 0; i < message.length; i++) {
-            result[i] = (byte)(message[i] ^ key[i % key.length]);
-        }
-        return result;
-}
-    
+     
     public InputStream getIn() {
         return in;
     }

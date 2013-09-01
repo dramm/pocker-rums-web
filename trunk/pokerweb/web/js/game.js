@@ -249,6 +249,12 @@ $("#SendNewBet").click(
    reqPrivate.send(JSON.stringify(json));
         }
             );
+                
+        $("#SumBetUser").click(
+                function (){
+            $("#Calculator").dialog({ modal: true,maxHeight:200,maxWidth:400,minHeight:200,minWidth:400});
+                }     
+            );   
 
 });
 
@@ -830,7 +836,6 @@ function StartGameCallback() {
         }}
     }
 }
-
 
 function SaveNewBetCallback() {
     if (reqPrivate.readyState == 4) {
