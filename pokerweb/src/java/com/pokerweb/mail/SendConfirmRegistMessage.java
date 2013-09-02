@@ -23,7 +23,7 @@ public class SendConfirmRegistMessage implements Runnable{
             String hostname = InetAddress.getLocalHost().getHostAddress();
            SendMail.GetInstance().SendOneAddress(Mail,
                         "Для подтверждения регистрации перейдите по ссылке"+
-                        " <a href='http://"+hostname+"/?confirm-reg="+Token+"'>Подтверждение</a>", 
+                        " <a href='http://"+hostname+":8080/?confirm-reg="+Token+"'>Подтверждение</a>", 
                         "Welcome to SergioRio");
         } catch (UnknownHostException ex) {
             Logger.getLogger(SendConfirmRegistMessage.class.getName()).log(Level.SEVERE, null, ex);
