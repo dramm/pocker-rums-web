@@ -23,7 +23,7 @@ public class NewPassFromMail implements Runnable{
             String hostname = InetAddress.getLocalHost().getHostAddress();
            SendMail.GetInstance().SendOneAddress(Mail,
                         "Для подтверждения востановления пароля"+
-                        " <a href='http://"+hostname+"/?pass-token="+Token+"'>Подтверждение</a>", 
+                        " <a href='http://"+hostname+":8080/?pass-token="+Token+"'>Подтверждение</a>", 
                         "Welcome to SergioRio");
         } catch (UnknownHostException ex) {
             Logger.getLogger(SendConfirmSettingMessage.class.getName()).log(Level.SEVERE, null, ex);

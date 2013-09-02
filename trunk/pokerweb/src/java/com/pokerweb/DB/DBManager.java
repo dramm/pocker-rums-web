@@ -1337,7 +1337,6 @@ public class DBManager{
           if(!rs.first())
               return false;
           long IdUser = rs.getLong("id_user");
-          stmt.close();
           stmt.executeUpdate("UPDATE users SET activated=true WHERE id="+IdUser);
           stmt.close();
           query="UPDATE token_user SET confirmed=true,date_response=now() WHERE token_confirm=?";
