@@ -30,7 +30,7 @@ public class TableStatus {
     public Table TableThree;
     public Map<Long,UserBet> Bets;
     public JSONArray ShutdownInfo = new JSONArray();
-    public JSONArray UserBets = new JSONArray();
+ //   public JSONArray UserBets = new JSONArray();
     public int Stage;
     public int Timer;
     public long Round;
@@ -68,7 +68,7 @@ public class TableStatus {
                         break;
                         
                     case 1:
-                        if(TableStatus.GetInstance().Timer >= 30){
+                        if(TableStatus.GetInstance().Timer >= 42){
                             ServerResponce = false;
                             SendBetsToServer();
                             Connect.GetInstance().out.write(byteCommand);
@@ -80,7 +80,7 @@ public class TableStatus {
                         break;
                         
                     case 2:
-                        if(TableStatus.GetInstance().Timer >= 30){ 
+                        if(TableStatus.GetInstance().Timer >= 42){ 
                             ServerResponce = false;
                             SendBetsToServer();
                             Connect.GetInstance().out.write(byteCommand);
@@ -92,7 +92,7 @@ public class TableStatus {
                         break;
                             
                     case 3:
-                        if(TableStatus.GetInstance().Timer >= 30){
+                        if(TableStatus.GetInstance().Timer >= 42){
                             ServerResponce = false;
                             SendBetsToServer();
                             Connect.GetInstance().out.write(byteCommand);
@@ -104,7 +104,7 @@ public class TableStatus {
                         break;
                                 
                     case 4:
-                        if(TableStatus.GetInstance().Timer >= 30){             
+                        if(TableStatus.GetInstance().Timer >= 42){             
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
                             TableStatus.GetInstance().Timer = 0;
@@ -113,7 +113,7 @@ public class TableStatus {
                             TableStatus.GetInstance().Timer++;
                         break;
                     case 5:{
-                        if(TableStatus.GetInstance().Timer >= 30){             
+                        if(TableStatus.GetInstance().Timer >= 42){             
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
                             TableStatus.GetInstance().Timer = 0;
@@ -373,8 +373,6 @@ public class TableStatus {
         if(StageUser == 4)
             if(Stage == 5)
              jsO.put("Shutdown",ShutdownInfo);
-           
-            
             
         jsO.put("Table0", Table0);
         jsO.put("Table1", Table1);
@@ -627,7 +625,7 @@ public class TableStatus {
                     hand.put(Table3.getInt(i), TableThree.Hands.get(Table3.getInt(i)-1).Factor);
                 bet.TableHand.put(2,hand);
                         }
-            
+          //  UserBetCurrentStage.put(DBManager.GetInstance().GetCurrentUserId(), bet);
             Bets.put(DBManager.GetInstance().GetCurrentUserId(), bet);
           
             return true;
@@ -642,6 +640,13 @@ public class TableStatus {
             JSONArray RootJs = new JSONArray();
             JSONObject UserJs = new JSONObject();
             JSONObject HandJs = new JSONObject();
+            if(Bets.size() == 0){
+            Connect.GetInstance().out.write(Functions.intToByteArray(1020));
+            Connect.GetInstance().out.write(Functions.intToByteArray("[]".length()));
+            Connect.GetInstance().out.write(CryptoManager.encode("[]".getBytes()));
+            Connect.GetInstance().out.flush();
+            return true;
+            }
             for (Map.Entry<Long,UserBet> item : Bets.entrySet()) {
                 UserJs = new JSONObject();
                 UserJs.append("Id", item.getKey());

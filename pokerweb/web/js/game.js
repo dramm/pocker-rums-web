@@ -252,7 +252,7 @@ $("#SendNewBet").click(
                 
         $("#SumBetUser").click(
                 function (){
-            $("#Calculator").dialog({ modal: true,maxHeight:500,maxWidth:150,minHeight:500,minWidth:150});
+           // $("#Calculator").dialog({ modal: true,maxHeight:500,maxWidth:150,minHeight:500,minWidth:150});
                 }     
             );   
 
@@ -358,9 +358,9 @@ function StartGameCallback() {
                 var tr = reqPrivate.responseText;
                 console.log(tr);
                 if(Message.Timer != null){
-                    var valueBaseProgress = Message.Timer * 100 / 20;
-                    $( "#progressbar" ).progressbar({value: valueBaseProgress}); 
-                    $("#BaseProgressTime").html(20 - Message.Timer);
+                    var valueBaseProgress = Message.Timer * 100 / ((Message.Stage > 0) ? 42 : 2);
+                    $("#progressbar").progressbar({value: valueBaseProgress}); 
+                    $("#BaseProgressTime").html((Message.Stage > 0 ? 42 : 2) - Message.Timer);
                 }
             if(Message.Stage != 0 && Message.Stage != 5  && Message.Table0.User0 == null)
                 return ;
