@@ -69,6 +69,7 @@ public class TableStatus {
                         
                     case 1:
                         if(TableStatus.GetInstance().Timer >= 30){
+                            ServerResponce = false;
                             SendBetsToServer();
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
@@ -80,6 +81,7 @@ public class TableStatus {
                         
                     case 2:
                         if(TableStatus.GetInstance().Timer >= 30){ 
+                            ServerResponce = false;
                             SendBetsToServer();
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
@@ -91,6 +93,7 @@ public class TableStatus {
                             
                     case 3:
                         if(TableStatus.GetInstance().Timer >= 30){
+                            ServerResponce = false;
                             SendBetsToServer();
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
@@ -636,9 +639,9 @@ public class TableStatus {
     
     public boolean SendBetsToServer(){
         try {
-            JSONObject RootJs = new JSONObject();
-            JSONObject UserJs;
-            JSONObject HandJs;
+            JSONArray RootJs = new JSONArray();
+            JSONObject UserJs = new JSONObject();
+            JSONObject HandJs = new JSONObject();
             for (Map.Entry<Long,UserBet> item : Bets.entrySet()) {
                 UserJs = new JSONObject();
                 UserJs.append("Id", item.getKey());
@@ -646,16 +649,17 @@ public class TableStatus {
                 for(Map.Entry<Integer,Map<Integer,Double>> tables : item.getValue().TableHand.entrySet()){
                     HandJs = new JSONObject();
                     for (Map.Entry<Integer,Double> hands : tables.getValue().entrySet())
-                        HandJs.append(hands.getKey().toString(), hands.getValue());
-                    UserJs.append("Table" + tables.getKey().toString(),HandJs);
+                        HandJs.put(hands.getKey().toString(), hands.getValue());
+                    UserJs.put("Table" + tables.getKey().toString(),HandJs);
                 }
-                RootJs.append("Tables", UserJs);
+                RootJs.put(UserJs);
             }
             
-            Connect.GetInstance().out.write(Functions.intToByteArray(1610));
+            Connect.GetInstance().out.write(Functions.intToByteArray(1020));
             Connect.GetInstance().out.write(Functions.intToByteArray(RootJs.toString().length()));
             Connect.GetInstance().out.write(CryptoManager.encode(RootJs.toString().getBytes()));
             Connect.GetInstance().out.flush();
+            
             return true;
         } catch (IOException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);

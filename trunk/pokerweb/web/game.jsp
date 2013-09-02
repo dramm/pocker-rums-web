@@ -442,24 +442,32 @@
                         <div style="float: left;">    
                             <div class="ButtonExpressBetSum" id="SumBetDown">&lt</div>
                             <div class="ButtonExpressBetSum" id="SumBetUser">4.00</div>
-                            <div class="Calculator" id="Calculator">
+                            <div class="Calculator" name="Calculator" id="Calculator">
                                 <div class="CalculatorHeader">Выберите ставку</div>
                                 <div class="CalculatorDisplay" id="DisplayCalculator"></div>
                                 <div id="CalculatorButtons">
-                                    <div id="CalcButt1"><b style="margin-top: 5px">1</b></div>
-                                    <div id="CalcButt2"><b>2</b></div>
-                                    <div id="CalcButt3"><b>3</b></div>
-                                    <div id="CalcButt4"><b>4</b></div>
-                                    <div id="CalcButt5"><b>5</b></div>
-                                    <div id="CalcButt6"><b>6</b></div>
-                                    <div id="CalcButt7"><b>7</b></div>
-                                    <div id="CalcButt8"><b>8</b></div>
-                                    <div id="CalcButt9"><b>9</b></div>
-                                    <div id="CalcButt9"><b>0</b></div>
+                                    <div style="float: left">
+                                    <div class="CalcButt" id="CalcButt1"><b style="margin-top: 20px">1</b></div>
+                                    <div class="CalcButt" id="CalcButt2"><b style="margin-top: 20px">2</b></div>
+                                    <div class="CalcButt" id="CalcButt3"><b style="margin-top: 20px">3</b></div>
+                                    </div>
+                                    <div style="float: left">
+                                    <div class="CalcButt" id="CalcButt4"><b style="margin-top: 20px">4</b></div>
+                                    <div class="CalcButt" id="CalcButt5"><b style="margin-top: 20px">5</b></div>
+                                    <div class="CalcButt" id="CalcButt6"><b style="margin-top: 20px">6</b></div>
+                                    </div>
+                                    <div style="float: left">
+                                    <div class="CalcButt" id="CalcButt7"><b style="margin-top: 20px">7</b></div>
+                                    <div class="CalcButt" id="CalcButt8"><b style="margin-top: 20px">8</b></div>
+                                    <div class="CalcButt" id="CalcButt9"><b style="margin-top: 20px">9</b></div>
+                                    </div>
+                                    <div style="float: left">
+                                    <div class="CalcButt" id="CalcButt9"><b style="margin-top: 20px">0</b></div>
+                                    </div>
                                 </div>
                                 <div id="SumMinAndMax">
-                                    <div id="CalcMinSumBet">4.0</div>
-                                    <div id="CalcMaxSumBet">50.0</div>
+                                    <div style="color: white" id="CalcMinSumBet">4.0</div>
+                                    <div style="color: white" id="CalcMaxSumBet">50.0</div>
                                 </div>
                                 <div id="CalcButAppendAndMax">
                                     <div id="SetMaxBet">Макс.</div>

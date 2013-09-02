@@ -252,7 +252,7 @@ $("#SendNewBet").click(
                 
         $("#SumBetUser").click(
                 function (){
-            $("#Calculator").dialog({ modal: true,maxHeight:200,maxWidth:400,minHeight:200,minWidth:400});
+            $("#Calculator").dialog({ modal: true,maxHeight:500,maxWidth:150,minHeight:500,minWidth:150});
                 }     
             );   
 
@@ -843,7 +843,7 @@ function SaveNewBetCallback() {
             if(reqPrivate.responseText != null)
             if(reqPrivate.responseText.length > 0){
                 var Message = JSON.parse(reqPrivate.responseText);
-                if(Message.Correct == true)
+                if(Message.Correct == 'true')
                     alert("Ставка выполнена");
                 else
                     alert("Ставка не выполнена");
