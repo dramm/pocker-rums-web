@@ -32,7 +32,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
  * @author vadim
  */
 public class DBManager{
-    private Connection connection;
+    public Connection connection;
     private static DBManager instanse = new DBManager();
     private DBManager(){
         try {
