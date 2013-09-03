@@ -976,6 +976,7 @@ border-radius: 3px;
 .CalculatorHeader{
     border-radius: 6px 6px 0px 0px;
     background-color: #1e2d37;
+    color: white;
 }
 
 .CalcButt{
