@@ -9,6 +9,7 @@ import com.pokerweb.crypto.CryptoManager;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -23,14 +24,12 @@ import org.json.JSONObject;
 public class TableStatus {
     private static TableStatus instanse;
     public boolean NewData;
-    public String JsonString;
     public String Start;
     public Table TableOne;
     public Table TableTwo;
     public Table TableThree;
     public Map<Long,UserBet> Bets;
     public JSONArray ShutdownInfo = new JSONArray();
- //   public JSONArray UserBets = new JSONArray();
     public int Stage;
     public int Timer;
     public long Round;
@@ -166,7 +165,7 @@ public class TableStatus {
       }
     }
     
-    public static TableStatus GetInstance(){
+    public synchronized static TableStatus GetInstance(){
         if(instanse == null)
             instanse = new TableStatus();
         return instanse;
@@ -176,7 +175,6 @@ public class TableStatus {
         JSONObject jsO = new JSONObject();
         jsO.append("Timer", Timer);
         jsO.append("Stage", Stage);
-        jsO.append("js", JsonString);
         JSONObject Table0 = new JSONObject();
         JSONObject Table1 = new JSONObject();
         JSONObject Table2 = new JSONObject();
@@ -383,7 +381,6 @@ public class TableStatus {
     
     
     public void SetPreflop(String data){
-        JsonString = data;
         try {
             
             JSONObject js = new JSONObject(data);
@@ -420,7 +417,6 @@ public class TableStatus {
     }
     
     public void SetFlop(String data){
-        JsonString = data;
         try {
            
             JSONObject js = new JSONObject(data);
@@ -456,7 +452,6 @@ public class TableStatus {
     }
     
     public void SetTern(String data){
-        JsonString = data;
         try {
            
             JSONObject js = new JSONObject(data);
@@ -485,7 +480,6 @@ public class TableStatus {
     }
     
     public void SetRiver(String data){
-      JsonString = data;
         try {
           JSONObject js = new JSONObject(data);
           JSONArray T1 = js.getJSONArray("Table0");
@@ -514,7 +508,6 @@ public class TableStatus {
     }
     
     public void SetShutdown(String data){
-        JsonString = data;
         try {
             JSONObject js = new JSONObject(data);
             JSONObject T1 = js.getJSONObject("Table0");
@@ -607,25 +600,24 @@ public class TableStatus {
         try {
             UserBet bet = new UserBet();
             bet.Sum = Sum;
+            List<Integer> hand = new ArrayList<Integer>();
             if(Table1.length() > 0){
-                Map<Integer,Double> hand = new HashMap<Integer, Double>();
                 for (int i = 0; i < Table1.length(); i++) 
-                    hand.put(Table1.getInt(i), TableOne.Hands.get(Table1.getInt(i)-1).Factor);
+                    hand.add(Table1.getInt(i));
                 bet.TableHand.put(0,hand);
                         }
             if(Table2.length() > 0){
-                Map<Integer,Double> hand = new HashMap<Integer, Double>();
+                hand = new ArrayList<Integer>();
                 for (int i = 0; i < Table2.length(); i++) 
-                    hand.put(Table2.getInt(i), TableTwo.Hands.get(Table2.getInt(i)-1).Factor);
+                    hand.add(Table2.getInt(i));
                 bet.TableHand.put(1,hand);
                         }
             if(Table3.length() > 0){
-                Map<Integer,Double> hand = new HashMap<Integer, Double>();
+                hand = new ArrayList<Integer>();
                 for (int i = 0; i < Table3.length(); i++) 
-                    hand.put(Table3.getInt(i), TableThree.Hands.get(Table3.getInt(i)-1).Factor);
+                    hand.add(Table3.getInt(i));
                 bet.TableHand.put(2,hand);
                         }
-          //  UserBetCurrentStage.put(DBManager.GetInstance().GetCurrentUserId(), bet);
             Bets.put(DBManager.GetInstance().GetCurrentUserId(), bet);
           
             return true;
@@ -651,10 +643,16 @@ public class TableStatus {
                 UserJs = new JSONObject();
                 UserJs.append("Id", item.getKey());
                 UserJs.append("Sum",item.getValue().Sum);
-                for(Map.Entry<Integer,Map<Integer,Double>> tables : item.getValue().TableHand.entrySet()){
+                for(Map.Entry<Integer,List<Integer>> tables : item.getValue().TableHand.entrySet()){
                     HandJs = new JSONObject();
-                    for (Map.Entry<Integer,Double> hands : tables.getValue().entrySet())
-                        HandJs.put(hands.getKey().toString(), hands.getValue());
+                    for (Integer hands : tables.getValue()){
+                        if (tables.getKey() == 0)
+                            HandJs.put(hands.toString(), TableOne.Hands.get(hands).Factor);
+                        if (tables.getKey() == 1)
+                            HandJs.put(hands.toString(), TableTwo.Hands.get(hands).Factor);
+                        if (tables.getKey() == 2)
+                            HandJs.put(hands.toString(), TableThree.Hands.get(hands).Factor);
+                    }
                     UserJs.put("Table" + tables.getKey().toString(),HandJs);
                 }
                 RootJs.put(UserJs);
