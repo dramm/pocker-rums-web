@@ -252,7 +252,7 @@ $("#SendNewBet").click(
                 
         $("#SumBetUser").click(
                 function (){
-           // $("#Calculator").dialog({ modal: true,maxHeight:500,maxWidth:150,minHeight:500,minWidth:150});
+           $("#Calculator").dialog({title:"Выберите ставку",closeText:"X", modal: true,maxHeight:500,maxWidth:150,minHeight:500,minWidth:150});
                 }     
             );   
 

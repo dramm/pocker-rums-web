@@ -613,7 +613,7 @@ CREATE TABLE `user_bet` (
   `id_user` int(10) unsigned NOT NULL COMMENT 'Идентификатор пользователя',
   `id_game` int(10) unsigned NOT NULL COMMENT 'Инедтификатор игры',
   `user_ip` int(10) unsigned NOT NULL COMMENT 'ip пользователя в момент игры',
-  `user_agent` int(11) NOT NULL COMMENT 'user agent пользователя в момент игры',
+  `user_agent` varchar(200) NOT NULL COMMENT 'user agent пользователя в момент игры',
   `balance_start` decimal(11,2) NOT NULL COMMENT 'Баланс пользователя в момент старта игры',
   `balance_finish` decimal(11,2) NOT NULL COMMENT 'баланс пользователя после окончания',
   PRIMARY KEY (`id`)
@@ -636,4 +636,4 @@ INSERT INTO `user_roles` (`role_id`, `user_id`) VALUES
 (2,	7),
 (1,	1);
 
--- 2013-08-21 01:58:06
+-- 2013-09-04 04:10:18

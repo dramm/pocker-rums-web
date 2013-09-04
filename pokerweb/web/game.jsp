@@ -443,7 +443,6 @@
                             <div class="ButtonExpressBetSum" id="SumBetDown">&lt</div>
                             <div class="ButtonExpressBetSum" id="SumBetUser">4.00</div>
                             <div class="Calculator" name="Calculator" id="Calculator">
-                                <div class="CalculatorHeader">Выберите ставку</div>
                                 <div class="CalculatorDisplay" id="DisplayCalculator"></div>
                                 <div id="CalculatorButtons">
                                     <div style="float: left">
