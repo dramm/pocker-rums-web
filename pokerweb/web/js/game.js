@@ -241,16 +241,16 @@ $("#SendNewBet").click(
     var index = 0;
     for(var i = 1; i < 5; i++)
         if($("#Table1User"+i+"Check").attr("checked")){
-           json.Table1[index++] = i;
+           json.Table1[index++] = i-1;
         }
     index = 0;
-   for(var i = 1; i < 6; i++)
+   for(var i = 1; i < 7; i++)
         if($("#Table2User"+i+"Check").attr("checked"))
-           json.Table2[index++] = i;
+           json.Table2[index++] = i-1;
    index = 0;
    for(var i = 1; i < 9; i++)
         if($("#Table3User"+i+"Check").attr("checked"))
-           json.Table3[index++] = i;
+           json.Table3[index++] = i-1;
    var url = "NewBet";
    reqPrivate = new XMLHttpRequest();
    reqPrivate.open("POST", url, true);
@@ -355,16 +355,16 @@ function SetBetHand(set){
     var index = 0;
     for(var i = 1; i < 5; i++)
         if($("#Table1User"+i+"Check").attr("checked")){
-           json.Table1[index++] = i;
+           json.Table1[index++] = i-1;
         }
     index = 0;
-   for(var i = 1; i < 6; i++)
+   for(var i = 1; i < 7; i++)
         if($("#Table2User"+i+"Check").attr("checked"))
-           json.Table2[index++] = i;
+           json.Table2[index++] = i-1;
    index = 0;
    for(var i = 1; i < 9; i++)
         if($("#Table3User"+i+"Check").attr("checked"))
-           json.Table3[index++] = i;
+           json.Table3[index++] = i-1;
     $.ajax({
    type: "POST",
    url: "/CheckBet",

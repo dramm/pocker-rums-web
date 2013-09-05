@@ -134,34 +134,34 @@ public class TableStatus {
   timer.schedule( task,0, 1000 );
   Start = "";
         Stage = -1;
-  if(TableOne == null)
+  if(GetTableOne() == null)
       TableOne = new Table();
-  if(TableTwo == null)
+  if(GetTableTwo() == null)
       TableTwo = new Table();
-  if(TableThree == null)
+  if(GetTableThree() == null)
       TableThree = new Table();
-  if(TableOne.Hands == null)
-      TableOne.Hands = new ArrayList<Hand>();
-  if(TableOne.Hands.isEmpty())
+  if(GetTableOne().Hands == null)
+      GetTableOne().Hands = new ArrayList<Hand>();
+  if(GetTableOne().Hands.isEmpty())
       for(int i = 0; i < 4; i++){
           Hand h = new Hand();
-          TableOne.Hands.add(h); 
+          GetTableOne().Hands.add(h); 
       }
-  if(TableTwo.Hands == null)
-      TableTwo.Hands = new ArrayList<Hand>();
+  if(GetTableTwo().Hands == null)
+      GetTableTwo().Hands = new ArrayList<Hand>();
   
-  if(TableTwo.Hands.isEmpty())          
+  if(GetTableTwo().Hands.isEmpty())          
       for(int i = 0; i < 6; i++){
           Hand h = new Hand();
-          TableTwo.Hands.add(h); 
+          GetTableTwo().Hands.add(h); 
       }
  
-  if(TableThree.Hands == null)
-      TableThree.Hands = new ArrayList<Hand>();
-  if(TableThree.Hands.isEmpty()) 
+  if(GetTableThree().Hands == null)
+      GetTableThree().Hands = new ArrayList<Hand>();
+  if(GetTableThree().Hands.isEmpty()) 
       for(int i = 0; i < 8; i++){
           Hand h = new Hand();
-          TableThree.Hands.add(h); 
+          GetTableThree().Hands.add(h); 
       }
     }
     
@@ -183,48 +183,48 @@ public class TableStatus {
                 jsO.append("Round", Round);
             if(Stage >= 1 && StageUser != 4){
             for(int i = 0; i < 4; i++){
-                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).CartOne);
-                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).CartTwo);
-                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).Factor);
-                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).Indicator);
+                    Table0.append("User"+String.valueOf(i),GetTableOne().Hands.get(i).CartOne);
+                    Table0.append("User"+String.valueOf(i),GetTableOne().Hands.get(i).CartTwo);
+                    Table0.append("User"+String.valueOf(i),GetTableOne().Hands.get(i).Factor);
+                    Table0.append("User"+String.valueOf(i),GetTableOne().Hands.get(i).Indicator);
                 }
                 
                 for(int i = 0; i < 6; i++){
-                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).CartOne);
-                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).CartTwo);
-                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).Factor);
-                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).Indicator);
+                    Table1.append("User"+String.valueOf(i),GetTableTwo().Hands.get(i).CartOne);
+                    Table1.append("User"+String.valueOf(i),GetTableTwo().Hands.get(i).CartTwo);
+                    Table1.append("User"+String.valueOf(i),GetTableTwo().Hands.get(i).Factor);
+                    Table1.append("User"+String.valueOf(i),GetTableTwo().Hands.get(i).Indicator);
                 }
                 
                 for(int i = 0; i < 8; i++){
-                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).CartOne);
-                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).CartTwo);
-                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).Factor);
-                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).Indicator);
+                    Table2.append("User"+String.valueOf(i),GetTableThree().Hands.get(i).CartOne);
+                    Table2.append("User"+String.valueOf(i),GetTableThree().Hands.get(i).CartTwo);
+                    Table2.append("User"+String.valueOf(i),GetTableThree().Hands.get(i).Factor);
+                    Table2.append("User"+String.valueOf(i),GetTableThree().Hands.get(i).Indicator);
                 }
             }
             if(Stage >= 2 && StageUser != 4){
-                Table0.append("Bord",TableOne.FlopOne);
-                Table0.append("Bord",TableOne.FlopTwo);
-                Table0.append("Bord",TableOne.FlopThree);
+                Table0.append("Bord",GetTableOne().FlopOne);
+                Table0.append("Bord",GetTableOne().FlopTwo);
+                Table0.append("Bord",GetTableOne().FlopThree);
                
-                Table1.append("Bord",TableTwo.FlopOne);
-                Table1.append("Bord",TableTwo.FlopTwo);
-                Table1.append("Bord",TableTwo.FlopThree);
+                Table1.append("Bord",GetTableTwo().FlopOne);
+                Table1.append("Bord",GetTableTwo().FlopTwo);
+                Table1.append("Bord",GetTableTwo().FlopThree);
                 
-                Table2.append("Bord",TableThree.FlopOne);
-                Table2.append("Bord",TableThree.FlopTwo);
-                Table2.append("Bord",TableThree.FlopThree);
+                Table2.append("Bord",GetTableThree().FlopOne);
+                Table2.append("Bord",GetTableThree().FlopTwo);
+                Table2.append("Bord",GetTableThree().FlopThree);
             }
             if(Stage >= 3 && StageUser != 4){
-                Table0.append("Bord",TableOne.Tern);
-                Table1.append("Bord",TableTwo.Tern);
-                Table2.append("Bord",TableThree.Tern);
+                Table0.append("Bord",GetTableOne().Tern);
+                Table1.append("Bord",GetTableTwo().Tern);
+                Table2.append("Bord",GetTableThree().Tern);
             }
             if(Stage == 4 && StageUser != 4){
-                Table0.append("Bord",TableOne.River);
-                Table1.append("Bord",TableTwo.River);
-                Table2.append("Bord",TableThree.River);
+                Table0.append("Bord",GetTableOne().River);
+                Table1.append("Bord",GetTableTwo().River);
+                Table2.append("Bord",GetTableThree().River);
             }
         }
         
@@ -232,138 +232,138 @@ public class TableStatus {
         if(StageUser == 0){
             if(Stage >= 1){
                 for(int i = 0; i < 4; i++){
-                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).CartOne);
-                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).CartTwo);
-                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).Factor);
-                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).Indicator);
+                    Table0.append("User"+String.valueOf(i),GetTableOne().Hands.get(i).CartOne);
+                    Table0.append("User"+String.valueOf(i),GetTableOne().Hands.get(i).CartTwo);
+                    Table0.append("User"+String.valueOf(i),GetTableOne().Hands.get(i).Factor);
+                    Table0.append("User"+String.valueOf(i),GetTableOne().Hands.get(i).Indicator);
                 }
                 
                 for(int i = 0; i < 6; i++){
-                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).CartOne);
-                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).CartTwo);
-                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).Factor);
-                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).Indicator);
+                    Table1.append("User"+String.valueOf(i),GetTableTwo().Hands.get(i).CartOne);
+                    Table1.append("User"+String.valueOf(i),GetTableTwo().Hands.get(i).CartTwo);
+                    Table1.append("User"+String.valueOf(i),GetTableTwo().Hands.get(i).Factor);
+                    Table1.append("User"+String.valueOf(i),GetTableTwo().Hands.get(i).Indicator);
                 }
                 
                 for(int i = 0; i < 8; i++){
-                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).CartOne);
-                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).CartTwo);
-                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).Factor);
-                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).Indicator);
+                    Table2.append("User"+String.valueOf(i),GetTableThree().Hands.get(i).CartOne);
+                    Table2.append("User"+String.valueOf(i),GetTableThree().Hands.get(i).CartTwo);
+                    Table2.append("User"+String.valueOf(i),GetTableThree().Hands.get(i).Factor);
+                    Table2.append("User"+String.valueOf(i),GetTableThree().Hands.get(i).Indicator);
                 }
             }
             if(Stage >= 2){
-                Table0.append("Bord",TableOne.FlopOne);
-                Table0.append("Bord",TableOne.FlopTwo);
-                Table0.append("Bord",TableOne.FlopThree);
+                Table0.append("Bord",GetTableOne().FlopOne);
+                Table0.append("Bord",GetTableOne().FlopTwo);
+                Table0.append("Bord",GetTableOne().FlopThree);
                
-                Table1.append("Bord",TableTwo.FlopOne);
-                Table1.append("Bord",TableTwo.FlopTwo);
-                Table1.append("Bord",TableTwo.FlopThree);
+                Table1.append("Bord",GetTableTwo().FlopOne);
+                Table1.append("Bord",GetTableTwo().FlopTwo);
+                Table1.append("Bord",GetTableTwo().FlopThree);
                 
-                Table2.append("Bord",TableThree.FlopOne);
-                Table2.append("Bord",TableThree.FlopTwo);
-                Table2.append("Bord",TableThree.FlopThree);
+                Table2.append("Bord",GetTableThree().FlopOne);
+                Table2.append("Bord",GetTableThree().FlopTwo);
+                Table2.append("Bord",GetTableThree().FlopThree);
             }
             if(Stage >= 3){
-                Table0.append("Bord",TableOne.Tern);
-                Table1.append("Bord",TableTwo.Tern);
-                Table2.append("Bord",TableThree.Tern);
+                Table0.append("Bord",GetTableOne().Tern);
+                Table1.append("Bord",GetTableTwo().Tern);
+                Table2.append("Bord",GetTableThree().Tern);
             }
             if(Stage == 4){
-                Table0.append("Bord",TableOne.River);
-                Table1.append("Bord",TableTwo.River);
-                Table2.append("Bord",TableThree.River);
+                Table0.append("Bord",GetTableOne().River);
+                Table1.append("Bord",GetTableTwo().River);
+                Table2.append("Bord",GetTableThree().River);
             }
         }
         if(StageUser == 1){
             if(Stage >= 2){
-                Table0.append("Bord",TableOne.FlopOne);
-                Table0.append("Bord",TableOne.FlopTwo);
-                Table0.append("Bord",TableOne.FlopThree);
+                Table0.append("Bord",GetTableOne().FlopOne);
+                Table0.append("Bord",GetTableOne().FlopTwo);
+                Table0.append("Bord",GetTableOne().FlopThree);
                
-                Table1.append("Bord",TableTwo.FlopOne);
-                Table1.append("Bord",TableTwo.FlopTwo);
-                Table1.append("Bord",TableTwo.FlopThree);
+                Table1.append("Bord",GetTableTwo().FlopOne);
+                Table1.append("Bord",GetTableTwo().FlopTwo);
+                Table1.append("Bord",GetTableTwo().FlopThree);
                 
-                Table2.append("Bord",TableThree.FlopOne);
-                Table2.append("Bord",TableThree.FlopTwo);
-                Table2.append("Bord",TableThree.FlopThree);
+                Table2.append("Bord",GetTableThree().FlopOne);
+                Table2.append("Bord",GetTableThree().FlopTwo);
+                Table2.append("Bord",GetTableThree().FlopThree);
                 
                 for(int i = 0; i < 4; i++){
-                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).Factor);
-                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).Indicator);
+                    Table0.append("User"+String.valueOf(i),GetTableOne().Hands.get(i).Factor);
+                    Table0.append("User"+String.valueOf(i),GetTableOne().Hands.get(i).Indicator);
                 }
                 for(int i = 0; i < 6; i++){
-                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).Factor);
-                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).Indicator);
+                    Table1.append("User"+String.valueOf(i),GetTableTwo().Hands.get(i).Factor);
+                    Table1.append("User"+String.valueOf(i),GetTableTwo().Hands.get(i).Indicator);
                 }
                 
                 for(int i = 0; i < 8; i++){
-                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).Factor);
-                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).Indicator);
+                    Table2.append("User"+String.valueOf(i),GetTableThree().Hands.get(i).Factor);
+                    Table2.append("User"+String.valueOf(i),GetTableThree().Hands.get(i).Indicator);
                 }
             }
             if(Stage >= 3){
-                Table0.append("Bord",TableOne.Tern);
-                Table1.append("Bord",TableTwo.Tern);
-                Table2.append("Bord",TableThree.Tern);
+                Table0.append("Bord",GetTableOne().Tern);
+                Table1.append("Bord",GetTableTwo().Tern);
+                Table2.append("Bord",GetTableThree().Tern);
             }
             if(Stage == 4){
-                Table0.append("Bord",TableOne.River);
-                Table1.append("Bord",TableTwo.River);
-                Table2.append("Bord",TableThree.River);
+                Table0.append("Bord",GetTableOne().River);
+                Table1.append("Bord",GetTableTwo().River);
+                Table2.append("Bord",GetTableThree().River);
             }
         }
         
         if(StageUser == 2){
             if(Stage >= 3){
-                Table0.append("Bord",TableOne.Tern);
+                Table0.append("Bord",GetTableOne().Tern);
                
-                Table1.append("Bord",TableTwo.Tern);
+                Table1.append("Bord",GetTableTwo().Tern);
                 
-                Table2.append("Bord",TableThree.Tern);
+                Table2.append("Bord",GetTableThree().Tern);
                 for(int i = 0; i < 4; i++){
-                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).Factor);
-                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).Indicator);
+                    Table0.append("User"+String.valueOf(i),GetTableOne().Hands.get(i).Factor);
+                    Table0.append("User"+String.valueOf(i),GetTableOne().Hands.get(i).Indicator);
                 }
                 for(int i = 0; i < 6; i++){
-                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).Factor);
-                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).Indicator);
+                    Table1.append("User"+String.valueOf(i),GetTableTwo().Hands.get(i).Factor);
+                    Table1.append("User"+String.valueOf(i),GetTableTwo().Hands.get(i).Indicator);
                 }
                 
                 for(int i = 0; i < 8; i++){
-                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).Factor);
-                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).Indicator);
+                    Table2.append("User"+String.valueOf(i),GetTableThree().Hands.get(i).Factor);
+                    Table2.append("User"+String.valueOf(i),GetTableThree().Hands.get(i).Indicator);
                 }
             }
             if(Stage == 4){
-                Table0.append("Bord",TableOne.River);
-                Table1.append("Bord",TableTwo.River);
-                Table2.append("Bord",TableThree.River);
+                Table0.append("Bord",GetTableOne().River);
+                Table1.append("Bord",GetTableTwo().River);
+                Table2.append("Bord",GetTableThree().River);
             }
         }
         
         if(StageUser == 3){
             if(Stage == 4){
-                Table0.append("Bord",TableOne.River);
+                Table0.append("Bord",GetTableOne().River);
                
-                Table1.append("Bord",TableTwo.River);
+                Table1.append("Bord",GetTableTwo().River);
                 
-                Table2.append("Bord",TableThree.River);
+                Table2.append("Bord",GetTableThree().River);
                 
                 for(int i = 0; i < 4; i++){
-                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).Factor);
-                    Table0.append("User"+String.valueOf(i),TableOne.Hands.get(i).Indicator);
+                    Table0.append("User"+String.valueOf(i),GetTableOne().Hands.get(i).Factor);
+                    Table0.append("User"+String.valueOf(i),GetTableOne().Hands.get(i).Indicator);
                 }
                 for(int i = 0; i < 6; i++){
-                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).Factor);
-                    Table1.append("User"+String.valueOf(i),TableTwo.Hands.get(i).Indicator);
+                    Table1.append("User"+String.valueOf(i),GetTableTwo().Hands.get(i).Factor);
+                    Table1.append("User"+String.valueOf(i),GetTableTwo().Hands.get(i).Indicator);
                 }
                 
                 for(int i = 0; i < 8; i++){
-                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).Factor);
-                    Table2.append("User"+String.valueOf(i),TableThree.Hands.get(i).Indicator);
+                    Table2.append("User"+String.valueOf(i),GetTableThree().Hands.get(i).Factor);
+                    Table2.append("User"+String.valueOf(i),GetTableThree().Hands.get(i).Indicator);
                 }
             }
         }
@@ -387,28 +387,28 @@ public class TableStatus {
             JSONObject T1 = js.getJSONObject("Table0");
             for(int i = 0; i < 4; i++){
                 JSONArray T1Arr = T1.getJSONArray("Player" + String.valueOf(i));
-                TableOne.Hands.get(i).CartOne = T1Arr.getInt(0);
-                TableOne.Hands.get(i).CartTwo = T1Arr.getInt(1);
-                TableOne.Hands.get(i).Factor = T1Arr.getJSONObject(2).getDouble("Factor");
-                TableOne.Hands.get(i).Indicator = T1Arr.getJSONObject(2).getInt("Indicator");
+                GetTableOne().Hands.get(i).CartOne = T1Arr.getInt(0);
+                GetTableOne().Hands.get(i).CartTwo = T1Arr.getInt(1);
+                GetTableOne().Hands.get(i).Factor = T1Arr.getJSONObject(2).getDouble("Factor");
+                GetTableOne().Hands.get(i).Indicator = T1Arr.getJSONObject(2).getInt("Indicator");
             }
             
             JSONObject T2 = js.getJSONObject("Table1");
             for(int i = 0; i < 6; i++){
                 JSONArray T1Arr = T2.getJSONArray("Player" + String.valueOf(i));
-                TableTwo.Hands.get(i).CartOne = T1Arr.getInt(0);
-                TableTwo.Hands.get(i).CartTwo = T1Arr.getInt(1);
-                TableTwo.Hands.get(i).Factor = T1Arr.getJSONObject(2).getDouble("Factor");
-                TableTwo.Hands.get(i).Indicator= T1Arr.getJSONObject(2).getInt("Indicator");
+                GetTableTwo().Hands.get(i).CartOne = T1Arr.getInt(0);
+                GetTableTwo().Hands.get(i).CartTwo = T1Arr.getInt(1);
+                GetTableTwo().Hands.get(i).Factor = T1Arr.getJSONObject(2).getDouble("Factor");
+                GetTableTwo().Hands.get(i).Indicator= T1Arr.getJSONObject(2).getInt("Indicator");
             }
             
             JSONObject T3 = js.getJSONObject("Table2");
             for(int i = 0; i < 8; i++){
                 JSONArray T1Arr = T3.getJSONArray("Player" + String.valueOf(i));
-                TableThree.Hands.get(i).CartOne = T1Arr.getInt(0);
-                TableThree.Hands.get(i).CartTwo = T1Arr.getInt(1);
-                TableThree.Hands.get(i).Factor = T1Arr.getJSONObject(2).getDouble("Factor");
-                TableThree.Hands.get(i).Indicator = T1Arr.getJSONObject(2).getInt("Indicator");
+                GetTableThree().Hands.get(i).CartOne = T1Arr.getInt(0);
+                GetTableThree().Hands.get(i).CartTwo = T1Arr.getInt(1);
+                GetTableThree().Hands.get(i).Factor = T1Arr.getJSONObject(2).getDouble("Factor");
+                GetTableThree().Hands.get(i).Indicator = T1Arr.getJSONObject(2).getInt("Indicator");
             }
             Stage = 1;
         } catch (JSONException ex) {
@@ -421,29 +421,29 @@ public class TableStatus {
            
             JSONObject js = new JSONObject(data);
             JSONArray T1 = js.getJSONArray("Table0");
-            TableOne.FlopOne = T1.getJSONObject(0).getJSONArray("Bord").getInt(0);
-            TableOne.FlopTwo = T1.getJSONObject(0).getJSONArray("Bord").getInt(1);
-            TableOne.FlopThree = T1.getJSONObject(0).getJSONArray("Bord").getInt(2);
+            GetTableOne().FlopOne = T1.getJSONObject(0).getJSONArray("Bord").getInt(0);
+            GetTableOne().FlopTwo = T1.getJSONObject(0).getJSONArray("Bord").getInt(1);
+            GetTableOne().FlopThree = T1.getJSONObject(0).getJSONArray("Bord").getInt(2);
             for(int i = 0; i < 4; i++){
-                TableOne.Hands.get(i).Factor = T1.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
-                TableOne.Hands.get(i).Indicator = T1.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
+                GetTableOne().Hands.get(i).Factor = T1.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
+                GetTableOne().Hands.get(i).Indicator = T1.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
             
             }
             JSONArray T2 = js.getJSONArray("Table1");
-            TableTwo.FlopOne = T2.getJSONObject(0).getJSONArray("Bord").getInt(0);
-            TableTwo.FlopTwo = T2.getJSONObject(0).getJSONArray("Bord").getInt(1);
-            TableTwo.FlopThree = T2.getJSONObject(0).getJSONArray("Bord").getInt(2);
+            GetTableTwo().FlopOne = T2.getJSONObject(0).getJSONArray("Bord").getInt(0);
+            GetTableTwo().FlopTwo = T2.getJSONObject(0).getJSONArray("Bord").getInt(1);
+            GetTableTwo().FlopThree = T2.getJSONObject(0).getJSONArray("Bord").getInt(2);
             for(int i = 0; i < 6; i++){
-                TableTwo.Hands.get(i).Factor = T2.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
-                TableTwo.Hands.get(i).Indicator = T2.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
+                GetTableTwo().Hands.get(i).Factor = T2.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
+                GetTableTwo().Hands.get(i).Indicator = T2.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
             }
             JSONArray T3 = js.getJSONArray("Table2");
-            TableThree.FlopOne = T3.getJSONObject(0).getJSONArray("Bord").getInt(0);
-            TableThree.FlopTwo = T3.getJSONObject(0).getJSONArray("Bord").getInt(1);
-            TableThree.FlopThree = T3.getJSONObject(0).getJSONArray("Bord").getInt(2);
+            GetTableThree().FlopOne = T3.getJSONObject(0).getJSONArray("Bord").getInt(0);
+            GetTableThree().FlopTwo = T3.getJSONObject(0).getJSONArray("Bord").getInt(1);
+            GetTableThree().FlopThree = T3.getJSONObject(0).getJSONArray("Bord").getInt(2);
             for(int i = 0; i < 8; i++){
-                TableThree.Hands.get(i).Factor = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
-                TableThree.Hands.get(i).Indicator = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
+                GetTableThree().Hands.get(i).Factor = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
+                GetTableThree().Hands.get(i).Indicator = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
             }
             Stage = 2; 
         } catch (JSONException ex) {
@@ -456,22 +456,22 @@ public class TableStatus {
            
             JSONObject js = new JSONObject(data);
             JSONArray T1 = js.getJSONArray("Table0");
-            TableOne.Tern = T1.getJSONObject(0).getJSONArray("Bord").getInt(3);
+            GetTableOne().Tern = T1.getJSONObject(0).getJSONArray("Bord").getInt(3);
             for(int i = 0; i < 4; i++){
-                TableOne.Hands.get(i).Factor = T1.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
-                TableOne.Hands.get(i).Indicator = T1.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
+                GetTableOne().Hands.get(i).Factor = T1.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
+                GetTableOne().Hands.get(i).Indicator = T1.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
             }
             JSONArray T2 = js.getJSONArray("Table1");
-            TableTwo.Tern = T2.getJSONObject(0).getJSONArray("Bord").getInt(3);
+            GetTableTwo().Tern = T2.getJSONObject(0).getJSONArray("Bord").getInt(3);
             for(int i = 0; i < 6; i++){
-                TableTwo.Hands.get(i).Factor = T2.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
-                TableTwo.Hands.get(i).Indicator = T2.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
+                GetTableTwo().Hands.get(i).Factor = T2.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
+                GetTableTwo().Hands.get(i).Indicator = T2.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
             }
             JSONArray T3 = js.getJSONArray("Table2");
-            TableThree.Tern = T3.getJSONObject(0).getJSONArray("Bord").getInt(3);
+            GetTableThree().Tern = T3.getJSONObject(0).getJSONArray("Bord").getInt(3);
             for(int i = 0; i < 8; i++){
-                TableThree.Hands.get(i).Factor = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
-                TableThree.Hands.get(i).Indicator = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
+                GetTableThree().Hands.get(i).Factor = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
+                GetTableThree().Hands.get(i).Indicator = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
             }
              Stage = 3;
         } catch (JSONException ex) {
@@ -483,23 +483,23 @@ public class TableStatus {
         try {
           JSONObject js = new JSONObject(data);
           JSONArray T1 = js.getJSONArray("Table0");
-          TableOne.River = T1.getJSONObject(0).getJSONArray("Bord").getInt(4);
+          GetTableOne().River = T1.getJSONObject(0).getJSONArray("Bord").getInt(4);
           for(int i = 0; i < 4; i++){
-              TableOne.Hands.get(i).Factor = T1.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
-              TableOne.Hands.get(i).Indicator = T1.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
+              GetTableOne().Hands.get(i).Factor = T1.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
+              GetTableOne().Hands.get(i).Indicator = T1.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
           }
           
           JSONArray T2 = js.getJSONArray("Table1");
-          TableTwo.River = T2.getJSONObject(0).getJSONArray("Bord").getInt(4);
+          GetTableTwo().River = T2.getJSONObject(0).getJSONArray("Bord").getInt(4);
           for(int i = 0; i < 6; i++){
-              TableTwo.Hands.get(i).Factor = T2.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
-              TableTwo.Hands.get(i).Indicator = T2.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
+              GetTableTwo().Hands.get(i).Factor = T2.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
+              GetTableTwo().Hands.get(i).Indicator = T2.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
           }
           JSONArray T3 = js.getJSONArray("Table2");
-          TableThree.River = T3.getJSONObject(0).getJSONArray("Bord").getInt(4);
+          GetTableThree().River = T3.getJSONObject(0).getJSONArray("Bord").getInt(4);
           for(int i = 0; i < 8; i++){
-              TableThree.Hands.get(i).Factor = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
-              TableThree.Hands.get(i).Indicator = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
+              GetTableThree().Hands.get(i).Factor = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
+              GetTableThree().Hands.get(i).Indicator = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
           }
           Stage = 4;
         } catch (JSONException ex) {
@@ -514,20 +514,20 @@ public class TableStatus {
             for(int i=0; i < T1.length(); i++){
                 for(int j = 0; j < T1.getJSONArray("Combination"+i).length(); j++){
                     for(int h = 0; h < 4; h++){
-                      if(TableOne.Hands.get(h).CartOne == T1.getJSONArray("Combination"+i).getInt(j))
+                      if(GetTableOne().Hands.get(h).CartOne == T1.getJSONArray("Combination"+i).getInt(j))
                           ShutdownInfo.put("Table1User"+(h+1)+"Cart1");
-                      if(TableOne.Hands.get(h).CartTwo == T1.getJSONArray("Combination"+i).getInt(j))
+                      if(GetTableOne().Hands.get(h).CartTwo == T1.getJSONArray("Combination"+i).getInt(j))
                           ShutdownInfo.put("Table1User"+(h+1)+"Cart2");
                     }
-                    if(TableOne.FlopOne == T1.getJSONArray("Combination"+i).getInt(j))
+                    if(GetTableOne().FlopOne == T1.getJSONArray("Combination"+i).getInt(j))
                         ShutdownInfo.put("Table1Flop1");
-                    if(TableOne.FlopTwo == T1.getJSONArray("Combination"+i).getInt(j))
+                    if(GetTableOne().FlopTwo == T1.getJSONArray("Combination"+i).getInt(j))
                         ShutdownInfo.put("Table1Flop2");
-                    if(TableOne.FlopThree == T1.getJSONArray("Combination"+i).getInt(j))
+                    if(GetTableOne().FlopThree == T1.getJSONArray("Combination"+i).getInt(j))
                         ShutdownInfo.put("Table1Flop3");
-                    if(TableOne.Tern == T1.getJSONArray("Combination"+i).getInt(j))
+                    if(GetTableOne().Tern == T1.getJSONArray("Combination"+i).getInt(j))
                         ShutdownInfo.put("Table1Tern");
-                    if(TableOne.River == T1.getJSONArray("Combination"+i).getInt(j))
+                    if(GetTableOne().River == T1.getJSONArray("Combination"+i).getInt(j))
                         ShutdownInfo.put("Table1River");
                 }
             }
@@ -536,20 +536,20 @@ public class TableStatus {
             for(int i=0; i < T2.length(); i++){
                 for(int j = 0; j < T2.getJSONArray("Combination"+i).length(); j++){
                     for(int h = 0; h < 6; h++){
-                      if(TableTwo.Hands.get(h).CartOne == T2.getJSONArray("Combination"+i).getInt(j))
+                      if(GetTableTwo().Hands.get(h).CartOne == T2.getJSONArray("Combination"+i).getInt(j))
                           ShutdownInfo.put("Table2User"+(h+1)+"Cart1");
-                      if(TableTwo.Hands.get(h).CartTwo == T2.getJSONArray("Combination"+i).getInt(j))
+                      if(GetTableTwo().Hands.get(h).CartTwo == T2.getJSONArray("Combination"+i).getInt(j))
                           ShutdownInfo.put("Table2User"+(h+1)+"Cart2");
                     }
-                    if(TableTwo.FlopOne == T2.getJSONArray("Combination"+i).getInt(j))
+                    if(GetTableTwo().FlopOne == T2.getJSONArray("Combination"+i).getInt(j))
                         ShutdownInfo.put("Table2Flop1");
-                    if(TableTwo.FlopTwo == T2.getJSONArray("Combination"+i).getInt(j))
+                    if(GetTableTwo().FlopTwo == T2.getJSONArray("Combination"+i).getInt(j))
                         ShutdownInfo.put("Table2Flop2");
-                    if(TableTwo.FlopThree == T2.getJSONArray("Combination"+i).getInt(j))
+                    if(GetTableTwo().FlopThree == T2.getJSONArray("Combination"+i).getInt(j))
                         ShutdownInfo.put("Table2Flop3");
-                    if(TableTwo.Tern == T2.getJSONArray("Combination"+i).getInt(j))
+                    if(GetTableTwo().Tern == T2.getJSONArray("Combination"+i).getInt(j))
                         ShutdownInfo.put("Table2Tern");
-                    if(TableTwo.River == T2.getJSONArray("Combination"+i).getInt(j))
+                    if(GetTableTwo().River == T2.getJSONArray("Combination"+i).getInt(j))
                         ShutdownInfo.put("Table2River");
                 }
             }
@@ -558,20 +558,20 @@ public class TableStatus {
             for(int i=0; i < T3.length(); i++){
                 for(int j = 0; j < T3.getJSONArray("Combination"+i).length(); j++){
                     for(int h = 0; h < 8; h++){
-                      if(TableThree.Hands.get(h).CartOne == T3.getJSONArray("Combination"+i).getInt(j))
+                      if(GetTableThree().Hands.get(h).CartOne == T3.getJSONArray("Combination"+i).getInt(j))
                           ShutdownInfo.put("Table3User"+(h+1)+"Cart1");
-                      if(TableThree.Hands.get(h).CartTwo == T3.getJSONArray("Combination"+i).getInt(j))
+                      if(GetTableThree().Hands.get(h).CartTwo == T3.getJSONArray("Combination"+i).getInt(j))
                           ShutdownInfo.put("Table3User"+(h+1)+"Cart2");
                     }
-                    if(TableThree.FlopOne == T3.getJSONArray("Combination"+i).getInt(j))
+                    if(GetTableThree().FlopOne == T3.getJSONArray("Combination"+i).getInt(j))
                         ShutdownInfo.put("Table3Flop1");
-                    if(TableThree.FlopTwo == T3.getJSONArray("Combination"+i).getInt(j))
+                    if(GetTableThree().FlopTwo == T3.getJSONArray("Combination"+i).getInt(j))
                         ShutdownInfo.put("Table3Flop2");
-                    if(TableThree.FlopThree == T3.getJSONArray("Combination"+i).getInt(j))
+                    if(GetTableThree().FlopThree == T3.getJSONArray("Combination"+i).getInt(j))
                         ShutdownInfo.put("Table3Flop3");
-                    if(TableThree.Tern == T3.getJSONArray("Combination"+i).getInt(j))
+                    if(GetTableThree().Tern == T3.getJSONArray("Combination"+i).getInt(j))
                         ShutdownInfo.put("Table3Tern");
-                    if(TableThree.River == T3.getJSONArray("Combination"+i).getInt(j))
+                    if(GetTableThree().River == T3.getJSONArray("Combination"+i).getInt(j))
                         ShutdownInfo.put("Table3River");
                 }
             }
@@ -647,11 +647,11 @@ public class TableStatus {
                     HandJs = new JSONObject();
                     for (Integer hands : tables.getValue()){
                         if (tables.getKey() == 0)
-                            HandJs.put(hands.toString(), TableOne.Hands.get(hands).Factor);
+                            HandJs.put(hands.toString(), GetTableOne().Hands.get(hands).Factor);
                         if (tables.getKey() == 1)
-                            HandJs.put(hands.toString(), TableTwo.Hands.get(hands).Factor);
+                            HandJs.put(hands.toString(), GetTableTwo().Hands.get(hands).Factor);
                         if (tables.getKey() == 2)
-                            HandJs.put(hands.toString(), TableThree.Hands.get(hands).Factor);
+                            HandJs.put(hands.toString(), GetTableThree().Hands.get(hands).Factor);
                     }
                     UserJs.put("Table" + tables.getKey().toString(),HandJs);
                 }
@@ -671,5 +671,17 @@ public class TableStatus {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+    }
+    
+    public synchronized Table GetTableOne(){
+        return TableOne;
+    }
+    
+    public synchronized Table GetTableTwo(){
+        return TableTwo;
+    }
+    
+    public synchronized Table GetTableThree(){
+        return TableThree;
     }
 }
