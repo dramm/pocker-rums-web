@@ -213,8 +213,18 @@ $("#SumBetUp").click(
 
 $("#SumBetDown").click(
         function() {
+    var count = 0;
+    for(var i = 1; i < 5; i++)
+        if($("#Table1User"+i+"Check").attr("checked"))
+           count++;
+   for(var i = 1; i < 6; i++)
+        if($("#Table2User"+i+"Check").attr("checked"))
+           count++;
+   for(var i = 1; i < 9; i++)
+        if($("#Table3User"+i+"Check").attr("checked"))
+           count++;
             var CurrentSum = parseFloat($("#SumBetUser").html());
-            if((CurrentSum - 0.50) >= 4)
+            if(count != 0 && ((CurrentSum - 0.50)/count) >= 4)
                 $("#SumBetUser").html(CurrentSum - 0.50);
 });
 
@@ -306,7 +316,7 @@ function TableUserChangeCheck(el,input)
                 el.css("background","-o-linear-gradient(top, #d52711 0%, #d76255 100%)");
                 el.css("background","-ms-linear-gradient(top, #d52711 0%, #d76255 100%)");
                 el.css("background","linear-gradient(top, #d52711 0%, #d76255 100%)");
-             //   SetBet(input,true);
+                SetBetHand(true);
                 input.attr("checked", true)
 	} else {
                 el.css("background","-moz-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
@@ -314,7 +324,7 @@ function TableUserChangeCheck(el,input)
                 el.css("background","-o-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
                 el.css("background","-ms-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
                 el.css("background","linear-gradient(top, #49a6e8 0%, #4281a9 100%)");	
-               // SetBet(input,false);
+                SetBetHand(false);
                 input.attr("checked", false)
 	}
      return true;
@@ -333,14 +343,58 @@ var el = el,input = input;
      return true;
 }
 
+function SetBetHand(set){
+    var json = { };
+    json["Table1"] = { };
+    json["Table2"] = { };
+    json["Table3"] = { };
+    json["Sum"] = $("#SumBetUser").html();
+    json.Table1 = [];
+    json.Table2 = [];
+    json.Table3 = [];
+    var index = 0;
+    for(var i = 1; i < 5; i++)
+        if($("#Table1User"+i+"Check").attr("checked")){
+           json.Table1[index++] = i;
+        }
+    index = 0;
+   for(var i = 1; i < 6; i++)
+        if($("#Table2User"+i+"Check").attr("checked"))
+           json.Table2[index++] = i;
+   index = 0;
+   for(var i = 1; i < 9; i++)
+        if($("#Table3User"+i+"Check").attr("checked"))
+           json.Table3[index++] = i;
+    $.ajax({
+   type: "POST",
+   url: "/CheckBet",
+   data: json.toString(),
+   success: function(msg){
+       var Message = JSON.parse(msg);
+       $("#SumBetUser").html(Message.Sum);
+       $("#MinBet").html(Message.Min);
+       $("#MaxBet").html(Message.Max);
+   }
+ });
+    
+}
 
+function StartGame(){
+$.ajax({
+   type: "POST",
+   url: "/StartGame",
+   success: function(msg){
+       $("#MaxBet").html(msg.Max);
+   }
+ });
+    CheckGame();
+}
 
-
-function StartGame(){setInterval(function() {
+function CheckGame(){setInterval(function() {
     var values =  {  
                 "start": $("#CurrentStage").html() 
             };
-    var url = "StartGame";
+    var url = "GameChanges";
     reqPrivate = new XMLHttpRequest();
     reqPrivate.open("POST", url, true);
     reqPrivate.onreadystatechange = StartGameCallback;
@@ -831,8 +885,6 @@ function StartGameCallback() {
                         for(var i=0;i<Message.Shutdown.length;i++)
                             $("#"+Message.Shutdown[i]).css("border","solid 1px red");
                 }
-         
-         
         }}
     }
 }

@@ -65,6 +65,9 @@
 <%if(IsAdministrator){%>
 <li><a href="#tabs-11">Пользователи</a></li>
 <%}%>
+<%if(IsAdministrator){%>
+<li><a href="#tabs-12">Игравой сервер</a></li>
+<%}%>
 </ul>
     
 <div id="tabs-1">
@@ -283,6 +286,15 @@
         <option value="60">60</option>
     </select>
     <input type="button" style="display:block;" id="ExecuteSelectedActions" onclick="ExecuteSelectedActions()" value="Выполнить действия" class="button"/>
+    <div id="ListUsers">
+    </div>
+    </div>
+<%}%>
+
+<%if(IsAdministrator){%>
+<div id="tabs-12">
+    <b>Настройки сервера</b>
+    <input type="button" style="display:block;" id="ExecuteSelectedActions" onclick="" value="Запуск сервера" class="button"/>
     <div id="ListUsers">
     </div>
     </div>
