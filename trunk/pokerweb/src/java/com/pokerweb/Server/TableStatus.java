@@ -632,7 +632,7 @@ public class TableStatus {
             JSONArray RootJs = new JSONArray();
             JSONObject UserJs = new JSONObject();
             JSONObject HandJs = new JSONObject();
-            if(Bets.size() == 0){
+            if(Bets.isEmpty()){
             Connect.GetInstance().out.write(Functions.intToByteArray(1020));
             Connect.GetInstance().out.write(Functions.intToByteArray("[]".length()));
             Connect.GetInstance().out.write(CryptoManager.encode("[]".getBytes()));
@@ -641,8 +641,8 @@ public class TableStatus {
             }
             for (Map.Entry<Long,UserBet> item : Bets.entrySet()) {
                 UserJs = new JSONObject();
-                UserJs.append("Id", item.getKey());
-                UserJs.append("Sum",item.getValue().Sum);
+                UserJs.put("Id", item.getKey());
+                UserJs.put("Sum",item.getValue().Sum);
                 for(Map.Entry<Integer,List<Integer>> tables : item.getValue().TableHand.entrySet()){
                     HandJs = new JSONObject();
                     for (Integer hands : tables.getValue()){

@@ -2,15 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.pokerweb.Area;
+package com.pokerweb.Game;
 
-import com.pokerweb.DB.DBManager;
-import com.pokerweb.Server.Connect;
 import com.pokerweb.Server.TableStatus;
-import com.pokerweb.ajax.ValidationField;
-import com.pokerweb.registration.UserAllInformation;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -25,8 +22,8 @@ import org.json.JSONObject;
  *
  * @author vadim
  */
-@WebServlet(name = "StartGame", urlPatterns = {"/StartGame"})
-public class StartGame extends HttpServlet {
+@WebServlet(name = "GameChanges", urlPatterns = {"/GameChanges"})
+public class GameChanges extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -38,8 +35,7 @@ public class StartGame extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
- 
-
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
@@ -53,7 +49,6 @@ public class StartGame extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- 
     }
 
     /**
@@ -68,15 +63,20 @@ public class StartGame extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try{
-            Connect.GetInstance();
-            JSONObject Data = new JSONObject();
-            Data.put("Max", DBManager.GetInstance().GetCurrentUserAllInfo().balance);
+        try {
+            StringBuilder jb = new StringBuilder();
+            String line = null;
+            BufferedReader reader = request.getReader();
+            while ((line = reader.readLine()) != null)
+                jb.append(line);
+            
+            JSONObject jsonObject = new JSONObject(jb.toString());
+            String Data = TableStatus.GetInstance().GetNewData(jsonObject.getInt("start"));
             response.setContentType("application/json; charset=utf-8");
             response.setHeader("Cache-Control", "no-cache");
-            response.getWriter().write(Data.toString());               
+            response.getWriter().write(Data);
         } catch (JSONException ex) {
-            Logger.getLogger(ValidateTab1.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GameChanges.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -153,7 +153,6 @@ public class Game{
                         stmt.setBoolean(7, false);
                         stmt.executeUpdate();
                     }
- 
                 }
             }
             return true;

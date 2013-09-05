@@ -12,7 +12,7 @@
 </head>
 <body style="background-image: url(/pic/backgroundGame.png);
     background-size: cover;
-     font-family: arial;">
+    font-family: arial;" onload="StartGame()">
     <div id="header">
             <div class="leftCol"> </div>
             <div class="centerCol"> 
@@ -63,7 +63,6 @@
                         <div class="UserNumber">1</div>
                     </div>
                     <script>$('#Table1User1Progress').css('bottom' , 40 + '%');
-                        StartGame();
                     </script>
                     <div class="TableUser" style="margin-left: 15px;">
                         <div id="Table1User2Factor" class="TableUserFactor">

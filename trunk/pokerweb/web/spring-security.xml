@@ -18,8 +18,8 @@
     <http pattern="/RegisterUser" security="none"/>
     
     <http auto-config="true" access-denied-page="/">
-        <!--<intercept-url pattern="/game" access="ROLE_USER,ROLE_ADMIN,ROLE_MANAGER" />-->
-        <!--<intercept-url pattern="/game.jsp" access="ROLE_USER,ROLE_ADMIN,ROLE_MANAGER" />-->
+        <intercept-url pattern="/game" access="ROLE_USER,ROLE_ADMIN,ROLE_MANAGER" />
+        <intercept-url pattern="/game.jsp" access="ROLE_USER,ROLE_ADMIN,ROLE_MANAGER" />
         <intercept-url pattern="/PrivateArea.jsp" access="ROLE_USER,ROLE_ADMIN,ROLE_MANAGER" />
          <intercept-url pattern="/PrivateArea" access="ROLE_USER,ROLE_ADMIN,ROLE_MANAGER" />
         <form-login 
