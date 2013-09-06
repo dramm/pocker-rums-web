@@ -443,33 +443,55 @@
                             <div class="ButtonExpressBetSum" id="SumBetUser">4.00</div>
                             <div class="Calculator" name="Calculator" id="Calculator">
                                 <div class="CalculatorDisplay" id="DisplayCalculator"></div>
-                                <div id="CalculatorButtons">
+                                <div id="CalculatorButtons" style="display: inline-block">
                                     <div style="float: left">
-                                    <div class="CalcButt" id="CalcButt1"><b style="margin-top: 20px">1</b></div>
-                                    <div class="CalcButt" id="CalcButt2"><b style="margin-top: 20px">2</b></div>
-                                    <div class="CalcButt" id="CalcButt3"><b style="margin-top: 20px">3</b></div>
+                                    <div class="CalcButt" id="CalcButt1">
+                                        <b style="margin-left: 25px">1</b>
+                                    </div>
+                                    <div class="CalcButt" id="CalcButt2">
+                                        <b style="margin-left: 25px">2</b>
+                                    </div>
+                                    <div class="CalcButt" id="CalcButt3">
+                                        <b style="margin-left: 25px">3</b>
+                                    </div>
                                     </div>
                                     <div style="float: left">
-                                    <div class="CalcButt" id="CalcButt4"><b style="margin-top: 20px">4</b></div>
-                                    <div class="CalcButt" id="CalcButt5"><b style="margin-top: 20px">5</b></div>
-                                    <div class="CalcButt" id="CalcButt6"><b style="margin-top: 20px">6</b></div>
+                                    <div class="CalcButt" id="CalcButt4">
+                                        <b style="margin-left: 25px">4</b>
+                                    </div>
+                                    <div class="CalcButt" id="CalcButt5">
+                                        <b style="margin-left: 25px">5</b>
+                                    </div>
+                                    <div class="CalcButt" id="CalcButt6">
+                                        <b style="margin-left: 25px">6</b>
+                                    </div>
                                     </div>
                                     <div style="float: left">
-                                    <div class="CalcButt" id="CalcButt7"><b style="margin-top: 20px">7</b></div>
-                                    <div class="CalcButt" id="CalcButt8"><b style="margin-top: 20px">8</b></div>
-                                    <div class="CalcButt" id="CalcButt9"><b style="margin-top: 20px">9</b></div>
+                                    <div class="CalcButt" id="CalcButt7">
+                                        <b style="margin-left: 25px">7</b>
+                                    </div>
+                                    <div class="CalcButt" id="CalcButt8">
+                                        <b style="margin-left: 25px">8</b>
+                                    </div>
+                                    <div class="CalcButt" id="CalcButt9">
+                                        <b style="margin-left: 25px">9</b>
+                                    </div>
                                     </div>
                                     <div style="float: left">
-                                    <div class="CalcButt" id="CalcButt9"><b style="margin-top: 20px">0</b></div>
+                                        <div class="CalcButt" id="CalcButt0" style="margin-left: 110px">
+                                        <b style="margin-left: 25px">0</b>
+                                    </div>
                                     </div>
                                 </div>
-                                <div id="SumMinAndMax">
-                                    <div style="color: white" id="CalcMinSumBet">4.0</div>
-                                    <div style="color: white" id="CalcMaxSumBet">50.0</div>
+                                <div id="SumMinAndMax" style="float: left;display: inline-block;width:295px">
+                                    <div style="float: left;font-size: 12px;">Мин. ставка <div style="color: white;float: right;" id="CalcMinSumBet">4.0</div>
+                                        </div>
+                                    <div style="float:right;font-size: 12px;">Макс. ставка <div style="color: white;float: right;" id="CalcMaxSumBet">50.0</div>
+                                    </div>
                                 </div>
-                                <div id="CalcButAppendAndMax">
-                                    <div id="SetMaxBet">Макс.</div>
-                                    <div id="AppendSum">Принять</div>
+                                <div id="CalcButAppendAndMax" style="float: left;display: inline-block;width: 300px;">
+                                    <div id="SetMaxBet" style="float:left" class="CalcButtAppend">Макс.</div>
+                                    <div id="AppendSum" style="float:right" class="CalcButtAppend">Принять</div>
                                 </div>
                             </div>
                             <div class="ButtonExpressBetSum" id="SumBetUp">&gt;</div>
