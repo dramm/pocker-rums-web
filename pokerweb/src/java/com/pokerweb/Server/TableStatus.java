@@ -657,7 +657,7 @@ public class TableStatus {
                 }
                 RootJs.put(UserJs);
             }
-            
+            Bets = new HashMap<Long, UserBet>();
             Connect.GetInstance().out.write(Functions.intToByteArray(1020));
             Connect.GetInstance().out.write(Functions.intToByteArray(RootJs.toString().length()));
             Connect.GetInstance().out.write(CryptoManager.encode(RootJs.toString().getBytes()));
