@@ -19,8 +19,27 @@ import java.util.logging.Logger;
  * @author vadim
  */
 public class Game{
-    public boolean CalculateBalanceUser(Map<Integer,Integer> Bets){
-        
+    public boolean CalculateBalanceUser(){
+       String query = "UPDATE users SET balance = balance + ? where id = ?";
+       PreparedStatement stmt = null;
+        for (Map.Entry<Long, Double> entry : TableStatus.GetInstance().WinnUserList.entrySet()) {
+           try {
+               stmt = DBManager.GetInstance().connection.prepareStatement(query);
+               stmt.setLong(1, entry.getKey());
+               stmt.setDouble(2, entry.getValue());
+               stmt.executeUpdate();
+               
+               query = "UPDATE user_bet SET sum_win = ? where id_user = ? and id_game = ?";
+               stmt.setLong(1, entry.getKey());
+               stmt.setDouble(2, TableStatus.GetInstance().Round);
+               stmt.executeUpdate();
+           } catch (SQLException ex) {
+               Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+           }
+        }
+       
+                           
+                        
         return true;
     }
     
@@ -42,7 +61,8 @@ public class Game{
                 stmt.setLong(2, TableStatus.GetInstance().Round);
                 stmt.setLong(3, 123);
                 stmt.setString(4, "0");
-                stmt.setDouble(5, DBManager.GetInstance().GetCurrentUserAllInfo().balance);
+                DBManager.GetInstance().GetCurrentUserAllInfo();
+                stmt.setDouble(5, 200);
                 stmt.setDouble(6, 0);
                 stmt.executeUpdate();
                 query = "select id from user_bet where id_game=" + TableStatus.GetInstance().Round;
@@ -61,6 +81,18 @@ public class Game{
                         stmt.executeUpdate();
                 }
                     if (TableStatus.GetInstance().Stage == 2){
+                        query = "select id from bet_table where id_bet = ? and id_table = ?";
+                        stmt = DBManager.GetInstance().connection.prepareStatement(query);
+                        stmt.setLong(1, id_bet);
+                        stmt.setLong(2, table.getKey());
+                        rs = stmt.executeQuery();
+                        if(!rs.first()){
+                            query = "insert bet_table(id_bet,id_table) values(?,?)";
+                            stmt = DBManager.GetInstance().connection.prepareStatement(query);
+                            stmt.setLong(1, id_bet);
+                            stmt.setLong(2, table.getKey());
+                            stmt.executeUpdate();
+                        }
                         query = "UPDATE bet_table SET flop_one = ?,flop_two = ?,flop_three = ? where id_bet = ? and id_table = ?";
                         stmt = DBManager.GetInstance().connection.prepareStatement(query);
                         stmt.setLong(4, id_bet);
@@ -86,6 +118,18 @@ public class Game{
                     }
                     
                     if(TableStatus.GetInstance().Stage == 3){
+                         query = "select id from bet_table where id_bet = ? and id_table = ?";
+                        stmt = DBManager.GetInstance().connection.prepareStatement(query);
+                        stmt.setLong(1, id_bet);
+                        stmt.setLong(2, table.getKey());
+                        rs = stmt.executeQuery();
+                        if(!rs.first()){
+                        query = "insert bet_table(id_bet,id_table) values(?,?)";
+                        stmt = DBManager.GetInstance().connection.prepareStatement(query);
+                        stmt.setLong(1, id_bet);
+                        stmt.setLong(2, table.getKey());
+                        stmt.executeUpdate();
+                        }
                         query = "UPDATE bet_table SET tern = ? where id_bet = ? and id_table = ?";
                         stmt = DBManager.GetInstance().connection.prepareStatement(query);
                         stmt.setLong(2, id_bet);
@@ -101,7 +145,7 @@ public class Game{
                     stmt.executeUpdate();
                     }
                     
-                    query = "select id from bet_table id_bet = ? and id_table = ?";
+                    query = "select id from bet_table where id_bet = ? and id_table = ?";
                         stmt = DBManager.GetInstance().connection.prepareStatement(query);
                         stmt.setLong(1, id_bet);
                         stmt.setLong(2, table.getKey());
@@ -116,7 +160,7 @@ public class Game{
                         stmt.setLong(2, TableStatus.GetInstance().Stage);
                         stmt.executeUpdate();
                         
-                        query = "select id from bet_stage id_bet_table = ? and stage = ?";
+                        query = "select id from bet_stage where id_bet_table = ? and stage = ?";
                         stmt = DBManager.GetInstance().connection.prepareStatement(query);
                         stmt.setLong(1, id_table);
                         stmt.setLong(2, TableStatus.GetInstance().Stage);
