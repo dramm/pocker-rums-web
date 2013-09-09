@@ -24,7 +24,7 @@ public class Connect {
        NewConnect();
     }
     public void NewConnect(){
-     try {
+     try {//5.178.85.70
          socket = new Socket("5.178.85.70", 7777);
          while(!socket.isConnected())
          socket = new Socket("5.178.85.70", 7777);

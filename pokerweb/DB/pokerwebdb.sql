@@ -19,6 +19,14 @@ CREATE TABLE `bet_hand` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Ставка на руку';
 
+INSERT INTO `bet_hand` (`id`, `id_bet_stage`, `id_hand`, `factor`, `date_bet`, `cart_one`, `cart_two`, `sum`, `win`) VALUES
+(1,	1,	2,	3.78,	'2013-09-09 20:55:44',	6,	38,	19.50,	CONV('0', 2, 10) + 0),
+(2,	1,	3,	3.26,	'2013-09-09 20:55:57',	33,	34,	19.50,	CONV('0', 2, 10) + 0),
+(3,	2,	1,	3.29,	'2013-09-09 20:56:24',	48,	50,	19.50,	CONV('0', 2, 10) + 0),
+(4,	3,	2,	5.04,	'2013-09-09 20:56:40',	50,	11,	19.50,	CONV('0', 2, 10) + 0),
+(5,	4,	2,	2.46,	'2013-09-09 21:21:39',	17,	9,	13.00,	CONV('0', 2, 10) + 0),
+(6,	5,	1,	5.7,	'2013-09-09 21:21:59',	16,	47,	13.00,	CONV('0', 2, 10) + 0),
+(7,	6,	3,	7.47,	'2013-09-09 21:22:22',	5,	42,	13.00,	CONV('0', 2, 10) + 0);
 
 DROP TABLE IF EXISTS `bet_stage`;
 CREATE TABLE `bet_stage` (
@@ -28,19 +36,34 @@ CREATE TABLE `bet_stage` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Ставка на стадии';
 
+INSERT INTO `bet_stage` (`id`, `id_bet_table`, `stage`) VALUES
+(1,	2,	1),
+(2,	3,	1),
+(3,	4,	1),
+(4,	5,	1),
+(5,	6,	1),
+(6,	7,	1);
 
 DROP TABLE IF EXISTS `bet_table`;
 CREATE TABLE `bet_table` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'идентификатор записи',
   `id_bet` int(10) unsigned NOT NULL COMMENT 'Идентификатор ставки из таблицы user_bet',
   `id_table` int(10) unsigned NOT NULL COMMENT 'Идентификатор стола',
-  `flop_one` int(10) unsigned NOT NULL COMMENT 'Идентификатор первой карта на флопе',
-  `flop_two` int(10) unsigned NOT NULL COMMENT 'Идентификатор второй карты на флопе',
-  `flop_three` int(10) unsigned NOT NULL COMMENT 'Идентификатор третьей карты на флопе',
-  `tern` int(10) unsigned NOT NULL COMMENT 'Идентификатор карты на терне',
+  `flop_one` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Идентификатор первой карта на флопе',
+  `flop_two` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Идентификатор второй карты на флопе',
+  `flop_three` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Идентификатор третьей карты на флопе',
+  `tern` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Идентификатор карты на терне',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Ставки на столе';
 
+INSERT INTO `bet_table` (`id`, `id_bet`, `id_table`, `flop_one`, `flop_two`, `flop_three`, `tern`) VALUES
+(1,	2,	0,	0,	0,	0,	0),
+(2,	3,	0,	0,	0,	0,	0),
+(3,	3,	1,	0,	0,	0,	0),
+(4,	3,	2,	0,	0,	0,	0),
+(5,	5,	0,	0,	0,	0,	0),
+(6,	5,	1,	0,	0,	0,	0),
+(7,	5,	2,	0,	0,	0,	0);
 
 DROP TABLE IF EXISTS `cards`;
 CREATE TABLE `cards` (
@@ -528,7 +551,40 @@ INSERT INTO `stat_logins` (`id`, `user_id`, `login_time`, `logout`, `ip`, `user_
 (268,	7,	'2013-08-09 17:46:32',	'1999-01-01 00:00:00',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
 (269,	7,	'2013-08-09 17:48:36',	'2013-08-09 17:49:55',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
 (270,	7,	'2013-08-09 17:50:29',	'2013-08-09 18:01:20',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
-(271,	7,	'2013-08-09 18:01:57',	'2013-08-09 18:06:05',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0');
+(271,	7,	'2013-08-09 18:01:57',	'2013-08-09 18:06:05',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(272,	1,	'2013-09-05 23:16:08',	'2013-09-05 23:18:23',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(273,	1,	'2013-09-05 23:22:50',	'2013-09-05 23:27:05',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(274,	1,	'2013-09-05 23:28:49',	'2013-09-05 23:58:08',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(275,	1,	'2013-09-05 23:59:34',	'2013-09-06 00:05:07',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(276,	1,	'2013-09-06 00:05:48',	'2013-09-06 00:23:21',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(277,	1,	'2013-09-06 00:24:09',	'2013-09-06 00:24:28',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(278,	1,	'2013-09-06 01:10:19',	'2013-09-06 01:12:36',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(279,	1,	'2013-09-06 01:13:58',	'2013-09-06 01:16:46',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(280,	1,	'2013-09-06 01:17:08',	'2013-09-06 01:25:37',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(281,	1,	'2013-09-06 01:41:41',	'2013-09-06 01:43:44',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(282,	1,	'2013-09-06 01:44:24',	'2013-09-06 01:50:10',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(283,	1,	'2013-09-06 01:50:35',	'2013-09-06 01:51:44',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(284,	1,	'2013-09-06 01:55:23',	'2013-09-06 01:58:57',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(285,	1,	'2013-09-06 01:59:20',	'2013-09-06 02:01:38',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(286,	1,	'2013-09-06 02:02:21',	'2013-09-06 02:04:55',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(287,	1,	'2013-09-06 02:06:10',	'2013-09-06 02:12:33',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(288,	1,	'2013-09-06 21:11:56',	'2013-09-06 21:18:30',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(289,	1,	'2013-09-06 21:19:00',	'2013-09-06 21:24:03',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(290,	1,	'2013-09-06 21:24:31',	'2013-09-06 21:32:19',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(291,	1,	'2013-09-06 21:32:51',	'2013-09-06 21:43:55',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(292,	1,	'2013-09-06 21:44:21',	'2013-09-06 21:47:25',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(293,	1,	'2013-09-06 21:47:47',	'2013-09-06 22:26:15',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(294,	1,	'2013-09-08 20:56:31',	'2013-09-08 20:57:04',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(295,	1,	'2013-09-09 20:29:25',	'2013-09-09 20:31:58',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(296,	1,	'2013-09-09 20:32:54',	'2013-09-09 20:34:41',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(297,	1,	'2013-09-09 20:36:00',	'2013-09-09 20:38:14',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(298,	1,	'2013-09-09 20:39:13',	'2013-09-09 20:41:45',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(299,	1,	'2013-09-09 20:42:23',	'2013-09-09 20:46:41',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(300,	1,	'2013-09-09 20:47:35',	'2013-09-09 20:53:39',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(301,	1,	'2013-09-09 20:54:23',	'2013-09-09 21:12:55',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(302,	1,	'2013-09-09 21:13:40',	'2013-09-09 21:18:07',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(303,	1,	'2013-09-09 21:18:58',	'2013-09-09 21:19:31',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'),
+(304,	1,	'2013-09-09 21:20:30',	'2013-09-09 21:24:48',	2130706433,	'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0');
 
 DROP TABLE IF EXISTS `token_user`;
 CREATE TABLE `token_user` (
@@ -605,7 +661,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `login`, `password`, `email`, `surname`, `name`, `second_name`, `country`, `tel`, `register_date`, `last_login`, `balance`, `banned`, `banned_date`, `banned_comment`, `banned_admin_id`, `activated`) VALUES
 (7,	'root',	'25f43b1486ad95a1398e3eeb3d83bc4010015fcc9bedb35b432e00298d5021f7',	'dizinor@gmail.com',	'fds',	'ef',	'',	'',	'12',	'2013-07-29 16:19:19',	'2013-08-09 18:01:57',	8999173.00,	CONV('0', 2, 10) + 0,	'1999-01-01 00:00:00',	'',	0,	CONV('1', 2, 10) + 0),
-(1,	'admin',	'8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918',	'dizinor@gmail.com',	'dsa',	'ew',	'',	'',	'4321',	'2013-07-30 20:38:36',	'2013-08-07 23:29:51',	4535.00,	CONV('0', 2, 10) + 0,	'1999-01-01 00:00:00',	'',	0,	CONV('1', 2, 10) + 0);
+(1,	'admin',	'8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918',	'dizinor@gmail.com',	'dsa',	'ew',	'',	'',	'4321',	'2013-07-30 20:38:36',	'2013-09-09 21:20:30',	4535.00,	CONV('0', 2, 10) + 0,	'1999-01-01 00:00:00',	'',	0,	CONV('1', 2, 10) + 0);
 
 DROP TABLE IF EXISTS `user_bet`;
 CREATE TABLE `user_bet` (
@@ -614,11 +670,18 @@ CREATE TABLE `user_bet` (
   `id_game` int(10) unsigned NOT NULL COMMENT 'Инедтификатор игры',
   `user_ip` int(10) unsigned NOT NULL COMMENT 'ip пользователя в момент игры',
   `user_agent` varchar(200) NOT NULL COMMENT 'user agent пользователя в момент игры',
-  `balance_start` decimal(11,2) NOT NULL COMMENT 'Баланс пользователя в момент старта игры',
-  `balance_finish` decimal(11,2) NOT NULL COMMENT 'баланс пользователя после окончания',
+  `balance_start` decimal(11,2) unsigned NOT NULL COMMENT 'Баланс пользователя в момент старта игры',
+  `balance_finish` decimal(11,2) unsigned NOT NULL COMMENT 'баланс пользователя после окончания',
+  `sum_win` decimal(11,2) unsigned NOT NULL DEFAULT '0.00' COMMENT 'Сумма выиграша',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Таблица ставок пользователя';
 
+INSERT INTO `user_bet` (`id`, `id_user`, `id_game`, `user_ip`, `user_agent`, `balance_start`, `balance_finish`, `sum_win`) VALUES
+(1,	1,	13466,	123,	'0',	200.00,	0.00,	0.00),
+(2,	1,	13467,	123,	'0',	200.00,	0.00,	0.00),
+(3,	1,	13471,	123,	'0',	200.00,	0.00,	0.00),
+(4,	1,	13484,	123,	'0',	200.00,	0.00,	0.00),
+(5,	1,	13488,	123,	'0',	200.00,	0.00,	0.00);
 
 DROP TABLE IF EXISTS `user_roles`;
 CREATE TABLE `user_roles` (
@@ -636,4 +699,4 @@ INSERT INTO `user_roles` (`role_id`, `user_id`) VALUES
 (2,	7),
 (1,	1);
 
--- 2013-09-04 04:10:18
+-- 2013-09-09 22:16:46

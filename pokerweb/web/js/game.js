@@ -412,7 +412,7 @@ function StartGameCallback() {
                 var tr = reqPrivate.responseText;
                 console.log(tr);
                 if(Message.Timer != null){
-                    var valueBaseProgress = Message.Timer * 100 / ((Message.Stage > 0) ? 42 : 2);
+                    var valueBaseProgress = Message.Timer * 100 / ((Message.Stage > 0) ? 15 : 2);
                     $("#progressbar").progressbar({value: valueBaseProgress}); 
                     $("#BaseProgressTime").html((Message.Stage > 0 ? 42 : 2) - Message.Timer);
                 }

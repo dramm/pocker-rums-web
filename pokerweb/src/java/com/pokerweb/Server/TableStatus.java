@@ -5,6 +5,7 @@
 package com.pokerweb.Server;
 
 import com.pokerweb.DB.DBManager;
+import com.pokerweb.DB.Game;
 import com.pokerweb.crypto.CryptoManager;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,13 +30,17 @@ public class TableStatus {
     public Table TableTwo;
     public Table TableThree;
     public Map<Long,UserBet> Bets;
+    public Map<Long,Double> WinnUserList;
     public JSONArray ShutdownInfo = new JSONArray();
     public int Stage;
     public int Timer;
     public long Round;
     public boolean ServerResponce;
+    Game GMData;
     private TableStatus(){
+        GMData = new Game();
         this.Bets = new HashMap<Long,UserBet>();
+        WinnUserList = new HashMap<Long, Double>();
         Timer = 0;
         Stage = -1;
         ServerResponce = true;
@@ -67,8 +72,9 @@ public class TableStatus {
                         break;
                         
                     case 1:
-                        if(TableStatus.GetInstance().Timer >= 42){
+                        if(TableStatus.GetInstance().Timer >= 15){
                             ServerResponce = false;
+                            GMData.WriteBetsCurrentStage();
                             SendBetsToServer();
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
@@ -79,8 +85,9 @@ public class TableStatus {
                         break;
                         
                     case 2:
-                        if(TableStatus.GetInstance().Timer >= 42){ 
+                        if(TableStatus.GetInstance().Timer >= 15){ 
                             ServerResponce = false;
+                            GMData.WriteBetsCurrentStage();
                             SendBetsToServer();
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
@@ -91,8 +98,9 @@ public class TableStatus {
                         break;
                             
                     case 3:
-                        if(TableStatus.GetInstance().Timer >= 42){
+                        if(TableStatus.GetInstance().Timer >= 15){
                             ServerResponce = false;
+                            GMData.WriteBetsCurrentStage();
                             SendBetsToServer();
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
@@ -103,7 +111,7 @@ public class TableStatus {
                         break;
                                 
                     case 4:
-                        if(TableStatus.GetInstance().Timer >= 42){             
+                        if(TableStatus.GetInstance().Timer >= 15){             
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
                             TableStatus.GetInstance().Timer = 0;
@@ -112,7 +120,7 @@ public class TableStatus {
                             TableStatus.GetInstance().Timer++;
                         break;
                     case 5:{
-                        if(TableStatus.GetInstance().Timer >= 42){             
+                        if(TableStatus.GetInstance().Timer >= 15){             
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
                             TableStatus.GetInstance().Timer = 0;
@@ -575,6 +583,14 @@ public class TableStatus {
                         ShutdownInfo.put("Table3River");
                 }
             }
+            
+            JSONArray Winners = js.getJSONArray("Winners");
+            for (int i = 0; i<Winners.length(); i++){
+                JSONObject UserWinn = new JSONObject(Winners.get(i).toString());
+                WinnUserList.put(UserWinn.getLong("playerId"), UserWinn.getDouble("winnSize"));
+            }
+            
+            GMData.CalculateBalanceUser();
           
             Stage = 5;
         } catch (JSONException ex) {
@@ -594,7 +610,7 @@ public class TableStatus {
     }
     
     public synchronized boolean SetNewBet(JSONArray Table1,
-            JSONArray Table2,
+           JSONArray Table2,
             JSONArray Table3,
             double Sum){
         try {

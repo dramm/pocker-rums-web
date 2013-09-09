@@ -937,7 +937,7 @@ public class DBManager{
         }
     }
     
-    public UserAllInformation GetCurrentUserAllInfo(){
+    public synchronized UserAllInformation GetCurrentUserAllInfo(){
         UserAllInformation UserInfo = new UserAllInformation();
         PreparedStatement stmt = null;
         String query="select "
