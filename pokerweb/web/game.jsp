@@ -425,9 +425,9 @@
                         <div style="float: left;">Коэф.</div>
                         <div id="Factor" style="margin-right:10px;float: left;">6,00</div>
                         <div style="float: left;">Мин.</div>
-                        <div id="MinBet" style="margin-right:10px;float: left">0,5</div>
+                        <div id="MinBet" style="margin-right:10px;float: left">4.0</div>
                         <div style="float: left;">Макс.</div>
-                        <div id="MaxBet" style="float: left;">50,00</div>
+                        <div id="MaxBet" style="float: left;">баланс</div>
                         </div>
                         
                         <div class="ExpressBet">
