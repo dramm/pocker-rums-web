@@ -20,28 +20,28 @@ import java.util.logging.Logger;
  */
 public class Game{
     public boolean CalculateBalanceUser(){
-       String query = "UPDATE users SET balance = balance + ? where id = ?";
        PreparedStatement stmt = null;
+       String query = null;
         for (Map.Entry<Long, Double> entry : TableStatus.GetInstance().WinnUserList.entrySet()) {
            try {
+               query = "UPDATE users SET balance = balance + " + entry.getValue() + " where id = ?";
                stmt = DBManager.GetInstance().connection.prepareStatement(query);
                stmt.setLong(1, entry.getKey());
-               stmt.setDouble(2, entry.getValue());
                stmt.executeUpdate();
                
                query = "UPDATE user_bet SET sum_win = ? where id_user = ? and id_game = ?";
-               stmt.setLong(1, entry.getKey());
-               stmt.setDouble(2, TableStatus.GetInstance().Round);
+               stmt = DBManager.GetInstance().connection.prepareStatement(query);
+               stmt.setDouble(1, entry.getValue());
+               stmt.setLong(2, entry.getKey());
+               stmt.setLong(3, TableStatus.GetInstance().Round);
                stmt.executeUpdate();
            } catch (SQLException ex) {
                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
            }
         }
-       
-                           
-                        
         return true;
     }
+ 
     
     public boolean WriteBetsCurrentStage(){
         try {
@@ -55,14 +55,14 @@ public class Game{
                         + "balance_start,"
                         + "balance_finish"
                         + ") "
-                        + "values(?,?,?,?,?,?)";
+                        + "values(?,?,?,?,(select balance from users where id = ?),?)";
                 stmt = DBManager.GetInstance().connection.prepareStatement(query);
                 stmt.setLong(1, item.getKey());
                 stmt.setLong(2, TableStatus.GetInstance().Round);
                 stmt.setLong(3, 123);
                 stmt.setString(4, "0");
                 DBManager.GetInstance().GetCurrentUserAllInfo();
-                stmt.setDouble(5, 200);
+                stmt.setLong(5, item.getKey());
                 stmt.setDouble(6, 0);
                 stmt.executeUpdate();
                 query = "select id from user_bet where id_game=" + TableStatus.GetInstance().Round;
@@ -198,6 +198,10 @@ public class Game{
                         stmt.executeUpdate();
                     }
                 }
+            query = "UPDATE users as t1 SET t1.balance = t1.balance - " + item.getValue().Sum + " where t1.id = ?";
+            stmt = DBManager.GetInstance().connection.prepareStatement(query);
+            stmt.setLong(1, item.getKey());
+            stmt.executeUpdate();
             }
             return true;
         } catch (SQLException ex) {

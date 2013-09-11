@@ -72,7 +72,7 @@ public class TableStatus {
                         break;
                         
                     case 1:
-                        if(TableStatus.GetInstance().Timer >= 15){
+                        if(TableStatus.GetInstance().Timer >= 42){
                             ServerResponce = false;
                             GMData.WriteBetsCurrentStage();
                             SendBetsToServer();
@@ -85,7 +85,7 @@ public class TableStatus {
                         break;
                         
                     case 2:
-                        if(TableStatus.GetInstance().Timer >= 15){ 
+                        if(TableStatus.GetInstance().Timer >= 42){ 
                             ServerResponce = false;
                             GMData.WriteBetsCurrentStage();
                             SendBetsToServer();
@@ -98,7 +98,7 @@ public class TableStatus {
                         break;
                             
                     case 3:
-                        if(TableStatus.GetInstance().Timer >= 15){
+                        if(TableStatus.GetInstance().Timer >= 42){
                             ServerResponce = false;
                             GMData.WriteBetsCurrentStage();
                             SendBetsToServer();
@@ -111,7 +111,7 @@ public class TableStatus {
                         break;
                                 
                     case 4:
-                        if(TableStatus.GetInstance().Timer >= 15){             
+                        if(TableStatus.GetInstance().Timer >= 42){             
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
                             TableStatus.GetInstance().Timer = 0;
@@ -120,7 +120,7 @@ public class TableStatus {
                             TableStatus.GetInstance().Timer++;
                         break;
                     case 5:{
-                        if(TableStatus.GetInstance().Timer >= 15){             
+                        if(TableStatus.GetInstance().Timer >= 42){             
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
                             TableStatus.GetInstance().Timer = 0;
@@ -229,11 +229,13 @@ public class TableStatus {
                 Table1.append("Bord",GetTableTwo().Tern);
                 Table2.append("Bord",GetTableThree().Tern);
             }
-            if(Stage == 4 && StageUser != 4){
+            if(Stage >= 4 && StageUser != 4){
                 Table0.append("Bord",GetTableOne().River);
                 Table1.append("Bord",GetTableTwo().River);
                 Table2.append("Bord",GetTableThree().River);
             }
+            if(Stage == 5)
+             jsO.put("Shutdown",ShutdownInfo);
         }
         
         
@@ -278,11 +280,13 @@ public class TableStatus {
                 Table1.append("Bord",GetTableTwo().Tern);
                 Table2.append("Bord",GetTableThree().Tern);
             }
-            if(Stage == 4){
+            if(Stage >= 4){
                 Table0.append("Bord",GetTableOne().River);
                 Table1.append("Bord",GetTableTwo().River);
                 Table2.append("Bord",GetTableThree().River);
             }
+            if(Stage == 5)
+             jsO.put("Shutdown",ShutdownInfo);
         }
         if(StageUser == 1){
             if(Stage >= 2){
@@ -317,11 +321,13 @@ public class TableStatus {
                 Table1.append("Bord",GetTableTwo().Tern);
                 Table2.append("Bord",GetTableThree().Tern);
             }
-            if(Stage == 4){
+            if(Stage >= 4){
                 Table0.append("Bord",GetTableOne().River);
                 Table1.append("Bord",GetTableTwo().River);
                 Table2.append("Bord",GetTableThree().River);
             }
+            if(Stage == 5)
+             jsO.put("Shutdown",ShutdownInfo);
         }
         
         if(StageUser == 2){
@@ -345,15 +351,17 @@ public class TableStatus {
                     Table2.append("User"+String.valueOf(i),GetTableThree().Hands.get(i).Indicator);
                 }
             }
-            if(Stage == 4){
+            if(Stage >= 4){
                 Table0.append("Bord",GetTableOne().River);
                 Table1.append("Bord",GetTableTwo().River);
                 Table2.append("Bord",GetTableThree().River);
             }
+            if(Stage == 5)
+             jsO.put("Shutdown",ShutdownInfo);
         }
         
         if(StageUser == 3){
-            if(Stage == 4){
+            if(Stage >= 4){
                 Table0.append("Bord",GetTableOne().River);
                
                 Table1.append("Bord",GetTableTwo().River);
@@ -374,6 +382,8 @@ public class TableStatus {
                     Table2.append("User"+String.valueOf(i),GetTableThree().Hands.get(i).Indicator);
                 }
             }
+            if(Stage == 5)
+             jsO.put("Shutdown",ShutdownInfo);
         }
         
         if(StageUser == 4)
@@ -609,10 +619,7 @@ public class TableStatus {
         }
     }
     
-    public synchronized boolean SetNewBet(JSONArray Table1,
-           JSONArray Table2,
-            JSONArray Table3,
-            double Sum){
+    public synchronized boolean SetNewBet(JSONArray Table1,JSONArray Table2,JSONArray Table3,double Sum){
         try {
             UserBet bet = new UserBet();
             bet.Sum = Sum;
@@ -634,8 +641,9 @@ public class TableStatus {
                     hand.add(Table3.getInt(i));
                 bet.TableHand.put(2,hand);
                         }
-            Bets.put(DBManager.GetInstance().GetCurrentUserId(), bet);
-          
+            Long UserId = DBManager.GetInstance().GetCurrentUserId();
+            Bets.put(UserId, bet);
+           // GMData.CalculateBalanceUserNewBet(bet,UserId);
             return true;
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);

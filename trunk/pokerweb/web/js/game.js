@@ -316,16 +316,16 @@ function TableUserChangeCheck(el,input)
                 el.css("background","-o-linear-gradient(top, #d52711 0%, #d76255 100%)");
                 el.css("background","-ms-linear-gradient(top, #d52711 0%, #d76255 100%)");
                 el.css("background","linear-gradient(top, #d52711 0%, #d76255 100%)");
+                input.attr("checked", true);
                 SetBetHand(true);
-                input.attr("checked", true)
 	} else {
                 el.css("background","-moz-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
                 el.css("background","-webkit-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
                 el.css("background","-o-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
                 el.css("background","-ms-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
                 el.css("background","linear-gradient(top, #49a6e8 0%, #4281a9 100%)");	
-                SetBetHand(false);
-                input.attr("checked", false)
+                //SetBetHand(false);
+                input.attr("checked", false);
 	}
      return true;
 }
@@ -344,39 +344,52 @@ var el = el,input = input;
 }
 
 function SetBetHand(set){
-    var json = { };
-    json["Table1"] = { };
-    json["Table2"] = { };
-    json["Table3"] = { };
-    json["Sum"] = $("#SumBetUser").html();
-    json.Table1 = [];
-    json.Table2 = [];
-    json.Table3 = [];
-    var index = 0;
+//    var json = { };
+//    json["Table1"] = { };
+//    json["Table2"] = { };
+//    json["Table3"] = { };
+//    json["Sum"] = $("#SumBetUser").html();
+//    json.Table1 = [];
+//    json.Table2 = [];
+//    json.Table3 = [];
+//    var index = 0;
+//    for(var i = 1; i < 5; i++)
+//        if($("#Table1User"+i+"Check").attr("checked")){
+//           json.Table1[index++] = i-1;
+//        }
+//    index = 0;
+//   for(var i = 1; i < 7; i++)
+//        if($("#Table2User"+i+"Check").attr("checked"))
+//           json.Table2[index++] = i-1;
+//   index = 0;
+//   for(var i = 1; i < 9; i++)
+//        if($("#Table3User"+i+"Check").attr("checked"))
+//           json.Table3[index++] = i-1;
+//    $.ajax({
+//   type: "POST",
+//   url: "/CheckBet",
+//   data: json.toString(),
+//   success: function(msg){
+//       var Message = JSON.parse(msg);
+//       $("#SumBetUser").html(Message.Sum);
+//       $("#MinBet").html(Message.Min);
+//       $("#MaxBet").html(Message.Max);
+//   }
+// });
+
+var count = 0;
     for(var i = 1; i < 5; i++)
-        if($("#Table1User"+i+"Check").attr("checked")){
-           json.Table1[index++] = i-1;
-        }
-    index = 0;
+        if($("#Table1User"+i+"Check").attr("checked"))
+           count++;
    for(var i = 1; i < 7; i++)
         if($("#Table2User"+i+"Check").attr("checked"))
-           json.Table2[index++] = i-1;
-   index = 0;
+           count++;
    for(var i = 1; i < 9; i++)
         if($("#Table3User"+i+"Check").attr("checked"))
-           json.Table3[index++] = i-1;
-    $.ajax({
-   type: "POST",
-   url: "/CheckBet",
-   data: json.toString(),
-   success: function(msg){
-       var Message = JSON.parse(msg);
-       $("#SumBetUser").html(Message.Sum);
-       $("#MinBet").html(Message.Min);
-       $("#MaxBet").html(Message.Max);
-   }
- });
-    
+           count++;
+            var CurrentSum = parseFloat($("#SumBetUser").html());
+            if(count != 0 && (CurrentSum/count) < 4)
+                $("#SumBetUser").html(4 * count);
 }
 
 function StartGame(){
@@ -412,7 +425,7 @@ function StartGameCallback() {
                 var tr = reqPrivate.responseText;
                 console.log(tr);
                 if(Message.Timer != null){
-                    var valueBaseProgress = Message.Timer * 100 / ((Message.Stage > 0) ? 15 : 2);
+                    var valueBaseProgress = Message.Timer * 100 / ((Message.Stage > 0) ? 42 : 2);
                     $("#progressbar").progressbar({value: valueBaseProgress}); 
                     $("#BaseProgressTime").html((Message.Stage > 0 ? 42 : 2) - Message.Timer);
                 }
