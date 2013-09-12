@@ -56,7 +56,7 @@
 <li><a href="#tabs-4">Изменение пароля</a></li>
 <li><a href="#tabs-5">Изменение телефона</a></li>
 <li><a href="#tabs-6">Платежная информация</a></li>
-<li><a href="#tabs-7">Статистика пользователя</a></li>
+<li><a href="#tabs-7">Ваша статистика</a></li>
 <li><a href="#tabs-8">Вывод средств</a></li>
 <li><a href="#tabs-10">Ваши заявки на выплату</a></li>
 <%if(IsManager || IsAdministrator){%>
@@ -67,6 +67,9 @@
 <%}%>
 <%if(IsAdministrator){%>
 <li><a href="#tabs-12">Игравой сервер</a></li>
+<%}%>
+<%if(IsManager || IsAdministrator){%>
+<li><a href="#tabs-13">Статистика пользователей</a></li>
 <%}%>
 </ul>
     
@@ -227,6 +230,8 @@
     
     <div id="tabs-7">
         <div style="float: left;">Ваш баланс: <label id="Balance"/></div>
+        <table id="StatisticListCurrentUser"><tr><td /></tr></table>
+        <div id="StatisticPagerCurrentUser"></div>
             </div>
     
     <div id="tabs-8">
@@ -298,6 +303,13 @@
     <div id="ListUsers">
     </div>
     </div>
+<%}%>
+
+<%if(IsAdministrator || IsManager){%>
+<div id="tabs-13">
+    <table id="StatisticListAllUser"><tr><td /></tr></table>
+        <div id="StatisticPagerAllUser"></div>
+</div>
 <%}%>
 </div>
                     </div>

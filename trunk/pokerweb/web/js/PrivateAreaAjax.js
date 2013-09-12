@@ -118,6 +118,11 @@ if(selected == '#tabs-9')
     GetRequestOutMoney(0,10);
 if(selected == '#tabs-11')
     GetUsers(0,10);
+if(selected == '#tabs-7')
+    GetCurrentUserStatistic();
+if(selected == '#tabs-13')
+    GetAllUserStatistic();
+
 }
 }).addClass( "ui-tabs-vertical ui-helper-clearfix" );
 $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
@@ -958,4 +963,363 @@ function getCookie(name) {
   ));
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
+           function GetCurrentUserStatistic() {
+            'use strict';
+            var mydata = [],
+                $grid = $("#StatisticListCurrentUser"),
+                initDateEdit = function (elem) {
+                    setTimeout(function () {
+                        $(elem).datepicker({
+                            dateFormat: 'dd-M-yy',
+                            autoSize: true,
+                            //showOn: 'button', // it dosn't work in searching dialog
+                            changeYear: true,
+                            changeMonth: true,
+                            showButtonPanel: true,
+                            showWeek: true
+                        });
+                    }, 100);
+                },
+                initDateSearch = function (elem) {
+                    setTimeout(function () {
+                        $(elem).datepicker({
+                            dateFormat: 'dd-M-yy',
+                            autoSize: true,
+                            changeYear: true,
+                            changeMonth: true,
+                            showWeek: true,
+                            showButtonPanel: true
+                        });
+                    }, 100);
+                },numberTemplate = {
+                    formatter: 'number', align: 'right', sorttype: 'number', editable: true,
+                    searchoptions: { sopt: ['eq', 'ne', 'lt', 'le', 'gt', 'ge', 'nu', 'nn', 'in', 'ni'] }
+                },
+                getSelectedText = function () {
+                    var text = '';
+                    if (window.getSelection) {
+                        text = window.getSelection();
+                    } else if (document.getSelection) {
+                        text = document.getSelection();
+                    } else if (document.selection) {
+                        text = document.selection.createRange().text;
+                    }
+                    return typeof (text) === 'string' ? text : text.toString();
+                },
+                createContexMenuFromNavigatorButtons = function (grid, pager) {
+                    var menuId = 'menu_' + grid[0].id, menuUl = $('<ul>'),
+                        menuDiv = $('<div>').attr('id', menuId);
 
+                    menuUl.appendTo(menuDiv);
+                    menuDiv.appendTo('body');
+
+                    grid.contextMenu("myMenu1", {
+                        bindings: {
+                            'Start': function (trigger, currentTarget) {
+                                $.ajax({
+                                    url: "GetUserStatistic",
+                                    type: "post",
+                                    success: function (response, textStatus, jqXHR) {
+                                            alert("Миссия выполнена");
+                                    },
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        alert("error");
+                                    },
+                                    complete: function () {
+                                    }
+                                });
+                            },
+                            'Stop': function () {
+                                alert("2");
+                            },
+                            'Del': function (trigger, currentTarget) {
+                                $.ajax({
+                                    url: "PrivateArea/DelVm",
+                                    type: "post",
+                                    data: { number: grid[0].p.selrow },
+                                    success: function (response, textStatus, jqXHR) {
+                                        alert("Миссия выполнена");
+                                    },
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        alert("error");
+                                    },
+                                    complete: function () {
+                                    }
+                                });
+                            }
+                        }, 
+                        onContextMenu: function (e) {
+                            var p = grid[0].p, i, lastSelId, $target = $(e.target),
+                                rowId = $target.closest("tr.jqgrow").attr("id"),
+                                isInput = $target.is(':text:enabled') ||
+                                $target.is('input[type=textarea]:enabled') ||
+                                $target.is('textarea:enabled');
+                            
+                            if (rowId && !isInput && getSelectedText() === '') {
+                                i = $.inArray(rowId, p.selarrrow);
+                                if (p.selrow !== rowId && i < 0) {
+                                    grid.jqGrid('setSelection', rowId);
+                                    
+                                } else if (p.multiselect) {
+                                    lastSelId = p.selarrrow[p.selarrrow.length - 1];
+                                    if (i !== p.selarrrow.length - 1) {
+                                        p.selarrrow[p.selarrrow.length - 1] = rowId;
+                                        p.selarrrow[i] = lastSelId;
+                                        p.selrow = rowId;
+                                       
+                                    }
+                                }
+                                return true;
+                            } else {
+                                return false; // no contex menu
+                            }
+                       
+                        }
+                    });
+                },
+                lastSel,
+                autoedit = false;
+
+            $grid.jqGrid({
+                url: 'GetCurrentUserStatistic',
+                datatype: "json",
+                colNames: ['id_game', 'sum_bet', 'date_bet', 'sum_win'],
+                colModel: [
+                    { name: 'id_game', index: 'id_game',width: 80},
+                    { name: 'sum_bet', index: 'sum_bet', width: 80 },
+                    { name: 'date_bet', index: 'date_bet', width: 120 },
+                    { name: 'sum_win', index: 'sum_win', width: 100 }
+                     ],
+                rowNum: 20,
+                rowList: [5, 10, 20],
+                pager: '#StatisticPagerCurrentUser',
+                gridview: true,
+               // rownumbers: true,
+                //multiselect: true,
+                mtype: "POST",
+                autoencode: true,
+                ignoreCase: true,
+                //sortname: 'invdate',
+                viewrecords: true,
+                sortorder: 'asc',
+                height: '110px',
+                caption: 'Статистика текущего пользователя',
+               // editurl: 'clientArray',
+                beforeSelectRow: function (rowid) {
+                    if (rowid !== lastSel) {
+                        $(this).jqGrid('restoreRow', lastSel);
+                        lastSel = rowid;
+                    }
+                    return true;
+                },
+                ondblClickRow: function (rowid, iRow, iCol, e) {
+                    $(this).jqGrid('editRow', rowid, true, function () {
+                        $("input, select", e.target).focus();
+                    });
+                    return;
+                }
+            });
+
+           
+           jQuery("#StatisticListCurrentUser").jqGrid('navGrid','#StatisticPagerCurrentUser',{edit:false,add:false,del:false,view: false});
+//            $grid.jqGrid('navGrid', '#pager', { view: true });
+            
+            $("#AutoEdit").button({
+                text: false,
+                icons: { primary: "ui-icon-mail-closed" }
+            }).click(function () {
+                var iconClass, $this = $(this);
+                if (!autoedit) { // $this.is(':checked')) {
+                    autoedit = true;
+                    iconClass = "ui-icon-mail-open";
+                } else {
+                    autoedit = false;
+                    iconClass = "ui-icon-mail-closed";
+                }
+                $this.button("option", { icons: { primary: iconClass } });
+            });
+            createContexMenuFromNavigatorButtons($grid, '#StatisticPagerCurrentUser');
+            
+        }
+     
+     
+     function GetAllUserStatistic() {
+            'use strict';
+            var mydata = [],
+                $grid = $("#StatisticListAllUser"),
+                initDateEdit = function (elem) {
+                    setTimeout(function () {
+                        $(elem).datepicker({
+                            dateFormat: 'dd-M-yy',
+                            autoSize: true,
+                            //showOn: 'button', // it dosn't work in searching dialog
+                            changeYear: true,
+                            changeMonth: true,
+                            showButtonPanel: true,
+                            showWeek: true
+                        });
+                    }, 100);
+                },
+                initDateSearch = function (elem) {
+                    setTimeout(function () {
+                        $(elem).datepicker({
+                            dateFormat: 'dd-M-yy',
+                            autoSize: true,
+                            changeYear: true,
+                            changeMonth: true,
+                            showWeek: true,
+                            showButtonPanel: true
+                        });
+                    }, 100);
+                },numberTemplate = {
+                    formatter: 'number', align: 'right', sorttype: 'number', editable: true,
+                    searchoptions: { sopt: ['eq', 'ne', 'lt', 'le', 'gt', 'ge', 'nu', 'nn', 'in', 'ni'] }
+                },
+                getSelectedText = function () {
+                    var text = '';
+                    if (window.getSelection) {
+                        text = window.getSelection();
+                    } else if (document.getSelection) {
+                        text = document.getSelection();
+                    } else if (document.selection) {
+                        text = document.selection.createRange().text;
+                    }
+                    return typeof (text) === 'string' ? text : text.toString();
+                },
+                createContexMenuFromNavigatorButtons = function (grid, pager) {
+                    var menuId = 'menu_' + grid[0].id, menuUl = $('<ul>'),
+                        menuDiv = $('<div>').attr('id', menuId);
+
+                    menuUl.appendTo(menuDiv);
+                    menuDiv.appendTo('body');
+
+                    grid.contextMenu("myMenu1", {
+                        bindings: {
+                            'Start': function (trigger, currentTarget) {
+                                $.ajax({
+                                    url: "GetUserStatistic",
+                                    type: "post",
+                                    success: function (response, textStatus, jqXHR) {
+                                            alert("Миссия выполнена");
+                                    },
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        alert("error");
+                                    },
+                                    complete: function () {
+                                    }
+                                });
+                            },
+                            'Stop': function () {
+                                alert("2");
+                            },
+                            'Del': function (trigger, currentTarget) {
+                                $.ajax({
+                                    url: "PrivateArea/DelVm",
+                                    type: "post",
+                                    data: { number: grid[0].p.selrow },
+                                    success: function (response, textStatus, jqXHR) {
+                                        alert("Миссия выполнена");
+                                    },
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        alert("error");
+                                    },
+                                    complete: function () {
+                                    }
+                                });
+                            }
+                        }, 
+                        onContextMenu: function (e) {
+                            var p = grid[0].p, i, lastSelId, $target = $(e.target),
+                                rowId = $target.closest("tr.jqgrow").attr("id"),
+                                isInput = $target.is(':text:enabled') ||
+                                $target.is('input[type=textarea]:enabled') ||
+                                $target.is('textarea:enabled');
+                            
+                            if (rowId && !isInput && getSelectedText() === '') {
+                                i = $.inArray(rowId, p.selarrrow);
+                                if (p.selrow !== rowId && i < 0) {
+                                    grid.jqGrid('setSelection', rowId);
+                                    
+                                } else if (p.multiselect) {
+                                    lastSelId = p.selarrrow[p.selarrrow.length - 1];
+                                    if (i !== p.selarrrow.length - 1) {
+                                        p.selarrrow[p.selarrrow.length - 1] = rowId;
+                                        p.selarrrow[i] = lastSelId;
+                                        p.selrow = rowId;
+                                       
+                                    }
+                                }
+                                return true;
+                            } else {
+                                return false; // no contex menu
+                            }
+                       
+                        }
+                    });
+                },
+                lastSel,
+                autoedit = false;
+
+            $grid.jqGrid({
+                url: 'GetAllUserStatistic',
+                datatype: "json",
+                colNames: ['id_game', 'login', 'sum_bet', 'date_bet', 'sum_win'],
+                colModel: [
+                    { name: 'id_game', index: 'id_game',width: 80},
+                    { name: 'login', index: 'login',width: 80},
+                    { name: 'sum_bet', index: 'sum_bet', width: 80 },
+                    { name: 'date_bet', index: 'date_bet', width: 120 },
+                    { name: 'sum_win', index: 'sum_win', width: 100 }
+                     ],
+                rowNum: 20,
+                rowList: [5, 10, 20],
+                pager: '#StatisticPagerAllUser',
+                gridview: true,
+               // rownumbers: true,
+                //multiselect: true,
+                mtype: "POST",
+                autoencode: true,
+                ignoreCase: true,
+                //sortname: 'invdate',
+                viewrecords: true,
+                sortorder: 'asc',
+                height: '110px',
+                caption: 'Статистика текущего пользователя',
+               // editurl: 'clientArray',
+                beforeSelectRow: function (rowid) {
+                    if (rowid !== lastSel) {
+                        $(this).jqGrid('restoreRow', lastSel);
+                        lastSel = rowid;
+                    }
+                    return true;
+                },
+                ondblClickRow: function (rowid, iRow, iCol, e) {
+                    $(this).jqGrid('editRow', rowid, true, function () {
+                        $("input, select", e.target).focus();
+                    });
+                    return;
+                }
+            });
+
+           
+           jQuery("#StatisticListAllUser").jqGrid('navGrid','#StatisticPagerAllUser',{edit:false,add:false,del:false,view: false});
+//            $grid.jqGrid('navGrid', '#pager', { view: true });
+            
+            $("#AutoEdit").button({
+                text: false,
+                icons: { primary: "ui-icon-mail-closed" }
+            }).click(function () {
+                var iconClass, $this = $(this);
+                if (!autoedit) { // $this.is(':checked')) {
+                    autoedit = true;
+                    iconClass = "ui-icon-mail-open";
+                } else {
+                    autoedit = false;
+                    iconClass = "ui-icon-mail-closed";
+                }
+                $this.button("option", { icons: { primary: iconClass } });
+            });
+            createContexMenuFromNavigatorButtons($grid, '#StatisticPagerAllUser');
+            
+        }
+     
