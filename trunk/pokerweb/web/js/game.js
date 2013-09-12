@@ -207,12 +207,16 @@ function() {
 
 $("#SumBetUp").click(
         function() {
+    if($("#SumBetUp").attr("disabled"))
+        return;
             var CurrentSum = parseFloat($("#SumBetUser").html());
             $("#SumBetUser").html(CurrentSum + 0.50);
 });
 
 $("#SumBetDown").click(
         function() {
+    if($("#SumBetDown").attr("disabled"))
+            return ;
     var count = 0;
     for(var i = 1; i < 5; i++)
         if($("#Table1User"+i+"Check").attr("checked"))
@@ -230,6 +234,21 @@ $("#SumBetDown").click(
 
 $("#SendNewBet").click(
         function(){
+    var count=0;
+           for(var i = 1; i < 5; i++)
+        if($("#Table1User"+i+"Check").attr("checked"))    
+           count++;
+    
+   for(var i = 1; i < 7; i++)
+        if($("#Table2User"+i+"Check").attr("checked"))
+            count++;
+   
+   for(var i = 1; i < 9; i++)
+        if($("#Table3User"+i+"Check").attr("checked"))
+           count++;
+    if($("#SendNewBet").attr("disabled") || count==0)
+            return ;
+        
     var json = { };
     json["Table1"] = { };
     json["Table2"] = { };
@@ -241,21 +260,32 @@ $("#SendNewBet").click(
     var index = 0;
     for(var i = 1; i < 5; i++){
         $("#Table1User"+i+"Check").attr("disabled",true);
+        SetNoActiveButt($("#Table1User"+i+"CheckBackground"));
         if($("#Table1User"+i+"Check").attr("checked"))    
            json.Table1[index++] = i-1;
     }        
     index = 0;
    for(var i = 1; i < 7; i++){
+       SetNoActiveButt($("#Table2User"+i+"CheckBackground"));
         $("#Table2User"+i+"Check").attr("disabled",true);
         if($("#Table2User"+i+"Check").attr("checked"))
             json.Table2[index++] = i-1;
    }
    index = 0;
    for(var i = 1; i < 9; i++){
+       SetNoActiveButt($("#Table3User"+i+"CheckBackground"));
        $("#Table3User"+i+"Check").attr("disabled",true);
         if($("#Table3User"+i+"Check").attr("checked"))
            json.Table3[index++] = i-1;
    }
+   $("#SumBetUser").attr("disabled",true);
+   SetNoActiveButt($("#SumBetUser"));
+   $("#SumBetUp").attr("disabled",true);
+   SetNoActiveButt($("#SumBetUp"));
+   $("#SumBetDown").attr("disabled",true);
+   SetNoActiveButt($("#SumBetDown"));
+   $("#SendNewBet").attr("disabled",true);
+   SetNoActiveButt($("#SendNewBet"));
    var url = "NewBet";
    reqPrivate = new XMLHttpRequest();
    reqPrivate.open("POST", url, true);
@@ -267,10 +297,94 @@ $("#SendNewBet").click(
                 
         $("#SumBetUser").click(
                 function (){
+            if($("#SumBetUser").attr("disabled"))
+                return ;
            $("#Calculator").dialog({title:"Выберите ставку",closeText:"X", modal: true,maxHeight:500,maxWidth:150,minHeight:500,minWidth:150});
                 }     
             );   
 
+
+for(var i = 1; i < 5; i++){
+    $("#Table1User"+i+"Check").attr("disabled",true);
+    SetNoActiveButt($("#Table1User"+i+"CheckBackground"));
+}        
+for(var i = 1; i < 7; i++){
+    SetNoActiveButt($("#Table2User"+i+"CheckBackground"));
+    $("#Table2User"+i+"Check").attr("disabled",true);
+   }
+   for(var i = 1; i < 9; i++){
+       SetNoActiveButt($("#Table3User"+i+"CheckBackground"));
+       $("#Table3User"+i+"Check").attr("disabled",true);
+   }
+   $("#SumBetUser").attr("disabled",true);
+   SetNoActiveButt($("#SumBetUser"));
+   $("#SumBetUp").attr("disabled",true);
+   SetNoActiveButt($("#SumBetUp"));
+   $("#SumBetDown").attr("disabled",true);
+   SetNoActiveButt($("#SumBetDown"));
+   $("#SendNewBet").attr("disabled",true);
+   SetNoActiveButt($("#SendNewBet"));
+   
+   $("#CalcButt0").click(function (){
+       var NewSum = parseFloat($("#DisplayCalculator").html()) * 10;
+     if(NewSum<=parseFloat($("#MaxBet").html()))
+         $("#DisplayCalculator").html(NewSum);
+       
+   });
+   $("#CalcButt1").click(function (){
+       var NewSum = (parseFloat($("#DisplayCalculator").html()) * 10)+1;
+     if(NewSum<=parseFloat($("#MaxBet").html()))
+         $("#DisplayCalculator").html(NewSum);
+   });
+   $("#CalcButt2").click(function (){
+       var NewSum = (parseFloat($("#DisplayCalculator").html()) * 10)+2;
+     if(NewSum<=parseFloat($("#MaxBet").html()))
+         $("#DisplayCalculator").html(NewSum);
+   });
+   $("#CalcButt3").click(function (){
+       var NewSum = (parseFloat($("#DisplayCalculator").html()) * 10)+3;
+     if(NewSum<=parseFloat($("#MaxBet").html()))
+         $("#DisplayCalculator").html(NewSum);
+   });
+   $("#CalcButt4").click(function (){
+       var NewSum = (parseFloat($("#DisplayCalculator").html()) * 10)+4;
+     if(NewSum<=parseFloat($("#MaxBet").html()))
+         $("#DisplayCalculator").html(NewSum);
+   });
+   $("#CalcButt5").click(function (){
+       var NewSum = (parseFloat($("#DisplayCalculator").html()) * 10)+5;
+     if(NewSum<=parseFloat($("#MaxBet").html()))
+         $("#DisplayCalculator").html(NewSum);
+   });
+   $("#CalcButt6").click(function (){
+       var NewSum = (parseFloat($("#DisplayCalculator").html()) * 10)+6;
+     if(NewSum<=parseFloat($("#MaxBet").html()))
+         $("#DisplayCalculator").html(NewSum);
+   });
+   $("#CalcButt7").click(function (){
+       var NewSum = (parseFloat($("#DisplayCalculator").html()) * 10)+7;
+     if(NewSum<=parseFloat($("#MaxBet").html()))
+         $("#DisplayCalculator").html(NewSum);
+   });
+   $("#CalcButt8").click(function (){
+       var NewSum = (parseFloat($("#DisplayCalculator").html()) * 10)+8;
+     if(NewSum<=parseFloat($("#MaxBet").html()))
+         $("#DisplayCalculator").html(NewSum);
+   });
+   $("#CalcButt9").click(function (){
+       var NewSum = (parseFloat($("#DisplayCalculator").html()) * 10)+9;
+     if(NewSum<=parseFloat($("#MaxBet").html()))
+         $("#DisplayCalculator").html(NewSum);
+   });
+   
+   $("#SetMaxBet").click(function(){
+       $("#DisplayCalculator").html($("#MaxBet").html());
+   });
+   $("#AppendSum").click(function (){
+       $("#SumBetUser").html($("#DisplayCalculator").html());
+       $("#Calculator").dialog('close');
+       $("#DisplayCalculator").html("0");
+   });
 });
 
 function DisableOtherBet(CurrentBet){
@@ -336,14 +450,39 @@ function TableUserChangeCheck(el,input)
      return true;
 }
 
+function SetNoActiveButt(el){
+    el.css("background","-moz-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+    el.css("background","-webkit-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+    el.css("background","-o-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+    el.css("background","-ms-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+    el.css("background","linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+}
+
+function SetActiveButt(el){
+    el.css("background","-moz-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
+    el.css("background","-webkit-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
+    el.css("background","-o-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
+    el.css("background","-ms-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
+    el.css("background","linear-gradient(top, #49a6e8 0%, #4281a9 100%)");	
+}
+
+function SetActiveSetBetButt(el){
+   		el.css("background","-moz-linear-gradient(top, #d52711 0%, #d76255 100%)");
+                el.css("background","-webkit-linear-gradient(top, #d52711 0%, #d76255 100%)");
+                el.css("background","-o-linear-gradient(top, #d52711 0%, #d76255 100%)");
+                el.css("background","-ms-linear-gradient(top, #d52711 0%, #d76255 100%)");
+                el.css("background","linear-gradient(top, #d52711 0%, #d76255 100%)");
+   
+}
+
 function TableUserChangeCheckStart(el,input){
 var el = el,input = input;
       if(input.attr("checked")) {
-          el.css("background","-moz-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
-          el.css("background","-webkit-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
-          el.css("background","-o-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
-          el.css("background","-ms-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
-          el.css("background","linear-gradient(top, #49a6e8 0%, #4281a9 100%)");	
+          el.css("background","-moz-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+          el.css("background","-webkit-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+          el.css("background","-o-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+          el.css("background","-ms-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+          el.css("background","linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");	
 		
     }
      return true;
@@ -429,7 +568,52 @@ function StartGameCallback() {
             if(reqPrivate.responseText.length > 0){
                 var Message = JSON.parse(reqPrivate.responseText);
                 var tr = reqPrivate.responseText;
-                console.log(tr);
+                //console.log(tr);
+                $("#MaxBet").html(Message.Balance);
+                if(Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                    for(var i = 1; i < 5; i++){
+                        $("#Table1User"+i+"Check").attr("disabled",false);
+                        SetActiveButt($("#Table1User"+i+"CheckBackground"));
+                    }        
+                    for(var i = 1; i < 7; i++){
+                        SetActiveButt($("#Table2User"+i+"CheckBackground"));
+                        $("#Table2User"+i+"Check").attr("disabled",false);
+                    }
+                    for(var i = 1; i < 9; i++){
+                        SetActiveButt($("#Table3User"+i+"CheckBackground"));
+                        $("#Table3User"+i+"Check").attr("disabled",false);
+                    }
+                    $("#SumBetUser").attr("disabled",false);
+                    SetActiveButt($("#SumBetUser"));
+                    $("#SumBetUp").attr("disabled",false);
+                    SetActiveButt($("#SumBetUp"));
+                    $("#SumBetDown").attr("disabled",false);
+                    SetActiveButt($("#SumBetDown"));
+                    $("#SendNewBet").attr("disabled",false);
+                    SetActiveSetBetButt($("#SendNewBet"));
+                }else if($("#CurrentStage").html() != Message.Stage)
+                {
+                    for(var i = 1; i < 5; i++){
+                        $("#Table1User"+i+"Check").attr("disabled",true);
+                        SetNoActiveButt($("#Table1User"+i+"CheckBackground"));
+                    }        
+                    for(var i = 1; i < 7; i++){
+                        SetNoActiveButt($("#Table2User"+i+"CheckBackground"));
+                        $("#Table2User"+i+"Check").attr("disabled",true);
+                    }
+                    for(var i = 1; i < 9; i++){
+                        SetNoActiveButt($("#Table3User"+i+"CheckBackground"));
+                        $("#Table3User"+i+"Check").attr("disabled",true);
+                    }
+                    $("#SumBetUser").attr("disabled",true);
+                    SetNoActiveButt($("#SumBetUser"));
+                    $("#SumBetUp").attr("disabled",true);
+                    SetNoActiveButt($("#SumBetUp"));
+                    $("#SumBetDown").attr("disabled",true);
+                    SetNoActiveButt($("#SumBetDown"));
+                    $("#SendNewBet").attr("disabled",true);
+                    SetNoActiveButt($("#SendNewBet"));
+                }
                 if(Message.Timer != null){
                     var valueBaseProgress = Message.Timer * 100 / ((Message.Stage > 0) ? 42 : 2);
                     $("#progressbar").progressbar({value: valueBaseProgress}); 
@@ -437,8 +621,6 @@ function StartGameCallback() {
                 }
             if(Message.Stage != 0 && Message.Stage != 5  && Message.Table0.User0 == null)
                 return ;
-            else
-                DisableAllBet();
             if(Message.Stage == 0){
                 $("#CurrentStage").html(Message.Stage);
                 $("#ShowCurrentRaund").html(Message.Round);
@@ -580,13 +762,6 @@ function StartGameCallback() {
                         $('#Table3User8Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User7[1]+'.png)');
                         $('#Table3User8CheckBackground').html(Message.Table2.User7[2]);
                         $('#Table3User8Progress').css('bottom' , Message.Table2.User7[3] + '%');  
-                        for(var i = 1; i < 5; i++)
-                            $("#Table1User"+i+"Check").attr("disabled",false);
-                        for(var i = 1; i < 7; i++)
-                            $("#Table2User"+i+"Check").attr("disabled",false);
-                        for(var i = 1; i < 9; i++)
-                            $("#Table3User"+i+"Check").attr("disabled",false);
-                     
                     }
                     
                     if(Message.Stage >= 2){
@@ -599,25 +774,12 @@ function StartGameCallback() {
                         $('#Table3Flop1').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[0]+'.png)');
                         $('#Table3Flop2').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[1]+'.png)');
                         $('#Table3Flop3').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[2]+'.png)'); 
-                        for(var i = 1; i < 5; i++)
-                            $("#Table1User"+i+"Check").attr("disabled",false);
-                        for(var i = 1; i < 7; i++)
-                            $("#Table2User"+i+"Check").attr("disabled",false);
-                        for(var i = 1; i < 9; i++)
-                            $("#Table3User"+i+"Check").attr("disabled",false);
-                        return;
                     }
                     
                     if(Message.Stage >= 3){
                         $('#Table1Tern').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[3]+'.png)');
                         $('#Table2Tern').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[3]+'.png)');
                         $('#Table3Tern').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[3]+'.png)');
-                        for(var i = 1; i < 5; i++)
-                            $("#Table1User"+i+"Check").attr("disabled",false);
-                        for(var i = 1; i < 7; i++)
-                            $("#Table2User"+i+"Check").attr("disabled",false);
-                        for(var i = 1; i < 9; i++)
-                            $("#Table3User"+i+"Check").attr("disabled",false);
                       
                     }
             
@@ -710,12 +872,6 @@ function StartGameCallback() {
                         $('#Table3User8Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User7[1]+'.png)');
                         $('#Table3User8CheckBackground').html(Message.Table2.User7[2]);
                         $('#Table3User8Progress').css('bottom' , Message.Table2.User7[3] + '%');
-                        for(var i = 1; i < 5; i++)
-                            $("#Table1User"+i+"Check").attr("disabled",false);
-                        for(var i = 1; i < 7; i++)
-                            $("#Table2User"+i+"Check").attr("disabled",false);
-                        for(var i = 1; i < 9; i++)
-                            $("#Table3User"+i+"Check").attr("disabled",false);
                         
                     }
                     
@@ -729,12 +885,6 @@ function StartGameCallback() {
                         $('#Table3Flop1').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[0]+'.png)');
                         $('#Table3Flop2').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[1]+'.png)');
                         $('#Table3Flop3').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[2]+'.png)'); 
-                        for(var i = 1; i < 5; i++)
-                            $("#Table1User"+i+"Check").attr("disabled",false);
-                        for(var i = 1; i < 7; i++)
-                            $("#Table2User"+i+"Check").attr("disabled",false);
-                        for(var i = 1; i < 9; i++)
-                            $("#Table3User"+i+"Check").attr("disabled",false);
                         
                     }
                     
@@ -742,12 +892,6 @@ function StartGameCallback() {
                         $('#Table1Tern').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[3]+'.png)');
                         $('#Table2Tern').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[3]+'.png)');
                         $('#Table3Tern').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[3]+'.png)');
-                        for(var i = 1; i < 5; i++)
-                            $("#Table1User"+i+"Check").attr("disabled",false);
-                        for(var i = 1; i < 7; i++)
-                            $("#Table2User"+i+"Check").attr("disabled",false);
-                        for(var i = 1; i < 9; i++)
-                            $("#Table3User"+i+"Check").attr("disabled",false);
                         
                         }
                     
@@ -812,26 +956,12 @@ function StartGameCallback() {
                         $('#Table3Flop1').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[0]+'.png)');
                         $('#Table3Flop2').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[1]+'.png)');
                         $('#Table3Flop3').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[2]+'.png)'); 
-                        for(var i = 1; i < 5; i++)
-                            $("#Table1User"+i+"Check").attr("disabled",false);
-                        for(var i = 1; i < 7; i++)
-                            $("#Table2User"+i+"Check").attr("disabled",false);
-                        for(var i = 1; i < 9; i++)
-                            $("#Table3User"+i+"Check").attr("disabled",false);
-                        
                     }
                     
                     if(Message.Stage >= 3){
                         $('#Table1Tern').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[3]+'.png)');
                         $('#Table2Tern').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[3]+'.png)');
                         $('#Table3Tern').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[3]+'.png)');
-                        for(var i = 1; i < 5; i++)
-                            $("#Table1User"+i+"Check").attr("disabled",false);
-                        for(var i = 1; i < 7; i++)
-                            $("#Table2User"+i+"Check").attr("disabled",false);
-                        for(var i = 1; i < 9; i++)
-                            $("#Table3User"+i+"Check").attr("disabled",false);
-                        
                         }
                     
                     if(Message.Stage == 4){
@@ -890,13 +1020,6 @@ function StartGameCallback() {
                         $('#Table1Tern').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[0]+'.png)');
                         $('#Table2Tern').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[0]+'.png)');
                         $('#Table3Tern').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[0]+'.png)');
-                        for(var i = 1; i < 5; i++)
-                            $("#Table1User"+i+"Check").attr("disabled",false);
-                        for(var i = 1; i < 7; i++)
-                            $("#Table2User"+i+"Check").attr("disabled",false);
-                        for(var i = 1; i < 9; i++)
-                            $("#Table3User"+i+"Check").attr("disabled",false);
-                        
                     }
                     
                     if(Message.Stage >= 4){

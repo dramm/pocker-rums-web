@@ -183,6 +183,7 @@ public class TableStatus {
         JSONObject jsO = new JSONObject();
         jsO.append("Timer", Timer);
         jsO.append("Stage", Stage);
+        jsO.append("Balance", DBManager.GetInstance().GetCurrentUserAllInfo().balance);
         JSONObject Table0 = new JSONObject();
         JSONObject Table1 = new JSONObject();
         JSONObject Table2 = new JSONObject();
@@ -621,6 +622,8 @@ public class TableStatus {
     
     public synchronized boolean SetNewBet(JSONArray Table1,JSONArray Table2,JSONArray Table3,double Sum){
         try {
+            if(Sum > DBManager.GetInstance().GetCurrentUserAllInfo().balance)
+                return false;
             UserBet bet = new UserBet();
             bet.Sum = Sum;
             List<Integer> hand = new ArrayList<Integer>();
