@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -53,9 +56,11 @@ public class Game{
                         + "user_ip,"
                         + "user_agent,"
                         + "balance_start,"
-                        + "balance_finish"
+                        + "balance_finish,"
+                        + "sum_bet,"
+                        + "date_bet"
                         + ") "
-                        + "values(?,?,?,?,(select balance from users where id = ?),?)";
+                        + "values(?,?,?,?,(select balance from users where id = ?),?,?,NOW())";
                 stmt = DBManager.GetInstance().connection.prepareStatement(query);
                 stmt.setLong(1, item.getKey());
                 stmt.setLong(2, TableStatus.GetInstance().Round);
@@ -64,8 +69,9 @@ public class Game{
                 DBManager.GetInstance().GetCurrentUserAllInfo();
                 stmt.setLong(5, item.getKey());
                 stmt.setDouble(6, 0);
+                stmt.setDouble(7, item.getValue().Sum);
                 stmt.executeUpdate();
-                query = "select id from user_bet where id_game=" + TableStatus.GetInstance().Round;
+                query = "select id from user_bet where id_game="+TableStatus.GetInstance().Round+" and id_user="+item.getKey()+" order by id DESC";
                 ResultSet rs = stmt.executeQuery(query);
                 if(!rs.first())
                     return false;
@@ -208,5 +214,83 @@ public class Game{
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+    }
+    
+    public JSONArray GetCurrentUserGameStatistic(){
+        try {
+            PreparedStatement stmt = null;
+            JSONArray jsA = new JSONArray();
+            String query = "select t1.id_game,"
+                    + "t1.id_user,"
+                    + "t4.s as sum_bet,"
+                    + "t1.sum_win,t1.date_bet "
+                    + "from user_bet as t1,"
+                    + "bet_table as t3,"
+                    + "(select id_user,id_game, sum(sum_bet) as s from user_bet group by id_game) as t4 "
+                    + "where " +
+                    " t3.id_bet=t1.id and" +
+                    " t4.id_user=t1.id_user and" +
+                    " t4.id_game=t1.id_game and t1.id_user=? " +
+                    "group by t1.id_game";
+            stmt = DBManager.GetInstance().connection.prepareStatement(query);
+            stmt.setLong(1, DBManager.GetInstance().GetCurrentUserId());
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                JSONObject bet = new JSONObject();
+                bet.put("id_game", rs.getLong("id_game"));
+                bet.put("sum_bet", rs.getDouble("sum_bet"));
+                bet.put("date_bet", rs.getString("date_bet"));
+                bet.put("sum_win", rs.getDouble("sum_win"));
+                jsA.put(bet);
+            }
+            return jsA;
+        } catch (SQLException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (JSONException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+            
+    }
+    
+    public JSONArray GetAllUserGameStatistic(){
+        try {
+            PreparedStatement stmt = null;
+            JSONArray jsA = new JSONArray();
+            String query = "select t1.id_game,"
+                    + "t5.login,"
+                    + "t4.s as sum_bet,"
+                    + "t1.sum_win,"
+                    + "t1.date_bet "
+                    + "from user_bet as t1,"
+                    + "bet_table as t3,"
+                    + "users as t5,"
+                    + "(select id_user,id_game, sum(sum_bet) as s from user_bet group by id_game) as t4 " 
+                    + "where " 
+                    + " t3.id_bet=t1.id and " 
+                    + " t4.id_user=t1.id_user and " 
+                    + " t4.id_game=t1.id_game and t5.id=t1.id_user "  
+                    + "group by t1.id_game";
+            stmt = DBManager.GetInstance().connection.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                JSONObject bet = new JSONObject();
+                bet.put("id_game", rs.getLong("id_game"));
+                bet.put("login", rs.getString("login"));
+                bet.put("sum_bet", rs.getDouble("sum_bet"));
+                bet.put("date_bet", rs.getString("date_bet"));
+                bet.put("sum_win", rs.getDouble("sum_win"));
+                jsA.put(bet);
+            }
+            return jsA;
+        } catch (SQLException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (JSONException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+            
     }
 }

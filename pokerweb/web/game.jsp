@@ -37,6 +37,7 @@
                 </div>
                 <script> 
                     $("#progressbar").progressbar({value: 37});
+                    GetCurrentUserStatistic();
                 </script>
                 <div class="button">
                     Объяснение
@@ -500,9 +501,16 @@
                         <div class="ButtonExpressBetSum">X</div>
                         <div class="ButtonExpressBetEnter" id="SendNewBet">Сделать ставку</div>    
                         </div>
+                        <div style="float:left">
+                        <table id="StatisticListCurrentUser"><tr><td /></tr></table>
+                        <div id="StatisticPagerCurrentUser"></div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <script>
+               GetCurrentUserStatistic();
+            </script>
 <div class="rightCol"></div>
     </div>
              <jsp:include page="footer.jsp" flush="true" />

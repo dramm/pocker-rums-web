@@ -239,18 +239,23 @@ $("#SendNewBet").click(
     json.Table2 = [];
     json.Table3 = [];
     var index = 0;
-    for(var i = 1; i < 5; i++)
-        if($("#Table1User"+i+"Check").attr("checked")){
+    for(var i = 1; i < 5; i++){
+        $("#Table1User"+i+"Check").attr("disabled",true);
+        if($("#Table1User"+i+"Check").attr("checked"))    
            json.Table1[index++] = i-1;
-        }
+    }        
     index = 0;
-   for(var i = 1; i < 7; i++)
+   for(var i = 1; i < 7; i++){
+        $("#Table2User"+i+"Check").attr("disabled",true);
         if($("#Table2User"+i+"Check").attr("checked"))
-           json.Table2[index++] = i-1;
+            json.Table2[index++] = i-1;
+   }
    index = 0;
-   for(var i = 1; i < 9; i++)
+   for(var i = 1; i < 9; i++){
+       $("#Table3User"+i+"Check").attr("disabled",true);
         if($("#Table3User"+i+"Check").attr("checked"))
            json.Table3[index++] = i-1;
+   }
    var url = "NewBet";
    reqPrivate = new XMLHttpRequest();
    reqPrivate.open("POST", url, true);
@@ -307,6 +312,7 @@ function DisableCheck(el,input){
 function TableUserChangeCheck(el,input)
 {
      var el = el,input = input;
+     if(!input.attr("disabled"))
    	 if(!input.attr("checked")) {
              var exp = document.getElementById("ExpressCheck");
              if(exp.getAttribute("checked"))
@@ -500,6 +506,7 @@ function StartGameCallback() {
                 if($("#CurrentStage").html() == -1){
                     $("#CurrentStage").html(Message.Stage);
                     $("#ShowCurrentRaund").html(Message.Round);
+                    
                     if(Message.Stage >= 1){
                         $('#Table1User1Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table0.User0[0]+'.png)');
                         $('#Table1User1Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table0.User0[1]+'.png)');
@@ -573,6 +580,13 @@ function StartGameCallback() {
                         $('#Table3User8Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User7[1]+'.png)');
                         $('#Table3User8CheckBackground').html(Message.Table2.User7[2]);
                         $('#Table3User8Progress').css('bottom' , Message.Table2.User7[3] + '%');  
+                        for(var i = 1; i < 5; i++)
+                            $("#Table1User"+i+"Check").attr("disabled",false);
+                        for(var i = 1; i < 7; i++)
+                            $("#Table2User"+i+"Check").attr("disabled",false);
+                        for(var i = 1; i < 9; i++)
+                            $("#Table3User"+i+"Check").attr("disabled",false);
+                     
                     }
                     
                     if(Message.Stage >= 2){
@@ -585,12 +599,26 @@ function StartGameCallback() {
                         $('#Table3Flop1').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[0]+'.png)');
                         $('#Table3Flop2').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[1]+'.png)');
                         $('#Table3Flop3').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[2]+'.png)'); 
+                        for(var i = 1; i < 5; i++)
+                            $("#Table1User"+i+"Check").attr("disabled",false);
+                        for(var i = 1; i < 7; i++)
+                            $("#Table2User"+i+"Check").attr("disabled",false);
+                        for(var i = 1; i < 9; i++)
+                            $("#Table3User"+i+"Check").attr("disabled",false);
+                        return;
                     }
                     
                     if(Message.Stage >= 3){
                         $('#Table1Tern').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[3]+'.png)');
                         $('#Table2Tern').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[3]+'.png)');
                         $('#Table3Tern').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[3]+'.png)');
+                        for(var i = 1; i < 5; i++)
+                            $("#Table1User"+i+"Check").attr("disabled",false);
+                        for(var i = 1; i < 7; i++)
+                            $("#Table2User"+i+"Check").attr("disabled",false);
+                        for(var i = 1; i < 9; i++)
+                            $("#Table3User"+i+"Check").attr("disabled",false);
+                      
                     }
             
                     if(Message.Stage >= 4){
@@ -682,7 +710,13 @@ function StartGameCallback() {
                         $('#Table3User8Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User7[1]+'.png)');
                         $('#Table3User8CheckBackground').html(Message.Table2.User7[2]);
                         $('#Table3User8Progress').css('bottom' , Message.Table2.User7[3] + '%');
-                        return;     
+                        for(var i = 1; i < 5; i++)
+                            $("#Table1User"+i+"Check").attr("disabled",false);
+                        for(var i = 1; i < 7; i++)
+                            $("#Table2User"+i+"Check").attr("disabled",false);
+                        for(var i = 1; i < 9; i++)
+                            $("#Table3User"+i+"Check").attr("disabled",false);
+                        
                     }
                     
                     if(Message.Stage >= 2){
@@ -695,18 +729,33 @@ function StartGameCallback() {
                         $('#Table3Flop1').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[0]+'.png)');
                         $('#Table3Flop2').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[1]+'.png)');
                         $('#Table3Flop3').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[2]+'.png)'); 
+                        for(var i = 1; i < 5; i++)
+                            $("#Table1User"+i+"Check").attr("disabled",false);
+                        for(var i = 1; i < 7; i++)
+                            $("#Table2User"+i+"Check").attr("disabled",false);
+                        for(var i = 1; i < 9; i++)
+                            $("#Table3User"+i+"Check").attr("disabled",false);
+                        
                     }
                     
                     if(Message.Stage >= 3){
                         $('#Table1Tern').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[3]+'.png)');
                         $('#Table2Tern').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[3]+'.png)');
                         $('#Table3Tern').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[3]+'.png)');
-                    }
+                        for(var i = 1; i < 5; i++)
+                            $("#Table1User"+i+"Check").attr("disabled",false);
+                        for(var i = 1; i < 7; i++)
+                            $("#Table2User"+i+"Check").attr("disabled",false);
+                        for(var i = 1; i < 9; i++)
+                            $("#Table3User"+i+"Check").attr("disabled",false);
+                        
+                        }
                     
                     if(Message.Stage >= 4){
                         $('#Table1River').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[4]+'.png)');
                         $('#Table2River').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[4]+'.png)');
                         $('#Table3River').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[4]+'.png)');
+                        
                     }
                     if(Message.Stage == 5)
                         for(var i=0;i<Message.Shutdown.length;i++)
@@ -763,18 +812,33 @@ function StartGameCallback() {
                         $('#Table3Flop1').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[0]+'.png)');
                         $('#Table3Flop2').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[1]+'.png)');
                         $('#Table3Flop3').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[2]+'.png)'); 
+                        for(var i = 1; i < 5; i++)
+                            $("#Table1User"+i+"Check").attr("disabled",false);
+                        for(var i = 1; i < 7; i++)
+                            $("#Table2User"+i+"Check").attr("disabled",false);
+                        for(var i = 1; i < 9; i++)
+                            $("#Table3User"+i+"Check").attr("disabled",false);
+                        
                     }
                     
                     if(Message.Stage >= 3){
                         $('#Table1Tern').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[3]+'.png)');
                         $('#Table2Tern').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[3]+'.png)');
                         $('#Table3Tern').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[3]+'.png)');
-                    }
+                        for(var i = 1; i < 5; i++)
+                            $("#Table1User"+i+"Check").attr("disabled",false);
+                        for(var i = 1; i < 7; i++)
+                            $("#Table2User"+i+"Check").attr("disabled",false);
+                        for(var i = 1; i < 9; i++)
+                            $("#Table3User"+i+"Check").attr("disabled",false);
+                        
+                        }
                     
                     if(Message.Stage == 4){
                         $('#Table1River').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[4]+'.png)');
                         $('#Table2River').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[4]+'.png)');
                         $('#Table3River').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[4]+'.png)');
+                        
                     }
                     if(Message.Stage == 5)
                         for(var i=0;i<Message.Shutdown.length;i++)
@@ -826,12 +890,20 @@ function StartGameCallback() {
                         $('#Table1Tern').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[0]+'.png)');
                         $('#Table2Tern').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[0]+'.png)');
                         $('#Table3Tern').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[0]+'.png)');
+                        for(var i = 1; i < 5; i++)
+                            $("#Table1User"+i+"Check").attr("disabled",false);
+                        for(var i = 1; i < 7; i++)
+                            $("#Table2User"+i+"Check").attr("disabled",false);
+                        for(var i = 1; i < 9; i++)
+                            $("#Table3User"+i+"Check").attr("disabled",false);
+                        
                     }
                     
                     if(Message.Stage >= 4){
                         $('#Table1River').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[1]+'.png)');
                         $('#Table2River').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[1]+'.png)');
                         $('#Table3River').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[1]+'.png)');
+                        
                     }
                     if(Message.Stage == 5)
                         for(var i=0;i<Message.Shutdown.length;i++)
