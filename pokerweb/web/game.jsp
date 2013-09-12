@@ -443,7 +443,7 @@
                             <div class="ButtonExpressBetSum" id="SumBetDown">&lt</div>
                             <div class="ButtonExpressBetSum" id="SumBetUser">4.00</div>
                             <div class="Calculator" name="Calculator" id="Calculator">
-                                <div class="CalculatorDisplay" id="DisplayCalculator"></div>
+                                <div class="CalculatorDisplay" id="DisplayCalculator">0</div>
                                 <div id="CalculatorButtons" style="display: inline-block">
                                     <div style="float: left">
                                     <div class="CalcButt" id="CalcButt1">
