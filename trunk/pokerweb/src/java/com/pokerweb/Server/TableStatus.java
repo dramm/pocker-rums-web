@@ -624,6 +624,8 @@ public class TableStatus {
         try {
             if(Sum > DBManager.GetInstance().GetCurrentUserAllInfo().balance)
                 return false;
+            if(Table1.length() == 0 && Table2.length() == 0 && Table3.length() == 0)
+                return false;
             UserBet bet = new UserBet();
             bet.Sum = Sum;
             List<Integer> hand = new ArrayList<Integer>();
