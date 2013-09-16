@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  * @author vadim
  */
 public class NewPassFromMail implements Runnable{
-     private String Mail;
+    private String Mail;
     private String Token;
     private String Address;
    @Override
