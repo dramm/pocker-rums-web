@@ -570,6 +570,7 @@ function StartGameCallback() {
                 var tr = reqPrivate.responseText;
                 //console.log(tr);
                 $("#MaxBet").html(Message.Balance);
+                
                 if(Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
                     for(var i = 1; i < 5; i++){
                         $("#Table1User"+i+"Check").attr("disabled",false);
@@ -615,9 +616,9 @@ function StartGameCallback() {
                     SetNoActiveButt($("#SendNewBet"));
                 }
                 if(Message.Timer != null){
-                    var valueBaseProgress = Message.Timer * 100 / ((Message.Stage > 0) ? 42 : 2);
+                    var valueBaseProgress = Message.Timer * 100 / ((Message.Stage > 0) ? 42 : 5);
                     $("#progressbar").progressbar({value: valueBaseProgress}); 
-                    $("#BaseProgressTime").html((Message.Stage > 0 ? 42 : 2) - Message.Timer);
+                    $("#BaseProgressTime").html((Message.Stage > 0 ? 42 : 5) - Message.Timer);
                 }
             if(Message.Stage != 0 && Message.Stage != 5  && Message.Table0.User0 == null)
                 return ;
@@ -685,11 +686,256 @@ function StartGameCallback() {
                 return;
             }
             
+            if(Message.Table0.User0[2] == -1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage)
+                            $('#Table1User1Factor').hide();
+                        else
+                            if(Message.Table0.User0[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetNoActiveButt($("#Table1User1CheckBackground"));
+                                $("#Table1User1Check").attr("disabled",true);
+                           }else
+                           if(Message.Table0.User0[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetActiveButt($("#Table1User1CheckBackground"));
+                                $("#Table1User1Check").attr("disabled",false);
+                           }
+                       
+                       if(Message.Table0.User1[2] == -1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage)
+                            $('#Table1User2Factor').hide();
+                        else
+                            if(Message.Table0.User1[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetNoActiveButt($("#Table1User2CheckBackground"));
+                                $("#Table1User2Check").attr("disabled",true);
+                           }else
+                           if(Message.Table0.User1[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetActiveButt($("#Table1User2CheckBackground"));
+                                $("#Table1User2Check").attr("disabled",false);
+                           }
+                       
+                       if(Message.Table0.User1[2] == -1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage)
+                            $('#Table1User2Factor').hide();
+                        else
+                            if(Message.Table0.User1[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetNoActiveButt($("#Table1User2CheckBackground"));
+                                $("#Table1User2Check").attr("disabled",true);
+                           }else
+                           if(Message.Table0.User1[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetActiveButt($("#Table1User2CheckBackground"));
+                                $("#Table1User2Check").attr("disabled",false);
+                           }
+                       
+                       if(Message.Table0.User2[2] == -1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage)
+                            $('#Table1User3Factor').hide();
+                        else
+                            if(Message.Table0.User2[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetNoActiveButt($("#Table1User3CheckBackground"));
+                                $("#Table1User3Check").attr("disabled",true);
+                           }else
+                           if(Message.Table0.User2[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetActiveButt($("#Table1User3CheckBackground"));
+                                $("#Table1User3Check").attr("disabled",false);
+                           }
+                       
+                       if(Message.Table0.User3[2] == -1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage)
+                            $('#Table1User4Factor').hide();
+                        else
+                            if(Message.Table0.User3[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetNoActiveButt($("#Table1User4CheckBackground"));
+                                $("#Table1User4Check").attr("disabled",true);
+                           }
+                       else
+                           if(Message.Table0.User3[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetActiveButt($("#Table1User4CheckBackground"));
+                                $("#Table1User4Check").attr("disabled",false);
+                           }
+                       
+                       
+                       if(Message.Table1.User0[2] == -1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage)
+                            $('#Table2User1Factor').hide();
+                        else
+                            if(Message.Table1.User0[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetNoActiveButt($("#Table2User1CheckBackground"));
+                                $("#Table2User1Check").attr("disabled",true);
+                           }
+                       else
+                           if(Message.Table1.User0[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetActiveButt($("#Table2User1CheckBackground"));
+                                $("#Table2User1Check").attr("disabled",false);
+                           }
+                       
+                       if(Message.Table1.User1[2] == -1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage)
+                            $('#Table2User2Factor').hide();
+                        else
+                            if(Message.Table1.User1[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetNoActiveButt($("#Table2User2CheckBackground"));
+                                $("#Table2User2Check").attr("disabled",true);
+                           }
+                       else
+                           if(Message.Table1.User1[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetActiveButt($("#Table2User2CheckBackground"));
+                                $("#Table2User2Check").attr("disabled",false);
+                           }
+                       
+                       if(Message.Table1.User2[2] == -1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage)
+                            $('#Table2User3Factor').hide();
+                        else
+                            if(Message.Table1.User2[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetNoActiveButt($("#Table2User3CheckBackground"));
+                                $("#Table2User3Check").attr("disabled",true);
+                           }
+                       else
+                           if(Message.Table1.User2[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetActiveButt($("#Table2User3CheckBackground"));
+                                $("#Table2User3Check").attr("disabled",false);
+                           }
+                       
+                       if(Message.Table1.User3[2] == -1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage)
+                            $('#Table2User4Factor').hide();
+                        else
+                            if(Message.Table1.User3[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetNoActiveButt($("#Table2User4CheckBackground"));
+                                $("#Table2User4Check").attr("disabled",true);
+                           }
+                       else
+                           if(Message.Table1.User3[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetActiveButt($("#Table2User4CheckBackground"));
+                                $("#Table2User4Check").attr("disabled",false);
+                           }
+                       
+                       if(Message.Table1.User4[2] == -1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage)
+                            $('#Table2User5Factor').hide();
+                        else
+                            if(Message.Table1.User4[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetNoActiveButt($("#Table2User5CheckBackground"));
+                                $("#Table2User5Check").attr("disabled",true);
+                           }
+                       else
+                           if(Message.Table1.User4[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetActiveButt($("#Table2User5CheckBackground"));
+                                $("#Table2User5Check").attr("disabled",false);
+                           }
+                       
+                       if(Message.Table1.User5[2] == -1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage)
+                            $('#Table2User6Factor').hide();
+                        else
+                            if(Message.Table1.User5[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetNoActiveButt($("#Table2User6CheckBackground"));
+                                $("#Table2User6Check").attr("disabled",true);
+                           }
+                       else
+                           if(Message.Table1.User5[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetActiveButt($("#Table2User6CheckBackground"));
+                                $("#Table2User6Check").attr("disabled",false);
+                           }
+                       
+                       
+                       if(Message.Table2.User0[2] == -1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage)
+                            $('#Table3User1Factor').hide();
+                        else
+                            if(Message.Table2.User0[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetNoActiveButt($("#Table3User1CheckBackground"));
+                                $("#Table3User1Check").attr("disabled",true);
+                           }
+                       else
+                           if(Message.Table2.User0[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetActiveButt($("#Table3User1CheckBackground"));
+                                $("#Table3User1Check").attr("disabled",false);
+                           }
+                       
+                       if(Message.Table2.User1[2] == -1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage)
+                            $('#Table3User2Factor').hide();
+                        else
+                            if(Message.Table2.User1[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetNoActiveButt($("#Table3User2CheckBackground"));
+                                $("#Table3User2Check").attr("disabled",true);
+                           }
+                       else
+                           if(Message.Table2.User1[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetActiveButt($("#Table3User2CheckBackground"));
+                                $("#Table3User2Check").attr("disabled",false);
+                           }
+                       
+                       if(Message.Table2.User2[2] == -1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage)
+                            $('#Table3User3Factor').hide();
+                        else
+                            if(Message.Table2.User2[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetNoActiveButt($("#Table3User3CheckBackground"));
+                                $("#Table3User3Check").attr("disabled",true);
+                           }
+                       else
+                           if(Message.Table2.User2[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetActiveButt($("#Table3User3CheckBackground"));
+                                $("#Table3User3Check").attr("disabled",false);
+                           }
+                       
+                       if(Message.Table2.User3[2] == -1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage)
+                            $('#Table3User4Factor').hide();
+                        else
+                            if(Message.Table2.User3[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetNoActiveButt($("#Table3User4CheckBackground"));
+                                $("#Table3User4Check").attr("disabled",true);
+                           }
+                       else
+                           if(Message.Table2.User3[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetActiveButt($("#Table3User4CheckBackground"));
+                                $("#Table3User4Check").attr("disabled",false);
+                           }
+                       
+                       if(Message.Table2.User4[2] == -1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage)
+                            $('#Table3User5Factor').hide();
+                        else
+                            if(Message.Table2.User4[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetNoActiveButt($("#Table3User5CheckBackground"));
+                                $("#Table3User5Check").attr("disabled",true);
+                           }
+                       else
+                           if(Message.Table2.User4[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetActiveButt($("#Table3User5CheckBackground"));
+                                $("#Table3User5Check").attr("disabled",false);
+                           }
+                       
+                       if(Message.Table2.User5[2] == -1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage)
+                            $('#Table3User6Factor').hide();
+                        else
+                            if(Message.Table2.User5[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetNoActiveButt($("#Table3User6CheckBackground"));
+                                $("#Table3User6Check").attr("disabled",true);
+                           }
+                       else
+                           if(Message.Table2.User5[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetActiveButt($("#Table3User6CheckBackground"));
+                                $("#Table3User6Check").attr("disabled",false);
+                           }
+                       
+                       if(Message.Table2.User6[2] == -1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage)
+                            $('#Table3User7Factor').hide();
+                        else
+                            if(Message.Table2.User6[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetNoActiveButt($("#Table3User7CheckBackground"));
+                                $("#Table7User1Check").attr("disabled",true);
+                           }
+                       else
+                           if(Message.Table2.User6[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetActiveButt($("#Table3User7CheckBackground"));
+                                $("#Table7User1Check").attr("disabled",false);
+                           }
+                       
+                       if(Message.Table2.User7[2] == -1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage)
+                            $('#Table3User8Factor').hide();
+                        else
+                            if(Message.Table2.User7[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetNoActiveButt($("#Table3User8CheckBackground"));
+                                $("#Table3User8Check").attr("disabled",true);
+                           }
+                       else
+                           if(Message.Table2.User7[2] == 1 && Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){
+                                SetActiveButt($("#Table3User8CheckBackground"));
+                                $("#Table3User8Check").attr("disabled",false);
+                           }
+            
                 if($("#CurrentStage").html() == -1){
                     $("#CurrentStage").html(Message.Stage);
                     $("#ShowCurrentRaund").html(Message.Round);
                     
-                    if(Message.Stage >= 1){
+                    if(Message.Stage >= 1 ){
                         $('#Table1User1Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table0.User0[0]+'.png)');
                         $('#Table1User1Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table0.User0[1]+'.png)');
                         $('#Table1User1CheckBackground').html(Message.Table0.User0[2]);

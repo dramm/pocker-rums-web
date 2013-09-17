@@ -6,8 +6,8 @@
         <database>pokerwebdb</database>
         <port>3306</port>
         <username>root</username>
-        <password>i do root</password>
-        <!--<password>P0laroid</password>-->
+        <!--<password>i do root</password>-->
+        <password>P0laroid</password>
     </jdbc>
     <mail>
         <transport>smtp</transport>
