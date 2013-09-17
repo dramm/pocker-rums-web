@@ -38,6 +38,7 @@ public class Game{
                stmt.setLong(2, entry.getKey());
                stmt.setLong(3, TableStatus.GetInstance().Round);
                stmt.executeUpdate();
+               TableStatus.GetInstance().WinnUserList.clear();
            } catch (SQLException ex) {
                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
            }

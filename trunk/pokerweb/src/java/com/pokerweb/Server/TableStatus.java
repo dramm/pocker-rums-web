@@ -52,7 +52,7 @@ public class TableStatus {
                 try{
                 switch(Stage){
                     case -1:
-                        if(TableStatus.GetInstance().Timer == 2){
+                        if(TableStatus.GetInstance().Timer == 5){
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
                             TableStatus.GetInstance().Timer = 0;
@@ -62,7 +62,7 @@ public class TableStatus {
                         break;
                    
                     case 0:
-                        if(TableStatus.GetInstance().Timer >= 2){             
+                        if(TableStatus.GetInstance().Timer >= 5){             
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
                             TableStatus.GetInstance().Timer = 0;
