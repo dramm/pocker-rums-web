@@ -111,7 +111,7 @@ public class TableStatus {
                         break;
                                 
                     case 4:
-                        if(TableStatus.GetInstance().Timer >= 42){             
+                        if(TableStatus.GetInstance().Timer >= 2){             
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
                             TableStatus.GetInstance().Timer = 0;
