@@ -767,10 +767,12 @@ function StartGameCallback() {
                             $('#Table1User1Factor').hide();
                         else
                             if(Message.Table0.User0[2] == 1 && Message.Balance>4){
+                                $('#Table1User1Factor').show();
                                 SetNoActiveButt($("#Table1User1CheckBackground"));
                                 $("#Table1User1Check").attr("disabled",true);
                            }else
                            if(Message.Balance>4){
+                               $('#Table1User1Factor').show();
                                 SetActiveButt($("#Table1User1CheckBackground"));
                                 $("#Table1User1Check").attr("disabled",false);
                            }
@@ -779,61 +781,58 @@ function StartGameCallback() {
                             $('#Table1User2Factor').hide();
                         else
                             if(Message.Table0.User1[2] == 1 && Message.Balance>4){
+                                $('#Table1User2Factor').show();
                                 SetNoActiveButt($("#Table1User2CheckBackground"));
                                 $("#Table1User2Check").attr("disabled",true);
                            }else
                            if(Message.Balance>4){
+                                $('#Table1User2Factor').show();
                                 SetActiveButt($("#Table1User2CheckBackground"));
                                 $("#Table1User2Check").attr("disabled",false);
                            }
                        
-                       if(Message.Table0.User1[2] == -1 && Message.Balance>4)
-                            $('#Table1User2Factor').hide();
-                        else
-                            if(Message.Table0.User1[2] == 1 && Message.Balance>4){
-                                SetNoActiveButt($("#Table1User2CheckBackground"));
-                                $("#Table1User2Check").attr("disabled",true);
-                           }else
-                           if(Message.Balance>4){
-                                SetActiveButt($("#Table1User2CheckBackground"));
-                                $("#Table1User2Check").attr("disabled",false);
-                           }
-                       
-                       if(Message.Table0.User2[2] == -1 && Message.Balance>4 )
+                       if(Message.Table0.User2[2] == -1 && Message.Balance>4)
                             $('#Table1User3Factor').hide();
                         else
                             if(Message.Table0.User2[2] == 1 && Message.Balance>4){
+                                $('#Table1User3Factor').show();
                                 SetNoActiveButt($("#Table1User3CheckBackground"));
                                 $("#Table1User3Check").attr("disabled",true);
                            }else
                            if(Message.Balance>4){
+                                $('#Table1User3Factor').show();
                                 SetActiveButt($("#Table1User3CheckBackground"));
                                 $("#Table1User3Check").attr("disabled",false);
                            }
                        
-                       if(Message.Table0.User3[2] == -1 && Message.Balance>4)
+                       if(Message.Table0.User3[2] == -1 && Message.Balance>4 )
                             $('#Table1User4Factor').hide();
                         else
                             if(Message.Table0.User3[2] == 1 && Message.Balance>4){
+                                $('#Table1User4Factor').show();
                                 SetNoActiveButt($("#Table1User4CheckBackground"));
                                 $("#Table1User4Check").attr("disabled",true);
-                           }
-                       else
+                           }else
                            if(Message.Balance>4){
+                                $('#Table1User4Factor').show();
                                 SetActiveButt($("#Table1User4CheckBackground"));
                                 $("#Table1User4Check").attr("disabled",false);
                            }
+                       
+                       
                        
                        
                        if(Message.Table1.User0[2] == -1 && Message.Balance>4)
                             $('#Table2User1Factor').hide();
                         else
                             if(Message.Table1.User0[2] == 1 && Message.Balance>4){
+                                $('#Table2User1Factor').show();
                                 SetNoActiveButt($("#Table2User1CheckBackground"));
                                 $("#Table2User1Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User1Factor').show();
                                 SetActiveButt($("#Table2User1CheckBackground"));
                                 $("#Table2User1Check").attr("disabled",false);
                            }
@@ -842,11 +841,13 @@ function StartGameCallback() {
                             $('#Table2User2Factor').hide();
                         else
                             if(Message.Table1.User1[2] == 1 && Message.Balance>4){
+                                $('#Table2User2Factor').show();
                                 SetNoActiveButt($("#Table2User2CheckBackground"));
                                 $("#Table2User2Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User2Factor').show();
                                 SetActiveButt($("#Table2User2CheckBackground"));
                                 $("#Table2User2Check").attr("disabled",false);
                            }
@@ -855,11 +856,13 @@ function StartGameCallback() {
                             $('#Table2User3Factor').hide();
                         else
                             if(Message.Table1.User2[2] == 1 && Message.Balance>4){
+                                $('#Table2User3Factor').show();
                                 SetNoActiveButt($("#Table2User3CheckBackground"));
                                 $("#Table2User3Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User3Factor').show();
                                 SetActiveButt($("#Table2User3CheckBackground"));
                                 $("#Table2User3Check").attr("disabled",false);
                            }
@@ -868,11 +871,13 @@ function StartGameCallback() {
                             $('#Table2User4Factor').hide();
                         else
                             if(Message.Table1.User3[2] == 1 && Message.Balance>4){
+                                $('#Table2User4Factor').show();
                                 SetNoActiveButt($("#Table2User4CheckBackground"));
                                 $("#Table2User4Check").attr("disabled",true);
                            }
                        else
-                           if(Message.Table1.User3[2] == 1 && Message.Balance>4){
+                           if(Message.Balance>4){
+                                $('#Table2User4Factor').show();
                                 SetActiveButt($("#Table2User4CheckBackground"));
                                 $("#Table2User4Check").attr("disabled",false);
                            }
@@ -881,11 +886,13 @@ function StartGameCallback() {
                             $('#Table2User5Factor').hide();
                         else
                             if(Message.Table1.User4[2] == 1 && Message.Balance>4){
+                                $('#Table2User5Factor').show();
                                 SetNoActiveButt($("#Table2User5CheckBackground"));
                                 $("#Table2User5Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User5Factor').show();
                                 SetActiveButt($("#Table2User5CheckBackground"));
                                 $("#Table2User5Check").attr("disabled",false);
                            }
@@ -894,11 +901,13 @@ function StartGameCallback() {
                             $('#Table2User6Factor').hide();
                         else
                             if(Message.Table1.User5[2] == 1 && Message.Balance>4){
+                                $('#Table2User6Factor').show();
                                 SetNoActiveButt($("#Table2User6CheckBackground"));
                                 $("#Table2User6Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User6Factor').show();
                                 SetActiveButt($("#Table2User6CheckBackground"));
                                 $("#Table2User6Check").attr("disabled",false);
                            }
@@ -908,11 +917,13 @@ function StartGameCallback() {
                             $('#Table3User1Factor').hide();
                         else
                             if(Message.Table2.User0[2] == 1 && Message.Balance>4){
+                                $('#Table3User1Factor').show();
                                 SetNoActiveButt($("#Table3User1CheckBackground"));
                                 $("#Table3User1Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User1Factor').show();
                                 SetActiveButt($("#Table3User1CheckBackground"));
                                 $("#Table3User1Check").attr("disabled",false);
                            }
@@ -921,11 +932,13 @@ function StartGameCallback() {
                             $('#Table3User2Factor').hide();
                         else
                             if(Message.Table2.User1[2] == 1 && Message.Balance>4){
+                                $('#Table3User2Factor').show();
                                 SetNoActiveButt($("#Table3User2CheckBackground"));
                                 $("#Table3User2Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User2Factor').show();
                                 SetActiveButt($("#Table3User2CheckBackground"));
                                 $("#Table3User2Check").attr("disabled",false);
                            }
@@ -934,11 +947,13 @@ function StartGameCallback() {
                             $('#Table3User3Factor').hide();
                         else
                             if(Message.Table2.User2[2] == 1 && Message.Balance>4){
+                                $('#Table3User3Factor').show();
                                 SetNoActiveButt($("#Table3User3CheckBackground"));
                                 $("#Table3User3Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User3Factor').show();
                                 SetActiveButt($("#Table3User3CheckBackground"));
                                 $("#Table3User3Check").attr("disabled",false);
                            }
@@ -947,11 +962,13 @@ function StartGameCallback() {
                             $('#Table3User4Factor').hide();
                         else
                             if(Message.Table2.User3[2] == 1 && Message.Balance>4){
+                                $('#Table3User4Factor').show();
                                 SetNoActiveButt($("#Table3User4CheckBackground"));
                                 $("#Table3User4Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User4Factor').show();
                                 SetActiveButt($("#Table3User4CheckBackground"));
                                 $("#Table3User4Check").attr("disabled",false);
                            }
@@ -960,11 +977,13 @@ function StartGameCallback() {
                             $('#Table3User5Factor').hide();
                         else
                             if(Message.Table2.User4[2] == 1 && Message.Balance>4){
+                                $('#Table3User5Factor').show();
                                 SetNoActiveButt($("#Table3User5CheckBackground"));
                                 $("#Table3User5Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User5Factor').show();
                                 SetActiveButt($("#Table3User5CheckBackground"));
                                 $("#Table3User5Check").attr("disabled",false);
                            }
@@ -973,11 +992,13 @@ function StartGameCallback() {
                             $('#Table3User6Factor').hide();
                         else
                             if(Message.Table2.User5[2] == 1 && Message.Balance>4){
+                                $('#Table3User6Factor').show();
                                 SetNoActiveButt($("#Table3User6CheckBackground"));
                                 $("#Table3User6Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User6Factor').show();
                                 SetActiveButt($("#Table3User6CheckBackground"));
                                 $("#Table3User6Check").attr("disabled",false);
                            }
@@ -986,24 +1007,28 @@ function StartGameCallback() {
                             $('#Table3User7Factor').hide();
                         else
                             if(Message.Table2.User6[2] == 1 && Message.Balance>4){
+                                $('#Table3User7Factor').show();
                                 SetNoActiveButt($("#Table3User7CheckBackground"));
-                                $("#Table7User1Check").attr("disabled",true);
+                                $("#Table3User7Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User7Factor').show();
                                 SetActiveButt($("#Table3User7CheckBackground"));
-                                $("#Table7User1Check").attr("disabled",false);
+                                $("#Table3User7Check").attr("disabled",false);
                            }
                        
                        if(Message.Table2.User7[2] == -1 && Message.Balance>4)
                             $('#Table3User8Factor').hide();
                         else
                             if(Message.Table2.User7[2] == 1 && Message.Balance>4){
+                                $('#Table3User8Factor').show();
                                 SetNoActiveButt($("#Table3User8CheckBackground"));
                                 $("#Table3User8Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User8Factor').show();
                                 SetActiveButt($("#Table3User8CheckBackground"));
                                 $("#Table3User8Check").attr("disabled",false);
                            }
@@ -1117,14 +1142,16 @@ function StartGameCallback() {
                         $('#Table3User8Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User7[1]+'.png)');
                         $('#Table3User8CheckBackground').html(Message.Table2.User7[2]);
                         $('#Table3User8Progress').css('bottom' , Message.Table2.User7[3] + '%');
-                        if(Message.Table0.User0[2] == -1 && Message.Balance>4)
+                        if(Message.Table0.User0[2] == -1 && Message.Balance>4 )
                             $('#Table1User1Factor').hide();
                         else
                             if(Message.Table0.User0[2] == 1 && Message.Balance>4){
+                                $('#Table1User1Factor').show();
                                 SetNoActiveButt($("#Table1User1CheckBackground"));
                                 $("#Table1User1Check").attr("disabled",true);
                            }else
                            if(Message.Balance>4){
+                               $('#Table1User1Factor').show();
                                 SetActiveButt($("#Table1User1CheckBackground"));
                                 $("#Table1User1Check").attr("disabled",false);
                            }
@@ -1133,22 +1160,12 @@ function StartGameCallback() {
                             $('#Table1User2Factor').hide();
                         else
                             if(Message.Table0.User1[2] == 1 && Message.Balance>4){
+                                $('#Table1User2Factor').show();
                                 SetNoActiveButt($("#Table1User2CheckBackground"));
                                 $("#Table1User2Check").attr("disabled",true);
                            }else
                            if(Message.Balance>4){
-                                SetActiveButt($("#Table1User2CheckBackground"));
-                                $("#Table1User2Check").attr("disabled",false);
-                           }
-                       
-                       if(Message.Table0.User1[2] == -1 && Message.Balance>4)
-                            $('#Table1User2Factor').hide();
-                        else
-                            if(Message.Table0.User1[2] == 1 && Message.Balance>4){
-                                SetNoActiveButt($("#Table1User2CheckBackground"));
-                                $("#Table1User2Check").attr("disabled",true);
-                           }else
-                           if(Message.Balance>4){
+                                $('#Table1User2Factor').show();
                                 SetActiveButt($("#Table1User2CheckBackground"));
                                 $("#Table1User2Check").attr("disabled",false);
                            }
@@ -1157,37 +1174,44 @@ function StartGameCallback() {
                             $('#Table1User3Factor').hide();
                         else
                             if(Message.Table0.User2[2] == 1 && Message.Balance>4){
+                                $('#Table1User3Factor').show();
                                 SetNoActiveButt($("#Table1User3CheckBackground"));
                                 $("#Table1User3Check").attr("disabled",true);
                            }else
                            if(Message.Balance>4){
+                                $('#Table1User3Factor').show();
                                 SetActiveButt($("#Table1User3CheckBackground"));
                                 $("#Table1User3Check").attr("disabled",false);
                            }
                        
-                       if(Message.Table0.User3[2] == -1 && Message.Balance>4)
+                       if(Message.Table0.User3[2] == -1 && Message.Balance>4 )
                             $('#Table1User4Factor').hide();
                         else
                             if(Message.Table0.User3[2] == 1 && Message.Balance>4){
+                                $('#Table1User4Factor').show();
                                 SetNoActiveButt($("#Table1User4CheckBackground"));
                                 $("#Table1User4Check").attr("disabled",true);
-                           }
-                       else
+                           }else
                            if(Message.Balance>4){
+                                $('#Table1User4Factor').show();
                                 SetActiveButt($("#Table1User4CheckBackground"));
                                 $("#Table1User4Check").attr("disabled",false);
                            }
+                       
+                       
                        
                        
                        if(Message.Table1.User0[2] == -1 && Message.Balance>4)
                             $('#Table2User1Factor').hide();
                         else
                             if(Message.Table1.User0[2] == 1 && Message.Balance>4){
+                                $('#Table2User1Factor').show();
                                 SetNoActiveButt($("#Table2User1CheckBackground"));
                                 $("#Table2User1Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User1Factor').show();
                                 SetActiveButt($("#Table2User1CheckBackground"));
                                 $("#Table2User1Check").attr("disabled",false);
                            }
@@ -1196,11 +1220,13 @@ function StartGameCallback() {
                             $('#Table2User2Factor').hide();
                         else
                             if(Message.Table1.User1[2] == 1 && Message.Balance>4){
+                                $('#Table2User2Factor').show();
                                 SetNoActiveButt($("#Table2User2CheckBackground"));
                                 $("#Table2User2Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User2Factor').show();
                                 SetActiveButt($("#Table2User2CheckBackground"));
                                 $("#Table2User2Check").attr("disabled",false);
                            }
@@ -1209,11 +1235,13 @@ function StartGameCallback() {
                             $('#Table2User3Factor').hide();
                         else
                             if(Message.Table1.User2[2] == 1 && Message.Balance>4){
+                                $('#Table2User3Factor').show();
                                 SetNoActiveButt($("#Table2User3CheckBackground"));
                                 $("#Table2User3Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User3Factor').show();
                                 SetActiveButt($("#Table2User3CheckBackground"));
                                 $("#Table2User3Check").attr("disabled",false);
                            }
@@ -1222,11 +1250,13 @@ function StartGameCallback() {
                             $('#Table2User4Factor').hide();
                         else
                             if(Message.Table1.User3[2] == 1 && Message.Balance>4){
+                                $('#Table2User4Factor').show();
                                 SetNoActiveButt($("#Table2User4CheckBackground"));
                                 $("#Table2User4Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User4Factor').show();
                                 SetActiveButt($("#Table2User4CheckBackground"));
                                 $("#Table2User4Check").attr("disabled",false);
                            }
@@ -1235,11 +1265,13 @@ function StartGameCallback() {
                             $('#Table2User5Factor').hide();
                         else
                             if(Message.Table1.User4[2] == 1 && Message.Balance>4){
+                                $('#Table2User5Factor').show();
                                 SetNoActiveButt($("#Table2User5CheckBackground"));
                                 $("#Table2User5Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User5Factor').show();
                                 SetActiveButt($("#Table2User5CheckBackground"));
                                 $("#Table2User5Check").attr("disabled",false);
                            }
@@ -1248,11 +1280,13 @@ function StartGameCallback() {
                             $('#Table2User6Factor').hide();
                         else
                             if(Message.Table1.User5[2] == 1 && Message.Balance>4){
+                                $('#Table2User6Factor').show();
                                 SetNoActiveButt($("#Table2User6CheckBackground"));
                                 $("#Table2User6Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User6Factor').show();
                                 SetActiveButt($("#Table2User6CheckBackground"));
                                 $("#Table2User6Check").attr("disabled",false);
                            }
@@ -1262,11 +1296,13 @@ function StartGameCallback() {
                             $('#Table3User1Factor').hide();
                         else
                             if(Message.Table2.User0[2] == 1 && Message.Balance>4){
+                                $('#Table3User1Factor').show();
                                 SetNoActiveButt($("#Table3User1CheckBackground"));
                                 $("#Table3User1Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User1Factor').show();
                                 SetActiveButt($("#Table3User1CheckBackground"));
                                 $("#Table3User1Check").attr("disabled",false);
                            }
@@ -1275,11 +1311,13 @@ function StartGameCallback() {
                             $('#Table3User2Factor').hide();
                         else
                             if(Message.Table2.User1[2] == 1 && Message.Balance>4){
+                                $('#Table3User2Factor').show();
                                 SetNoActiveButt($("#Table3User2CheckBackground"));
                                 $("#Table3User2Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User2Factor').show();
                                 SetActiveButt($("#Table3User2CheckBackground"));
                                 $("#Table3User2Check").attr("disabled",false);
                            }
@@ -1288,11 +1326,13 @@ function StartGameCallback() {
                             $('#Table3User3Factor').hide();
                         else
                             if(Message.Table2.User2[2] == 1 && Message.Balance>4){
+                                $('#Table3User3Factor').show();
                                 SetNoActiveButt($("#Table3User3CheckBackground"));
                                 $("#Table3User3Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User3Factor').show();
                                 SetActiveButt($("#Table3User3CheckBackground"));
                                 $("#Table3User3Check").attr("disabled",false);
                            }
@@ -1301,11 +1341,13 @@ function StartGameCallback() {
                             $('#Table3User4Factor').hide();
                         else
                             if(Message.Table2.User3[2] == 1 && Message.Balance>4){
+                                $('#Table3User4Factor').show();
                                 SetNoActiveButt($("#Table3User4CheckBackground"));
                                 $("#Table3User4Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User4Factor').show();
                                 SetActiveButt($("#Table3User4CheckBackground"));
                                 $("#Table3User4Check").attr("disabled",false);
                            }
@@ -1314,11 +1356,13 @@ function StartGameCallback() {
                             $('#Table3User5Factor').hide();
                         else
                             if(Message.Table2.User4[2] == 1 && Message.Balance>4){
+                                $('#Table3User5Factor').show();
                                 SetNoActiveButt($("#Table3User5CheckBackground"));
                                 $("#Table3User5Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User5Factor').show();
                                 SetActiveButt($("#Table3User5CheckBackground"));
                                 $("#Table3User5Check").attr("disabled",false);
                            }
@@ -1327,11 +1371,13 @@ function StartGameCallback() {
                             $('#Table3User6Factor').hide();
                         else
                             if(Message.Table2.User5[2] == 1 && Message.Balance>4){
+                                $('#Table3User6Factor').show();
                                 SetNoActiveButt($("#Table3User6CheckBackground"));
                                 $("#Table3User6Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User6Factor').show();
                                 SetActiveButt($("#Table3User6CheckBackground"));
                                 $("#Table3User6Check").attr("disabled",false);
                            }
@@ -1339,25 +1385,29 @@ function StartGameCallback() {
                        if(Message.Table2.User6[2] == -1 && Message.Balance>4)
                             $('#Table3User7Factor').hide();
                         else
-                            if(Message.Balance>4){
+                            if(Message.Table2.User6[2] == 1 && Message.Balance>4){
+                                $('#Table3User7Factor').show();
                                 SetNoActiveButt($("#Table3User7CheckBackground"));
-                                $("#Table7User1Check").attr("disabled",true);
+                                $("#Table3User7Check").attr("disabled",true);
                            }
                        else
-                           if(Message.Table2.User6[2] == 1 && Message.Balance>4){
+                           if(Message.Balance>4){
+                                $('#Table3User7Factor').show();
                                 SetActiveButt($("#Table3User7CheckBackground"));
-                                $("#Table7User1Check").attr("disabled",false);
+                                $("#Table3User7Check").attr("disabled",false);
                            }
                        
                        if(Message.Table2.User7[2] == -1 && Message.Balance>4)
                             $('#Table3User8Factor').hide();
                         else
                             if(Message.Table2.User7[2] == 1 && Message.Balance>4){
+                                $('#Table3User8Factor').show();
                                 SetNoActiveButt($("#Table3User8CheckBackground"));
                                 $("#Table3User8Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User8Factor').show();
                                 SetActiveButt($("#Table3User8CheckBackground"));
                                 $("#Table3User8Check").attr("disabled",false);
                            }
@@ -1444,14 +1494,16 @@ function StartGameCallback() {
                         $('#Table3Flop1').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[0]+'.png)');
                         $('#Table3Flop2').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[1]+'.png)');
                         $('#Table3Flop3').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[2]+'.png)'); 
-                        if(Message.Table0.User0[0] == -1 && Message.Balance>4)
+                        if(Message.Table0.User0[0] == -1 && Message.Balance>4 )
                             $('#Table1User1Factor').hide();
                         else
                             if(Message.Table0.User0[0] == 1 && Message.Balance>4){
+                                $('#Table1User1Factor').show();
                                 SetNoActiveButt($("#Table1User1CheckBackground"));
                                 $("#Table1User1Check").attr("disabled",true);
                            }else
                            if(Message.Balance>4){
+                               $('#Table1User1Factor').show();
                                 SetActiveButt($("#Table1User1CheckBackground"));
                                 $("#Table1User1Check").attr("disabled",false);
                            }
@@ -1460,22 +1512,12 @@ function StartGameCallback() {
                             $('#Table1User2Factor').hide();
                         else
                             if(Message.Table0.User1[0] == 1 && Message.Balance>4){
+                                $('#Table1User2Factor').show();
                                 SetNoActiveButt($("#Table1User2CheckBackground"));
                                 $("#Table1User2Check").attr("disabled",true);
                            }else
                            if(Message.Balance>4){
-                                SetActiveButt($("#Table1User2CheckBackground"));
-                                $("#Table1User2Check").attr("disabled",false);
-                           }
-                       
-                       if(Message.Table0.User1[0] == -1 && Message.Balance>4)
-                            $('#Table1User2Factor').hide();
-                        else
-                            if(Message.Table0.User1[0] == 1 && Message.Balance>4){
-                                SetNoActiveButt($("#Table1User2CheckBackground"));
-                                $("#Table1User2Check").attr("disabled",true);
-                           }else
-                           if(Message.Balance>4){
+                                $('#Table1User2Factor').show();
                                 SetActiveButt($("#Table1User2CheckBackground"));
                                 $("#Table1User2Check").attr("disabled",false);
                            }
@@ -1484,23 +1526,26 @@ function StartGameCallback() {
                             $('#Table1User3Factor').hide();
                         else
                             if(Message.Table0.User2[0] == 1 && Message.Balance>4){
+                                $('#Table1User3Factor').show();
                                 SetNoActiveButt($("#Table1User3CheckBackground"));
                                 $("#Table1User3Check").attr("disabled",true);
                            }else
                            if(Message.Balance>4){
+                                $('#Table1User3Factor').show();
                                 SetActiveButt($("#Table1User3CheckBackground"));
                                 $("#Table1User3Check").attr("disabled",false);
                            }
                        
-                       if(Message.Table0.User3[0] == -1 && Message.Balance>4)
+                       if(Message.Table0.User3[0] == -1 && Message.Balance>4 )
                             $('#Table1User4Factor').hide();
                         else
                             if(Message.Table0.User3[0] == 1 && Message.Balance>4){
+                                $('#Table1User4Factor').show();
                                 SetNoActiveButt($("#Table1User4CheckBackground"));
                                 $("#Table1User4Check").attr("disabled",true);
-                           }
-                       else
+                           }else
                            if(Message.Balance>4){
+                                $('#Table1User4Factor').show();
                                 SetActiveButt($("#Table1User4CheckBackground"));
                                 $("#Table1User4Check").attr("disabled",false);
                            }
@@ -1510,11 +1555,13 @@ function StartGameCallback() {
                             $('#Table2User1Factor').hide();
                         else
                             if(Message.Table1.User0[0] == 1 && Message.Balance>4){
+                                $('#Table2User1Factor').show();
                                 SetNoActiveButt($("#Table2User1CheckBackground"));
                                 $("#Table2User1Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User1Factor').show();
                                 SetActiveButt($("#Table2User1CheckBackground"));
                                 $("#Table2User1Check").attr("disabled",false);
                            }
@@ -1523,11 +1570,13 @@ function StartGameCallback() {
                             $('#Table2User2Factor').hide();
                         else
                             if(Message.Table1.User1[0] == 1 && Message.Balance>4){
+                                $('#Table2User2Factor').show();
                                 SetNoActiveButt($("#Table2User2CheckBackground"));
                                 $("#Table2User2Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User2Factor').show();
                                 SetActiveButt($("#Table2User2CheckBackground"));
                                 $("#Table2User2Check").attr("disabled",false);
                            }
@@ -1536,11 +1585,13 @@ function StartGameCallback() {
                             $('#Table2User3Factor').hide();
                         else
                             if(Message.Table1.User2[0] == 1 && Message.Balance>4){
+                                $('#Table2User3Factor').show();
                                 SetNoActiveButt($("#Table2User3CheckBackground"));
                                 $("#Table2User3Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User3Factor').show();
                                 SetActiveButt($("#Table2User3CheckBackground"));
                                 $("#Table2User3Check").attr("disabled",false);
                            }
@@ -1549,11 +1600,13 @@ function StartGameCallback() {
                             $('#Table2User4Factor').hide();
                         else
                             if(Message.Table1.User3[0] == 1 && Message.Balance>4){
+                                $('#Table2User4Factor').show();
                                 SetNoActiveButt($("#Table2User4CheckBackground"));
                                 $("#Table2User4Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User4Factor').show();
                                 SetActiveButt($("#Table2User4CheckBackground"));
                                 $("#Table2User4Check").attr("disabled",false);
                            }
@@ -1562,11 +1615,13 @@ function StartGameCallback() {
                             $('#Table2User5Factor').hide();
                         else
                             if(Message.Table1.User4[0] == 1 && Message.Balance>4){
+                                $('#Table2User5Factor').show();
                                 SetNoActiveButt($("#Table2User5CheckBackground"));
                                 $("#Table2User5Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User5Factor').show();
                                 SetActiveButt($("#Table2User5CheckBackground"));
                                 $("#Table2User5Check").attr("disabled",false);
                            }
@@ -1575,11 +1630,13 @@ function StartGameCallback() {
                             $('#Table2User6Factor').hide();
                         else
                             if(Message.Table1.User5[0] == 1 && Message.Balance>4){
+                                $('#Table2User6Factor').show();
                                 SetNoActiveButt($("#Table2User6CheckBackground"));
                                 $("#Table2User6Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User6Factor').show();
                                 SetActiveButt($("#Table2User6CheckBackground"));
                                 $("#Table2User6Check").attr("disabled",false);
                            }
@@ -1589,11 +1646,13 @@ function StartGameCallback() {
                             $('#Table3User1Factor').hide();
                         else
                             if(Message.Table2.User0[0] == 1 && Message.Balance>4){
+                                $('#Table3User1Factor').show();
                                 SetNoActiveButt($("#Table3User1CheckBackground"));
                                 $("#Table3User1Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User1Factor').show();
                                 SetActiveButt($("#Table3User1CheckBackground"));
                                 $("#Table3User1Check").attr("disabled",false);
                            }
@@ -1602,11 +1661,13 @@ function StartGameCallback() {
                             $('#Table3User2Factor').hide();
                         else
                             if(Message.Table2.User1[0] == 1 && Message.Balance>4){
+                                $('#Table3User2Factor').show();
                                 SetNoActiveButt($("#Table3User2CheckBackground"));
                                 $("#Table3User2Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User2Factor').show();
                                 SetActiveButt($("#Table3User2CheckBackground"));
                                 $("#Table3User2Check").attr("disabled",false);
                            }
@@ -1615,11 +1676,13 @@ function StartGameCallback() {
                             $('#Table3User3Factor').hide();
                         else
                             if(Message.Table2.User2[0] == 1 && Message.Balance>4){
+                                $('#Table3User3Factor').show();
                                 SetNoActiveButt($("#Table3User3CheckBackground"));
                                 $("#Table3User3Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User3Factor').show();
                                 SetActiveButt($("#Table3User3CheckBackground"));
                                 $("#Table3User3Check").attr("disabled",false);
                            }
@@ -1628,11 +1691,13 @@ function StartGameCallback() {
                             $('#Table3User4Factor').hide();
                         else
                             if(Message.Table2.User3[0] == 1 && Message.Balance>4){
+                                $('#Table3User4Factor').show();
                                 SetNoActiveButt($("#Table3User4CheckBackground"));
                                 $("#Table3User4Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User4Factor').show();
                                 SetActiveButt($("#Table3User4CheckBackground"));
                                 $("#Table3User4Check").attr("disabled",false);
                            }
@@ -1641,11 +1706,13 @@ function StartGameCallback() {
                             $('#Table3User5Factor').hide();
                         else
                             if(Message.Table2.User4[0] == 1 && Message.Balance>4){
+                                $('#Table3User5Factor').show();
                                 SetNoActiveButt($("#Table3User5CheckBackground"));
                                 $("#Table3User5Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User5Factor').show();
                                 SetActiveButt($("#Table3User5CheckBackground"));
                                 $("#Table3User5Check").attr("disabled",false);
                            }
@@ -1654,11 +1721,13 @@ function StartGameCallback() {
                             $('#Table3User6Factor').hide();
                         else
                             if(Message.Table2.User5[0] == 1 && Message.Balance>4){
+                                $('#Table3User6Factor').show();
                                 SetNoActiveButt($("#Table3User6CheckBackground"));
                                 $("#Table3User6Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User6Factor').show();
                                 SetActiveButt($("#Table3User6CheckBackground"));
                                 $("#Table3User6Check").attr("disabled",false);
                            }
@@ -1667,27 +1736,32 @@ function StartGameCallback() {
                             $('#Table3User7Factor').hide();
                         else
                             if(Message.Table2.User6[0] == 1 && Message.Balance>4){
+                                $('#Table3User7Factor').show();
                                 SetNoActiveButt($("#Table3User7CheckBackground"));
-                                $("#Table7User1Check").attr("disabled",true);
+                                $("#Table3User7Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User7Factor').show();
                                 SetActiveButt($("#Table3User7CheckBackground"));
-                                $("#Table7User1Check").attr("disabled",false);
+                                $("#Table3User7Check").attr("disabled",false);
                            }
                        
                        if(Message.Table2.User7[0] == -1 && Message.Balance>4)
                             $('#Table3User8Factor').hide();
                         else
                             if(Message.Table2.User7[0] == 1 && Message.Balance>4){
+                                $('#Table3User8Factor').show();
                                 SetNoActiveButt($("#Table3User8CheckBackground"));
                                 $("#Table3User8Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User8Factor').show();
                                 SetActiveButt($("#Table3User8CheckBackground"));
                                 $("#Table3User8Check").attr("disabled",false);
                            }
+                        
                     }
                     
                     if(Message.Stage >= 3){
@@ -1752,14 +1826,16 @@ function StartGameCallback() {
                         $('#Table1Tern').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[0]+'.png)');
                         $('#Table2Tern').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[0]+'.png)');
                         $('#Table3Tern').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[0]+'.png)');
-                        if(Message.Table0.User0[0] == -1 && Message.Balance>4)
+                        if(Message.Table0.User0[0] == -1 && Message.Balance>4 )
                             $('#Table1User1Factor').hide();
                         else
                             if(Message.Table0.User0[0] == 1 && Message.Balance>4){
+                                $('#Table1User1Factor').show();
                                 SetNoActiveButt($("#Table1User1CheckBackground"));
                                 $("#Table1User1Check").attr("disabled",true);
                            }else
                            if(Message.Balance>4){
+                               $('#Table1User1Factor').show();
                                 SetActiveButt($("#Table1User1CheckBackground"));
                                 $("#Table1User1Check").attr("disabled",false);
                            }
@@ -1768,22 +1844,12 @@ function StartGameCallback() {
                             $('#Table1User2Factor').hide();
                         else
                             if(Message.Table0.User1[0] == 1 && Message.Balance>4){
-                                SetNoActiveButt($("#Table1User2CheckBackground"));
-                                $("#Table1User2Check").attr("disabled",true);
-                           }else
-                           if(Message.Table0.User1[0] == 1 && Message.Balance>4){
-                                SetActiveButt($("#Table1User2CheckBackground"));
-                                $("#Table1User2Check").attr("disabled",false);
-                           }
-                       
-                       if(Message.Table0.User1[0] == -1 && Message.Balance>4)
-                            $('#Table1User2Factor').hide();
-                        else
-                            if(Message.Table0.User1[0] == 1 && Message.Balance>4){
+                                $('#Table1User2Factor').show();
                                 SetNoActiveButt($("#Table1User2CheckBackground"));
                                 $("#Table1User2Check").attr("disabled",true);
                            }else
                            if(Message.Balance>4){
+                                $('#Table1User2Factor').show();
                                 SetActiveButt($("#Table1User2CheckBackground"));
                                 $("#Table1User2Check").attr("disabled",false);
                            }
@@ -1792,23 +1858,26 @@ function StartGameCallback() {
                             $('#Table1User3Factor').hide();
                         else
                             if(Message.Table0.User2[0] == 1 && Message.Balance>4){
+                                $('#Table1User3Factor').show();
                                 SetNoActiveButt($("#Table1User3CheckBackground"));
                                 $("#Table1User3Check").attr("disabled",true);
                            }else
                            if(Message.Balance>4){
+                                $('#Table1User3Factor').show();
                                 SetActiveButt($("#Table1User3CheckBackground"));
                                 $("#Table1User3Check").attr("disabled",false);
                            }
                        
-                       if(Message.Table0.User3[0] == -1 && Message.Balance>4)
+                       if(Message.Table0.User3[0] == -1 && Message.Balance>4 )
                             $('#Table1User4Factor').hide();
                         else
                             if(Message.Table0.User3[0] == 1 && Message.Balance>4){
+                                $('#Table1User4Factor').show();
                                 SetNoActiveButt($("#Table1User4CheckBackground"));
                                 $("#Table1User4Check").attr("disabled",true);
-                           }
-                       else
+                           }else
                            if(Message.Balance>4){
+                                $('#Table1User4Factor').show();
                                 SetActiveButt($("#Table1User4CheckBackground"));
                                 $("#Table1User4Check").attr("disabled",false);
                            }
@@ -1818,11 +1887,13 @@ function StartGameCallback() {
                             $('#Table2User1Factor').hide();
                         else
                             if(Message.Table1.User0[0] == 1 && Message.Balance>4){
+                                $('#Table2User1Factor').show();
                                 SetNoActiveButt($("#Table2User1CheckBackground"));
                                 $("#Table2User1Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User1Factor').show();
                                 SetActiveButt($("#Table2User1CheckBackground"));
                                 $("#Table2User1Check").attr("disabled",false);
                            }
@@ -1831,11 +1902,13 @@ function StartGameCallback() {
                             $('#Table2User2Factor').hide();
                         else
                             if(Message.Table1.User1[0] == 1 && Message.Balance>4){
+                                $('#Table2User2Factor').show();
                                 SetNoActiveButt($("#Table2User2CheckBackground"));
                                 $("#Table2User2Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User2Factor').show();
                                 SetActiveButt($("#Table2User2CheckBackground"));
                                 $("#Table2User2Check").attr("disabled",false);
                            }
@@ -1844,11 +1917,13 @@ function StartGameCallback() {
                             $('#Table2User3Factor').hide();
                         else
                             if(Message.Table1.User2[0] == 1 && Message.Balance>4){
+                                $('#Table2User3Factor').show();
                                 SetNoActiveButt($("#Table2User3CheckBackground"));
                                 $("#Table2User3Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User3Factor').show();
                                 SetActiveButt($("#Table2User3CheckBackground"));
                                 $("#Table2User3Check").attr("disabled",false);
                            }
@@ -1857,11 +1932,13 @@ function StartGameCallback() {
                             $('#Table2User4Factor').hide();
                         else
                             if(Message.Table1.User3[0] == 1 && Message.Balance>4){
+                                $('#Table2User4Factor').show();
                                 SetNoActiveButt($("#Table2User4CheckBackground"));
                                 $("#Table2User4Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User4Factor').show();
                                 SetActiveButt($("#Table2User4CheckBackground"));
                                 $("#Table2User4Check").attr("disabled",false);
                            }
@@ -1870,11 +1947,13 @@ function StartGameCallback() {
                             $('#Table2User5Factor').hide();
                         else
                             if(Message.Table1.User4[0] == 1 && Message.Balance>4){
+                                $('#Table2User5Factor').show();
                                 SetNoActiveButt($("#Table2User5CheckBackground"));
                                 $("#Table2User5Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User5Factor').show();
                                 SetActiveButt($("#Table2User5CheckBackground"));
                                 $("#Table2User5Check").attr("disabled",false);
                            }
@@ -1883,11 +1962,13 @@ function StartGameCallback() {
                             $('#Table2User6Factor').hide();
                         else
                             if(Message.Table1.User5[0] == 1 && Message.Balance>4){
+                                $('#Table2User6Factor').show();
                                 SetNoActiveButt($("#Table2User6CheckBackground"));
                                 $("#Table2User6Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User6Factor').show();
                                 SetActiveButt($("#Table2User6CheckBackground"));
                                 $("#Table2User6Check").attr("disabled",false);
                            }
@@ -1897,11 +1978,13 @@ function StartGameCallback() {
                             $('#Table3User1Factor').hide();
                         else
                             if(Message.Table2.User0[0] == 1 && Message.Balance>4){
+                                $('#Table3User1Factor').show();
                                 SetNoActiveButt($("#Table3User1CheckBackground"));
                                 $("#Table3User1Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User1Factor').show();
                                 SetActiveButt($("#Table3User1CheckBackground"));
                                 $("#Table3User1Check").attr("disabled",false);
                            }
@@ -1910,11 +1993,13 @@ function StartGameCallback() {
                             $('#Table3User2Factor').hide();
                         else
                             if(Message.Table2.User1[0] == 1 && Message.Balance>4){
+                                $('#Table3User2Factor').show();
                                 SetNoActiveButt($("#Table3User2CheckBackground"));
                                 $("#Table3User2Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User2Factor').show();
                                 SetActiveButt($("#Table3User2CheckBackground"));
                                 $("#Table3User2Check").attr("disabled",false);
                            }
@@ -1923,11 +2008,13 @@ function StartGameCallback() {
                             $('#Table3User3Factor').hide();
                         else
                             if(Message.Table2.User2[0] == 1 && Message.Balance>4){
+                                $('#Table3User3Factor').show();
                                 SetNoActiveButt($("#Table3User3CheckBackground"));
                                 $("#Table3User3Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User3Factor').show();
                                 SetActiveButt($("#Table3User3CheckBackground"));
                                 $("#Table3User3Check").attr("disabled",false);
                            }
@@ -1936,11 +2023,13 @@ function StartGameCallback() {
                             $('#Table3User4Factor').hide();
                         else
                             if(Message.Table2.User3[0] == 1 && Message.Balance>4){
+                                $('#Table3User4Factor').show();
                                 SetNoActiveButt($("#Table3User4CheckBackground"));
                                 $("#Table3User4Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User4Factor').show();
                                 SetActiveButt($("#Table3User4CheckBackground"));
                                 $("#Table3User4Check").attr("disabled",false);
                            }
@@ -1949,11 +2038,13 @@ function StartGameCallback() {
                             $('#Table3User5Factor').hide();
                         else
                             if(Message.Table2.User4[0] == 1 && Message.Balance>4){
+                                $('#Table3User5Factor').show();
                                 SetNoActiveButt($("#Table3User5CheckBackground"));
                                 $("#Table3User5Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User5Factor').show();
                                 SetActiveButt($("#Table3User5CheckBackground"));
                                 $("#Table3User5Check").attr("disabled",false);
                            }
@@ -1962,11 +2053,13 @@ function StartGameCallback() {
                             $('#Table3User6Factor').hide();
                         else
                             if(Message.Table2.User5[0] == 1 && Message.Balance>4){
+                                $('#Table3User6Factor').show();
                                 SetNoActiveButt($("#Table3User6CheckBackground"));
                                 $("#Table3User6Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User6Factor').show();
                                 SetActiveButt($("#Table3User6CheckBackground"));
                                 $("#Table3User6Check").attr("disabled",false);
                            }
@@ -1975,24 +2068,28 @@ function StartGameCallback() {
                             $('#Table3User7Factor').hide();
                         else
                             if(Message.Table2.User6[0] == 1 && Message.Balance>4){
+                                $('#Table3User7Factor').show();
                                 SetNoActiveButt($("#Table3User7CheckBackground"));
-                                $("#Table7User1Check").attr("disabled",true);
+                                $("#Table3User7Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User7Factor').show();
                                 SetActiveButt($("#Table3User7CheckBackground"));
-                                $("#Table7User1Check").attr("disabled",false);
+                                $("#Table3User7Check").attr("disabled",false);
                            }
                        
                        if(Message.Table2.User7[0] == -1 && Message.Balance>4)
                             $('#Table3User8Factor').hide();
                         else
                             if(Message.Table2.User7[0] == 1 && Message.Balance>4){
+                                $('#Table3User8Factor').show();
                                 SetNoActiveButt($("#Table3User8CheckBackground"));
                                 $("#Table3User8Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User8Factor').show();
                                 SetActiveButt($("#Table3User8CheckBackground"));
                                 $("#Table3User8Check").attr("disabled",false);
                            }
@@ -2054,14 +2151,16 @@ function StartGameCallback() {
                         $('#Table1River').css('background-image' , 'url(/pic/cart/'+Message.Table0.Bord[0]+'.png)');
                         $('#Table2River').css('background-image' , 'url(/pic/cart/'+Message.Table1.Bord[0]+'.png)');
                         $('#Table3River').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[0]+'.png)');
-                        if(Message.Table0.User0[0] == -1 && Message.Balance>4)
+                        if(Message.Table0.User0[0] == -1 && Message.Balance>4 )
                             $('#Table1User1Factor').hide();
                         else
                             if(Message.Table0.User0[0] == 1 && Message.Balance>4){
+                                $('#Table1User1Factor').show();
                                 SetNoActiveButt($("#Table1User1CheckBackground"));
                                 $("#Table1User1Check").attr("disabled",true);
                            }else
                            if(Message.Balance>4){
+                               $('#Table1User1Factor').show();
                                 SetActiveButt($("#Table1User1CheckBackground"));
                                 $("#Table1User1Check").attr("disabled",false);
                            }
@@ -2070,22 +2169,12 @@ function StartGameCallback() {
                             $('#Table1User2Factor').hide();
                         else
                             if(Message.Table0.User1[0] == 1 && Message.Balance>4){
+                                $('#Table1User2Factor').show();
                                 SetNoActiveButt($("#Table1User2CheckBackground"));
                                 $("#Table1User2Check").attr("disabled",true);
                            }else
                            if(Message.Balance>4){
-                                SetActiveButt($("#Table1User2CheckBackground"));
-                                $("#Table1User2Check").attr("disabled",false);
-                           }
-                       
-                       if(Message.Table0.User1[0] == -1 && Message.Balance>4)
-                            $('#Table1User2Factor').hide();
-                        else
-                            if(Message.Table0.User1[0] == 1 && Message.Balance>4){
-                                SetNoActiveButt($("#Table1User2CheckBackground"));
-                                $("#Table1User2Check").attr("disabled",true);
-                           }else
-                           if(Message.Balance>4){
+                                $('#Table1User2Factor').show();
                                 SetActiveButt($("#Table1User2CheckBackground"));
                                 $("#Table1User2Check").attr("disabled",false);
                            }
@@ -2094,23 +2183,26 @@ function StartGameCallback() {
                             $('#Table1User3Factor').hide();
                         else
                             if(Message.Table0.User2[0] == 1 && Message.Balance>4){
+                                $('#Table1User3Factor').show();
                                 SetNoActiveButt($("#Table1User3CheckBackground"));
                                 $("#Table1User3Check").attr("disabled",true);
                            }else
                            if(Message.Balance>4){
+                                $('#Table1User3Factor').show();
                                 SetActiveButt($("#Table1User3CheckBackground"));
                                 $("#Table1User3Check").attr("disabled",false);
                            }
                        
-                       if(Message.Table0.User3[0] == -1 && Message.Balance>4)
+                       if(Message.Table0.User3[0] == -1 && Message.Balance>4 )
                             $('#Table1User4Factor').hide();
                         else
                             if(Message.Table0.User3[0] == 1 && Message.Balance>4){
+                                $('#Table1User4Factor').show();
                                 SetNoActiveButt($("#Table1User4CheckBackground"));
                                 $("#Table1User4Check").attr("disabled",true);
-                           }
-                       else
+                           }else
                            if(Message.Balance>4){
+                                $('#Table1User4Factor').show();
                                 SetActiveButt($("#Table1User4CheckBackground"));
                                 $("#Table1User4Check").attr("disabled",false);
                            }
@@ -2120,11 +2212,13 @@ function StartGameCallback() {
                             $('#Table2User1Factor').hide();
                         else
                             if(Message.Table1.User0[0] == 1 && Message.Balance>4){
+                                $('#Table2User1Factor').show();
                                 SetNoActiveButt($("#Table2User1CheckBackground"));
                                 $("#Table2User1Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User1Factor').show();
                                 SetActiveButt($("#Table2User1CheckBackground"));
                                 $("#Table2User1Check").attr("disabled",false);
                            }
@@ -2133,11 +2227,13 @@ function StartGameCallback() {
                             $('#Table2User2Factor').hide();
                         else
                             if(Message.Table1.User1[0] == 1 && Message.Balance>4){
+                                $('#Table2User2Factor').show();
                                 SetNoActiveButt($("#Table2User2CheckBackground"));
                                 $("#Table2User2Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User2Factor').show();
                                 SetActiveButt($("#Table2User2CheckBackground"));
                                 $("#Table2User2Check").attr("disabled",false);
                            }
@@ -2146,11 +2242,13 @@ function StartGameCallback() {
                             $('#Table2User3Factor').hide();
                         else
                             if(Message.Table1.User2[0] == 1 && Message.Balance>4){
+                                $('#Table2User3Factor').show();
                                 SetNoActiveButt($("#Table2User3CheckBackground"));
                                 $("#Table2User3Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User3Factor').show();
                                 SetActiveButt($("#Table2User3CheckBackground"));
                                 $("#Table2User3Check").attr("disabled",false);
                            }
@@ -2159,11 +2257,13 @@ function StartGameCallback() {
                             $('#Table2User4Factor').hide();
                         else
                             if(Message.Table1.User3[0] == 1 && Message.Balance>4){
+                                $('#Table2User4Factor').show();
                                 SetNoActiveButt($("#Table2User4CheckBackground"));
                                 $("#Table2User4Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User4Factor').show();
                                 SetActiveButt($("#Table2User4CheckBackground"));
                                 $("#Table2User4Check").attr("disabled",false);
                            }
@@ -2172,11 +2272,13 @@ function StartGameCallback() {
                             $('#Table2User5Factor').hide();
                         else
                             if(Message.Table1.User4[0] == 1 && Message.Balance>4){
+                                $('#Table2User5Factor').show();
                                 SetNoActiveButt($("#Table2User5CheckBackground"));
                                 $("#Table2User5Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User5Factor').show();
                                 SetActiveButt($("#Table2User5CheckBackground"));
                                 $("#Table2User5Check").attr("disabled",false);
                            }
@@ -2185,11 +2287,13 @@ function StartGameCallback() {
                             $('#Table2User6Factor').hide();
                         else
                             if(Message.Table1.User5[0] == 1 && Message.Balance>4){
+                                $('#Table2User6Factor').show();
                                 SetNoActiveButt($("#Table2User6CheckBackground"));
                                 $("#Table2User6Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table2User6Factor').show();
                                 SetActiveButt($("#Table2User6CheckBackground"));
                                 $("#Table2User6Check").attr("disabled",false);
                            }
@@ -2199,11 +2303,13 @@ function StartGameCallback() {
                             $('#Table3User1Factor').hide();
                         else
                             if(Message.Table2.User0[0] == 1 && Message.Balance>4){
+                                $('#Table3User1Factor').show();
                                 SetNoActiveButt($("#Table3User1CheckBackground"));
                                 $("#Table3User1Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User1Factor').show();
                                 SetActiveButt($("#Table3User1CheckBackground"));
                                 $("#Table3User1Check").attr("disabled",false);
                            }
@@ -2212,11 +2318,13 @@ function StartGameCallback() {
                             $('#Table3User2Factor').hide();
                         else
                             if(Message.Table2.User1[0] == 1 && Message.Balance>4){
+                                $('#Table3User2Factor').show();
                                 SetNoActiveButt($("#Table3User2CheckBackground"));
                                 $("#Table3User2Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User2Factor').show();
                                 SetActiveButt($("#Table3User2CheckBackground"));
                                 $("#Table3User2Check").attr("disabled",false);
                            }
@@ -2225,11 +2333,13 @@ function StartGameCallback() {
                             $('#Table3User3Factor').hide();
                         else
                             if(Message.Table2.User2[0] == 1 && Message.Balance>4){
+                                $('#Table3User3Factor').show();
                                 SetNoActiveButt($("#Table3User3CheckBackground"));
                                 $("#Table3User3Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User3Factor').show();
                                 SetActiveButt($("#Table3User3CheckBackground"));
                                 $("#Table3User3Check").attr("disabled",false);
                            }
@@ -2238,11 +2348,13 @@ function StartGameCallback() {
                             $('#Table3User4Factor').hide();
                         else
                             if(Message.Table2.User3[0] == 1 && Message.Balance>4){
+                                $('#Table3User4Factor').show();
                                 SetNoActiveButt($("#Table3User4CheckBackground"));
                                 $("#Table3User4Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User4Factor').show();
                                 SetActiveButt($("#Table3User4CheckBackground"));
                                 $("#Table3User4Check").attr("disabled",false);
                            }
@@ -2251,11 +2363,13 @@ function StartGameCallback() {
                             $('#Table3User5Factor').hide();
                         else
                             if(Message.Table2.User4[0] == 1 && Message.Balance>4){
+                                $('#Table3User5Factor').show();
                                 SetNoActiveButt($("#Table3User5CheckBackground"));
                                 $("#Table3User5Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User5Factor').show();
                                 SetActiveButt($("#Table3User5CheckBackground"));
                                 $("#Table3User5Check").attr("disabled",false);
                            }
@@ -2264,11 +2378,13 @@ function StartGameCallback() {
                             $('#Table3User6Factor').hide();
                         else
                             if(Message.Table2.User5[0] == 1 && Message.Balance>4){
+                                $('#Table3User6Factor').show();
                                 SetNoActiveButt($("#Table3User6CheckBackground"));
                                 $("#Table3User6Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User6Factor').show();
                                 SetActiveButt($("#Table3User6CheckBackground"));
                                 $("#Table3User6Check").attr("disabled",false);
                            }
@@ -2277,24 +2393,28 @@ function StartGameCallback() {
                             $('#Table3User7Factor').hide();
                         else
                             if(Message.Table2.User6[0] == 1 && Message.Balance>4){
+                                $('#Table3User7Factor').show();
                                 SetNoActiveButt($("#Table3User7CheckBackground"));
-                                $("#Table7User1Check").attr("disabled",true);
+                                $("#Table3User7Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User7Factor').show();
                                 SetActiveButt($("#Table3User7CheckBackground"));
-                                $("#Table7User1Check").attr("disabled",false);
+                                $("#Table3User7Check").attr("disabled",false);
                            }
                        
                        if(Message.Table2.User7[0] == -1 && Message.Balance>4)
                             $('#Table3User8Factor').hide();
                         else
                             if(Message.Table2.User7[0] == 1 && Message.Balance>4){
+                                $('#Table3User8Factor').show();
                                 SetNoActiveButt($("#Table3User8CheckBackground"));
                                 $("#Table3User8Check").attr("disabled",true);
                            }
                        else
                            if(Message.Balance>4){
+                                $('#Table3User8Factor').show();
                                 SetActiveButt($("#Table3User8CheckBackground"));
                                 $("#Table3User8Check").attr("disabled",false);
                            }
@@ -2312,6 +2432,29 @@ function StartGameCallback() {
                 if(Message.Stage == 5)
                         for(var i=0;i<Message.Shutdown.length;i++)
                             $("#"+Message.Shutdown[i]).css("border","solid 1px red");
+                }
+                
+                if(Message.Stage == 5){
+                    $('#Table1User1Factor').hide();
+                    $('#Table1User2Factor').hide();
+                    $('#Table1User3Factor').hide();
+                    $('#Table1User4Factor').hide();
+                    
+                    $('#Table2User1Factor').hide();
+                    $('#Table2User2Factor').hide();
+                    $('#Table2User3Factor').hide();
+                    $('#Table2User4Factor').hide();
+                    $('#Table2User5Factor').hide();
+                    $('#Table2User6Factor').hide();
+                    
+                    $('#Table3User1Factor').hide();
+                    $('#Table3User2Factor').hide();
+                    $('#Table3User3Factor').hide();
+                    $('#Table3User4Factor').hide();
+                    $('#Table3User5Factor').hide();
+                    $('#Table3User6Factor').hide();
+                    $('#Table3User7Factor').hide();
+                    $('#Table3User8Factor').hide();
                 }
         }}
     }
