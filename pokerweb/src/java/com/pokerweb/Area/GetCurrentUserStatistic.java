@@ -6,12 +6,15 @@ package com.pokerweb.Area;
 
 import com.pokerweb.DB.Game;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -59,11 +62,23 @@ public class GetCurrentUserStatistic extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Game GM = new Game();
-             JSONArray js = GM.GetCurrentUserGameStatistic();
-                            response.setContentType("application/json; charset=utf-8");
-                            response.setHeader("Cache-Control", "no-cache");
-                            response.getWriter().write(js.toString());
+        try {
+            Game GM = new Game();
+            int page = Integer.valueOf(request.getParameter("page"));
+            int limit = Integer.valueOf(request.getParameter("rows"));
+          //  int sidx = request.getParameter ("sidx");
+          //  int sord = request.getParameter ("deaf");
+                 JSONObject js = GM.GetCurrentUserGameStatistic(limit,page-1);
+                js.put("page", page);
+                int d = (js.getInt("records")+(limit-1))/limit;
+                js.put("total", d);
+                
+                                response.setContentType("application/json; charset=utf-8");
+                                response.setHeader("Cache-Control", "no-cache");
+                                response.getWriter().write(js.toString());
+        } catch (JSONException ex) {
+            Logger.getLogger(GetCurrentUserStatistic.class.getName()).log(Level.SEVERE, null, ex);
+        }
                         
        
     }

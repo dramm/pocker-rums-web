@@ -217,24 +217,27 @@ public class Game{
         }
     }
     
-    public JSONArray GetCurrentUserGameStatistic(){
+    public JSONObject GetCurrentUserGameStatistic(int limit,int offset){
         try {
             PreparedStatement stmt = null;
             JSONArray jsA = new JSONArray();
-            String query = "select t1.id_game,"
-                    + "t1.id_user,"
-                    + "t4.s as sum_bet,"
-                    + "t1.sum_win,t1.date_bet "
-                    + "from user_bet as t1,"
-                    + "bet_table as t3,"
-                    + "(select id_user,id_game, sum(sum_bet) as s from user_bet group by id_game) as t4 "
-                    + "where " +
-                    " t3.id_bet=t1.id and" +
-                    " t4.id_user=t1.id_user and" +
-                    " t4.id_game=t1.id_game and t1.id_user=? " +
-                    "group by t1.id_game";
+            String query = "select t1.id_game,t1.id_user," +
+"                    t4.s as sum_bet," +
+"                    t1.sum_win,t1.date_bet,t5.c as count" +
+"                    from user_bet as t1," +
+"                    bet_table as t3," +
+"                    (select id_user,id_game, sum(sum_bet) as s from user_bet group by id_game) as t4," +
+"(select count(t6.c) as c from (select count(*) as c from user_bet where id_user=? group by id_game) as t6) as t5 " +
+"                    where " +
+"                    t3.id_bet=t1.id and" +
+"                     t4.id_user=t1.id_user and" +
+"                     t4.id_game=t1.id_game and t1.id_user=? " +
+"                    group by t1.id_game  LIMIT ? OFFSET ?";
             stmt = DBManager.GetInstance().connection.prepareStatement(query);
             stmt.setLong(1, DBManager.GetInstance().GetCurrentUserId());
+            stmt.setLong(2, DBManager.GetInstance().GetCurrentUserId());
+            stmt.setInt(3, limit);
+            stmt.setInt(4, offset);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 JSONObject bet = new JSONObject();
@@ -244,7 +247,11 @@ public class Game{
                 bet.put("sum_win", rs.getDouble("sum_win"));
                 jsA.put(bet);
             }
-            return jsA;
+            JSONObject jsO = new JSONObject();
+            jsO.put("rows", jsA);
+            rs.first();
+            jsO.put("records", rs.getInt("count"));
+            return jsO;
         } catch (SQLException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -255,7 +262,7 @@ public class Game{
             
     }
     
-    public JSONArray GetAllUserGameStatistic(){
+    public JSONObject GetAllUserGameStatistic(int limit,int offset){
         try {
             PreparedStatement stmt = null;
             JSONArray jsA = new JSONArray();
@@ -263,17 +270,21 @@ public class Game{
                     + "t5.login,"
                     + "t4.s as sum_bet,"
                     + "t1.sum_win,"
-                    + "t1.date_bet "
+                    + "t1.date_bet,t6.c as count "
                     + "from user_bet as t1,"
                     + "bet_table as t3,"
                     + "users as t5,"
-                    + "(select id_user,id_game, sum(sum_bet) as s from user_bet group by id_game) as t4 " 
+                    + "(select id_user,id_game, sum(sum_bet) as s from user_bet group by id_game) as t4,"
+                    + "(select count(t7.c) as c from (select count(*) as c from user_bet group by id_game) as t7) as t6 " 
                     + "where " 
                     + " t3.id_bet=t1.id and " 
                     + " t4.id_user=t1.id_user and " 
                     + " t4.id_game=t1.id_game and t5.id=t1.id_user "  
-                    + "group by t1.id_game";
+                    + "group by t1.id_game LIMIT ? OFFSET ?";
             stmt = DBManager.GetInstance().connection.prepareStatement(query);
+            stmt.setInt(1, limit);
+            stmt.setInt(2, offset);
+            
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 JSONObject bet = new JSONObject();
@@ -284,7 +295,11 @@ public class Game{
                 bet.put("sum_win", rs.getDouble("sum_win"));
                 jsA.put(bet);
             }
-            return jsA;
+            JSONObject jsO = new JSONObject();
+            jsO.put("rows", jsA);
+            rs.first();
+            jsO.put("records", rs.getInt("count"));
+            return jsO;
         } catch (SQLException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             return null;
