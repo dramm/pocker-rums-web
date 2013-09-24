@@ -22,24 +22,30 @@ import org.json.JSONObject;
  * @author vadim
  */
 public class Game{
-    public boolean CalculateBalanceUser(){
+    public boolean CalculateBalanceUser(JSONArray Winners){
        PreparedStatement stmt = null;
        String query = null;
-        for (Map.Entry<Long, Double> entry : TableStatus.GetInstance().WinnUserList.entrySet()) {
+       for (int i = 0; i<Winners.length(); i++){
            try {
-               query = "UPDATE users SET balance = balance + " + entry.getValue() + " where id = ?";
-               stmt = DBManager.GetInstance().connection.prepareStatement(query);
-               stmt.setLong(1, entry.getKey());
-               stmt.executeUpdate();
-               
-               query = "UPDATE user_bet SET sum_win = ? where id_user = ? and id_game = ?";
-               stmt = DBManager.GetInstance().connection.prepareStatement(query);
-               stmt.setDouble(1, entry.getValue());
-               stmt.setLong(2, entry.getKey());
-               stmt.setLong(3, TableStatus.GetInstance().Round);
-               stmt.executeUpdate();
-               TableStatus.GetInstance().WinnUserList.clear();
-           } catch (SQLException ex) {
+               JSONObject UserWinn = new JSONObject(Winners.get(i).toString());
+           //for (Map.Entry<Long, Double> entry : TableStatus.GetInstance().WinnUserList.entrySet()) {
+               try {
+                   query = "UPDATE users SET balance = balance + " + UserWinn.getDouble("winnSize") + " where id = ?";
+                   stmt = DBManager.GetInstance().connection.prepareStatement(query);
+                   stmt.setLong(1, UserWinn.getLong("playerId"));
+                   stmt.executeUpdate();
+                   
+                   query = "UPDATE user_bet SET sum_win = ? where id_user = ? and id_game = ?";
+                   stmt = DBManager.GetInstance().connection.prepareStatement(query);
+                   stmt.setDouble(1, UserWinn.getDouble("winnSize"));
+                   stmt.setLong(2, UserWinn.getLong("playerId"));
+                   stmt.setLong(3, TableStatus.GetInstance().Round);
+                   stmt.executeUpdate();
+                   TableStatus.GetInstance().WinnUserList.clear();
+               } catch (SQLException ex) {
+                   Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+               }
+            } catch (JSONException ex) {
                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
            }
         }

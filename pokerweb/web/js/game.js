@@ -263,6 +263,7 @@ $("#SendNewBet").click(
         SetNoActiveButt($("#Table1User"+i+"CheckBackground"));
         if($("#Table1User"+i+"Check").attr("checked"))    
            json.Table1[index++] = i-1;
+       $("#Table1User"+i+"Check").attr("checked", false);
     }        
     index = 0;
    for(var i = 1; i < 7; i++){
@@ -270,6 +271,7 @@ $("#SendNewBet").click(
         $("#Table2User"+i+"Check").attr("disabled",true);
         if($("#Table2User"+i+"Check").attr("checked"))
             json.Table2[index++] = i-1;
+        $("#Table2User"+i+"Check").attr("checked", false);
    }
    index = 0;
    for(var i = 1; i < 9; i++){
@@ -277,6 +279,7 @@ $("#SendNewBet").click(
        $("#Table3User"+i+"Check").attr("disabled",true);
         if($("#Table3User"+i+"Check").attr("checked"))
            json.Table3[index++] = i-1;
+       $("#Table3User"+i+"Check").attr("checked", false);
    }
    $("#SumBetUser").attr("disabled",true);
    SetNoActiveButt($("#SumBetUser"));
@@ -399,7 +402,6 @@ for(var i = 1; i < 7; i++)
 for(var i = 1; i < 9; i++)
     if($("#Table3User"+i.toString()+"Check") != CurrentBet)
     DisableCheck($("#Table3User"+i.toString()+"Check"+"Background"),$("#Table3User"+i.toString()+"Check"));
-
 }
 
 function DisableAllBet(){
@@ -575,14 +577,17 @@ function StartGameCallback() {
                     for(var i = 1; i < 5; i++){
                         $("#Table1User"+i+"Check").attr("disabled",false);
                         SetActiveButt($("#Table1User"+i+"CheckBackground"));
+                        $("#Table1User"+i+"Check").attr("checked", false);
                     }        
                     for(var i = 1; i < 7; i++){
                         SetActiveButt($("#Table2User"+i+"CheckBackground"));
                         $("#Table2User"+i+"Check").attr("disabled",false);
+                        $("#Table2User"+i+"Check").attr("checked", false);
                     }
                     for(var i = 1; i < 9; i++){
                         SetActiveButt($("#Table3User"+i+"CheckBackground"));
                         $("#Table3User"+i+"Check").attr("disabled",false);
+                        $("#Table2User"+i+"Check").attr("checked", false);
                     }
                     $("#SumBetUser").attr("disabled",false);
                     SetActiveButt($("#SumBetUser"));
@@ -1142,7 +1147,7 @@ function StartGameCallback() {
                         $('#Table3User8Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table2.User7[1]+'.png)');
                         $('#Table3User8CheckBackground').html(Message.Table2.User7[2]);
                         $('#Table3User8Progress').css('bottom' , Message.Table2.User7[3] + '%');
-                        if(Message.Table0.User0[2] == -1 && Message.Balance>4 )
+                        if (Message.Table0.User0[2] == -1 && Message.Balance>4)
                             $('#Table1User1Factor').hide();
                         else
                             if(Message.Table0.User0[2] == 1 && Message.Balance>4){

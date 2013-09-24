@@ -929,7 +929,8 @@ position: absolute;
 float: left;
 margin-left: 15px;
 margin-top: 55px;
-color:white;
+color:black;
+font-weight: 700;
 }
 .TableUserCheckBackground{
 background: -moz-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%);
