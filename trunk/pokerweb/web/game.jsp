@@ -61,7 +61,7 @@
                                 <em id="Table1User1Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">1</div>
+                        <div class="UserNumber">11</div>
                     </div>
                     <script>$('#Table1User1Progress').css('bottom' , 40 + '%');
                     </script>
@@ -79,7 +79,7 @@
                                 <em id="Table1User2Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">2</div>
+                        <div class="UserNumber">12</div>
                     </div>
                     <script>$('#Table1User2Progress').css('bottom' , 40 + '%');</script>
                 </div>
@@ -109,7 +109,7 @@
                                 <em id="Table1User3Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">3</div>
+                        <div class="UserNumber">13</div>
                     </div>
                     <script>$('#Table1User3Progress').css('bottom' , 40 + '%');</script>
                     <div class="TableUser" style="margin-left: 15px;">
@@ -126,7 +126,7 @@
                                 <em id="Table1User4Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">4</div>
+                        <div class="UserNumber">14</div>
                     </div>
                     <script>$('#Table1User4Progress').css('bottom' , 40 + '%');</script>
                 </div>
@@ -149,7 +149,7 @@
                                 <em id="Table2User1Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">1</div>
+                        <div class="UserNumber">21</div>
                     </div>
                     <div class="TableUser">
                         <div id="Table2User2Factor" class="TableUserFactor">
@@ -165,7 +165,7 @@
                                 <em id="Table2User2Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">2</div>
+                        <div class="UserNumber">22</div>
                     </div>
                     <div class="TableUser">
                         <div id="Table2User3Factor" class="TableUserFactor">
@@ -181,7 +181,7 @@
                                 <em id="Table2User3Progress" class="progressbar-cover"></em>
                             </span>  
                         </div>
-                        <div class="UserNumber">3</div>
+                        <div class="UserNumber">23</div>
                     </div>
                 </div>
                     <script>
@@ -215,7 +215,7 @@
                                 <em id="Table2User4Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">4</div>
+                        <div class="UserNumber">24</div>
                     </div>
                     <div class="TableUser" style="float: left;">
                         <div id="Table2User5Factor" class="TableUserFactor">
@@ -231,7 +231,7 @@
                                 <em id="Table2User5Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">5</div>
+                        <div class="UserNumber">25</div>
                     </div>
                     <div class="TableUser" style="float: left;">
                         <div id="Table2User6Factor" class="TableUserFactor">
@@ -247,7 +247,7 @@
                                 <em id="Table2User6Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">6</div>
+                        <div class="UserNumber">26</div>
                     </div>
                     <script>
                         $('#Table2User4Progress').css('bottom' , 40 + '%');
@@ -276,7 +276,7 @@
                                 <em id="Table3User1Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">1</div>
+                        <div class="UserNumber">31</div>
                     </div>
                     <script>
                         $('#Table3User1Progress').css('bottom' , 40 + '%'); 
@@ -295,7 +295,7 @@
                                 <em id="Table3User2Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">2</div>
+                        <div class="UserNumber">32</div>
                     </div>
                     <script>$('#Table3User2Progress').css('bottom' , 40 + '%');</script>
                     <div  class="TableUser">
@@ -312,7 +312,7 @@
                                 <em id="Table3User3Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">3</div>
+                        <div class="UserNumber">33</div>
                     </div>
                     <script>$('#Table3User3Progress').css('bottom' , 40 + '%');</script>
                     
@@ -330,7 +330,7 @@
                                 <em id="Table3User4Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">4</div>
+                        <div class="UserNumber">34</div>
                     </div>
                     <script>$('#Table3User4Progress').css('bottom' , 40 + '%');</script>
                 </div>
@@ -360,7 +360,7 @@
                                 <em id="Table3User5Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">5</div>
+                        <div class="UserNumber">35</div>
                     </div>
                     <script>
                         $('#Table3User5Progress').css('bottom' , 40 + '%');                
@@ -379,7 +379,7 @@
                                 <em id="Table3User6Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">6</div>
+                        <div class="UserNumber">36</div>
                     </div>
                     <script>$('#Table3User6Progress').css('bottom' , 40 + '%');</script>
                     <div  class="TableUser">
@@ -396,7 +396,7 @@
                                 <em id="Table3User7Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">7</div>
+                        <div class="UserNumber">37</div>
                     </div>
                     <script>$('#Table3User7Progress').css('bottom' , 40 + '%');</script>
                     <div  class="TableUser">
@@ -413,7 +413,7 @@
                                 <em id="Table3User8Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">8</div>
+                        <div class="UserNumber">38</div>
                     </div>
                    <script>$('#Table3User8Progress').css('bottom' , 40 + '%');</script>
                 </div>
@@ -501,10 +501,21 @@
                         <div class="ButtonExpressBetSum">X</div>
                         <div class="ButtonExpressBetEnter" id="SendNewBet">Сделать ставку</div>    
                         </div>
-                        <div style="float:left">
+                        <div class="BetTableColumn" style="float: left">
+                            <div style="float: left">
+                            <div style="float: left;width: 120px;text-align: center">Дата</div>
+                            <div style="float: left;width: 100px;text-align: center">Прогноз</div>
+                            <div style="float: left;width: 70px;text-align: center">Ставка</div>
+                            <div style="float: left;width: 60px;text-align: center">Выигрыш</div>
+                            </div>
+                            <div style="float: left" id="BetTableCollection">
+                               
+                            </div>
+                        </div>
+<!--                        <div style="float:left">
                         <table id="StatisticListCurrentUser"><tr><td /></tr></table>
                         <div id="StatisticPagerCurrentUser"></div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>

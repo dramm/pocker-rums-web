@@ -75,7 +75,8 @@ public class NewBet extends HttpServlet {
             JSONArray Table2 = jsonObject.getJSONArray("Table2");
             JSONArray Table3 = jsonObject.getJSONArray("Table3");
             double Sum = jsonObject.getDouble("Sum");
-            boolean Correct = TableStatus.GetInstance().SetNewBet(Table1,Table2,Table3,Sum);
+            boolean Express = jsonObject.getBoolean("Express");
+            boolean Correct = TableStatus.GetInstance().SetNewBet(Table1,Table2,Table3,Sum,Express);
             JSONObject js = new JSONObject();
             if(Correct)
                 js.append("Correct", true);
