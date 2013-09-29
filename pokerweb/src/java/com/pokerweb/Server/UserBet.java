@@ -14,6 +14,8 @@ import java.util.Map;
  */
 public class UserBet {
     public double Sum;
+    public Long IdBet;
+    public boolean Express;
     public Map<Integer,List<Integer>> TableHand;
 
     public UserBet() {

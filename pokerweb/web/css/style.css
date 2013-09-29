@@ -836,6 +836,13 @@ font-family: Segoe UI,Arial,sans-serif;
     height: 30px;
     color: white;
 }
+.BetTableColumn{
+    background: #1e2d37;
+    /*border-radius: 6px 6px 0px 0px;*/
+    width: 400px;
+    height: 20px;
+    color: white;
+}
 .BetTableSettings{
     background: #395466;
     width: 400px;

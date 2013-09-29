@@ -29,7 +29,7 @@ public class TableStatus {
     public Table TableOne;
     public Table TableTwo;
     public Table TableThree;
-    public Map<Long,UserBet> Bets;
+    public Map<Long,List<UserBet>> Bets;
     public Map<Long,Double> WinnUserList;
     public JSONArray ShutdownInfo = new JSONArray();
     public int Stage;
@@ -41,7 +41,7 @@ public class TableStatus {
     private TableStatus(){
         strJson = "";
         GMData = new Game();
-        this.Bets = new HashMap<Long,UserBet>();
+        this.Bets = new HashMap<Long,List<UserBet>>();
         WinnUserList = new HashMap<Long, Double>();
         Timer = 0;
         Stage = -1;
@@ -183,12 +183,15 @@ public class TableStatus {
         jsO.append("Timer", Timer);
         jsO.append("Stage", Stage);
         jsO.append("Source", strJson);
+        jsO.append("Round", GetRound());
         jsO.append("Balance", DBManager.GetInstance().GetCurrentUserAllInfo().balance);
+        Game gm = new Game();
+        jsO.append("Bets", gm.GetCurrentUserGameStatistic());
         JSONObject Table0 = new JSONObject();
         JSONObject Table1 = new JSONObject();
         JSONObject Table2 = new JSONObject();
         if(StageUser == -1 || StageUser == 4){
-            if(Stage >= 0)
+           // if(Stage >= 0)
                 jsO.append("Round", Round);
             if(Stage >= 1 && StageUser != 4){
             for(int i = 0; i < 4; i++){
@@ -619,114 +622,46 @@ public class TableStatus {
         }
     }
     
-    public synchronized boolean SetNewBet(JSONArray Table1,JSONArray Table2,JSONArray Table3,double Sum){
+    public synchronized boolean SetNewBet(JSONArray Table1,JSONArray Table2,JSONArray Table3,double Sum,boolean Express){
         try {
             if(Sum > DBManager.GetInstance().GetCurrentUserAllInfo().balance)
                 return false;
             if(Table1.length() == 0 && Table2.length() == 0 && Table3.length() == 0)
                 return false;
+            if((Sum / (Table1.length() + Table2.length() + Table3.length())) < 4)
+                return false;
             Long UserId = DBManager.GetInstance().GetCurrentUserId();
-//            int CountHand = 0;
-//            for (Map.Entry<Integer,List<Integer>> item:Bets.get(UserId).TableHand.entrySet())
-//                CountHand += item.getValue().size();
-//            if(Bets.get(UserId) != null){
-//                if(Table1.length() > 0){
-//                
-//                    if(Bets.get(UserId).TableHand.get(0) != null){
-//                        for (int i = 0; i < Table1.length(); i++){
-//                        if(Bets.get(UserId).TableHand.get(0).contains(Table1.get(i))){
-//                            if(CountHand>1){
-//                                double d = Bets.get(UserId).Sum/CountHand;
-//                                int CountNewHant = Table1.length() + Table2.length() + Table3.length();
-//                                double NewD = Sum/CountNewHant;
-//                                Bets.get(UserId).Sum += NewD - d;
-//                }
-//                            else
-//                            {
-//                                int CountNewHant = Table1.length() + Table2.length() + Table3.length();
-//                                double NewD = Sum / CountNewHant;
-//                                Bets.get(UserId).Sum +=  NewD - Bets.get(UserId).Sum;
-//                            }
-//                }
-//                        else{
-//                            int CountNewHant = Table1.length() + Table2.length() + Table3.length();
-//                            double NewD = Sum / CountNewHant;
-//                            Bets.get(UserId).Sum +=  NewD;
-//                        }
-//                }}
-//                    else{
-//                         List<Integer> hand = new ArrayList<Integer>();
-//                        for (int i = 0; i < Table1.length(); i++)
-//                            hand.add(Table1.getInt(i));
-//                    Bets.get(UserId).TableHand.put(0, hand);
-//                    }
-//                }
-//                
-//                if(Table2.length() > 0){
-//                for (int i = 0; i < Table2.length(); i++){
-//                    if(Bets.get(UserId).TableHand.get(1) != null){
-//                        if(Bets.get(UserId).TableHand.get(1).contains(Table2.get(i))){
-//                            if(CountHand>1){
-//                                double d = Bets.get(UserId).Sum/CountHand;
-//                                int CountNewHant = Table1.length() + Table2.length() + Table3.length();
-//                                double NewD = Sum/CountNewHant;
-//                                Bets.get(UserId).Sum += NewD - d;
-//                }
-//                            else
-//                            {
-//                                int CountNewHant = Table1.length() + Table2.length() + Table3.length();
-//                                double NewD = Sum / CountNewHant;
-//                                Bets.get(UserId).Sum +=  NewD - Bets.get(UserId).Sum;
-//                            }
-//                }
-//                }
-//                }
-//                }
-//                
-//                if(Table3.length() > 0){
-//                for (int i = 0; i < Table3.length(); i++){
-//                    if(Bets.get(UserId).TableHand.get(2) != null){
-//                        if(Bets.get(UserId).TableHand.get(2).contains(Table1.get(i))){
-//                            if(CountHand>1){
-//                                double d = Bets.get(UserId).Sum/CountHand;
-//                                int CountNewHant = Table1.length() + Table2.length() + Table3.length();
-//                                double NewD = Sum/CountNewHant;
-//                                Bets.get(UserId).Sum += NewD - d;
-//                }
-//                            else
-//                            {
-//                                int CountNewHant = Table1.length() + Table2.length() + Table3.length();
-//                                double NewD = Sum / CountNewHant;
-//                                Bets.get(UserId).Sum +=  NewD - Bets.get(UserId).Sum;
-//                            }
-//                }
-//                }
-//                }
-//                }
-//            
-//            }
-            UserBet bet = new UserBet();
-            bet.Sum = Sum;
+            List<UserBet> bet = new ArrayList<UserBet>();
+            UserBet ub = new UserBet();
+            ub.Sum = Sum;
+            ub.Express = Express;
             List<Integer> hand = new ArrayList<Integer>();
             if(Table1.length() > 0){
                 for (int i = 0; i < Table1.length(); i++) 
                     hand.add(Table1.getInt(i));
-                    bet.TableHand.put(0,hand);
+                    ub.TableHand.put(0,hand);
                         }
             if(Table2.length() > 0){
                 hand = new ArrayList<Integer>();
                 for (int i = 0; i < Table2.length(); i++) 
                     hand.add(Table2.getInt(i));
-                bet.TableHand.put(1,hand);
+                ub.TableHand.put(1,hand);
                         }
             if(Table3.length() > 0){
                 hand = new ArrayList<Integer>();
                 for (int i = 0; i < Table3.length(); i++) 
                     hand.add(Table3.getInt(i));
-                bet.TableHand.put(2,hand);
+                ub.TableHand.put(2,hand);
                         }
-            Bets.put(UserId, bet);
-            GMData.WriteBetsCurrentStage();
+            long IdBet = GMData.WriteBetsCurrentStage(ub);
+            ub.IdBet = IdBet;
+            if(Bets.containsKey(UserId))
+                Bets.get(UserId).add(ub);
+            else{
+                bet.add(ub);
+                Bets.put(UserId, bet);
+            }
+            
            // GMData.CalculateBalanceUserNewBet(bet,UserId);
             return true;
         } catch (JSONException ex) {
@@ -747,11 +682,14 @@ public class TableStatus {
             Connect.GetInstance().out.flush();
             return true;
             }
-            for (Map.Entry<Long,UserBet> item : Bets.entrySet()) {
+            for (Map.Entry<Long,List<UserBet>> item : Bets.entrySet()) {
+                for (UserBet itemBet : item.getValue()) {
                 UserJs = new JSONObject();
                 UserJs.put("Id", item.getKey());
-                UserJs.put("Sum",item.getValue().Sum);
-                for(Map.Entry<Integer,List<Integer>> tables : item.getValue().TableHand.entrySet()){
+                UserJs.put("Sum", itemBet.Sum);
+                UserJs.put("Express", itemBet.Express);
+                UserJs.put("IdBet", itemBet.IdBet);
+                for(Map.Entry<Integer,List<Integer>> tables : itemBet.TableHand.entrySet()){
                     HandJs = new JSONObject();
                     for (Integer hands : tables.getValue()){
                         if (tables.getKey() == 0)
@@ -764,14 +702,13 @@ public class TableStatus {
                     UserJs.put("Table" + tables.getKey().toString(),HandJs);
                 }
                 RootJs.put(UserJs);
+                }
             }
             Bets.clear();
-            //= new HashMap<Long, UserBet>();
             Connect.GetInstance().out.write(Functions.intToByteArray(1020));
             Connect.GetInstance().out.write(Functions.intToByteArray(RootJs.toString().length()));
             Connect.GetInstance().out.write(CryptoManager.encode(RootJs.toString().getBytes()));
             Connect.GetInstance().out.flush();
-            
             return true;
         } catch (IOException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -792,5 +729,9 @@ public class TableStatus {
     
     public synchronized Table GetTableThree(){
         return TableThree;
+    }
+    
+    public synchronized Long GetRound(){
+        return Round;
     }
 }
