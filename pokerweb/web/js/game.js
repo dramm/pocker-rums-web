@@ -15,22 +15,62 @@ function changeCheck(el)
 {
      var el = el,
           input = el.find("input").eq(0);
-   	 if(input.attr("checked")) {
-		el.css("background-position","0 -17px");	
-		input.attr("checked", false)
-                //DisableOtherBet(null);
-	} else {
-		el.css("background-position","0 0");	
-		input.attr("checked", true)
-	}
+  if($("#ExpressCheck").attr("disabled"))
+        return false;
+  if(input.attr("checked")) {
+		el.css("background-position","0 -17px");
+                input.attr("checked", false);
+		}else{
+                el.css("background-position","0 0px");
+                input.attr("checked", true);
+		    
+                }
+  var sum=0;
+  if($("#ExpressCheck").attr("checked")){
+                      for(var i = 1; i < 5; i++)
+                      if($("#Table1User"+i+"Check").attr("checked")){
+                      if(sum==0 || sum==0.00)  
+                        sum+=parseFloat($('#Table1User'+i+'CheckBackground').html());
+                    else
+                        sum*=parseFloat($('#Table1User'+i+'CheckBackground').html());
+                        }
+                  for(var i = 1; i < 7; i++)
+                      if($("#Table2User"+i+"Check").attr("checked")){
+                       if(sum==0 || sum==0.00)  
+                        sum+=parseFloat($('#Table1User'+i+'CheckBackground').html());
+                    else
+                        sum*=parseFloat($('#Table1User'+i+'CheckBackground').html());
+                      }
+                  for(var i = 1; i < 9; i++)
+                      if($("#Table3User"+i+"Check").attr("checked")){
+                          if(sum==0 || sum==0.00)  
+                        sum+=parseFloat($('#Table3User'+i+'CheckBackground').html());
+                    else
+                        sum*=parseFloat($('#Table3User'+i+'CheckBackground').html());
+                        }
+                  }else{
+                  for(var i = 1; i < 5; i++)
+                      if($("#Table1User"+i+"Check").attr("checked")){
+                          sum+=parseFloat($('#Table1User'+i+'CheckBackground').html());
+                      }
+                  for(var i = 1; i < 7; i++)
+                      if($("#Table2User"+i+"Check").attr("checked")){
+                          sum+=parseFloat($('#Table2User'+i+'CheckBackground').html());
+                      }
+                  for(var i = 1; i < 9; i++)
+                      if($("#Table3User"+i+"Check").attr("checked")){
+                          sum+=parseFloat($('#Table3User'+i+'CheckBackground').html());
+                        }}
+                   $("#Factor").html(sum.toFixed(2));
      return true;
 }
 
 function changeCheckStart(el){
 var el = el,
 		input = el.find("input").eq(0);
-      if(input.attr("checked")) {
-		el.css("background-position","0 -17px");	
+      if(!input.attr("checked")) {
+		el.css("background-position","0 -17px");
+                input.attr("checked", false);
 		}
      return true;
 }
@@ -217,19 +257,20 @@ $("#SumBetDown").click(
         function() {
     if($("#SumBetDown").attr("disabled"))
             return ;
-    var count = 0;
-    for(var i = 1; i < 5; i++)
-        if($("#Table1User"+i+"Check").attr("checked"))
-           count++;
-   for(var i = 1; i < 6; i++)
-        if($("#Table2User"+i+"Check").attr("checked"))
-           count++;
-   for(var i = 1; i < 9; i++)
-        if($("#Table3User"+i+"Check").attr("checked"))
-           count++;
-            var CurrentSum = parseFloat($("#SumBetUser").html());
-            if(count != 0 && ((CurrentSum - 0.50)/count) >= 4)
-                $("#SumBetUser").html(CurrentSum - 0.50);
+//    var count = 0;
+//    for(var i = 1; i < 5; i++)
+//        if($("#Table1User"+i+"Check").attr("checked"))
+//           count++;
+//   for(var i = 1; i < 6; i++)
+//        if($("#Table2User"+i+"Check").attr("checked"))
+//           count++;
+//   for(var i = 1; i < 9; i++)
+//        if($("#Table3User"+i+"Check").attr("checked"))
+//           count++;
+//            var CurrentSum = parseFloat($("#SumBetUser").html());
+            //if(count != 0 && ((CurrentSum - 0.50)/count) >= 4)
+            if((parseFloat($("#SumBetUser").html()) - 0.50) >=4)
+                $("#SumBetUser").html(parseFloat($("#SumBetUser").html()) - 0.50);
 });
 
 $("#SendNewBet").click(
@@ -254,10 +295,11 @@ $("#SendNewBet").click(
     json["Table2"] = { };
     json["Table3"] = { };
     json["Sum"] = $("#SumBetUser").html();
-    json["Express"] = $("#ExpressCheck").attr("checked");
+    json["Express"] = $("#ExpressCheck").attr("checked") == "checked"?true:false;
     json.Table1 = [];
     json.Table2 = [];
     json.Table3 = [];
+    //console.log($("#ExpressCheck").attr("checked"));
     var index = 0;
     for(var i = 1; i < 5; i++){
      //   SetNoActiveButt($("#Table1User"+i+"CheckBackground"));
@@ -378,6 +420,7 @@ for(var i = 1; i < 7; i++){
        $("#Calculator").dialog('close');
        $("#DisplayCalculator").html("0");
    });
+   $("#ResetBets").click(function(){DisableAllBet();});
 });
 
 function DisableOtherBet(CurrentBet){
@@ -395,6 +438,7 @@ for(var i = 1; i < 9; i++)
 }
 
 function DisableAllBet(){
+    $("#Factor").html(0);
 for(var i = 1; i < 5; i++)
     DisableCheck($("#Table1User"+i.toString()+"Check"+"Background"),$("#Table1User"+i.toString()+"Check"));
 
@@ -422,15 +466,7 @@ function TableUserChangeCheck(el,input)
          var countT1 = 0;
          var countT2 = 0;
          var countT3 = 0;
-            for(var i = 1; i < 5; i++)
-                if($("#Table1User"+i+"Check").attr("checked"))
-                   countT1++;
-                    for(var i = 1; i < 7; i++)
-                        if($("#Table2User"+i+"Check").attr("checked"))
-                   countT2++;
-                    for(var i = 1; i < 9; i++)
-                        if($("#Table3User"+i+"Check").attr("checked"))
-                   countT3++;
+            
    	 if(!input.attr("checked")) {
             // var exp = document.getElementById("ExpressCheck");
             // if(exp.getAttribute("checked"))
@@ -441,16 +477,78 @@ function TableUserChangeCheck(el,input)
                 el.css("background","-ms-linear-gradient(top, #d52711 0%, #d76255 100%)");
                 el.css("background","linear-gradient(top, #d52711 0%, #d76255 100%)");
                 input.attr("checked", true);
-            
+            for(var i = 1; i < 5; i++)
+                if($("#Table1User"+i+"Check").attr("checked"))
+                   countT1++;
+                    for(var i = 1; i < 7; i++)
+                        if($("#Table2User"+i+"Check").attr("checked"))
+                   countT2++;
+                    for(var i = 1; i < 9; i++)
+                        if($("#Table3User"+i+"Check").attr("checked"))
+                   countT3++;
            if(countT1>1 || countT2>1 || countT3>1)
                {
-                $(".niceCheck").css("background-position","0 -17px");	
+                  var sum=0;
+                  $(".niceCheck").css("background-position","0 -17px");	
 		$("#ExpressCheck").attr("checked", false);
 		$("#ExpressCheck").attr("disabled",true);
+                 
+                  for(var i = 1; i < 5; i++)
+                      if($("#Table1User"+i+"Check").attr("checked")){
+                          sum+=parseFloat($('#Table1User'+i+'CheckBackground').html());
+                      }
+                  for(var i = 1; i < 7; i++)
+                      if($("#Table2User"+i+"Check").attr("checked")){
+                          sum+=parseFloat($('#Table2User'+i+'CheckBackground').html());
+                      }
+                  for(var i = 1; i < 9; i++)
+                      if($("#Table3User"+i+"Check").attr("checked")){
+                          sum+=parseFloat($('#Table3User'+i+'CheckBackground').html());
+                        }
+                   $("#Factor").html(sum.toFixed(2));
+                
 	}else{
+            var sum=0;
+                  if($("#ExpressCheck").attr("checked")){
+                      for(var i = 1; i < 5; i++)
+                      if($("#Table1User"+i+"Check").attr("checked")){
+                      if(sum==0 || sum==0.00)  
+                        sum+=parseFloat($('#Table1User'+i+'CheckBackground').html());
+                    else
+                        sum*=parseFloat($('#Table1User'+i+'CheckBackground').html());
+                        }
+                  for(var i = 1; i < 7; i++)
+                      if($("#Table2User"+i+"Check").attr("checked")){
+                       if(sum==0 || sum==0.00)  
+                        sum+=parseFloat($('#Table2User'+i+'CheckBackground').html());
+                    else
+                        sum*=parseFloat($('#Table2User'+i+'CheckBackground').html());
+                      }
+                  for(var i = 1; i < 9; i++)
+                      if($("#Table3User"+i+"Check").attr("checked")){
+                          if(sum==0 || sum==0.00)  
+                        sum+=parseFloat($('#Table3User'+i+'CheckBackground').html());
+                    else
+                        sum*=parseFloat($('#Table3User'+i+'CheckBackground').html());
+                        }
+                  }else{
+                      var sum=0;
+                  for(var i = 1; i < 5; i++)
+                      if($("#Table1User"+i+"Check").attr("checked")){
+                          sum+=parseFloat($('#Table1User'+i+'CheckBackground').html());
+                      }
+                  for(var i = 1; i < 7; i++)
+                      if($("#Table2User"+i+"Check").attr("checked")){
+                          sum+=parseFloat($('#Table2User'+i+'CheckBackground').html());
+                      }
+                  for(var i = 1; i < 9; i++)
+                      if($("#Table3User"+i+"Check").attr("checked")){
+                          sum+=parseFloat($('#Table3User'+i+'CheckBackground').html());
+                        }}
+                   $("#Factor").html(sum.toFixed(2));
                 $("#ExpressCheck").attr("disabled",false);
 	}
-                SetBetHand(true);
+              //  SetBetHand(true);
 	} else {
                 el.css("background","-moz-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
                 el.css("background","-webkit-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
@@ -458,12 +556,73 @@ function TableUserChangeCheck(el,input)
                 el.css("background","-ms-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
                 el.css("background","linear-gradient(top, #49a6e8 0%, #4281a9 100%)");	
                 input.attr("checked", false);
-                if(countT1>1 || countT2>1 || countT3>1)
+            for(var i = 1; i < 5; i++)
+                if($("#Table1User"+i+"Check").attr("checked"))
+                   countT1++;
+                    for(var i = 1; i < 7; i++)
+                        if($("#Table2User"+i+"Check").attr("checked"))
+                   countT2++;
+                    for(var i = 1; i < 9; i++)
+                        if($("#Table3User"+i+"Check").attr("checked"))
+                   countT3++;
+             if(countT1>1 || countT2>1 || countT3>1)
                {
+                  var sum=0;
+                  for(var i = 1; i < 5; i++)
+                      if($("#Table1User"+i+"Check").attr("checked")){
+                          sum+=parseFloat($('#Table1User'+i+'CheckBackground').html());
+                      }
+                  for(var i = 1; i < 7; i++)
+                      if($("#Table2User"+i+"Check").attr("checked")){
+                          sum+=parseFloat($('#Table2User'+i+'CheckBackground').html());
+                      }
+                  for(var i = 1; i < 9; i++)
+                      if($("#Table3User"+i+"Check").attr("checked")){
+                          sum+=parseFloat($('#Table3User'+i+'CheckBackground').html());
+                        }
+                   $("#Factor").html(sum.toFixed(2));
                 $(".niceCheck").css("background-position","0 -17px");	
 		$("#ExpressCheck").attr("checked", false);
 		$("#ExpressCheck").attr("disabled",true);
 	}else{
+            var sum=0;
+                  if($("#ExpressCheck").attr("checked")){
+                      for(var i = 1; i < 5; i++)
+                      if($("#Table1User"+i+"Check").attr("checked")){
+                      if(sum==0 || sum==0.00)  
+                        sum+=parseFloat($('#Table1User'+i+'CheckBackground').html());
+                    else
+                        sum*=parseFloat($('#Table1User'+i+'CheckBackground').html());
+                        }
+                  for(var i = 1; i < 7; i++)
+                      if($("#Table2User"+i+"Check").attr("checked")){
+                       if(sum==0 || sum==0.00)  
+                        sum+=parseFloat($('#Table2User'+i+'CheckBackground').html());
+                    else
+                        sum*=parseFloat($('#Table2User'+i+'CheckBackground').html());
+                      }
+                  for(var i = 1; i < 9; i++)
+                      if($("#Table3User"+i+"Check").attr("checked")){
+                          if(sum==0 || sum==0.00)  
+                        sum+=parseFloat($('#Table3User'+i+'CheckBackground').html());
+                    else
+                        sum*=parseFloat($('#Table3User'+i+'CheckBackground').html());
+                        }
+                  }else{
+                      var sum=0;
+                  for(var i = 1; i < 5; i++)
+                      if($("#Table1User"+i+"Check").attr("checked")){
+                          sum+=parseFloat($('#Table1User'+i+'CheckBackground').html());
+                      }
+                  for(var i = 1; i < 7; i++)
+                      if($("#Table2User"+i+"Check").attr("checked")){
+                          sum+=parseFloat($('#Table2User'+i+'CheckBackground').html());
+                      }
+                  for(var i = 1; i < 9; i++)
+                      if($("#Table3User"+i+"Check").attr("checked")){
+                          sum+=parseFloat($('#Table3User'+i+'CheckBackground').html());
+                        }}
+                   $("#Factor").html(sum.toFixed(2));
                 $("#ExpressCheck").attr("disabled",false);
 	}
 	}}
@@ -589,16 +748,17 @@ function StartGameCallback() {
                 var Message = JSON.parse(reqPrivate.responseText);
                 var tr = reqPrivate.responseText;
                 //console.log(tr);
-                $("#MaxBet").html(Message.Balance);
+                var BalanceNew = Message.Balance;
+                $("#MaxBet").html(BalanceNew);
                 var StringBets = "";
                 for (var i=0;i<Message.Bets[0].length;i++){
                     StringBets+=
                            " <div style='float: left' id='BetTableCollection'> "+
                            "<div style='float: left;width: 100%;height: 15px;font-size: 12px'>"+
-                                 "   <div style='float: left;width: 120px;text-align: center'>"+Message.Bets[0][i].date+"</div>"+
+                                 "   <div style='float: left;width: 130px;text-align: center'>"+Message.Bets[0][i].date+"</div>"+
                                     "<div style='float: left;width: 100px;text-align: center'>"+Message.Bets[0][i].hands+"</div>"+
-                                    "<div style='float: left;width: 70px;text-align: center'>"+Message.Bets[0][i].sum_bet+"</div>"+
-                                    "<div style='float: left;width: 60px;text-align: center'>"+Message.Bets[0][i].sum_win+"</div>"+
+                                    "<div style='float: left;width: 70px;text-align: center'>"+Message.Bets[0][i].sum_bet.toFixed(2)+"</div>"+
+                                    "<div style='float: left;width: 60px;text-align: center'>"+Message.Bets[0][i].sum_win.toFixed(2)+"</div>"+
                                 "</div>"
                     
                 }
@@ -628,8 +788,10 @@ function StartGameCallback() {
                     SetActiveButt($("#SumBetDown"));
                     $("#SendNewBet").attr("disabled",false);
                     SetActiveSetBetButt($("#SendNewBet"));
+                    $("#Factor").html(0);
                 }else if($("#CurrentStage").html() != Message.Stage)
                 {
+                    $("#Factor").html(0);
                     for(var i = 1; i < 5; i++){
                         $("#Table1User"+i+"Check").attr("disabled",true);
                         SetNoActiveButt($("#Table1User"+i+"CheckBackground"));
@@ -2506,10 +2668,10 @@ function SaveNewBetCallback() {
             if(reqPrivate.responseText != null)
             if(reqPrivate.responseText.length > 0){
                 var Message = JSON.parse(reqPrivate.responseText);
-                if(Message.Correct == 'true')
-                    alert("Ставка выполнена");
-                else
-                    alert("Ставка не выполнена");
+              //  if(Message.Correct == 'true')
+              //      alert("Ставка выполнена");
+              //  else
+              //      alert("Ставка не выполнена");
             }
     }
 }

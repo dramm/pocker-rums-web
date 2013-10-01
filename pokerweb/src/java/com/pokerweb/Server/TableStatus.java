@@ -628,7 +628,7 @@ public class TableStatus {
                 return false;
             if(Table1.length() == 0 && Table2.length() == 0 && Table3.length() == 0)
                 return false;
-            if((Sum / (Table1.length() + Table2.length() + Table3.length())) < 4)
+            if(Sum < 4)
                 return false;
             Long UserId = DBManager.GetInstance().GetCurrentUserId();
             List<UserBet> bet = new ArrayList<UserBet>();
