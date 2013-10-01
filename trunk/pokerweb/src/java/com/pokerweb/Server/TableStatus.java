@@ -433,6 +433,7 @@ public class TableStatus {
                 GetTableThree().Hands.get(i).Indicator = T1Arr.getJSONObject(2).getInt("Indicator");
             }
             Stage = 1;
+            System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -468,6 +469,7 @@ public class TableStatus {
                 GetTableThree().Hands.get(i).Indicator = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
             }
             Stage = 2; 
+            System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -496,6 +498,7 @@ public class TableStatus {
                 GetTableThree().Hands.get(i).Indicator = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
             }
              Stage = 3;
+             System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -524,6 +527,7 @@ public class TableStatus {
               GetTableThree().Hands.get(i).Indicator = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
           }
           Stage = 4;
+          System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -606,6 +610,7 @@ public class TableStatus {
 //            }
             GMData.CalculateBalanceUser(Winners);
             Stage = 5;
+            System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -617,6 +622,7 @@ public class TableStatus {
             JSONObject js = new JSONObject(data);
             Round = js.getLong("Round");
             ShutdownInfo = new JSONArray();
+            System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -661,7 +667,7 @@ public class TableStatus {
                 bet.add(ub);
                 Bets.put(UserId, bet);
             }
-            
+            System.gc();
            // GMData.CalculateBalanceUserNewBet(bet,UserId);
             return true;
         } catch (JSONException ex) {
@@ -709,6 +715,7 @@ public class TableStatus {
             Connect.GetInstance().out.write(Functions.intToByteArray(RootJs.toString().length()));
             Connect.GetInstance().out.write(CryptoManager.encode(RootJs.toString().getBytes()));
             Connect.GetInstance().out.flush();
+            System.gc();
             return true;
         } catch (IOException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
