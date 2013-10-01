@@ -498,7 +498,7 @@
                             <div class="ButtonExpressBetSum" id="SumBetUp">&gt;</div>
                         </div>
                         <div style="float: right;">
-                        <div class="ButtonExpressBetSum">X</div>
+                        <div class="ButtonExpressBetSum" id="ResetBets">X</div>
                         <div class="ButtonExpressBetEnter" id="SendNewBet">Сделать ставку</div>    
                         </div>
                         <div class="BetTableColumn" style="float: left">
