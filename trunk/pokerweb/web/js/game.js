@@ -303,25 +303,32 @@ $("#SendNewBet").click(
     var index = 0;
     for(var i = 1; i < 5; i++){
      //   SetNoActiveButt($("#Table1User"+i+"CheckBackground"));
-        if($("#Table1User"+i+"Check").attr("checked"))    
+        if($("#Table1User"+i+"Check").attr("checked")){    
            json.Table1[index++] = i-1;
       $("#Table1User"+i+"Check").attr("checked", false);
+       DisableCheck($("#Table1User"+i.toString()+"Check"+"Background"),$("#Table1User"+i.toString()+"Check"));
+        }
     }        
     index = 0;
    for(var i = 1; i < 7; i++){
      //  SetNoActiveButt($("#Table2User"+i+"CheckBackground"));
-        if($("#Table2User"+i+"Check").attr("checked"))
+        if($("#Table2User"+i+"Check").attr("checked")){
             json.Table2[index++] = i-1;
         $("#Table2User"+i+"Check").attr("checked", false);
+         DisableCheck($("#Table2User"+i.toString()+"Check"+"Background"),$("#Table2User"+i.toString()+"Check"));
+        }
    }
    index = 0;
    for(var i = 1; i < 9; i++){
      //  SetNoActiveButt($("#Table3User"+i+"CheckBackground"));
-        if($("#Table3User"+i+"Check").attr("checked"))
+        if($("#Table3User"+i+"Check").attr("checked")){
            json.Table3[index++] = i-1;
        $("#Table3User"+i+"Check").attr("checked", false);
+        DisableCheck($("#Table3User"+i.toString()+"Check"+"Background"),$("#Table3User"+i.toString()+"Check"));
+        }
    }
-        DisableAllBet();
+      //  DisableAllBet();
+        $("#Factor").html(0);
    var url = "NewBet";
    reqPrivate = new XMLHttpRequest();
    reqPrivate.open("POST", url, true);
