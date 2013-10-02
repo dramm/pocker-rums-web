@@ -4,8 +4,12 @@
  */
 package com.pokerweb.DB;
 
+import com.pokerweb.Config.ConfigManager;
+import com.pokerweb.Config.FieldJdbc;
 import com.pokerweb.Server.TableStatus;
 import com.pokerweb.Server.UserBet;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,39 +28,73 @@ import org.json.JSONObject;
  */
 public class Game{
     public boolean CalculateBalanceUser(JSONArray Winners){
-       PreparedStatement stmt = null;
-       String query = null;
-       for (int i = 0; i<Winners.length(); i++){
-           try {
-               JSONObject UserWinn = new JSONObject(Winners.get(i).toString());
-              try {
-                   query = "UPDATE users SET balance = balance + " + UserWinn.getDouble("winnSize") + " where id = ?";
-                   stmt = DBManager.GetInstance().connection.prepareStatement(query);
-                   stmt.setLong(1, UserWinn.getLong("playerId"));
-                   stmt.executeUpdate();
-                   
-                   query = "UPDATE user_bet SET sum_win = sum_win + ? where id_user = ? and id_game = ? and id = ?";
-                   stmt = DBManager.GetInstance().connection.prepareStatement(query);
-                   stmt.setDouble(1, UserWinn.getDouble("winnSize"));
-                   stmt.setLong(2, UserWinn.getLong("playerId"));
-                   stmt.setLong(3, TableStatus.GetInstance().GetRound());
-                   stmt.setLong(4, UserWinn.getLong("IdBet"));
-                   stmt.executeUpdate();
-                   TableStatus.GetInstance().WinnUserList.clear();
-               } catch (SQLException ex) {
-                   Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-               }
-            } catch (JSONException ex) {
-               Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-           }
+        PreparedStatement stmt = null;
+            String query = null;
+            Connection connection;
+        try {
+            
+             FieldJdbc FieldJ; 
+                 FieldJ = new ConfigManager().GetPropJdbc();
+                 
+                 String driverName = "com.mysql.jdbc.Driver";
+                 Class.forName(driverName);
+                 String url = "jdbc:mysql://"+FieldJ.serverName+":"+FieldJ.port+"/"+FieldJ.database;
+                 connection = DriverManager.getConnection(url, FieldJ.username, FieldJ.password);
+            for (int i = 0; i<Winners.length(); i++){
+                try {
+                    JSONObject UserWinn = new JSONObject(Winners.get(i).toString());
+                   try {
+                        query = "UPDATE users SET balance = balance + " + UserWinn.getDouble("winnSize") + " where id = ?";
+                        stmt = connection.prepareStatement(query);
+                        stmt.setLong(1, UserWinn.getLong("playerId"));
+                        stmt.executeUpdate();
+                        
+                        query = "UPDATE user_bet SET sum_win = sum_win + ? where id_user = ? and id_game = ? and id = ?";
+                        stmt = connection.prepareStatement(query);
+                        stmt.setDouble(1, UserWinn.getDouble("winnSize"));
+                        stmt.setLong(2, UserWinn.getLong("playerId"));
+                        stmt.setLong(3, TableStatus.GetInstance().GetRound());
+                        stmt.setLong(4, UserWinn.getLong("IdBet"));
+                        stmt.executeUpdate();
+                        TableStatus.GetInstance().WinnUserList.clear();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                        stmt.close();
+                        connection.close();
+                        return false;
+                    }
+                 } catch (JSONException ex) {
+                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                    stmt.close();
+                    connection.close();
+                    return false;
+                }
+             }
+            stmt.close();
+            connection.close();
+             return true;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (SQLException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-        return true;
     }
  
     
     public long WriteBetsCurrentStage(UserBet ub){
+         Connection connection;
+         PreparedStatement stmt = null;
         try {
-            PreparedStatement stmt = null;
+            
+            FieldJdbc FieldJ; 
+            FieldJ = new ConfigManager().GetPropJdbc();
+            
+            String driverName = "com.mysql.jdbc.Driver";
+            Class.forName(driverName);
+            String url = "jdbc:mysql://"+FieldJ.serverName+":"+FieldJ.port+"/"+FieldJ.database;
+            connection = DriverManager.getConnection(url, FieldJ.username, FieldJ.password);
             long IdBet = 0;
             
             Long UserId = DBManager.GetInstance().GetCurrentUserId();
@@ -71,7 +109,7 @@ public class Game{
                         + "date_bet"
                         + ") "
                         + "values(?,?,?,?,(select balance from users where id = ?),?,?,NOW())";
-                stmt = DBManager.GetInstance().connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+                stmt = connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
                 stmt.setLong(1, UserId);
                 stmt.setLong(2, TableStatus.GetInstance().GetRound());
                 stmt.setLong(3, 123);
@@ -89,168 +127,57 @@ public class Game{
                     for (Integer hand : object.getValue()) {
                     
                 query = "insert into bet_hand(id_bet,hand) values(?,?)";
-                stmt = DBManager.GetInstance().connection.prepareStatement(query);
+                stmt = connection.prepareStatement(query);
                 stmt.setLong(1, IdBet);
                 stmt.setLong(2, ((object.getKey()+1)*10)+(hand+1));
                 stmt.executeUpdate();
                 }
             }
                 
-                
-//                query = "select id from user_bet where id_game="+TableStatus.GetInstance().GetRound()+" and id_user="+UserId+" order by id DESC";
-//                ResultSet rs = stmt.executeQuery(query);
-//                if(!rs.first())
-//                    return 0;
-//                Long id_bet = rs.getLong("id");
-//                
-//                for (Map.Entry<Integer,List<Integer>> table : ub.TableHand.entrySet()) {
-//                    
-//                    if(TableStatus.GetInstance().Stage == 1){
-//                        query = "insert bet_table(id_bet,id_table) values(?,?)";
-//                        stmt = DBManager.GetInstance().connection.prepareStatement(query);
-//                        stmt.setLong(1, id_bet);
-//                        stmt.setLong(2, table.getKey());
-//                        stmt.executeUpdate();
-//                }
-//                    if (TableStatus.GetInstance().Stage == 2){
-//                        query = "select id from bet_table where id_bet = ? and id_table = ?";
-//                        stmt = DBManager.GetInstance().connection.prepareStatement(query);
-//                        stmt.setLong(1, id_bet);
-//                        stmt.setLong(2, table.getKey());
-//                        rs = stmt.executeQuery();
-//                        if(!rs.first()){
-//                            query = "insert bet_table(id_bet,id_table) values(?,?)";
-//                            stmt = DBManager.GetInstance().connection.prepareStatement(query);
-//                            stmt.setLong(1, id_bet);
-//                            stmt.setLong(2, table.getKey());
-//                            stmt.executeUpdate();
-//                        }
-//                        query = "UPDATE bet_table SET flop_one = ?,flop_two = ?,flop_three = ? where id_bet = ? and id_table = ?";
-//                        stmt = DBManager.GetInstance().connection.prepareStatement(query);
-//                        stmt.setLong(4, id_bet);
-//                        stmt.setLong(5, table.getKey());
-//                            if(table.getKey() == 0){
-//                                stmt.setInt(1, TableStatus.GetInstance().TableOne.FlopOne);
-//                                stmt.setInt(2, TableStatus.GetInstance().TableOne.FlopTwo);
-//                                stmt.setInt(3, TableStatus.GetInstance().TableOne.FlopThree);
-//                        }
-//                        
-//                        if(table.getKey() == 1){
-//                            stmt.setInt(1, TableStatus.GetInstance().TableTwo.FlopOne);
-//                            stmt.setInt(2, TableStatus.GetInstance().TableTwo.FlopTwo);
-//                            stmt.setInt(3, TableStatus.GetInstance().TableTwo.FlopThree);
-//                        }
-//                        
-//                        if(table.getKey() == 2){
-//                            stmt.setInt(1, TableStatus.GetInstance().TableThree.FlopOne);
-//                            stmt.setInt(2, TableStatus.GetInstance().TableThree.FlopTwo);
-//                            stmt.setInt(3, TableStatus.GetInstance().TableThree.FlopThree);
-//                        }
-//                        stmt.executeUpdate();
-//                    }
-//                    
-//                    if(TableStatus.GetInstance().Stage == 3){
-//                         query = "select id from bet_table where id_bet = ? and id_table = ?";
-//                        stmt = DBManager.GetInstance().connection.prepareStatement(query);
-//                        stmt.setLong(1, id_bet);
-//                        stmt.setLong(2, table.getKey());
-//                        rs = stmt.executeQuery();
-//                        if(!rs.first()){
-//                        query = "insert bet_table(id_bet,id_table) values(?,?)";
-//                        stmt = DBManager.GetInstance().connection.prepareStatement(query);
-//                        stmt.setLong(1, id_bet);
-//                        stmt.setLong(2, table.getKey());
-//                        stmt.executeUpdate();
-//                        }
-//                        query = "UPDATE bet_table SET tern = ? where id_bet = ? and id_table = ?";
-//                        stmt = DBManager.GetInstance().connection.prepareStatement(query);
-//                        stmt.setLong(2, id_bet);
-//                        stmt.setLong(3, table.getKey());   
-//                        if(table.getKey() == 0)
-//                            stmt.setInt(1, TableStatus.GetInstance().TableOne.Tern);
-//                        
-//                        if(table.getKey() == 1)
-//                            stmt.setInt(1, TableStatus.GetInstance().TableTwo.Tern);
-//                     
-//                        if(table.getKey() == 2)
-//                            stmt.setInt(1, TableStatus.GetInstance().TableThree.Tern);
-//                    stmt.executeUpdate();
-//                    }
-//                    
-//                    query = "select id from bet_table where id_bet = ? and id_table = ?";
-//                        stmt = DBManager.GetInstance().connection.prepareStatement(query);
-//                        stmt.setLong(1, id_bet);
-//                        stmt.setLong(2, table.getKey());
-//                        rs = stmt.executeQuery();
-//                        if (!rs.first())
-//                            return 0;
-//                        Long id_table = rs.getLong("id");
-//                        
-//                        query = "INSERT INTO bet_stage(id_bet_table,stage) values(?,?)";
-//                        stmt = DBManager.GetInstance().connection.prepareStatement(query);
-//                        stmt.setLong(1, id_table);
-//                        stmt.setLong(2, TableStatus.GetInstance().Stage);
-//                        stmt.executeUpdate();
-//                        
-//                        query = "select id from bet_stage where id_bet_table = ? and stage = ?";
-//                        stmt = DBManager.GetInstance().connection.prepareStatement(query);
-//                        stmt.setLong(1, id_table);
-//                        stmt.setLong(2, TableStatus.GetInstance().Stage);
-//                        rs = stmt.executeQuery();
-//                        if (!rs.first())
-//                            return 0;
-//                        Long id_table_stage = rs.getLong("id");
-//                    
-//                    for (Integer hand : table.getValue()) {
-//                        query = "INSERT INTO bet_hand(id_bet_stage,id_hand,factor,date_bet,cart_one,cart_two,sum,win) values(?,?,?,NOW(),?,?,?,?)";
-//                        stmt = DBManager.GetInstance().connection.prepareStatement(query);
-//                        stmt.setLong(1, id_table_stage);
-//                        stmt.setInt(2, hand);
-//                        if(table.getKey() == 0){
-//                            stmt.setDouble(3, TableStatus.GetInstance().TableOne.Hands.get(hand).Factor);
-//                            stmt.setInt(4, TableStatus.GetInstance().TableOne.Hands.get(hand).CartOne);
-//                            stmt.setInt(5, TableStatus.GetInstance().TableOne.Hands.get(hand).CartTwo);
-//                       
-//                        }
-//                        
-//                        if(table.getKey() == 1){
-//                            stmt.setDouble(3, TableStatus.GetInstance().TableTwo.Hands.get(hand).Factor);
-//                            stmt.setInt(4, TableStatus.GetInstance().TableTwo.Hands.get(hand).CartOne);
-//                            stmt.setInt(5, TableStatus.GetInstance().TableTwo.Hands.get(hand).CartTwo);
-//                        }
-//                        
-//                        if(table.getKey() == 2){
-//                            stmt.setDouble(3, TableStatus.GetInstance().TableThree.Hands.get(hand).Factor);
-//                            stmt.setInt(4, TableStatus.GetInstance().TableThree.Hands.get(hand).CartOne);
-//                            stmt.setInt(5, TableStatus.GetInstance().TableThree.Hands.get(hand).CartTwo);
-//                        }
-//                        
-//                        stmt.setDouble(6, ub.Sum);
-//                        stmt.setBoolean(7, false);
-//                        stmt.executeUpdate();
-//                    }
-//                }
-            query = "UPDATE users as t1 SET t1.balance = t1.balance - " + ub.Sum + " where t1.id = ?";
-            stmt = DBManager.GetInstance().connection.prepareStatement(query);
+       query = "UPDATE users as t1 SET t1.balance = t1.balance - " + ub.Sum + " where t1.id = ?";
+            stmt = connection.prepareStatement(query);
             stmt.setLong(1, UserId);
             stmt.executeUpdate();
+            stmt.close();
+            connection.close();
             return IdBet;
         } catch (SQLException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
         }
     }
     
     public JSONArray GetCurrentUserGameStatistic(){
+        Connection connection;
+        PreparedStatement stmt = null;
+        FieldJdbc FieldJ; 
+            FieldJ = new ConfigManager().GetPropJdbc();
+            
+            String driverName = "com.mysql.jdbc.Driver";
+            
+            
         try {
-            PreparedStatement stmt = null;
+            Class.forName(driverName);
+            
+            String url = "jdbc:mysql://"+FieldJ.serverName+":"+FieldJ.port+"/"+FieldJ.database;
+            connection = DriverManager.getConnection(url, FieldJ.username, FieldJ.password);
             JSONArray jsA = new JSONArray();
             String query = "SELECT id,date_bet," +
                     "sum_bet," +
                     "sum_win " +
                     "FROM user_bet where id_user = ? ORDER BY date_bet desc " +
                     "LIMIT 11 OFFSET 0;";
-            stmt = DBManager.GetInstance().connection.prepareStatement(query);
+            stmt = connection.prepareStatement(query);
             stmt.setLong(1,DBManager.GetInstance().GetCurrentUserId());
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
@@ -259,7 +186,7 @@ public class Game{
                 bet.put("sum_bet", rs.getDouble("sum_bet"));
                 bet.put("sum_win", rs.getDouble("sum_win"));
                 query = "SELECT id_bet,hand FROM pokerwebdb.bet_hand where id_bet = ?";
-                stmt = DBManager.GetInstance().connection.prepareStatement(query);
+                stmt = connection.prepareStatement(query);
                 stmt.setLong(1,rs.getLong("id"));
                 ResultSet rsTwo = stmt.executeQuery();
                 String hands = "";
@@ -269,6 +196,9 @@ public class Game{
                 bet.put("hands",hands);
                 jsA.put(bet);
             }
+            stmt.close();
+            rs.close();
+            connection.close();
             return jsA;
         } catch (SQLException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
@@ -276,7 +206,18 @@ public class Game{
         } catch (JSONException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }
+        
             
     }
     

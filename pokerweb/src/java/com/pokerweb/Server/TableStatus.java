@@ -185,8 +185,8 @@ public class TableStatus {
         jsO.append("Source", strJson);
         jsO.append("Round", GetRound());
         jsO.append("Balance", DBManager.GetInstance().GetCurrentUserAllInfo().balance);
-        Game gm = new Game();
-        jsO.append("Bets", gm.GetCurrentUserGameStatistic());
+        
+        jsO.append("Bets", GMData.GetCurrentUserGameStatistic());
         JSONObject Table0 = new JSONObject();
         JSONObject Table1 = new JSONObject();
         JSONObject Table2 = new JSONObject();
@@ -392,13 +392,14 @@ public class TableStatus {
         
         if(StageUser == 4)
             if(Stage == 5)
-             jsO.put("Shutdown",ShutdownInfo);
-            
+                jsO.put("Shutdown",ShutdownInfo);
         jsO.put("Table0", Table0);
         jsO.put("Table1", Table1);
         jsO.put("Table2", Table2);
-        
-          return jsO.toString();
+        Table0 = null;
+        Table1 = null;
+        Table2 = null;
+        return jsO.toString();
     }
     
     
