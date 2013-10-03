@@ -47,7 +47,7 @@
             <div id="table" class="table1">
                  <div style="float: left;width: 360px;">
                 <div style="height: 95px;width: 360px;">
-                    <div class="TableUser" style="margin-left: 85px;">
+                    <div class="TableUser" id="TableUser11" style="margin-left: 85px;">
                         <div id="Table1User1Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table1User1CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table1User1Check">
@@ -65,7 +65,7 @@
                     </div>
                     <script>$('#Table1User1Progress').css('bottom' , 40 + '%');
                     </script>
-                    <div class="TableUser" style="margin-left: 15px;">
+                    <div class="TableUser" id="TableUser12" style="margin-left: 15px;">
                         <div id="Table1User2Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table1User2CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table1User2Check">
@@ -95,7 +95,7 @@
                 <div id="Table1River" class="river"></div>
                 </div>
                 <div style="float: left;margin-top: 25px;">
-                    <div class="TableUser" style="margin-left: 85px;">
+                    <div class="TableUser" id="TableUser13" style="margin-left: 85px;">
                         <div id="Table1User3Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table1User3CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table1User3Check">
@@ -112,7 +112,7 @@
                         <div class="UserNumber">13</div>
                     </div>
                     <script>$('#Table1User3Progress').css('bottom' , 40 + '%');</script>
-                    <div class="TableUser" style="margin-left: 15px;">
+                    <div class="TableUser" id="TableUser14" style="margin-left: 15px;">
                         <div id="Table1User4Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table1User4CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table1User4Check">
@@ -135,7 +135,7 @@
             <div id="table" class="table2">
                 <div style="float: left;width: 360px;">
                 <div style="height: 95px;width: 360px;">
-                    <div class="TableUser" style="margin-left: 50px;">
+                    <div class="TableUser" id="TableUser21" style="margin-left: 50px;">
                         <div id="Table2User1Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table2User1CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table2User1Check">
@@ -151,7 +151,7 @@
                         </div>
                         <div class="UserNumber">21</div>
                     </div>
-                    <div class="TableUser">
+                    <div class="TableUser" id="TableUser22">
                         <div id="Table2User2Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table2User2CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table2User2Check">
@@ -167,7 +167,7 @@
                         </div>
                         <div class="UserNumber">22</div>
                     </div>
-                    <div class="TableUser">
+                    <div class="TableUser" id="TableUser23">
                         <div id="Table2User3Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table2User3CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table2User3Check">
@@ -201,7 +201,7 @@
                 </div>
                 <div style="float: left;margin-top: 25px;">
                     
-                    <div class="TableUser" style="float: left;margin-left: 50px;">
+                    <div class="TableUser" id="TableUser24" style="float: left;margin-left: 50px;">
                         <div id="Table2User4Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table2User4CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table2User4Check">
@@ -217,7 +217,7 @@
                         </div>
                         <div class="UserNumber">24</div>
                     </div>
-                    <div class="TableUser" style="float: left;">
+                    <div class="TableUser" id="TableUser25" style="float: left;">
                         <div id="Table2User5Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table2User5CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table2User5Check">
@@ -233,7 +233,7 @@
                         </div>
                         <div class="UserNumber">25</div>
                     </div>
-                    <div class="TableUser" style="float: left;">
+                    <div class="TableUser" id="TableUser26" style="float: left;">
                         <div id="Table2User6Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table2User6CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table2User6Check">
@@ -259,9 +259,9 @@
              </div>
             
             <div id="table" class="table3">
-                <div style="float: left;width: 360px;">
-                <div style="height: 95px;width: 360px;">
-                    <div class="TableUser">
+                <div style="float: left;width: 370px;">
+                <div style="height: 95px;width: 370px;">
+                    <div class="TableUser" id="TableUser31">
                         <div id="Table3User1Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table3User1CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table3User1Check">
@@ -281,7 +281,7 @@
                     <script>
                         $('#Table3User1Progress').css('bottom' , 40 + '%'); 
                     </script>
-                    <div class="TableUser">
+                    <div class="TableUser" id="TableUser32">
                         <div id="Table3User2Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table3User2CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table3User2Check">
@@ -298,7 +298,7 @@
                         <div class="UserNumber">32</div>
                     </div>
                     <script>$('#Table3User2Progress').css('bottom' , 40 + '%');</script>
-                    <div  class="TableUser">
+                    <div  class="TableUser" id="TableUser33">
                         <div id="Table3User3Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table3User3CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table3User3Check">
@@ -316,7 +316,7 @@
                     </div>
                     <script>$('#Table3User3Progress').css('bottom' , 40 + '%');</script>
                     
-                    <div  class="TableUser">
+                    <div  class="TableUser" id="TableUser34">
                         <div id="Table3User4Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table3User4CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table3User4Check">
@@ -346,7 +346,7 @@
                 <div id="Table3River" class="river"></div>
                 </div>
                 <div style="float: left;margin-top: 25px;">
-                    <div  class="TableUser">
+                    <div  class="TableUser" id="TableUser35">
                         <div id="Table3User5Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table3User5CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table3User5Check">
@@ -365,7 +365,7 @@
                     <script>
                         $('#Table3User5Progress').css('bottom' , 40 + '%');                
                     </script>
-                    <div  class="TableUser">
+                    <div  class="TableUser" id="TableUser36">
                         <div id="Table3User6Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table3User6CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table3User6Check">
@@ -382,7 +382,7 @@
                         <div class="UserNumber">36</div>
                     </div>
                     <script>$('#Table3User6Progress').css('bottom' , 40 + '%');</script>
-                    <div  class="TableUser">
+                    <div  class="TableUser" id="TableUser37">
                         <div id="Table3User7Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table3User7CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table3User7Check">
@@ -399,7 +399,7 @@
                         <div class="UserNumber">37</div>
                     </div>
                     <script>$('#Table3User7Progress').css('bottom' , 40 + '%');</script>
-                    <div  class="TableUser">
+                    <div  class="TableUser" id="TableUser38">
                         <div id="Table3User8Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table3User8CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table3User8Check">
