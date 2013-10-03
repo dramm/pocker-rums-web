@@ -26,7 +26,20 @@ function changeCheck(el)
 		    
                 }
   var sum=0;
+  var count=0;
+           for(var i = 1; i < 5; i++)
+        if($("#Table1User"+i+"Check").attr("checked"))    
+           count++;
+    
+   for(var i = 1; i < 7; i++)
+        if($("#Table2User"+i+"Check").attr("checked"))
+            count++;
+   
+   for(var i = 1; i < 9; i++)
+        if($("#Table3User"+i+"Check").attr("checked"))
+           count++;
   if($("#ExpressCheck").attr("checked")){
+      
                       for(var i = 1; i < 5; i++)
                       if($("#Table1User"+i+"Check").attr("checked")){
                       if(sum==0 || sum==0.00)  
@@ -37,9 +50,9 @@ function changeCheck(el)
                   for(var i = 1; i < 7; i++)
                       if($("#Table2User"+i+"Check").attr("checked")){
                        if(sum==0 || sum==0.00)  
-                        sum+=parseFloat($('#Table1User'+i+'CheckBackground').html());
+                        sum+=parseFloat($('#Table2User'+i+'CheckBackground').html());
                     else
-                        sum*=parseFloat($('#Table1User'+i+'CheckBackground').html());
+                        sum*=parseFloat($('#Table2User'+i+'CheckBackground').html());
                       }
                   for(var i = 1; i < 9; i++)
                       if($("#Table3User"+i+"Check").attr("checked")){
@@ -51,15 +64,15 @@ function changeCheck(el)
                   }else{
                   for(var i = 1; i < 5; i++)
                       if($("#Table1User"+i+"Check").attr("checked")){
-                          sum+=parseFloat($('#Table1User'+i+'CheckBackground').html());
+                          sum+=parseFloat($('#Table1User'+i+'CheckBackground').html())/count;
                       }
                   for(var i = 1; i < 7; i++)
                       if($("#Table2User"+i+"Check").attr("checked")){
-                          sum+=parseFloat($('#Table2User'+i+'CheckBackground').html());
+                          sum+=parseFloat($('#Table2User'+i+'CheckBackground').html())/count;
                       }
                   for(var i = 1; i < 9; i++)
                       if($("#Table3User"+i+"Check").attr("checked")){
-                          sum+=parseFloat($('#Table3User'+i+'CheckBackground').html());
+                          sum+=parseFloat($('#Table3User'+i+'CheckBackground').html())/count;
                         }}
                    $("#Factor").html(sum.toFixed(2));
      return true;
@@ -493,24 +506,36 @@ function TableUserChangeCheck(el,input)
                     for(var i = 1; i < 9; i++)
                         if($("#Table3User"+i+"Check").attr("checked"))
                    countT3++;
+                 
            if(countT1>1 || countT2>1 || countT3>1)
                {
                   var sum=0;
                   $(".niceCheck").css("background-position","0 -17px");	
 		$("#ExpressCheck").attr("checked", false);
 		$("#ExpressCheck").attr("disabled",true);
-                 
+            var count=0;
+           for(var i = 1; i < 5; i++)
+        if($("#Table1User"+i+"Check").attr("checked"))    
+           count++;
+    
+   for(var i = 1; i < 7; i++)
+        if($("#Table2User"+i+"Check").attr("checked"))
+            count++;
+   
+   for(var i = 1; i < 9; i++)
+        if($("#Table3User"+i+"Check").attr("checked"))
+           count++;
                   for(var i = 1; i < 5; i++)
                       if($("#Table1User"+i+"Check").attr("checked")){
-                          sum+=parseFloat($('#Table1User'+i+'CheckBackground').html());
+                          sum+=parseFloat($('#Table1User'+i+'CheckBackground').html())/count;
                       }
                   for(var i = 1; i < 7; i++)
                       if($("#Table2User"+i+"Check").attr("checked")){
-                          sum+=parseFloat($('#Table2User'+i+'CheckBackground').html());
+                          sum+=parseFloat($('#Table2User'+i+'CheckBackground').html())/count;
                       }
                   for(var i = 1; i < 9; i++)
                       if($("#Table3User"+i+"Check").attr("checked")){
-                          sum+=parseFloat($('#Table3User'+i+'CheckBackground').html());
+                          sum+=parseFloat($('#Table3User'+i+'CheckBackground').html())/count;
                         }
                    $("#Factor").html(sum.toFixed(2));
                 
@@ -539,18 +564,30 @@ function TableUserChangeCheck(el,input)
                         sum*=parseFloat($('#Table3User'+i+'CheckBackground').html());
                         }
                   }else{
+                       var count=0;
+           for(var i = 1; i < 5; i++)
+        if($("#Table1User"+i+"Check").attr("checked"))    
+           count++;
+    
+   for(var i = 1; i < 7; i++)
+        if($("#Table2User"+i+"Check").attr("checked"))
+            count++;
+   
+   for(var i = 1; i < 9; i++)
+        if($("#Table3User"+i+"Check").attr("checked"))
+           count++;
                       var sum=0;
                   for(var i = 1; i < 5; i++)
                       if($("#Table1User"+i+"Check").attr("checked")){
-                          sum+=parseFloat($('#Table1User'+i+'CheckBackground').html());
+                          sum+=parseFloat($('#Table1User'+i+'CheckBackground').html())/count;
                       }
                   for(var i = 1; i < 7; i++)
                       if($("#Table2User"+i+"Check").attr("checked")){
-                          sum+=parseFloat($('#Table2User'+i+'CheckBackground').html());
+                          sum+=parseFloat($('#Table2User'+i+'CheckBackground').html())/count;
                       }
                   for(var i = 1; i < 9; i++)
                       if($("#Table3User"+i+"Check").attr("checked")){
-                          sum+=parseFloat($('#Table3User'+i+'CheckBackground').html());
+                          sum+=parseFloat($('#Table3User'+i+'CheckBackground').html())/count;
                         }}
                    $("#Factor").html(sum.toFixed(2));
                 $("#ExpressCheck").attr("disabled",false);
@@ -575,17 +612,29 @@ function TableUserChangeCheck(el,input)
              if(countT1>1 || countT2>1 || countT3>1)
                {
                   var sum=0;
+                   var count=0;
+           for(var i = 1; i < 5; i++)
+        if($("#Table1User"+i+"Check").attr("checked"))    
+           count++;
+    
+   for(var i = 1; i < 7; i++)
+        if($("#Table2User"+i+"Check").attr("checked"))
+            count++;
+   
+   for(var i = 1; i < 9; i++)
+        if($("#Table3User"+i+"Check").attr("checked"))
+           count++;
                   for(var i = 1; i < 5; i++)
                       if($("#Table1User"+i+"Check").attr("checked")){
-                          sum+=parseFloat($('#Table1User'+i+'CheckBackground').html());
+                          sum+=parseFloat($('#Table1User'+i+'CheckBackground').html())/count;
                       }
                   for(var i = 1; i < 7; i++)
                       if($("#Table2User"+i+"Check").attr("checked")){
-                          sum+=parseFloat($('#Table2User'+i+'CheckBackground').html());
+                          sum+=parseFloat($('#Table2User'+i+'CheckBackground').html())/count;
                       }
                   for(var i = 1; i < 9; i++)
                       if($("#Table3User"+i+"Check").attr("checked")){
-                          sum+=parseFloat($('#Table3User'+i+'CheckBackground').html());
+                          sum+=parseFloat($('#Table3User'+i+'CheckBackground').html())/count;
                         }
                    $("#Factor").html(sum.toFixed(2));
                 $(".niceCheck").css("background-position","0 -17px");	
@@ -593,6 +642,18 @@ function TableUserChangeCheck(el,input)
 		$("#ExpressCheck").attr("disabled",true);
 	}else{
             var sum=0;
+             var count=0;
+           for(var i = 1; i < 5; i++)
+        if($("#Table1User"+i+"Check").attr("checked"))    
+           count++;
+    
+   for(var i = 1; i < 7; i++)
+        if($("#Table2User"+i+"Check").attr("checked"))
+            count++;
+   
+   for(var i = 1; i < 9; i++)
+        if($("#Table3User"+i+"Check").attr("checked"))
+           count++;
                   if($("#ExpressCheck").attr("checked")){
                       for(var i = 1; i < 5; i++)
                       if($("#Table1User"+i+"Check").attr("checked")){
@@ -617,17 +678,29 @@ function TableUserChangeCheck(el,input)
                         }
                   }else{
                       var sum=0;
+                       var count=0;
+           for(var i = 1; i < 5; i++)
+        if($("#Table1User"+i+"Check").attr("checked"))    
+           count++;
+    
+   for(var i = 1; i < 7; i++)
+        if($("#Table2User"+i+"Check").attr("checked"))
+            count++;
+   
+   for(var i = 1; i < 9; i++)
+        if($("#Table3User"+i+"Check").attr("checked"))
+           count++;
                   for(var i = 1; i < 5; i++)
                       if($("#Table1User"+i+"Check").attr("checked")){
-                          sum+=parseFloat($('#Table1User'+i+'CheckBackground').html());
+                          sum+=parseFloat($('#Table1User'+i+'CheckBackground').html())/count;
                       }
                   for(var i = 1; i < 7; i++)
                       if($("#Table2User"+i+"Check").attr("checked")){
-                          sum+=parseFloat($('#Table2User'+i+'CheckBackground').html());
+                          sum+=parseFloat($('#Table2User'+i+'CheckBackground').html())/count;
                       }
                   for(var i = 1; i < 9; i++)
                       if($("#Table3User"+i+"Check").attr("checked")){
-                          sum+=parseFloat($('#Table3User'+i+'CheckBackground').html());
+                          sum+=parseFloat($('#Table3User'+i+'CheckBackground').html())/count;
                         }}
                    $("#Factor").html(sum.toFixed(2));
                 $("#ExpressCheck").attr("disabled",false);
@@ -757,6 +830,7 @@ function StartGameCallback() {
                 //console.log(tr);
                 var BalanceNew = Message.Balance;
                 $("#MaxBet").html(BalanceNew);
+                $("#ShowCurrentRaund").html(Message.Round);
                 var StringBets = "";
                 for (var i=0;i<Message.Bets[0].length;i++){
                     StringBets+=
@@ -785,7 +859,7 @@ function StartGameCallback() {
                     for(var i = 1; i < 9; i++){
                         SetActiveButt($("#Table3User"+i+"CheckBackground"));
                         $("#Table3User"+i+"Check").attr("disabled",false);
-                        $("#Table2User"+i+"Check").attr("checked", false);
+                        $("#Table3User"+i+"Check").attr("checked", false);
                     }
                     $("#SumBetUser").attr("disabled",false);
                     SetActiveButt($("#SumBetUser"));
@@ -801,14 +875,17 @@ function StartGameCallback() {
                     $("#Factor").html(0);
                     for(var i = 1; i < 5; i++){
                         $("#Table1User"+i+"Check").attr("disabled",true);
+                         $("#Table1User"+i+"Check").attr("checked",false);
                         SetNoActiveButt($("#Table1User"+i+"CheckBackground"));
                     }        
                     for(var i = 1; i < 7; i++){
                         SetNoActiveButt($("#Table2User"+i+"CheckBackground"));
+                        $("#Table2User"+i+"Check").attr("checked",false);
                         $("#Table2User"+i+"Check").attr("disabled",true);
                     }
                     for(var i = 1; i < 9; i++){
                         SetNoActiveButt($("#Table3User"+i+"CheckBackground"));
+                        $("#Table3User"+i+"Check").attr("checked",false);
                         $("#Table3User"+i+"Check").attr("disabled",true);
                     }
                     $("#SumBetUser").attr("disabled",true);
@@ -824,19 +901,38 @@ function StartGameCallback() {
                     var valueBaseProgress = Message.Timer * 100 / ((Message.Stage > 0) ? 42 : 5);
                     $("#progressbar").progressbar({value: valueBaseProgress}); 
                     $("#BaseProgressTime").html((Message.Stage > 0 ? 42 : 5) - Message.Timer);
+                    if(Message.Stage > 0 && Message.Timer>=40){
+                        for(var i=1;i<5;i++){
+                            SetNoActiveButt($("#Table1User"+i+"CheckBackground"));
+                            $("#Table1User"+i+"Check").attr("disabled",true);
+                    }
+                
+                for(var i=1;i<7;i++){
+                    SetNoActiveButt($("#Table2User"+i+"CheckBackground"));
+                    $("#Table2User"+i+"Check").attr("disabled",true);
+                    }
+                
+                for(var i=1;i<9;i++){
+                    SetNoActiveButt($("#Table3User"+i+"CheckBackground"));
+                    $("#Table3User"+i+"Check").attr("disabled",true);
+                }
+                
+                SetNoActiveButt($("#SendNewBet"));
+                $("#SendNewBet").attr("disabled",true);
+                      $("#Factor").html(0);      
+                    }
+                        
                 }
             if(Message.Stage != 0 && Message.Stage != 5  && Message.Table0.User0 == null)
                 return ;
             if(Message.Stage == 0){
                 $("#CurrentStage").html(Message.Stage);
-                $("#ShowCurrentRaund").html(Message.Round);
+                
                 for(var i=1;i<5;i++){
                     $('#Table1User'+i.toString()+'Cart1').css('background-image' , 'url(/pic/ClearSubstrate.png)');
                     $('#Table1User'+i.toString()+'Cart2').css('background-image' , 'url(/pic/ClearSubstrate.png)');
                     $('#Table1User'+i.toString()+'CheckBackground').html(0);
                     $('#Table1User'+i.toString()+'Progress').css('bottom' , 0 + '%');
-                    $('#Table1User'+i.toString()+'Cart1').css("border","0");
-                    $('#Table1User'+i.toString()+'Cart2').css("border","0");
                     }
                 
                 for(var i=1;i<7;i++){
@@ -844,8 +940,6 @@ function StartGameCallback() {
                     $('#Table2User'+i.toString()+'Cart2').css('background-image' , 'url(/pic/ClearSubstrate.png)');
                     $('#Table2User'+i.toString()+'CheckBackground').html(0);
                     $('#Table2User'+i.toString()+'Progress').css('bottom' , 0 + '%');
-                    $('#Table2User'+i.toString()+'Cart1').css("border","0");
-                    $('#Table2User'+i.toString()+'Cart2').css("border","0");
                     }
                 
                 for(var i=1;i<9;i++){
@@ -853,8 +947,6 @@ function StartGameCallback() {
                     $('#Table3User'+i.toString()+'Cart2').css('background-image' , 'url(/pic/ClearSubstrate.png)');
                     $('#Table3User'+i.toString()+'CheckBackground').html(0);
                     $('#Table3User'+i.toString()+'Progress').css('bottom' , 0 + '%');
-                    $('#Table3User'+i.toString()+'Cart1').css("border","0");
-                    $('#Table3User'+i.toString()+'Cart2').css("border","0");
                 }
                 $('#Table1Flop1').css('background-image' , 'url(/pic/flop.png)');
                 $('#Table1Flop2').css('background-image' , 'url(/pic/flop.png)');
@@ -871,29 +963,30 @@ function StartGameCallback() {
                 $('#Table3Flop3').css('background-image' , 'url(/pic/flop.png)');
                 $('#Table3Tern').css('background-image' , 'url(/pic/tern.png)');
                 $('#Table3River').css('background-image' , 'url(/pic/river.png)');
-                
-                $('#Table1Flop1').css('border' , '0');
-                $('#Table2Flop1').css('border' , '0');
-                $('#Table3Flop1').css('border' , '0');
-                $('#Table1Flop2').css('border' , '0');
-                $('#Table2Flop2').css('border' , '0');
-                $('#Table3Flop2').css('border' , '0');
-                $('#Table1Flop3').css('border' , '0');
-                $('#Table2Flop3').css('border' , '0');
-                $('#Table3Flop3').css('border' , '0');
-                $('#Table1Tern').css('border' , '0');
-                $('#Table2Tern').css('border' , '0');
-                $('#Table3Tern').css('border' , '0');
-                $('#Table1River').css('border' , '0');
-                $('#Table2River').css('border' , '0');
-                $('#Table3River').css('border' , '0');
-                
+                $('#TableUser11').css("border","0");
+                $('#TableUser12').css("border","0");
+                $('#TableUser13').css("border","0");
+                $('#TableUser14').css("border","0");
+                $('#TableUser21').css("border","0");
+                $('#TableUser22').css("border","0");
+                $('#TableUser23').css("border","0");
+                $('#TableUser24').css("border","0");
+                $('#TableUser25').css("border","0");
+                $('#TableUser26').css("border","0");
+                $('#TableUser31').css("border","0");
+                $('#TableUser32').css("border","0");
+                $('#TableUser33').css("border","0");
+                $('#TableUser34').css("border","0");
+                $('#TableUser35').css("border","0");
+                $('#TableUser36').css("border","0");
+                $('#TableUser37').css("border","0");
+                $('#TableUser38').css("border","0");
                 return;
             }
             
                 if($("#CurrentStage").html() == -1){
                     $("#CurrentStage").html(Message.Stage);
-                    $("#ShowCurrentRaund").html(Message.Round);
+                   
                     
                     if(Message.Stage >= 1 ){
                         $('#Table1User1Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table0.User0[0]+'.png)');
@@ -1265,7 +1358,7 @@ function StartGameCallback() {
                     }
                     if(Message.Stage == 5)
                         for(var i=0;i<Message.Shutdown.length;i++)
-                            $("#"+Message.Shutdown[i]).css("border","solid 1px red");
+                            $("#TableUser" + Message.Shutdown[i]).css("border","solid 1px red");
                         
                     
                     return ;
@@ -1273,7 +1366,7 @@ function StartGameCallback() {
                 
                 if($("#CurrentStage").html() == 0){
                     $("#CurrentStage").html(Message.Stage);
-                    $("#ShowCurrentRaund").html(Message.Round);
+                   
                     if(Message.Stage >= 1){
                         $('#Table1User1Cart1').css('background-image' , 'url(/pic/cart/'+Message.Table0.User0[0]+'.png)');
                         $('#Table1User1Cart2').css('background-image' , 'url(/pic/cart/'+Message.Table0.User0[1]+'.png)');
@@ -1646,13 +1739,14 @@ function StartGameCallback() {
                     }
                     if(Message.Stage == 5)
                         for(var i=0;i<Message.Shutdown.length;i++)
-                            $("#"+Message.Shutdown[i]).css("border","solid 1px red");
+                            $("#TableUser" + Message.Shutdown[i]).css("border","solid 1px red");
+                    
                     
                     return;
                 }
                 if($("#CurrentStage").html() == 1){
                     $("#CurrentStage").html(Message.Stage);
-                    $("#ShowCurrentRaund").html(Message.Round);
+                  
                     if(Message.Stage >= 2){
                         $('#Table1User1CheckBackground').html(Message.Table0.User0[0]);
                         $('#Table1User1Progress').css('bottom' , Message.Table0.User0[1] + '%');
@@ -1981,15 +2075,16 @@ function StartGameCallback() {
                         $('#Table3River').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[4]+'.png)');
                         
                     }
-                    if(Message.Stage == 5)
+                   if(Message.Stage == 5)
                         for(var i=0;i<Message.Shutdown.length;i++)
-                            $("#"+Message.Shutdown[i]).css("border","solid 1px red");
+                            $("#TableUser" + Message.Shutdown[i]).css("border","solid 1px red");
+                    
                     return ;
                 }
                 
                 if($("#CurrentStage").html() == 2){
                     $("#CurrentStage").html(Message.Stage);
-                    $("#ShowCurrentRaund").html(Message.Round);
+                   
                     
                     if(Message.Stage >= 3){
                         $('#Table1User1CheckBackground').html(Message.Table0.User0[0]);
@@ -2308,14 +2403,15 @@ function StartGameCallback() {
                     }
                     if(Message.Stage == 5)
                         for(var i=0;i<Message.Shutdown.length;i++)
-                            $("#"+Message.Shutdown[i]).css("border","solid 1px red");
+                            $("#TableUser" + Message.Shutdown[i]).css("border","solid 1px red");
+                    
                     
                     return ;
                 }
                 
                 if($("#CurrentStage").html() == 3){
                     $("#CurrentStage").html(Message.Stage);
-                    $("#ShowCurrentRaund").html(Message.Round);
+                  
                     if(Message.Stage >= 4){
                         $('#Table1User1CheckBackground').html(Message.Table0.User0[0]);
                         $('#Table1User1Progress').css('bottom' , Message.Table0.User0[1] + '%');
@@ -2626,17 +2722,18 @@ function StartGameCallback() {
                     }
                     if(Message.Stage == 5)
                         for(var i=0;i<Message.Shutdown.length;i++)
-                            $("#"+Message.Shutdown[i]).css("border","solid 1px red");
+                            $("#TableUser" + Message.Shutdown[i]).css("border","solid 1px red");
+                    
                     
                     return ;
                 }
                 
                 if($("#CurrentStage").html() == 4){
                     $("#CurrentStage").html(Message.Stage);
-                    $("#ShowCurrentRaund").html(Message.Round);
+                   
                 if(Message.Stage == 5)
                         for(var i=0;i<Message.Shutdown.length;i++)
-                            $("#"+Message.Shutdown[i]).css("border","solid 1px red");
+                            $("#TableUser" + Message.Shutdown[i]).css("border","solid 1px red");
                 }
                 
                 if(Message.Stage == 5){
@@ -2662,7 +2759,7 @@ function StartGameCallback() {
                     $('#Table3User8Factor').hide();
                 }
                 
-             $("#ShowCurrentRaund").html(Message.Round);   
+              
                 
                 
         }}

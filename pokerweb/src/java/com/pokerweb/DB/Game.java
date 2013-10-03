@@ -31,8 +31,8 @@ public class Game{
         PreparedStatement stmt = null;
             String query = null;
             Connection connection;
-        try {
             
+        try {
              FieldJdbc FieldJ; 
                  FieldJ = new ConfigManager().GetPropJdbc();
                  
@@ -40,7 +40,9 @@ public class Game{
                  Class.forName(driverName);
                  String url = "jdbc:mysql://"+FieldJ.serverName+":"+FieldJ.port+"/"+FieldJ.database;
                  connection = DriverManager.getConnection(url, FieldJ.username, FieldJ.password);
-            for (int i = 0; i<Winners.length(); i++){
+            Long IdUser = DBManager.GetInstance().GetCurrentUserId();
+            
+                 for (int i = 0; i<Winners.length(); i++){
                 try {
                     JSONObject UserWinn = new JSONObject(Winners.get(i).toString());
                    try {
@@ -56,6 +58,17 @@ public class Game{
                         stmt.setLong(3, TableStatus.GetInstance().GetRound());
                         stmt.setLong(4, UserWinn.getLong("IdBet"));
                         stmt.executeUpdate();
+                        
+                        for(Map.Entry<Integer,List<Integer>> table: TableStatus.GetInstance().GetShutdown().entrySet()){
+                            for(Integer hand: table.getValue()){
+                                query = "Update bet_hand set win = true where hand = ? and id_bet = any (select id from user_bet where id_game = ?)";
+                                stmt = connection.prepareStatement(query);
+                                stmt.setInt(1, hand + 1 + (10 * (table.getKey() + 1)));
+                              //  stmt.setLong(2, IdUser);
+                                stmt.setLong(2, TableStatus.GetInstance().GetRound());
+                                stmt.executeUpdate();
+                            }
+                        }
                         TableStatus.GetInstance().WinnUserList.clear();
                     } catch (SQLException ex) {
                         Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
@@ -70,7 +83,7 @@ public class Game{
                     return false;
                 }
              }
-            stmt.close();
+            
             connection.close();
              return true;
         } catch (ClassNotFoundException ex) {
@@ -79,6 +92,13 @@ public class Game{
         } catch (SQLException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        }finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
         }
     }
  
@@ -126,7 +146,7 @@ public class Game{
                 for (Map.Entry<Integer,List<Integer>> object : ub.TableHand.entrySet()) {
                     for (Integer hand : object.getValue()) {
                     
-                query = "insert into bet_hand(id_bet,hand) values(?,?)";
+                query = "insert into bet_hand(id_bet,hand,win) values(?,?,false)";
                 stmt = connection.prepareStatement(query);
                 stmt.setLong(1, IdBet);
                 stmt.setLong(2, ((object.getKey()+1)*10)+(hand+1));
