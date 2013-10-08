@@ -79,6 +79,10 @@ public class Listen extends Thread {
                          TableStatus.GetInstance().ServerResponce = true;
                         break;
                     }
+                            case 1570:{//1030 Запрос статистики
+                         //TableStatus.GetInstance().ServerResponce = true;
+                        break;
+                    }
                     default:{
                         break;    
                     }

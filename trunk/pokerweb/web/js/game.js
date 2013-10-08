@@ -312,6 +312,7 @@ $("#SendNewBet").click(
     json.Table1 = [];
     json.Table2 = [];
     json.Table3 = [];
+    $("#SumBetUser").html(4.00);
     //console.log($("#ExpressCheck").attr("checked"));
     var index = 0;
     for(var i = 1; i < 5; i++){
