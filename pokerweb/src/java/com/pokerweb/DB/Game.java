@@ -288,4 +288,355 @@ public class Game{
         }
             
     }
+    
+    public boolean WriteGameStatistic(){
+        Connection connection;
+        PreparedStatement stmt = null;
+        FieldJdbc FieldJ; 
+            FieldJ = new ConfigManager().GetPropJdbc();
+            
+            String driverName = "com.mysql.jdbc.Driver";
+            
+            
+        try {
+            Class.forName(driverName);
+            String url = "jdbc:mysql://"+FieldJ.serverName+":"+FieldJ.port+"/"+FieldJ.database;
+            connection = DriverManager.getConnection(url, FieldJ.username, FieldJ.password);
+            String query;
+            JSONArray jsA = new JSONArray();
+           
+            switch(TableStatus.GetInstance().GetStage()){
+                case 0:{
+                    query = "Insert Into games_stat(id_game,date_start) values(?,NOW());";
+                    stmt = connection.prepareStatement(query);
+                    stmt.setLong(1,TableStatus.GetInstance().GetRound());
+                    stmt.executeUpdate();
+                   
+                    for(int i = 0; i < 3; i++){
+                    query = "Insert Into games_stat_table(id_game,id_table) values(?,?);";
+                    stmt = connection.prepareStatement(query);
+                    stmt.setLong(1,TableStatus.GetInstance().GetRound());
+                    stmt.setInt(2,i);
+                    stmt.executeUpdate();
+                    
+                    if(i == 0)
+                        for(int j = 0; j < 4; j++){
+                            query = "Insert Into games_stat_hand(id_hand,id_table,id_game) values(?,?,?);";
+                            stmt = connection.prepareStatement(query);
+                            stmt.setInt(1,j);
+                            stmt.setInt(2,i);
+                            stmt.setLong(3,TableStatus.GetInstance().GetRound());
+                            stmt.executeUpdate();
+                        }
+                    if(i == 1)
+                        for(int j = 0; j < 6; j++){
+                            query = "Insert Into games_stat_hand(id_hand,id_table,id_game) values(?,?,?);";
+                            stmt = connection.prepareStatement(query);
+                            stmt.setInt(1,j);
+                            stmt.setInt(2,i);
+                            stmt.setLong(3,TableStatus.GetInstance().GetRound());
+                            stmt.executeUpdate();
+                        }
+                    if(i == 2)
+                        for(int j = 0; j < 8; j++){
+                            query = "Insert Into games_stat_hand(id_hand,id_table,id_game) values(?,?,?);";
+                            stmt = connection.prepareStatement(query);
+                            stmt.setInt(1,j);
+                            stmt.setInt(2,i);
+                            stmt.setLong(3,TableStatus.GetInstance().GetRound());
+                            stmt.executeUpdate();
+                        }
+                    }
+                    break;
+                }
+                    
+                case 1:{
+                   for(int i = 0; i < 3; i++){
+                       int SizeHand = 0;
+                       if(i == 0)
+                           SizeHand = 4;
+                       if(i == 1)
+                           SizeHand = 6;
+                       if(i == 2)
+                           SizeHand = 8;
+                        for(int j = 0; j < SizeHand; j++){
+                            query = "UPDATE games_stat_hand as t1"
+                                    + " SET t1.cart_one = ?,"
+                                    + "t1.cart_two = ?,"
+                                    + "t1.factor_preflop = ?,"
+                                    + "indicator_preflop = ?"
+                                    + " where t1.id_table = ? and"
+                                    + " t1.id_game = ? and"
+                                    + " t1.id_hand = ?;";
+                            stmt = connection.prepareStatement(query);
+                            if(i==0){
+                                stmt.setInt(1,TableStatus.GetInstance().TableOne.Hands.get(j).CartOne);
+                                stmt.setInt(2,TableStatus.GetInstance().TableOne.Hands.get(j).CartTwo);
+                                stmt.setDouble(3,TableStatus.GetInstance().TableOne.Hands.get(j).Factor);
+                                stmt.setInt(4,TableStatus.GetInstance().TableOne.Hands.get(j).Indicator);
+                                stmt.setInt(5,i);
+                                stmt.setLong(6,TableStatus.GetInstance().GetRound());
+                                stmt.setInt(7,j);
+                            }
+                            
+                            if(i==1){
+                                stmt.setInt(1,TableStatus.GetInstance().TableTwo.Hands.get(j).CartOne);
+                                stmt.setInt(2,TableStatus.GetInstance().TableTwo.Hands.get(j).CartTwo);
+                                stmt.setDouble(3,TableStatus.GetInstance().TableTwo.Hands.get(j).Factor);
+                                stmt.setInt(4,TableStatus.GetInstance().TableTwo.Hands.get(j).Indicator);
+                                stmt.setInt(5,i);
+                                stmt.setLong(6,TableStatus.GetInstance().GetRound());
+                                stmt.setInt(7,j);
+                            }
+                            
+                            if(i==2){
+                                stmt.setInt(1,TableStatus.GetInstance().TableThree.Hands.get(j).CartOne);
+                                stmt.setInt(2,TableStatus.GetInstance().TableThree.Hands.get(j).CartTwo);
+                                stmt.setDouble(3,TableStatus.GetInstance().TableThree.Hands.get(j).Factor);
+                                stmt.setInt(4,TableStatus.GetInstance().TableThree.Hands.get(j).Indicator);
+                                stmt.setInt(5,i);
+                                stmt.setLong(6,TableStatus.GetInstance().GetRound());
+                                stmt.setInt(7,j);
+                            }
+                            stmt.executeUpdate();
+                        }
+                
+                }
+                   break;
+                }
+                case 2:{
+                    for(int i = 0; i < 3; i++){
+                        int SizeHand = 0;
+                       if(i == 0)
+                           SizeHand = 4;
+                       if(i == 1)
+                           SizeHand = 6;
+                       if(i == 2)
+                           SizeHand = 8;
+                       query = "UPDATE games_stat_table as t1"
+                                    + " SET "
+                                    + "t1.flop_one = ?,"
+                                    + "t1.flop_two = ?,"
+                                    + "t1.flop_three = ?"
+                                    + " where t1.id_table = ? and"
+                                    + " t1.id_game = ?;";
+                       stmt = connection.prepareStatement(query);
+                       stmt.setInt(4,i);
+                       stmt.setLong(5,TableStatus.GetInstance().GetRound());
+                       if(i==0){
+                           stmt.setInt(1,TableStatus.GetInstance().TableOne.FlopOne);
+                           stmt.setInt(2,TableStatus.GetInstance().TableOne.FlopTwo);
+                           stmt.setInt(3,TableStatus.GetInstance().TableOne.FlopThree);
+                            }
+                       if(i==1){
+                           stmt.setInt(1,TableStatus.GetInstance().TableTwo.FlopOne);
+                           stmt.setInt(2,TableStatus.GetInstance().TableTwo.FlopTwo);
+                           stmt.setInt(3,TableStatus.GetInstance().TableTwo.FlopThree);
+                            }
+                       if(i==2){
+                           stmt.setInt(1,TableStatus.GetInstance().TableThree.FlopOne);
+                           stmt.setInt(2,TableStatus.GetInstance().TableThree.FlopTwo);
+                           stmt.setInt(3,TableStatus.GetInstance().TableThree.FlopThree);
+                            }
+                       stmt.executeUpdate();
+                        for(int j = 0; j < SizeHand; j++){
+                            query = "UPDATE games_stat_hand as t1"
+                                    + " SET "
+                                    + "t1.factor_flop = ?,"
+                                    + "indicator_flop = ?"
+                                    + " where t1.id_table = ? and"
+                                    + " t1.id_game = ? and"
+                                    + " t1.id_hand = ?;";
+                            stmt = connection.prepareStatement(query);
+                            if(i==0){
+                                stmt.setDouble(1,TableStatus.GetInstance().TableOne.Hands.get(j).Factor);
+                                stmt.setInt(2,TableStatus.GetInstance().TableOne.Hands.get(j).Indicator);
+                                stmt.setInt(3,i);
+                                stmt.setLong(4,TableStatus.GetInstance().GetRound());
+                                stmt.setInt(5,j);
+                            }
+                            
+                            if(i==1){
+                                stmt.setDouble(1,TableStatus.GetInstance().TableTwo.Hands.get(j).Factor);
+                                stmt.setInt(2,TableStatus.GetInstance().TableTwo.Hands.get(j).Indicator);
+                                stmt.setInt(3,i);
+                                stmt.setLong(4,TableStatus.GetInstance().GetRound());
+                                stmt.setInt(5,j);
+                            }
+                            
+                            if(i==2){
+                                stmt.setDouble(1,TableStatus.GetInstance().TableThree.Hands.get(j).Factor);
+                                stmt.setInt(2,TableStatus.GetInstance().TableThree.Hands.get(j).Indicator);
+                                stmt.setInt(3,i);
+                                stmt.setLong(4,TableStatus.GetInstance().GetRound());
+                                stmt.setInt(5,j);
+                            }
+                            stmt.executeUpdate();
+                        }
+                }
+                break;
+                }
+                case 3:{
+                    for(int i = 0; i < 3; i++){
+                        int SizeHand = 0;
+                       if(i == 0)
+                           SizeHand = 4;
+                       if(i == 1)
+                           SizeHand = 6;
+                       if(i == 2)
+                           SizeHand = 8;
+                       query = "UPDATE games_stat_table as t1"
+                                    + " SET "
+                                    + "t1.tern = ?"
+                                    + " where t1.id_table = ? and"
+                                    + " t1.id_game = ?;";
+                       stmt = connection.prepareStatement(query);
+                       stmt.setInt(2,i);
+                       stmt.setLong(3,TableStatus.GetInstance().GetRound());
+                       if(i == 0)
+                           stmt.setInt(1,TableStatus.GetInstance().TableOne.Tern);
+                            
+                       if(i == 1)
+                           stmt.setInt(1,TableStatus.GetInstance().TableTwo.Tern);
+                           
+                       if(i == 2)
+                           stmt.setInt(1,TableStatus.GetInstance().TableThree.Tern);
+                       
+                       stmt.executeUpdate();
+                        for(int j = 0; j < SizeHand; j++){
+                            query = "UPDATE games_stat_hand as t1"
+                                    + " SET "
+                                    + "t1.factor_tern = ?,"
+                                    + "indicator_tern = ?"
+                                    + " where t1.id_table = ? and"
+                                    + " t1.id_game = ? and"
+                                    + " t1.id_hand = ?;";
+                            stmt = connection.prepareStatement(query);
+                                stmt.setInt(3,i);
+                                stmt.setLong(4,TableStatus.GetInstance().GetRound());
+                                stmt.setInt(5,j);
+                            if(i == 0){
+                                stmt.setDouble(1,TableStatus.GetInstance().TableOne.Hands.get(j).Factor);
+                                stmt.setInt(2,TableStatus.GetInstance().TableOne.Hands.get(j).Indicator);   
+                            }
+                            
+                            if(i == 1){
+                                stmt.setDouble(1,TableStatus.GetInstance().TableTwo.Hands.get(j).Factor);
+                                stmt.setInt(2,TableStatus.GetInstance().TableTwo.Hands.get(j).Indicator);
+                                }
+                            
+                            if(i == 2){
+                                stmt.setDouble(1,TableStatus.GetInstance().TableThree.Hands.get(j).Factor);
+                                stmt.setInt(2,TableStatus.GetInstance().TableThree.Hands.get(j).Indicator);
+                               }
+                            stmt.executeUpdate();
+                        }
+                }
+                break;
+                }
+                case 4:{
+                    for(int i = 0; i < 3; i++){
+                        int SizeHand = 0;
+                       if(i == 0)
+                           SizeHand = 4;
+                       if(i == 1)
+                           SizeHand = 6;
+                       if(i == 2)
+                           SizeHand = 8;
+                       query = "UPDATE games_stat_table as t1"
+                                    + " SET "
+                                    + "t1.river = ?"
+                                    + " where t1.id_table = ? and"
+                                    + " t1.id_game = ?;";
+                       stmt = connection.prepareStatement(query);
+                       stmt.setInt(2,i);
+                       stmt.setLong(3,TableStatus.GetInstance().GetRound());
+                       if(i == 0)
+                           stmt.setInt(1,TableStatus.GetInstance().TableOne.River);
+                            
+                       if(i == 1)
+                           stmt.setInt(1,TableStatus.GetInstance().TableTwo.River);
+                           
+                       if(i == 2)
+                           stmt.setInt(1,TableStatus.GetInstance().TableThree.River);
+                       
+                       stmt.executeUpdate();
+                        for(int j = 0; j < SizeHand; j++){
+                            query = "UPDATE games_stat_hand as t1"
+                                    + " SET "
+                                    + "t1.factor_river = ?,"
+                                    + "indicator_river = ?"
+                                    + " where t1.id_table = ? and"
+                                    + " t1.id_game = ? and"
+                                    + " t1.id_hand = ?;";
+                            stmt = connection.prepareStatement(query);
+                                stmt.setInt(3,i);
+                                stmt.setLong(4,TableStatus.GetInstance().GetRound());
+                                stmt.setInt(5,j);
+                            if(i == 0){
+                                stmt.setDouble(1,TableStatus.GetInstance().TableOne.Hands.get(j).Factor);
+                                stmt.setInt(2,TableStatus.GetInstance().TableOne.Hands.get(j).Indicator);   
+                            }
+                            
+                            if(i == 1){
+                                stmt.setDouble(1,TableStatus.GetInstance().TableTwo.Hands.get(j).Factor);
+                                stmt.setInt(2,TableStatus.GetInstance().TableTwo.Hands.get(j).Indicator);
+                                }
+                            
+                            if(i == 2){
+                                stmt.setDouble(1,TableStatus.GetInstance().TableThree.Hands.get(j).Factor);
+                                stmt.setInt(2,TableStatus.GetInstance().TableThree.Hands.get(j).Indicator);
+                               }
+                            stmt.executeUpdate();
+                        }
+                }
+                break;
+                }
+                case 5:{
+                       query = "UPDATE games_stat as t1"
+                                    + " SET "
+                                    + "t1.date_end = NOW()"
+                                    + " where"
+                                    + " t1.id_game = ?;";
+                       stmt = connection.prepareStatement(query);
+                       stmt.setLong(1,TableStatus.GetInstance().GetRound());
+                       stmt.executeUpdate();
+                       for(Map.Entry<Integer,List<Integer>> item:TableStatus.GetInstance().ShutdownInfo.entrySet())
+                       for(Integer hand:item.getValue()) 
+                       {
+                            query = "UPDATE games_stat_hand as t1"
+                                    + " SET "
+                                    + "t1.win = true"
+                                    + " where t1.id_table = ? and"
+                                    + " t1.id_game = ? and"
+                                    + " t1.id_hand = ?;";
+                            stmt = connection.prepareStatement(query);
+                            stmt.setInt(1,item.getKey());
+                            stmt.setLong(3,TableStatus.GetInstance().GetRound());
+                            stmt.setInt(4,hand);
+                            stmt.executeUpdate();
+                        }
+                break;
+                }
+            }
+            stmt.close();
+            connection.close();
+           return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }  catch (ClassNotFoundException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+        
+            
+    }
 }

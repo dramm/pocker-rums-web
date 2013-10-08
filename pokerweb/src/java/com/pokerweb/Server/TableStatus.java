@@ -466,6 +466,7 @@ public class TableStatus {
                 GetTableThree().Hands.get(i).Indicator = T1Arr.getJSONObject(2).getInt("Indicator");
             }
             Stage = 1;
+             GMData.WriteGameStatistic();
             System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -502,6 +503,7 @@ public class TableStatus {
                 GetTableThree().Hands.get(i).Indicator = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
             }
             Stage = 2; 
+             GMData.WriteGameStatistic();
             System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -531,6 +533,7 @@ public class TableStatus {
                 GetTableThree().Hands.get(i).Indicator = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
             }
              Stage = 3;
+              GMData.WriteGameStatistic();
              System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -560,6 +563,7 @@ public class TableStatus {
               GetTableThree().Hands.get(i).Indicator = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
           }
           Stage = 4;
+           GMData.WriteGameStatistic();
           System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -568,6 +572,7 @@ public class TableStatus {
     
     public void SetShutdown(String data){
         try {
+            Stage = 5;
             ShutdownInfo.clear();
             JSONObject js = new JSONObject(data);
             JSONArray T1 = js.getJSONObject("Table0").getJSONArray("WinnHand");
@@ -595,7 +600,7 @@ public class TableStatus {
             } 
             JSONArray Winners = js.getJSONArray("Winners");
             GMData.CalculateBalanceUser(Winners);
-            Stage = 5;
+             GMData.WriteGameStatistic();
             System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -608,6 +613,7 @@ public class TableStatus {
             JSONObject js = new JSONObject(data);
             Round = js.getLong("Round");
            // ShutdownInfo = new JSONArray();
+            GMData.WriteGameStatistic();
             System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -730,5 +736,8 @@ public class TableStatus {
     
     public synchronized Long GetRound(){
         return Round;
+    }
+    public synchronized int GetStage(){
+        return Stage;
     }
 }
