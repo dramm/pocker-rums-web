@@ -466,7 +466,7 @@ public class TableStatus {
                 GetTableThree().Hands.get(i).Indicator = T1Arr.getJSONObject(2).getInt("Indicator");
             }
             Stage = 1;
-             GMData.WriteGameStatistic();
+          //   GMData.WriteGameStatistic();
             System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -503,7 +503,7 @@ public class TableStatus {
                 GetTableThree().Hands.get(i).Indicator = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
             }
             Stage = 2; 
-             GMData.WriteGameStatistic();
+          //   GMData.WriteGameStatistic();
             System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -533,7 +533,7 @@ public class TableStatus {
                 GetTableThree().Hands.get(i).Indicator = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
             }
              Stage = 3;
-              GMData.WriteGameStatistic();
+          //    GMData.WriteGameStatistic();
              System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -563,7 +563,7 @@ public class TableStatus {
               GetTableThree().Hands.get(i).Indicator = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
           }
           Stage = 4;
-           GMData.WriteGameStatistic();
+       //    GMData.WriteGameStatistic();
           System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -613,7 +613,7 @@ public class TableStatus {
             JSONObject js = new JSONObject(data);
             Round = js.getLong("Round");
            // ShutdownInfo = new JSONArray();
-            GMData.WriteGameStatistic();
+      //      GMData.WriteGameStatistic();
             System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -662,6 +662,25 @@ public class TableStatus {
             System.gc();
            // GMData.CalculateBalanceUserNewBet(bet,UserId);
             return true;
+        } catch (JSONException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean SendGetBet(){
+        try {
+            JSONObject js = new JSONObject();
+            js.put("GameId", 2);
+            js.put("UserId", 1);
+            Connect.GetInstance().out.write(Functions.intToByteArray(1030));
+            Connect.GetInstance().out.write(Functions.intToByteArray(js.toString().length()));
+            Connect.GetInstance().out.write(CryptoManager.encode(js.toString().getBytes()));
+            Connect.GetInstance().out.flush();
+            return true;
+        } catch (IOException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
             return false;

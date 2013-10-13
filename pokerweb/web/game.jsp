@@ -512,6 +512,358 @@
                                
                             </div>
                         </div>
+                        <div id="StatisticDialog" style="display: none">
+                            <div style="margin-top: 60px;">
+            <div id="table" class="table1">
+                 <div style="float: left;width: 360px;">
+                <div style="height: 95px;width: 360px;">
+                    <div class="TableUser" id="STableUser11" style="margin-left: 85px;">
+                        <div id="STable1User1Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="STable1User1CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="STable1User1Check">
+                                <input type="checkbox" name="STable1User1Check" />
+                            </span>
+                        </div>
+                        <div id="STable1User1Cart1" class="TableUserCart"></div>
+                        <div id="STable1User1Cart2" class="TableUserCart"></div>
+                        <div class="progressbar">
+                            <span class="progressbar-value">
+                                <em id="STable1User1Progress" class="progressbar-cover"></em>
+                            </span>
+                        </div>
+                        <div class="UserNumber">11</div>
+                    </div>
+                    <div class="TableUser" id="STableUser12" style="margin-left: 15px;">
+                        <div id="STable1User2Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="STable1User2CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="STable1User2Check">
+                                <input type="checkbox" name="STable1User2Check" />
+                            </span>
+                        </div>
+                        <div id="STable1User2Cart1" class="TableUserCart"></div>
+                        <div id="STable1User2Cart2" class="TableUserCart"></div>
+                        <div class="progressbar">
+                            <span class="progressbar-value">
+                                <em id="STable1User2Progress" class="progressbar-cover"></em>
+                            </span>
+                        </div>
+                        <div class="UserNumber">12</div>
+                    </div>
+                </div>
+                <div class='tableNumber'>
+                    <div style="height: 13px;"></div>
+                    1</div>
+                <div class="TableCart">
+                <div id="STable1Flop1" class="flop"></div>
+                <div id="STable1Flop2" class="flop"></div>
+                <div id="STable1Flop3" class="flop"></div>
+                <div id="STable1Tern" class="tern"></div>
+                <div id="STable1River" class="river"></div>
+                </div>
+                <div style="float: left;margin-top: 25px;">
+                    <div class="TableUser" id="STableUser13" style="margin-left: 85px;">
+                        <div id="STable1User3Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="STable1User3CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="STable1User3Check">
+                                <input type="checkbox" name="STable1User3Check" />
+                            </span>
+                        </div>
+                        <div id="STable1User3Cart1" class="TableUserCart"></div>
+                        <div id="STable1User3Cart2" class="TableUserCart"></div>
+                        <div class="progressbar">
+                            <span class="progressbar-value">
+                                <em id="STable1User3Progress" class="progressbar-cover"></em>
+                            </span>
+                        </div>
+                        <div class="UserNumber">13</div>
+                    </div>
+                    <div class="TableUser" id="STableUser14" style="margin-left: 15px;">
+                        <div id="STable1User4Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="STable1User4CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="STable1User4Check">
+                                <input type="checkbox" name="STable1User4Check" />
+                            </span>
+                        </div>
+                        <div id="STable1User4Cart1" class="TableUserCart"></div>
+                        <div id="STable1User4Cart2" class="TableUserCart"></div>
+                        <div class="progressbar">
+                            <span class="progressbar-value">
+                                <em id="STable1User4Progress" class="progressbar-cover"></em>
+                            </span>
+                        </div>
+                        <div class="UserNumber">14</div>
+                    </div>
+                </div>
+            </div>
+                               </div>
+            <div id="table" class="table2">
+                <div style="float: left;width: 360px;">
+                <div style="height: 95px;width: 360px;">
+                    <div class="TableUser" id="STableUser21" style="margin-left: 50px;">
+                        <div id="STable2User1Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="STable2User1CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="STable2User1Check">
+                                <input type="checkbox" name="STable2User1Check" />
+                            </span>
+                        </div>
+                        <div id="STable2User1Cart1" class="TableUserCart"></div>
+                        <div id="STable2User1Cart2" class="TableUserCart"></div>
+                        <div class="progressbar">
+                            <span class="progressbar-value">
+                                <em id="STable2User1Progress" class="progressbar-cover"></em>
+                            </span>
+                        </div>
+                        <div class="UserNumber">21</div>
+                    </div>
+                    <div class="TableUser" id="STableUser22">
+                        <div id="STable2User2Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="STable2User2CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="STable2User2Check">
+                                <input type="checkbox" name="STable2User2Check" />
+                            </span>
+                        </div>
+                        <div id="STable2User2Cart1" class="TableUserCart"></div>
+                        <div id="STable2User2Cart2" class="TableUserCart"></div>
+                        <div class="progressbar">
+                            <span class="progressbar-value">
+                                <em id="STable2User2Progress" class="progressbar-cover"></em>
+                            </span>
+                        </div>
+                        <div class="UserNumber">22</div>
+                    </div>
+                    <div class="TableUser" id="STableUser23">
+                        <div id="STable2User3Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="STable2User3CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="STable2User3Check">
+                                <input type="checkbox" name="STable2User3Check" />
+                            </span>
+                        </div>
+                        <div id="STable2User3Cart1" class="TableUserCart"></div>
+                        <div id="STable2User3Cart2" class="TableUserCart"></div>
+                        <div class="progressbar">
+                            <span class="progressbar-value">
+                                <em id="STable2User3Progress" class="progressbar-cover"></em>
+                            </span>  
+                        </div>
+                        <div class="UserNumber">23</div>
+                    </div>
+                </div>
+                <div class='tableNumber'>
+                    <div style="height: 13px;"></div>
+                    2</div>
+                <div class="TableCart">
+                <div id="STable2Flop1" class="flop"></div>
+                <div id="STable2Flop2" class="flop"></div>
+                <div id="STable2Flop3" class="flop"></div>
+                <div id="STable2Tern" class="tern"></div>
+                <div id="STable2River" class="river"></div>
+                </div>
+                <div style="float: left;margin-top: 25px;">
+                    
+                    <div class="TableUser" id="STableUser24" style="float: left;margin-left: 50px;">
+                        <div id="STable2User4Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="STable2User4CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="STable2User4Check">
+                                <input type="checkbox" name="STable2User4Check" />
+                            </span>
+                        </div>
+                        <div id="STable2User4Cart1" class="TableUserCart"></div>
+                        <div id="STable2User4Cart2" class="TableUserCart"></div>
+                        <div class="progressbar">
+                            <span class="progressbar-value">
+                                <em id="STable2User4Progress" class="progressbar-cover"></em>
+                            </span>
+                        </div>
+                        <div class="UserNumber">24</div>
+                    </div>
+                    <div class="TableUser" id="STableUser25" style="float: left;">
+                        <div id="STable2User5Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="STable2User5CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="STable2User5Check">
+                                <input type="checkbox" name="STable2User5Check" />
+                            </span>
+                        </div>
+                        <div id="STable2User5Cart1" class="TableUserCart"></div>
+                        <div id="STable2User5Cart2" class="TableUserCart"></div>
+                        <div class="progressbar">
+                            <span class="progressbar-value">
+                                <em id="STable2User5Progress" class="progressbar-cover"></em>
+                            </span>
+                        </div>
+                        <div class="UserNumber">25</div>
+                    </div>
+                    <div class="TableUser" id="STableUser26" style="float: left;">
+                        <div id="STable2User6Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="STable2User6CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="STable2User6Check">
+                                <input type="checkbox" name="STable2User6Check" />
+                            </span>
+                        </div>
+                        <div id="STable2User6Cart1" class="TableUserCart"></div>
+                        <div id="STable2User6Cart2" class="TableUserCart"></div>
+                        <div class="progressbar">
+                            <span class="progressbar-value">
+                                <em id="STable2User6Progress" class="progressbar-cover"></em>
+                            </span>
+                        </div>
+                        <div class="UserNumber">26</div>
+                    </div>
+                </div>
+            </div>
+             </div>
+            
+            <div id="table" class="table3">
+                <div style="float: left;width: 370px;">
+                <div style="height: 95px;width: 370px;">
+                    <div class="TableUser" id="STableUser31">
+                        <div id="STable3User1Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="STable3User1CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="STable3User1Check">
+                                <input type="checkbox" name="STable3User1Check" />
+                            </span>
+                        </div>
+                        <div id="STable3User1Cart1" class="TableUserCart">
+                        </div>
+                        <div id="STable3User1Cart2" class="TableUserCart"></div>
+                         <div class="progressbar">
+                            <span class="progressbar-value">
+                                <em id="STable3User1Progress" class="progressbar-cover"></em>
+                            </span>
+                        </div>
+                        <div class="UserNumber">31</div>
+                    </div>
+                    <div class="TableUser" id="STableUser32">
+                        <div id="STable3User2Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="STable3User2CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="STable3User2Check">
+                                <input type="checkbox" name="STable3User2Check" />
+                            </span>
+                        </div>
+                        <div id="STable3User2Cart1" class="TableUserCart"></div>
+                        <div id="STable3User2Cart2" class="TableUserCart"></div>
+                        <div class="progressbar">
+                            <span class="progressbar-value">
+                                <em id="STable3User2Progress" class="progressbar-cover"></em>
+                            </span>
+                        </div>
+                        <div class="UserNumber">32</div>
+                    </div>
+                    <div class="TableUser" id="STableUser33">
+                        <div id="STable3User3Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="STable3User3CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="STable3User3Check">
+                                <input type="checkbox" name="STable3User3Check" />
+                            </span>
+                        </div>
+                        <div id="STable3User3Cart1" class="TableUserCart"></div>
+                        <div id="STable3User3Cart2" class="TableUserCart"></div>
+                        <div class="progressbar">
+                            <span class="progressbar-value">
+                                <em id="STable3User3Progress" class="progressbar-cover"></em>
+                            </span>
+                        </div>
+                        <div class="UserNumber">33</div>
+                    </div>
+                    <div  class="TableUser" id="STableUser34">
+                        <div id="STable3User4Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="STable3User4CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="STable3User4Check">
+                                <input type="checkbox" name="STable3User4Check" />
+                            </span>
+                        </div>
+                        <div id="STable3User4Cart1" class="TableUserCart"></div>
+                        <div id="STable3User4Cart2" class="TableUserCart"></div>
+                        <div class="progressbar">
+                            <span class="progressbar-value">
+                                <em id="STable3User4Progress" class="progressbar-cover"></em>
+                            </span>
+                        </div>
+                        <div class="UserNumber">34</div>
+                    </div>
+                </div>
+                <div class='tableNumber'>
+                    <div style="height: 13px;"></div>
+                    3</div>
+                <div class="TableCart">
+                    <div id="STable3Flop1" class="flop"></div>
+                <div id="STable3Flop2" class="flop"></div>
+                <div id="STable3Flop3" class="flop"></div>
+                <div id="STable3Tern" class="tern"></div>
+                <div id="STable3River" class="river"></div>
+                </div>
+                <div style="float: left;margin-top: 25px;">
+                    <div  class="TableUser" id="STableUser35">
+                        <div id="STable3User5Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="STable3User5CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="STable3User5Check">
+                                <input type="checkbox" name="STable3User5Check" />
+                            </span>
+                        </div>
+                        <div id="STable3User5Cart1" class="TableUserCart"></div>
+                        <div id="STable3User5Cart2" class="TableUserCart"></div>
+                        <div class="progressbar">
+                            <span class="progressbar-value">
+                                <em id="STable3User5Progress" class="progressbar-cover"></em>
+                            </span>
+                        </div>
+                        <div class="UserNumber">35</div>
+                    </div>
+                    <div  class="TableUser" id="STableUser36">
+                        <div id="STable3User6Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="STable3User6CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="STable3User6Check">
+                                <input type="checkbox" name="STable3User6Check" />
+                            </span>
+                        </div>
+                        <div id="STable3User6Cart1" class="TableUserCart"></div>
+                        <div id="STable3User6Cart2" class="TableUserCart"></div>
+                        <div class="progressbar">
+                            <span class="progressbar-value">
+                                <em id="STable3User6Progress" class="progressbar-cover"></em>
+                            </span>
+                        </div>
+                        <div class="UserNumber">36</div>
+                    </div>
+                    <div  class="TableUser" id="STableUser37">
+                        <div id="STable3User7Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="STable3User7CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="STable3User7Check">
+                                <input type="checkbox" name="Table3User7Check" />
+                            </span>
+                        </div>
+                        <div id="STable3User7Cart1" class="TableUserCart"></div>
+                        <div id="STable3User7Cart2" class="TableUserCart"></div>
+                        <div class="progressbar">
+                            <span class="progressbar-value">
+                                <em id="STable3User7Progress" class="progressbar-cover"></em>
+                            </span>
+                        </div>
+                        <div class="UserNumber">37</div>
+                    </div>
+                    <div  class="TableUser" id="STableUser38">
+                        <div id="STable3User8Factor" class="TableUserFactor">
+                            <div style="position: absolute" id="STable3User8CheckBackground" class="TableUserCheckBackground">1.88</div>
+                            <span class="TableUserCheck" id="STable3User8Check">
+                                <input type="checkbox" name="STable3User8Check" />
+                            </span>
+                        </div>
+                        <div id="STable3User8Cart1" class="TableUserCart"></div>
+                        <div id="STable3User8Cart2" class="TableUserCart"></div>
+                        <div class="progressbar">
+                            <span class="progressbar-value">
+                                <em id="STable3User8Progress" class="progressbar-cover"></em>
+                            </span>
+                        </div>
+                        <div class="UserNumber">38</div>
+                    </div>
+                </div>
+            </div>
+                </div>
+                <div class="BetTable">
+                    
+                </div>
+            </div>
+                        </div>
 <!--                        <div style="float:left">
                         <table id="StatisticListCurrentUser"><tr><td /></tr></table>
                         <div id="StatisticPagerCurrentUser"></div>
