@@ -118,6 +118,12 @@ function() {
     TableUserChangeCheckStart($("#Table1User3CheckBackground"),$("#Table1User3Check"));
 });
 
+$("#BetUser").click(
+    function (){
+GetBet();
+    }    
+    );
+
 $("#Table1User4Check").mousedown(
 function() {
 TableUserChangeCheck($("#Table1User4CheckBackground"),$("#Table1User4Check"));
@@ -477,7 +483,7 @@ function DisableCheck(el,input){
     el.css("background","-o-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
     el.css("background","-ms-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
     el.css("background","linear-gradient(top, #49a6e8 0%, #4281a9 100%)");	
-    input.attr("checked", false)
+    input.attr("checked", false);
 }
 
 function TableUserChangeCheck(el,input)
@@ -808,6 +814,17 @@ $.ajax({
     CheckGame();
 }
 
+function GetBet(){
+$.ajax({
+   type: "POST",
+   url: "/GetBet",
+   success: function(msg){
+  //     $("#MaxBet").html(msg.Max);
+   }
+ });
+   // CheckGame();
+}
+
 function CheckGame(){setInterval(function() {
     var values =  {  
                 "start": $("#CurrentStage").html() 
@@ -836,8 +853,8 @@ function StartGameCallback() {
                 for (var i=0;i<Message.Bets[0].length;i++){
                     StringBets+=
                            " <div style='float: left' id='BetTableCollection'> "+
-                           "<div style='float: left;width: 100%;height: 15px;font-size: 12px'>"+
-                                 "   <div style='float: left;width: 130px;text-align: center'>"+Message.Bets[0][i].date+"</div>"+
+                           "<div id='BetUser' style='float: left;width: 100%;height: 15px;font-size: 12px'>"+
+                                 "   <div  style='float: left;width: 130px;text-align: center'>"+Message.Bets[0][i].date+"</div>"+
                                     "<div style='float: left;width: 100px;text-align: center'>"+Message.Bets[0][i].hands+"</div>"+
                                     "<div style='float: left;width: 70px;text-align: center'>"+Message.Bets[0][i].sum_bet.toFixed(2)+"</div>"+
                                     "<div style='float: left;width: 60px;text-align: center'>"+Message.Bets[0][i].sum_win.toFixed(2)+"</div>"+

@@ -559,7 +559,6 @@ public class Game{
                            
                        if(i == 2)
                            stmt.setInt(1,TableStatus.GetInstance().TableThree.River);
-                       
                        stmt.executeUpdate();
                         for(int j = 0; j < SizeHand; j++){
                             query = "UPDATE games_stat_hand as t1"
