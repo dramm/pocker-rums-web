@@ -447,7 +447,10 @@ for(var i = 1; i < 7; i++){
        $("#Calculator").dialog('close');
        $("#DisplayCalculator").html("0");
    });
-   $("#ResetBets").click(function(){DisableAllBet();});
+   $("#ResetBets").click(function(){
+       DisableAllBet();
+       $("#StatisticDialog").dialog({ modal: true,minHeight:500,minWidth:600});
+   });
 });
 
 function DisableOtherBet(CurrentBet){
@@ -814,14 +817,27 @@ $.ajax({
     CheckGame();
 }
 
-function GetBet(){
-$.ajax({
-   type: "POST",
-   url: "/GetBet",
-   success: function(msg){
-  //     $("#MaxBet").html(msg.Max);
-   }
- });
+function GetBet(index){
+var values =  {  
+                "index": index 
+            };
+    var url = "/GetBet";
+    reqPrivate = new XMLHttpRequest();
+    reqPrivate.open("POST", url, true);
+    reqPrivate.onreadystatechange = null;
+    reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    reqPrivate.send(JSON.stringify(values));
+//var json = { };
+//json["index"] = index;
+//    $.ajax({
+//   type: "POST",
+//   url: "/GetBet",
+//  data: json.toString(),
+//   success: function(msg){
+//       alert(msg);
+//       //$("#MaxBet").html(msg.Max);
+//   }
+// });
    // CheckGame();
 }
 
@@ -852,15 +868,16 @@ function StartGameCallback() {
                 var StringBets = "";
                 for (var i=0;i<Message.Bets[0].length;i++){
                     StringBets+=
-                           " <div style='float: left' id='BetTableCollection'> "+
-                           "<div id='BetUser' style='float: left;width: 100%;height: 15px;font-size: 12px'>"+
-                                 "   <div  style='float: left;width: 130px;text-align: center'>"+Message.Bets[0][i].date+"</div>"+
-                                    "<div style='float: left;width: 100px;text-align: center'>"+Message.Bets[0][i].hands+"</div>"+
-                                    "<div style='float: left;width: 70px;text-align: center'>"+Message.Bets[0][i].sum_bet.toFixed(2)+"</div>"+
-                                    "<div style='float: left;width: 60px;text-align: center'>"+Message.Bets[0][i].sum_win.toFixed(2)+"</div>"+
+                           "<div style='float: left' id='BetTableCollection'> "+
+                           "<div style='float: left;width: 100%;height: 15px;font-size: 12px'>"+
+                                 "<div onclick='GetBet("+i+");return false;' style='border:solid red 0.5px;float: left;width: 130px;text-align: center'>"+Message.Bets[0][i].date+"</div>"+
+                                    "<div onclick='GetBet("+i+");return false;' style='border:solid red 0.5px;float: left;width: 100px;text-align: center'>"+Message.Bets[0][i].hands+"</div>"+
+                                    "<div onclick='GetBet("+i+");return false;' style='border:solid red 0.5px;float: left;width: 70px;text-align: center'>"+Message.Bets[0][i].sum_bet.toFixed(2)+"</div>"+
+                                    "<div onclick='GetBet("+i+");return false;' style='border:solid red 0.5px;float: left;width: 60px;text-align: center'>"+Message.Bets[0][i].sum_win.toFixed(2)+"</div>"+
                                 "</div>"
                     
                 }
+            StringBets+="</div>";
             document.getElementById("BetTableCollection").innerHTML = StringBets;
             StringBets = "";
                 if(Message.Balance>4 && Message.Stage>=1 && Message.Stage<=3 && $("#CurrentStage").html() != Message.Stage){

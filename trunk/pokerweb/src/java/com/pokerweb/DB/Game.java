@@ -202,6 +202,7 @@ public class Game{
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 JSONObject bet = new JSONObject();
+                bet.put("id", rs.getLong("id"));
                 bet.put("date", rs.getString("date_bet"));
                 bet.put("sum_bet", rs.getDouble("sum_bet"));
                 bet.put("sum_win", rs.getDouble("sum_win"));
