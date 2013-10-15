@@ -668,11 +668,12 @@ public class TableStatus {
         }
     }
     
-    public boolean SendGetBet(){
+    public boolean SendGetBet(int index){
         try {
+            long idBet = GMData.GetCurrentUserGameStatistic().getJSONObject(index).getLong("id");
             JSONObject js = new JSONObject();
-            js.put("GameId", 2);
-            js.put("UserId", 1);
+            js.put("BetId", idBet);
+            js.put("UserId", DBManager.GetInstance().GetCurrentUserId());
             Connect.GetInstance().out.write(Functions.intToByteArray(1030));
             Connect.GetInstance().out.write(Functions.intToByteArray(js.toString().length()));
             Connect.GetInstance().out.write(CryptoManager.encode(js.toString().getBytes()));

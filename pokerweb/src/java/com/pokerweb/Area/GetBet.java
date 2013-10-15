@@ -4,14 +4,21 @@
  */
 package com.pokerweb.Area;
 
+import com.pokerweb.DB.DBManager;
 import com.pokerweb.Server.TableStatus;
+import com.pokerweb.registration.UserAllInformation;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -58,7 +65,18 @@ public class GetBet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        TableStatus.GetInstance().SendGetBet();
+        try {
+            StringBuilder jb = new StringBuilder();
+                String line = null;
+                BufferedReader reader = request.getReader();
+                while ((line = reader.readLine()) != null)
+                    jb.append(line);
+                JSONObject jsonObject = new JSONObject(jb.toString());
+              int index = jsonObject.getInt("index");
+               TableStatus.GetInstance().SendGetBet(index);
+        } catch (JSONException ex) {
+            Logger.getLogger(GetBet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
