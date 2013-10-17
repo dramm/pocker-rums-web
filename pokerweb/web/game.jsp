@@ -519,7 +519,7 @@
                                 <div id="table" class="Stable1">
                                     <div style="float: left;width: 240px;">
                                         <div style="height: 60px;width: 260px;">
-                                            <div class="STableUser" id="STableUser11" style="margin-left: 45px;width: 65px;height: 60px">
+                                            <div class="STableUser" id="STableUser11" style="margin-left: 45px;width: 60px;height: 60px">
                         <div id="STable1User1Factor" class="STableUserFactor">
                             <div style="position: absolute" id="STable1User1CheckBackground" class="STableUserCheckBackground">1.88</div>
                             <span class="STableUserCheck" id="STable1User1Check">

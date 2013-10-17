@@ -7,11 +7,11 @@ package com.pokerweb.Game;
 import com.pokerweb.Server.TableStatus;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -69,7 +69,11 @@ public class GameChanges extends HttpServlet {
             BufferedReader reader = request.getReader();
             while ((line = reader.readLine()) != null)
                 jb.append(line);
-            
+            Cookie[] c = request.getCookies();
+            String JSESSIONID;
+            for(int i = 0;i < c.length; i++)
+                if(c[i].getName() == "JSESSIONID")
+                    JSESSIONID = c[i].getValue();
             JSONObject jsonObject = new JSONObject(jb.toString());
             String Data = TableStatus.GetInstance().GetNewData(jsonObject.getInt("start"));
             response.setContentType("application/json; charset=utf-8");

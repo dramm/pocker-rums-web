@@ -809,8 +809,9 @@ color: white !important;
     float: left;
     background-image: url(/pic/ClearSubstrate.png);
     background-repeat: no-repeat;
-    width: 32px;
-    height: 40px;
+    width: 27px;
+    height: 44px;
+   background-size: 100%;
 }
 
 .progressbar-cover {
@@ -909,7 +910,7 @@ font-family: Segoe UI,Arial,sans-serif;
 }
 
 .STableUser{
-    width: 65px;
+    width: 60px;
     float: left;
     text-align: center;
     height: 60px;
@@ -1074,11 +1075,11 @@ color:black;
 font-weight: 700;
 }
 .STableUserFactor{
-width: 50px;
+width: 25px;
 height: 20px;
 position: absolute;
 float: left;
-margin-left: 19px;
+margin-left: 15px;
 margin-top: 25px;
 color:black;
 font-weight: 700;
@@ -1101,7 +1102,7 @@ background: -o-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%);
 background: -ms-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%);
 background: linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%);
 float: left;
-/*width: 50px;*/
+width: 100%;
 border-radius: 3px;
 }
 

@@ -8,7 +8,6 @@ import com.pokerweb.DB.DBManager;
 import com.pokerweb.DB.Game;
 import com.pokerweb.crypto.CryptoManager;
 import java.io.IOException;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +32,7 @@ public class TableStatus {
     public Map<Long,List<UserBet>> Bets;
     public Map<Long,Double> WinnUserList;
     public Map<Integer,List<Integer>> ShutdownInfo;
+    public Map<Long,JSONObject> StatisticBetCurrentUser;
     public int Stage;
     public int Timer;
     public long Round;
@@ -40,6 +40,7 @@ public class TableStatus {
     Game GMData;
     public String strJson;
     private TableStatus(){
+        StatisticBetCurrentUser = new HashMap<Long, JSONObject>();
         ShutdownInfo = new HashMap<Integer, List<Integer>>();
         strJson = "";
         GMData = new Game();
@@ -180,7 +181,7 @@ public class TableStatus {
         return instanse;
     }
     
-    public String GetNewData(int StageUser) throws JSONException{
+    public synchronized String GetNewData(int StageUser) throws JSONException{
         JSONObject jsO = new JSONObject();
         jsO.append("Timer", Timer);
         jsO.append("Stage", Stage);
@@ -192,6 +193,10 @@ public class TableStatus {
         JSONObject Table0 = new JSONObject();
         JSONObject Table1 = new JSONObject();
         JSONObject Table2 = new JSONObject();
+        if(StatisticBetCurrentUser.containsKey(DBManager.GetInstance().GetCurrentUserId())){
+            jsO.put("StatisticCurrentUser", StatisticBetCurrentUser.get(DBManager.GetInstance().GetCurrentUserId()));
+            StatisticBetCurrentUser.remove(DBManager.GetInstance().GetCurrentUserId());
+        }
         if(StageUser == -1 || StageUser == 4){
            // if(Stage >= 0)
                 jsO.append("Round", Round);
@@ -668,8 +673,21 @@ public class TableStatus {
         }
     }
     
-    public boolean SendGetBet(int index){
+    public boolean SetResponceCurrentUserBet(String data){
         try {
+            JSONObject js = new JSONObject(data);
+            StatisticBetCurrentUser.put(js.getJSONObject("BetInfo").getLong("PlayerId"), js); 
+            return true;
+        } catch (JSONException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public synchronized boolean SendGetBet(int index){
+        try {
+            if(GMData.GetCurrentUserGameStatistic().getJSONObject(index).getLong("id_game") == GetRound())
+                return false;
             long idBet = GMData.GetCurrentUserGameStatistic().getJSONObject(index).getLong("id");
             JSONObject js = new JSONObject();
             js.put("BetId", idBet);

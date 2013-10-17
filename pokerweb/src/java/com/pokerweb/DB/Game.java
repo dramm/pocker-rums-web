@@ -177,7 +177,7 @@ public class Game{
         }
     }
     
-    public JSONArray GetCurrentUserGameStatistic(){
+    public synchronized JSONArray GetCurrentUserGameStatistic(){
         Connection connection;
         PreparedStatement stmt = null;
         FieldJdbc FieldJ; 
@@ -192,7 +192,7 @@ public class Game{
             String url = "jdbc:mysql://"+FieldJ.serverName+":"+FieldJ.port+"/"+FieldJ.database;
             connection = DriverManager.getConnection(url, FieldJ.username, FieldJ.password);
             JSONArray jsA = new JSONArray();
-            String query = "SELECT id,date_bet," +
+            String query = "SELECT id,date_bet, id_game," +
                     "sum_bet," +
                     "sum_win " +
                     "FROM user_bet where id_user = ? ORDER BY date_bet desc " +
@@ -203,6 +203,7 @@ public class Game{
             while(rs.next()){
                 JSONObject bet = new JSONObject();
                 bet.put("id", rs.getLong("id"));
+                bet.put("id_game", rs.getLong("id_game"));
                 bet.put("date", rs.getString("date_bet"));
                 bet.put("sum_bet", rs.getDouble("sum_bet"));
                 bet.put("sum_win", rs.getDouble("sum_win"));

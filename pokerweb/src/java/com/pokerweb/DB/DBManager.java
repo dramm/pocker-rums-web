@@ -576,7 +576,7 @@ public class DBManager{
         }
     }
     
-    public long GetCurrentUserId(){
+    public synchronized long GetCurrentUserId(){
         PreparedStatement stmt = null;
         try {
             String query="select id from users where login=?";
