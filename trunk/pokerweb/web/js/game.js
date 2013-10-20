@@ -866,75 +866,75 @@ function StartGameCallback() {
                         $('#STable1User1Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Hands.Hand0.FirstCard+'.png)');
                         $('#STable1User1Cart2').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Hands.Hand0.SecondCard+'.png)');
                         $('#STable1User1CheckBackground').html(Message.StatisticCurrentUser.Table0.Hands.Hand0.Factor);
-                        $('#STable1User1Progress').css('bottom' , 0 + '%');
+                        $('#STable1User1Progress').css('bottom' , Message.StatisticCurrentUser.Table0.Hands.Hand0.Indicator + '%');
                         $('#STable1User2Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Hands.Hand1.FirstCard+'.png)');
                         $('#STable1User2Cart2').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Hands.Hand1.SecondCard+'.png)');
                         $('#STable1User2CheckBackground').html(Message.StatisticCurrentUser.Table0.Hands.Hand1.Factor);
-                        $('#STable1User2Progress').css('bottom' , 0 + '%');
+                        $('#STable1User2Progress').css('bottom' , Message.StatisticCurrentUser.Table0.Hands.Hand1.Indicator + '%');
                         $('#STable1User3Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Hands.Hand2.FirstCard+'.png)');
                         $('#STable1User3Cart2').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Hands.Hand2.SecondCard+'.png)');
                         $('#STable1User3CheckBackground').html(Message.StatisticCurrentUser.Table0.Hands.Hand2.Factor);
-                        $('#STable1User3Progress').css('bottom' , 0 + '%');
+                        $('#STable1User3Progress').css('bottom' , Message.StatisticCurrentUser.Table0.Hands.Hand2.Indicator + '%');
                         $('#STable1User4Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Hands.Hand3.FirstCard+'.png)');
                         $('#STable1User4Cart2').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Hands.Hand3.SecondCard+'.png)');
                         $('#STable1User4CheckBackground').html(Message.StatisticCurrentUser.Table0.Hands.Hand3.Factor);
-                        $('#STable1User4Progress').css('bottom' , 0 + '%');
+                        $('#STable1User4Progress').css('bottom' , Message.StatisticCurrentUser.Table0.Hands.Hand3.Indicator + '%');
                         $('#STable2User1Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table1.Hands.Hand0.FirstCard+'.png)');
                         $('#STable2User1Cart2').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table1.Hands.Hand0.SecondCard+'.png)');
                         $('#STable2User1CheckBackground').html(Message.StatisticCurrentUser.Table1.Hands.Hand0.Factor);
-                        $('#STable2User1Progress').css('bottom' , 0 + '%');
+                        $('#STable2User1Progress').css('bottom' , Message.StatisticCurrentUser.Table1.Hands.Hand0.Indicator + '%');
                         $('#STable2User2Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table1.Hands.Hand1.FirstCard+'.png)');
                         $('#STable2User2Cart2').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table1.Hands.Hand1.SecondCard+'.png)');
                         $('#STable2User2CheckBackground').html(Message.StatisticCurrentUser.Table1.Hands.Hand1.Factor);
-                        $('#STable2User2Progress').css('bottom' , 0 + '%');
+                        $('#STable2User2Progress').css('bottom' , Message.StatisticCurrentUser.Table1.Hands.Hand1.Indicator + '%');
                         $('#STable2User3Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table1.Hands.Hand2.FirstCard+'.png)');
                         $('#STable2User3Cart2').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table1.Hands.Hand2.SecondCard+'.png)');
                         $('#STable2User3CheckBackground').html(Message.StatisticCurrentUser.Table1.Hands.Hand2.Factor);
-                        $('#STable2User3Progress').css('bottom' , 0 + '%');
+                        $('#STable2User3Progress').css('bottom' , Message.StatisticCurrentUser.Table1.Hands.Hand2.Indicator + '%');
                         $('#STable2User4Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table1.Hands.Hand3.FirstCard+'.png)');
                         $('#STable2User4Cart2').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table1.Hands.Hand3.SecondCard+'.png)');
                         $('#STable2User4CheckBackground').html(Message.StatisticCurrentUser.Table1.Hands.Hand3.Factor);
-                        $('#STable2User4Progress').css('bottom' , 0 + '%');
+                        $('#STable2User4Progress').css('bottom' , Message.StatisticCurrentUser.Table1.Hands.Hand3.Indicator + '%');
                         $('#STable2User5Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table1.Hands.Hand4.FirstCard+'.png)');
                         $('#STable2User5Cart2').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table1.Hands.Hand4.SecondCard+'.png)');
                         $('#STable2User5CheckBackground').html(Message.StatisticCurrentUser.Table1.Hands.Hand4.Factor);
-                        $('#STable2User5Progress').css('bottom' , 0 + '%');
+                        $('#STable2User5Progress').css('bottom' , Message.StatisticCurrentUser.Table1.Hands.Hand4.Indicator + '%');
                         $('#STable2User6Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table1.Hands.Hand5.FirstCard+'.png)');
                         $('#STable2User6Cart2').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table1.Hands.Hand5.SecondCard+'.png)');
                         $('#STable2User6CheckBackground').html(Message.StatisticCurrentUser.Table1.Hands.Hand5.Factor);
-                        $('#STable2User6Progress').css('bottom' , 0 + '%');
+                        $('#STable2User6Progress').css('bottom' , Message.StatisticCurrentUser.Table1.Hands.Hand5.Indicator + '%');
                         $('#STable3User1Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand0.FirstCard+'.png)');
                         $('#STable3User1Cart2').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand0.SecondCard+'.png)');
                         $('#STable3User1CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand0.Factor);
-                        $('#STable3User1Progress').css('bottom' , 0 + '%');
+                        $('#STable3User1Progress').css('bottom' , Message.StatisticCurrentUser.Table2.Hands.Hand0.Indicator + '%');
                         $('#STable3User2Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand1.FirstCard+'.png)');
                         $('#STable3User2Cart2').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand1.SecondCard+'.png)');
                         $('#STable3User2CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand1.Factor);
-                        $('#STable3User2Progress').css('bottom' , 0 + '%');
+                        $('#STable3User2Progress').css('bottom' , Message.StatisticCurrentUser.Table2.Hands.Hand1.Indicator + '%');
                         $('#STable3User3Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand2.FirstCard+'.png)');
                         $('#STable3User3Cart2').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand2.SecondCard+'.png)');
                         $('#STable3User3CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand2.Factor);
-                        $('#STable3User3Progress').css('bottom' , 0 + '%');
+                        $('#STable3User3Progress').css('bottom' , Message.StatisticCurrentUser.Table2.Hands.Hand2.Indicator + '%');
                         $('#STable3User4Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand3.FirstCard+'.png)');
                         $('#STable3User4Cart2').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand3.SecondCard+'.png)');
                         $('#STable3User4CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand3.Factor);
-                        $('#STable3User4Progress').css('bottom' , 0 + '%');
+                        $('#STable3User4Progress').css('bottom' , Message.StatisticCurrentUser.Table2.Hands.Hand3.Indicator + '%');
                         $('#STable3User5Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand4.FirstCard+'.png)');
                         $('#STable3User5Cart2').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand4.SecondCard+'.png)');
                         $('#STable3User5CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand4.Factor);
-                        $('#STable3User5Progress').css('bottom' , 0 + '%');
+                        $('#STable3User5Progress').css('bottom' , Message.StatisticCurrentUser.Table2.Hands.Hand4.Indicator + '%');
                         $('#STable3User6Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand5.FirstCard+'.png)');
                         $('#STable3User6Cart2').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand5.SecondCard+'.png)');
                         $('#STable3User6CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand5.Factor);
-                        $('#STable3User6Progress').css('bottom' , 0 + '%');
+                        $('#STable3User6Progress').css('bottom' , Message.StatisticCurrentUser.Table2.Hands.Hand5.Indicator + '%');
                         $('#STable3User7Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand6.FirstCard+'.png)');
                         $('#STable3User7Cart2').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand6.SecondCard+'.png)');
                         $('#STable3User7CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand6.Factor);
-                        $('#STable3User7Progress').css('bottom' , 0 + '%');
+                        $('#STable3User7Progress').css('bottom' , Message.StatisticCurrentUser.Table2.Hands.Hand6.Indicator + '%');
                         $('#STable3User8Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand7.FirstCard+'.png)');
                         $('#STable3User8Cart2').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand7.SecondCard+'.png)');
                         $('#STable3User8CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand7.Factor);
-                        $('#STable3User8Progress').css('bottom' , 0 + '%');
+                        $('#STable3User8Progress').css('bottom' , Message.StatisticCurrentUser.Table2.Hands.Hand7.Indicator + '%');
                         
                         
                         $('#STable1Flop1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Board.Board[0]+'.png)');
@@ -954,6 +954,167 @@ function StartGameCallback() {
                         $('#STable1River').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Board.Board[4]+'.png)');
                         $('#STable2River').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table1.Board.Board[4]+'.png)');
                         $('#STable3River').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Board.Board[4]+'.png)');
+                        if(Message.StatisticCurrentUser.Table0.Hands.Hand0.Factor == -1 )
+                            $('#STable1User1Factor').hide();
+                        else
+                            if(Message.StatisticCurrentUser.Table0.Hands.Hand0.Factor == 1){
+                                $('#STable1User1Factor').show();
+                                SetNoActiveButt($("#STable1User1CheckBackground"));
+                                $("#STable1User1Check").attr("disabled",true);
+                           }
+                       
+                       if(Message.StatisticCurrentUser.Table0.Hands.Hand1.Factor == -1)
+                            $('#STable1User2Factor').hide();
+                        else
+                            if(Message.StatisticCurrentUser.Table0.Hands.Hand1.Factor == 1){
+                                $('#STable1User2Factor').show();
+                                SetNoActiveButt($("#STable1User2CheckBackground"));
+                                $("#STable1User2Check").attr("disabled",true);
+                           }
+                       
+                       if(Message.StatisticCurrentUser.Table0.Hands.Hand2.Factor == -1)
+                            $('#STable1User3Factor').hide();
+                        else
+                            if(Message.StatisticCurrentUser.Table0.Hands.Hand2.Factor == 1){
+                                $('#STable1User3Factor').show();
+                                SetNoActiveButt($("#STable1User3CheckBackground"));
+                                $("#STable1User3Check").attr("disabled",true);
+                           }                       
+                       if(Message.StatisticCurrentUser.Table0.Hands.Hand3.Factor == -1)
+                            $('#STable1User4Factor').hide();
+                        else
+                            if(Message.StatisticCurrentUser.Table0.Hands.Hand3.Factor == 1){
+                                $('#STable1User4Factor').show();
+                                SetNoActiveButt($("#STable1User4CheckBackground"));
+                                $("#STable1User4Check").attr("disabled",true);
+                           }
+                       
+                       if(Message.StatisticCurrentUser.Table1.Hands.Hand0.Factor == -1)
+                            $('#STable2User1Factor').hide();
+                        else
+                            if(Message.StatisticCurrentUser.Table1.Hands.Hand0.Factor == 1){
+                                $('#STable2User1Factor').show();
+                                SetNoActiveButt($("#STable2User1CheckBackground"));
+                                $("#STable2User1Check").attr("disabled",true);
+                           }
+                       
+                       if(Message.StatisticCurrentUser.Table1.Hands.Hand1.Factor == -1)
+                            $('#STable2User2Factor').hide();
+                        else
+                            if(Message.StatisticCurrentUser.Table1.Hands.Hand1.Factor == 1){
+                                $('#STable2User2Factor').show();
+                                SetNoActiveButt($("#STable2User2CheckBackground"));
+                                $("#STable2User2Check").attr("disabled",true);
+                           }
+                       
+                       if(Message.StatisticCurrentUser.Table1.Hands.Hand2.Factor == -1)
+                            $('#STable2User3Factor').hide();
+                        else
+                            if(Message.StatisticCurrentUser.Table1.Hands.Hand2.Factor == 1){
+                                $('#STable2User3Factor').show();
+                                SetNoActiveButt($("#STable2User3CheckBackground"));
+                                $("#STable2User3Check").attr("disabled",true);
+                           }
+                       
+                       if(Message.StatisticCurrentUser.Table1.Hands.Hand3.Factor == -1)
+                            $('#STable2User4Factor').hide();
+                        else
+                            if(Message.StatisticCurrentUser.Table1.Hands.Hand3.Factor == 1){
+                                $('#STable2User4Factor').show();
+                                SetNoActiveButt($("#STable2User4CheckBackground"));
+                                $("#STable2User4Check").attr("disabled",true);
+                           }
+                       
+                       if(Message.StatisticCurrentUser.Table1.Hands.Hand4.Factor == -1)
+                            $('#STable2User5Factor').hide();
+                        else
+                            if(Message.StatisticCurrentUser.Table1.Hands.Hand4.Factor == 1){
+                                $('#STable2User5Factor').show();
+                                SetNoActiveButt($("#STable2User5CheckBackground"));
+                                $("#STable2User5Check").attr("disabled",true);
+                           }
+                       
+                       if(Message.StatisticCurrentUser.Table1.Hands.Hand5.Factor == -1)
+                            $('#STable2User6Factor').hide();
+                        else
+                            if(Message.StatisticCurrentUser.Table1.Hands.Hand5.Factor == 1){
+                                $('#STable2User6Factor').show();
+                                SetNoActiveButt($("#STable2User6CheckBackground"));
+                                $("#STable2User6Check").attr("disabled",true);
+                           }
+                       
+                       if(Message.StatisticCurrentUser.Table2.Hands.Hand0.Factor == -1)
+                            $('#STable3User1Factor').hide();
+                        else
+                            if(Message.StatisticCurrentUser.Table2.Hands.Hand0.Factor == 1){
+                                $('#STable3User1Factor').show();
+                                SetNoActiveButt($("#STable3User1CheckBackground"));
+                                $("#STable3User1Check").attr("disabled",true);
+                           }
+                       
+                       if(Message.StatisticCurrentUser.Table2.Hands.Hand1.Factor == -1)
+                            $('#STable3User2Factor').hide();
+                        else
+                            if(Message.StatisticCurrentUser.Table2.Hands.Hand1.Factor == 1){
+                                $('#STable3User2Factor').show();
+                                SetNoActiveButt($("#STable3User2CheckBackground"));
+                                $("#STable3User2Check").attr("disabled",true);
+                           }
+                       
+                       if(Message.StatisticCurrentUser.Table2.Hands.Hand2.Factor == -1)
+                            $('#STable3User3Factor').hide();
+                        else
+                            if(Message.StatisticCurrentUser.Table2.Hands.Hand2.Factor == 1){
+                                $('#STable3User3Factor').show();
+                                SetNoActiveButt($("#STable3User3CheckBackground"));
+                                $("#STable3User3Check").attr("disabled",true);
+                           }
+                       
+                       if(Message.StatisticCurrentUser.Table2.Hands.Hand3.Factor == -1)
+                            $('#STable3User4Factor').hide();
+                        else
+                            if(Message.StatisticCurrentUser.Table2.Hands.Hand3.Factor == 1){
+                                $('#STable3User4Factor').show();
+                                SetNoActiveButt($("#STable3User4CheckBackground"));
+                                $("#STable3User4Check").attr("disabled",true);
+                           }
+                       
+                       if(Message.StatisticCurrentUser.Table2.Hands.Hand4.Factor == -1)
+                            $('#STable3User5Factor').hide();
+                        else
+                            if(Message.StatisticCurrentUser.Table2.Hands.Hand4.Factor == 1){
+                                $('#STable3User5Factor').show();
+                                SetNoActiveButt($("#STable3User5CheckBackground"));
+                                $("#STable3User5Check").attr("disabled",true);
+                           }
+                       
+                       if(Message.StatisticCurrentUser.Table2.Hands.Hand5.Factor == -1)
+                            $('#STable3User6Factor').hide();
+                        else
+                            if(Message.StatisticCurrentUser.Table2.Hands.Hand7.Factor == 1){
+                                $('#STable3User6Factor').show();
+                                SetNoActiveButt($("#STable3User6CheckBackground"));
+                                $("#STable3User6Check").attr("disabled",true);
+                           }
+                       
+                       if(Message.StatisticCurrentUser.Table2.Hands.Hand6.Factor == -1)
+                            $('#STable3User7Factor').hide();
+                        else
+                            if(Message.StatisticCurrentUser.Table2.Hands.Hand6.Factor == 1){
+                                $('#STable3User7Factor').show();
+                                SetNoActiveButt($("#STable3User7CheckBackground"));
+                                $("#STable3User7Check").attr("disabled",true);
+                           }
+                       
+                       if(Message.StatisticCurrentUser.Table2.Hands.Hand7.Factor == -1)
+                            $('#STable3User8Factor').hide();
+                        else
+                            if(Message.StatisticCurrentUser.Table2.Hands.Hand7.Factor == 1){
+                                $('#STable3User8Factor').show();
+                                SetNoActiveButt($("#STable3User8CheckBackground"));
+                                $("#STable3User8Check").attr("disabled",true);
+                           }
+                       
                         $("#StatisticDialog").dialog({ modal: true,minHeight:500,minWidth:600});
                 }
                 var BalanceNew = Message.Balance;
