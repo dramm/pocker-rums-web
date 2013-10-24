@@ -193,10 +193,22 @@ public class TableStatus {
         JSONObject Table0 = new JSONObject();
         JSONObject Table1 = new JSONObject();
         JSONObject Table2 = new JSONObject();
-        if(StatisticBetCurrentUser.containsKey(DBManager.GetInstance().GetCurrentUserId())){
-            jsO.put("StatisticCurrentUser", StatisticBetCurrentUser.get(DBManager.GetInstance().GetCurrentUserId()));
-            StatisticBetCurrentUser.remove(DBManager.GetInstance().GetCurrentUserId());
+        long UserId = DBManager.GetInstance().GetCurrentUserId();
+        if(StatisticBetCurrentUser.containsKey(UserId)){
+            int IdBet = StatisticBetCurrentUser.get(UserId).getJSONObject("BetInfo").getInt("BetId");
+            String data = "";
+            for (int i = 0; i < GMData.GetCurrentUserGameStatistic().length(); i++)
+                if(GMData.GetCurrentUserGameStatistic().getJSONObject(i).getLong("id") == IdBet)
+                    data = GMData.GetCurrentUserGameStatistic().getJSONObject(i).getString("date");
+            StatisticBetCurrentUser.get(UserId).put("date", data);
+            jsO.put("StatisticCurrentUser", StatisticBetCurrentUser.get(UserId));
+            StatisticBetCurrentUser.remove(UserId);
         }
+        JSONObject jsCoolect = new JSONObject();
+        for (Map.Entry<Long,JSONObject> object : StatisticBetCurrentUser.entrySet()) {
+            jsCoolect.put(object.getKey().toString(), object.getValue());
+        }
+        jsO.put("BETSSOURCE", jsCoolect);
         if(StageUser == -1 || StageUser == 4){
            // if(Stage >= 0)
                 jsO.append("Round", Round);
