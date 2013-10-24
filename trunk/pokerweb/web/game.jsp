@@ -515,11 +515,59 @@
                         
                         
                         <div id="StatisticDialog" style="display: none;">
-                            <div style="margin-top: 60px;">
+                            <div style="float:left;height: 100px;background-color: white;">
+                                <div style="float: left">
+                                    <div  style="float: left;border: solid black 1px;width: 300px">
+                                        <div style="float: left;">Внесение</div>
+                                        <div id="SBetInfoBetSumRequest" style="float: right;">
+                                            vgjhvjv
+                                        </div>
+                                    </div>
+                                    <div  style="float: left;border: solid black 1px;width: 300px">
+                                        <div style="float: left;">Ставка</div>
+                                        <div id="SBetInfoBet" style="float: right;">
+                                            vfdsdv
+                                        </div>
+                                    </div>
+                                    <div  style="float: left;border: solid black 1px;width: 300px">
+                                        <div style="float: left;">Тип ставки</div>
+                                        <div id="SBetInfoBetType" style="float: right;">
+                                            gfdsvfdsvfdsbd
+                                        </div>
+                                    </div>
+                                    <div  style="float: left;border: solid black 1px;width: 300px">
+                                        <div style="float: left;">Сумма выплаты</div>
+                                        <div id="SBetInfoBetSumResponse" style="float: right;">
+                                            fdgfdvfdbgfdbfd
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="float: right">
+                                    <div  style="float: left;border: solid black 1px;width: 300px">
+                                    <div style="float: left;">Состояние</div>
+                                        <div id="SBetInfoStatus" style="float: right;">
+                                            gfdsgfdsgfdsgfdsgfds
+                                        </div>
+                                    </div>
+                                    <div style="float: left;border: solid black 1px;width: 300px">
+                                    <div style="float: left;">Создано</div>
+                                        <div id="SBetInfoDateBet" style="float: right;">
+                                            gfdsgfdsgfdsgfds
+                                        </div>
+                                    </div>
+                                    <div style="float: left;border: solid black 1px;width: 300px;height: 21px;">
+                                    
+                                    </div>
+                                    <div style="float: left;border: solid black 1px;width: 300px;height: 21px;">
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top: 0px;">
                                 <div id="table" class="Stable1">
                                     <div style="float: left;width: 240px;">
                                         <div style="height: 60px;width: 260px;">
-                                            <div class="STableUser" id="STableUser11" style="margin-left: 45px;width: 60px;height: 60px">
+                                            <div class="STableUser" id="STableUser11" style="margin-left: 45px;">
                         <div id="STable1User1Factor" class="STableUserFactor">
                             <div style="position: absolute" id="STable1User1CheckBackground" class="STableUserCheckBackground">1.88</div>
                             <span class="STableUserCheck" id="STable1User1Check">
