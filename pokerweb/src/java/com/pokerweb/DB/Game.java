@@ -244,11 +244,22 @@ public class Game{
     }
     
     public JSONObject GetAllUserGameStatistic(int limit,int offset){
+       Connection connection;
+        PreparedStatement stmt = null;
+        FieldJdbc FieldJ; 
+            FieldJ = new ConfigManager().GetPropJdbc();
+            
+            String driverName = "com.mysql.jdbc.Driver";
+            
+            
         try {
-            PreparedStatement stmt = null;
+            Class.forName(driverName);
+            
+            String url = "jdbc:mysql://"+FieldJ.serverName+":"+FieldJ.port+"/"+FieldJ.database;
+            connection = DriverManager.getConnection(url, FieldJ.username, FieldJ.password);
             JSONArray jsA = new JSONArray();
-            String query = "select t1.id_game,"
-                    + "t5.login,"
+            String query = "select t1.id_game,t1.id as id_bet,"
+                    + "t5.login,t5.id, "
                     + "t4.s as sum_bet,"
                     + "t1.sum_win,"
                     + "t1.date_bet,t6.c as count "
@@ -269,11 +280,21 @@ public class Game{
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 JSONObject bet = new JSONObject();
+                bet.put("id_user", rs.getLong("id"));
                 bet.put("id_game", rs.getLong("id_game"));
                 bet.put("login", rs.getString("login"));
                 bet.put("sum_bet", rs.getDouble("sum_bet"));
                 bet.put("date_bet", rs.getString("date_bet"));
                 bet.put("sum_win", rs.getDouble("sum_win"));
+                query = "SELECT id_bet,hand FROM pokerwebdb.bet_hand where id_bet = ?";
+                stmt = connection.prepareStatement(query);
+                stmt.setLong(1,rs.getLong("id_bet"));
+                ResultSet rsTwo = stmt.executeQuery();
+                String hands = "";
+                while(rsTwo.next()){
+                hands += rsTwo.getString("hand")+",";
+                }
+                bet.put("forecast", hands);
                 jsA.put(bet);
             }
             JSONObject jsO = new JSONObject();
@@ -285,6 +306,9 @@ public class Game{
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } catch (JSONException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }

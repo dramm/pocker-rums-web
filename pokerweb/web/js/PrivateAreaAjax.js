@@ -1083,7 +1083,7 @@ function getCookie(name) {
             $grid.jqGrid({
                 url: 'GetCurrentUserStatistic',
                 datatype: "json",
-                colNames: ['id_game', 'sum_bet', 'date_bet', 'sum_win'],
+                colNames: ['id_game','login', 'sum_bet', 'date_bet', 'sum_win','hands'],
                 colModel: [
                     { name: 'id_game', index: 'id_game',width: 80},
                     { name: 'login', index: 'login',width: 80},
@@ -1265,7 +1265,7 @@ function getCookie(name) {
             $grid.jqGrid({
                 url: 'GetAllUserStatistic',
                 datatype: "json",
-                colNames: ['id_game', 'login', 'sum_bet', 'date_bet', 'sum_win'],
+                colNames: ['id_game', 'id_user','login', 'sum_bet', 'date_bet', 'sum_win','forecast'],
                 colModel: [
                     { name: 'id_game', index: 'id_game',width: 80},
                     { name: 'id_user', index: 'id_user',width: 80},
@@ -1296,19 +1296,19 @@ function getCookie(name) {
                         lastSel = rowid;
                         
                     }
-                    $.ajax({
-                                    url: "PrivateArea/DelVm",
-                                    type: "post",
-                                    data: { index: rowid },
-                                    success: function (response, textStatus, jqXHR) {
-                                        alert(response);
-                                    },
-                                    error: function (jqXHR, textStatus, errorThrown) {
-                                        alert("error");
-                                    },
-                                    complete: function () {
-                                    }
-                                });
+//                    $.ajax({
+//                                    url: "PrivateArea/DelVm",
+//                                    type: "post",
+//                                    data: { index: rowid },
+//                                    success: function (response, textStatus, jqXHR) {
+//                                        alert(response);
+//                                    },
+//                                    error: function (jqXHR, textStatus, errorThrown) {
+//                                        alert("error");
+//                                    },
+//                                    complete: function () {
+//                                    }
+//                                });
                     return true;
                 },
                 ondblClickRow: function (rowid, iRow, iCol, e) {
