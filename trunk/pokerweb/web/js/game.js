@@ -1124,7 +1124,7 @@ function StartGameCallback() {
                             $('#SBetInfoBetType').html("Экспресс");
                     else
                         $('#SBetInfoBetType').html(CountBetStatistic+" Ординар");
-                        $('#SBetInfoBetSumResponse').html(Message.StatisticCurrentUser.BetInfo.WinSize);
+                        $('#SBetInfoBetSumResponse').html(Message.StatisticCurrentUser.BetInfo.WinSize.toFixed(2));
                         if(Message.StatisticCurrentUser.BetInfo.WinSize == 0)    
                             $('#SBetInfoStatus').html("Проиграно");
                         else    
