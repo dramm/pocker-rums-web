@@ -280,6 +280,7 @@ public class Game{
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 JSONObject bet = new JSONObject();
+                bet.put("id_bet", rs.getLong("id_bet"));
                 bet.put("id_user", rs.getLong("id"));
                 bet.put("id_game", rs.getLong("id_game"));
                 bet.put("login", rs.getString("login"));
@@ -306,6 +307,62 @@ public class Game{
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } catch (JSONException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+            
+    }
+    
+    
+    public long GetRoundFromBet(long IdBet){
+       Connection connection;
+        PreparedStatement stmt = null;
+        FieldJdbc FieldJ; 
+            FieldJ = new ConfigManager().GetPropJdbc();
+            String driverName = "com.mysql.jdbc.Driver";
+        try {
+            Class.forName(driverName);
+            String url = "jdbc:mysql://"+FieldJ.serverName+":"+FieldJ.port+"/"+FieldJ.database;
+            connection = DriverManager.getConnection(url, FieldJ.username, FieldJ.password);
+            JSONArray jsA = new JSONArray();
+            String query = "select id_game from user_bet where id=?;";
+            stmt = DBManager.GetInstance().connection.prepareStatement(query);
+            stmt.setLong(1, IdBet);
+            ResultSet rs = stmt.executeQuery();
+            rs.first();
+            return rs.getLong("id_game");
+        } catch (SQLException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+            
+    }
+    
+    
+    public String GetDateFromBet(long IdBet){
+       Connection connection;
+        PreparedStatement stmt = null;
+        FieldJdbc FieldJ; 
+            FieldJ = new ConfigManager().GetPropJdbc();
+            String driverName = "com.mysql.jdbc.Driver";
+        try {
+            Class.forName(driverName);
+            String url = "jdbc:mysql://"+FieldJ.serverName+":"+FieldJ.port+"/"+FieldJ.database;
+            connection = DriverManager.getConnection(url, FieldJ.username, FieldJ.password);
+            JSONArray jsA = new JSONArray();
+            String query = "select date_bet from user_bet where id=?;";
+            stmt = DBManager.GetInstance().connection.prepareStatement(query);
+            stmt.setLong(1, IdBet);
+            ResultSet rs = stmt.executeQuery();
+            rs.first();
+            return rs.getString("date_bet");
+        } catch (SQLException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } catch (ClassNotFoundException ex) {

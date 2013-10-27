@@ -33,6 +33,7 @@ public class TableStatus {
     public Map<Long,Double> WinnUserList;
     public Map<Integer,List<Integer>> ShutdownInfo;
     public Map<Long,JSONObject> StatisticBetCurrentUser;
+    public List<StatisticBet> RequestStatisticBet;
     public int Stage;
     public int Timer;
     public long Round;
@@ -40,6 +41,7 @@ public class TableStatus {
     Game GMData;
     public String strJson;
     private TableStatus(){
+        RequestStatisticBet = new ArrayList<StatisticBet>();
         StatisticBetCurrentUser = new HashMap<Long, JSONObject>();
         ShutdownInfo = new HashMap<Integer, List<Integer>>();
         strJson = "";
@@ -181,7 +183,7 @@ public class TableStatus {
         return instanse;
     }
     
-    public synchronized String GetNewData(int StageUser) throws JSONException{
+    public synchronized String GetNewData(int StageUser,String Token) throws JSONException{
         JSONObject jsO = new JSONObject();
         jsO.append("Timer", Timer);
         jsO.append("Stage", Stage);
@@ -194,21 +196,24 @@ public class TableStatus {
         JSONObject Table1 = new JSONObject();
         JSONObject Table2 = new JSONObject();
         long UserId = DBManager.GetInstance().GetCurrentUserId();
-        if(StatisticBetCurrentUser.containsKey(UserId)){
-            int IdBet = StatisticBetCurrentUser.get(UserId).getJSONObject("BetInfo").getInt("BetId");
-            String data = "";
-            for (int i = 0; i < GMData.GetCurrentUserGameStatistic().length(); i++)
-                if(GMData.GetCurrentUserGameStatistic().getJSONObject(i).getLong("id") == IdBet)
-                    data = GMData.GetCurrentUserGameStatistic().getJSONObject(i).getString("date");
-            StatisticBetCurrentUser.get(UserId).put("date", data);
-            jsO.put("StatisticCurrentUser", StatisticBetCurrentUser.get(UserId));
-            StatisticBetCurrentUser.remove(UserId);
-        }
-        JSONObject jsCoolect = new JSONObject();
-        for (Map.Entry<Long,JSONObject> object : StatisticBetCurrentUser.entrySet()) {
-            jsCoolect.put(object.getKey().toString(), object.getValue());
-        }
-        jsO.put("BETSSOURCE", jsCoolect);
+        if(Token != null)
+            for (StatisticBet statisticBet : RequestStatisticBet) 
+               if(statisticBet.IdUserRequest == UserId &&
+                       statisticBet.ToketUserRequest.equals(Token) &&
+                       StatisticBetCurrentUser.containsKey(statisticBet.IdBet)){
+                   String data = data = GMData.GetDateFromBet(statisticBet.IdBet);
+                   StatisticBetCurrentUser.get(statisticBet.IdBet).put("date", data);
+                   jsO.put("StatisticCurrentUser", StatisticBetCurrentUser.get(statisticBet.IdBet));
+                   StatisticBetCurrentUser.remove(statisticBet.IdBet);
+                   RequestStatisticBet.remove(statisticBet);
+                   break;
+               }
+        
+      //  JSONObject jsCoolect = new JSONObject();
+      //  for (Map.Entry<Long,JSONObject> object : StatisticBetCurrentUser.entrySet()) {
+      //      jsCoolect.put(object.getKey().toString(), object.getValue());
+       // }
+       // jsO.put("BETSSOURCE", jsCoolect);
         if(StageUser == -1 || StageUser == 4){
            // if(Stage >= 0)
                 jsO.append("Round", Round);
@@ -688,7 +693,7 @@ public class TableStatus {
     public boolean SetResponceCurrentUserBet(String data){
         try {
             JSONObject js = new JSONObject(data);
-            StatisticBetCurrentUser.put(js.getJSONObject("BetInfo").getLong("PlayerId"), js); 
+            StatisticBetCurrentUser.put(js.getJSONObject("BetInfo").getLong("BetId"), js); 
             return true;
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -696,11 +701,44 @@ public class TableStatus {
         }
     }
     
-    public synchronized boolean SendGetBet(int index){
+    public synchronized boolean SendGetBet(int index,String Token){
+        try {
+            if(GMData.GetRoundFromBet(index) == GetRound())
+                return false;
+            StatisticBet st = new StatisticBet();
+            st.IdBet = index;
+            st.IdUserRequest = DBManager.GetInstance().GetCurrentUserId();
+            st.TimeRequest = System.currentTimeMillis();
+            st.ToketUserRequest = Token;
+            RequestStatisticBet.add(st);
+            JSONObject js = new JSONObject();
+            js.put("BetId", index);
+            js.put("UserId", DBManager.GetInstance().GetCurrentUserId());
+            Connect.GetInstance().out.write(Functions.intToByteArray(1030));
+            Connect.GetInstance().out.write(Functions.intToByteArray(js.toString().length()));
+            Connect.GetInstance().out.write(CryptoManager.encode(js.toString().getBytes()));
+            Connect.GetInstance().out.flush();
+            return true;
+        } catch (IOException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (JSONException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public synchronized boolean SendGetBetGame(int index,String Token){
         try {
             if(GMData.GetCurrentUserGameStatistic().getJSONObject(index).getLong("id_game") == GetRound())
                 return false;
             long idBet = GMData.GetCurrentUserGameStatistic().getJSONObject(index).getLong("id");
+            StatisticBet st = new StatisticBet();
+            st.IdBet = idBet;
+            st.IdUserRequest = DBManager.GetInstance().GetCurrentUserId();
+            st.TimeRequest = System.currentTimeMillis();
+            st.ToketUserRequest = Token;
+            RequestStatisticBet.add(st);
             JSONObject js = new JSONObject();
             js.put("BetId", idBet);
             js.put("UserId", DBManager.GetInstance().GetCurrentUserId());

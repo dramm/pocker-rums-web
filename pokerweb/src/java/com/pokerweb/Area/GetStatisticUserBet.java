@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -72,35 +73,21 @@ public class GetStatisticUserBet extends HttpServlet {
                String line = null;
                UserAllInformation ubi=new UserAllInformation();
                BufferedReader reader = request.getReader();
-               DBManager DBM = DBManager.GetInstance();
                while ((line = reader.readLine()) != null)
                    jb.append(line);
                JSONObject jsonObject = new JSONObject(jb.toString());
-               JSONObject js = null;
+               JSONObject js = new JSONObject();
+               js.put("ok", true);
                int index = jsonObject.getInt("index");
-              boolean CurrentUser = jsonObject.getBoolean("Current");
-              
-                  Game GM = new Game();
-              int UserId = GM.GetCurrentUserGameStatistic().getJSONObject(index).getInt("user_id");
-              if(CurrentUser){
-                  int id = GM.GetCurrentUserGameStatistic().getJSONObject(index).getInt("game_id");
-                  TableStatus.GetInstance().SendGetBet(id);
-              }else{
-                  int id = GM.GetAllUserGameStatistic(1000000, 0).getJSONObject(String.valueOf(index)).getInt("game_id");
-                  TableStatus.GetInstance().SendGetBet(id);
-                  for(int i = 0;i < 1000; i++){
-                  if(CurrentUser){
-                  if(TableStatus.GetInstance().StatisticBetCurrentUser.get(DBM.GetCurrentUserId()) != null)
-                     js = new JSONObject(TableStatus.GetInstance().StatisticBetCurrentUser.get(DBM.GetCurrentUserId()));
-                  }
-                  else
-                  {
-                  if(TableStatus.GetInstance().StatisticBetCurrentUser.get(UserId) != null)
-                     js = new JSONObject(TableStatus.GetInstance().StatisticBetCurrentUser.get(DBM.GetCurrentUserId()));
-                  }
-                  }
+                String Token = "";
+              for (Cookie object : request.getCookies()) 
+                if(object.getName().equals("JSESSIONID"))
+                    Token = object.getValue();
+            if(Token.length() <= 0)
+                return;
+               TableStatus.GetInstance().SendGetBet(index,Token);
                   
-              }
+              
                response.setContentType("application/json; charset=utf-8");
                     response.setHeader("Cache-Control", "no-cache");
                     response.getWriter().write(js.toString());
