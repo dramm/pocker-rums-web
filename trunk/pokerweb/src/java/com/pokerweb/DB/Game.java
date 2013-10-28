@@ -178,7 +178,7 @@ public class Game{
     }
     
     public synchronized JSONArray GetCurrentUserGameStatistic(){
-        Connection connection;
+        Connection connection = null;
         PreparedStatement stmt = null;
         FieldJdbc FieldJ; 
             FieldJ = new ConfigManager().GetPropJdbc();
@@ -215,7 +215,7 @@ public class Game{
                 while(rsTwo.next()){
                 hands += rsTwo.getString("hand")+",";
                 }
-                bet.put("hands",hands);
+                bet.put("hands",hands.substring(0,hands.length()-1));
                 jsA.put(bet);
             }
             stmt.close();
@@ -238,23 +238,91 @@ public class Game{
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }       
+    }
+    
+     public JSONObject GetCurrentUserAllGameStatistic(int limit,int offset){
+       Connection connection = null;
+        PreparedStatement stmt = null;
+        FieldJdbc FieldJ; 
+            FieldJ = new ConfigManager().GetPropJdbc();
+            String driverName = "com.mysql.jdbc.Driver";
+        try {
+            Class.forName(driverName);
+            
+            String url = "jdbc:mysql://"+FieldJ.serverName+":"+FieldJ.port+"/"+FieldJ.database;
+            connection = DriverManager.getConnection(url, FieldJ.username, FieldJ.password);
+            JSONArray jsA = new JSONArray();
+            long UserId = DBManager.GetInstance().GetCurrentUserId();
+            String query = "select t1.id_game,t1.id as id_bet,"
+                    + "t4.s as sum_bet,"
+                    + "t1.sum_win,"
+                    + "t1.date_bet,t6.c as count "
+                    + "from user_bet as t1,"
+                    + "bet_table as t3,"
+                    + "(select id_user,id_game, sum(sum_bet) as s from user_bet where id_user=? group by id_game) as t4,"
+                    + "(select count(t7.c) as c from (select count(*) as c from user_bet where id_user=? group by id_game) as t7) as t6 " 
+                    + "where " 
+                    + " t3.id_bet=t1.id and " 
+                    + " t4.id_user=t1.id_user and " 
+                    + " t4.id_game=t1.id_game "  
+                    + "group by t1.id_game LIMIT ? OFFSET ?";
+            stmt = connection.prepareStatement(query);
+            stmt.setLong(1, UserId);
+            stmt.setLong(2, UserId);
+            stmt.setInt(3, limit);
+            stmt.setInt(4, offset);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                JSONObject bet = new JSONObject();
+                bet.put("id_bet", rs.getLong("id_bet"));
+                bet.put("id_game", rs.getLong("id_game"));
+                bet.put("sum_bet", rs.getDouble("sum_bet"));
+                bet.put("date_bet", rs.getString("date_bet"));
+                bet.put("sum_win", rs.getDouble("sum_win"));
+                query = "SELECT id_bet,hand FROM pokerwebdb.bet_hand where id_bet = ?";
+                stmt = connection.prepareStatement(query);
+                stmt.setLong(1,rs.getLong("id_bet"));
+                ResultSet rsTwo = stmt.executeQuery();
+                String hands = "";
+                while(rsTwo.next()){
+                hands += rsTwo.getString("hand")+",";
+                }
+                bet.put("forecast", hands.substring(0,hands.length()-1));
+                jsA.put(bet);
+            }
+            JSONObject jsO = new JSONObject();
+            jsO.put("rows", jsA);
+            rs.first();
+            jsO.put("records", rs.getInt("count"));
+            return jsO;
+        } catch (SQLException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (JSONException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }finally{
+           try {
+               connection.close();
+           } catch (SQLException ex) {
+               Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+           }
         }
-        
             
     }
     
     public JSONObject GetAllUserGameStatistic(int limit,int offset){
-       Connection connection;
+       Connection connection = null;
         PreparedStatement stmt = null;
         FieldJdbc FieldJ; 
             FieldJ = new ConfigManager().GetPropJdbc();
-            
             String driverName = "com.mysql.jdbc.Driver";
-            
-            
         try {
             Class.forName(driverName);
-            
             String url = "jdbc:mysql://"+FieldJ.serverName+":"+FieldJ.port+"/"+FieldJ.database;
             connection = DriverManager.getConnection(url, FieldJ.username, FieldJ.password);
             JSONArray jsA = new JSONArray();
@@ -295,7 +363,7 @@ public class Game{
                 while(rsTwo.next()){
                 hands += rsTwo.getString("hand")+",";
                 }
-                bet.put("forecast", hands);
+                bet.put("forecast", hands.substring(0,hands.length()-1));
                 jsA.put(bet);
             }
             JSONObject jsO = new JSONObject();
@@ -312,13 +380,19 @@ public class Game{
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        }finally{
+           try {
+               connection.close();
+           } catch (SQLException ex) {
+               Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+           }
         }
             
     }
     
     
     public long GetRoundFromBet(long IdBet){
-       Connection connection;
+       Connection connection = null;
         PreparedStatement stmt = null;
         FieldJdbc FieldJ; 
             FieldJ = new ConfigManager().GetPropJdbc();
@@ -329,7 +403,7 @@ public class Game{
             connection = DriverManager.getConnection(url, FieldJ.username, FieldJ.password);
             JSONArray jsA = new JSONArray();
             String query = "select id_game from user_bet where id=?;";
-            stmt = DBManager.GetInstance().connection.prepareStatement(query);
+            stmt = connection.prepareStatement(query);
             stmt.setLong(1, IdBet);
             ResultSet rs = stmt.executeQuery();
             rs.first();
@@ -340,13 +414,18 @@ public class Game{
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
+        }finally{
+           try {
+               connection.close();
+           } catch (SQLException ex) {
+               Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+           }
         }
-            
     }
     
     
     public String GetDateFromBet(long IdBet){
-       Connection connection;
+       Connection connection = null;
         PreparedStatement stmt = null;
         FieldJdbc FieldJ; 
             FieldJ = new ConfigManager().GetPropJdbc();
@@ -357,7 +436,7 @@ public class Game{
             connection = DriverManager.getConnection(url, FieldJ.username, FieldJ.password);
             JSONArray jsA = new JSONArray();
             String query = "select date_bet from user_bet where id=?;";
-            stmt = DBManager.GetInstance().connection.prepareStatement(query);
+            stmt =connection.prepareStatement(query);
             stmt.setLong(1, IdBet);
             ResultSet rs = stmt.executeQuery();
             rs.first();
@@ -368,6 +447,12 @@ public class Game{
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        }finally{
+           try {
+               connection.close();
+           } catch (SQLException ex) {
+               Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+           }
         }
             
     }

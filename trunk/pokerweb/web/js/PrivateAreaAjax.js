@@ -1079,18 +1079,17 @@ function getCookie(name) {
                 },
                 lastSel,
                 autoedit = false;
-
             $grid.jqGrid({
-                url: 'GetCurrentUserStatistic',
+                url: 'GetCurrentUserAllStatistic',
                 datatype: "json",
-                colNames: ['id_game','login', 'sum_bet', 'date_bet', 'sum_win','hands'],
+                colNames: ['id_bet','id_game','sum_bet', 'date_bet', 'sum_win','forecast'],
                 colModel: [
+                    { name: 'id_bet', index: 'id_bet',width: 80},
                     { name: 'id_game', index: 'id_game',width: 80},
-                    { name: 'login', index: 'login',width: 80},
                     { name: 'sum_bet', index: 'sum_bet', width: 80 },
                     { name: 'date_bet', index: 'date_bet', width: 120 },
                     { name: 'sum_win', index: 'sum_win', width: 100 },
-                    { name: 'hands', index: 'hands', width: 100 }
+                    { name: 'forecast', index: 'forecast', width: 100 }
                      ],
                 rowNum: 20,
                 rowList: [5, 10, 20],
@@ -1107,11 +1106,28 @@ function getCookie(name) {
                 height: '110px',
                 caption: 'Статистика текущего пользователя',
                // editurl: 'clientArray',
-                beforeSelectRow: function (rowid) {
+                beforeSelectRow: function (rowid,e) {
                     if (rowid !== lastSel) {
                         $(this).jqGrid('restoreRow', lastSel);
                         lastSel = rowid;
                     }
+                    var $td = $(e.target).closest("td");
+                    var $tr = $td.closest("tr.jqgrow");
+                    var data = { index: $tr[0].cells[0].innerHTML};
+                    $.ajax({
+                                    url: "/GetStatisticUserBet",
+                                    type: "post",
+                                    dataType: "json",
+                                    data: JSON.stringify(data),
+                                    success: function (response, textStatus, jqXHR) {
+                                       CheckBetRequest();
+                                    },
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        //alert("error");
+                                    },
+                                    complete: function () {
+                                    }
+                                });
                     return true;
                 },
                 ondblClickRow: function (rowid, iRow, iCol, e) {
@@ -1302,7 +1318,7 @@ function getCookie(name) {
                         iCol = $.jgrid.getCellIndex($td[0]);
                         
                     }
-                    var data = { index: $tr[0].cells[0].attributes[1].nodeValue};
+                    var data = { index: $tr[0].cells[0].innerHTML};
                     $.ajax({
                                     url: "/GetStatisticUserBet",
                                     type: "post",
