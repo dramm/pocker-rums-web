@@ -9,6 +9,7 @@
 <%@page import="org.springframework.security.core.context.SecurityContext"%>
 <%@page import="org.springframework.security.core.Authentication"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%SecurityContext context = SecurityContextHolder.getContext();
         String RoleManager = "ROLE_MANAGER";
         String RoleAdmin = "ROLE_ADMIN";
@@ -33,9 +34,10 @@
 <html>
    <head>
        <jsp:include page="headParam.jsp" flush="true" />
-       
+       <script type="text/javascript" src="js/PrivateAreaAjax.js"></script>
 </head>
 <body onload="initPrivateBody()">
+     <div id="modalWait" class="modal" style="background-image: url(/pic/ajax-loader.gif);display: none;"></div>
     <div id="header">
             <div class="leftCol"> </div>
             <div class="centerCol"> 
@@ -307,6 +309,7 @@
 
 <%if(IsAdministrator || IsManager){%>
 <div id="tabs-13">
+   
     <table id="StatisticListAllUser"><tr><td /></tr></table>
         <div id="StatisticPagerAllUser"></div>
         <div id="StatisticDialog" style="display: none;">

@@ -713,7 +713,7 @@ public class TableStatus {
             RequestStatisticBet.add(st);
             JSONObject js = new JSONObject();
             js.put("BetId", index);
-            js.put("UserId", DBManager.GetInstance().GetCurrentUserId());
+            js.put("UserId", GMData.GetUserFromBet(index));
             Connect.GetInstance().out.write(Functions.intToByteArray(1030));
             Connect.GetInstance().out.write(Functions.intToByteArray(js.toString().length()));
             Connect.GetInstance().out.write(CryptoManager.encode(js.toString().getBytes()));

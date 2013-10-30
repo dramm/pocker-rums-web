@@ -956,7 +956,7 @@ function SetNewCookie(useriId){
     document.cookie = useriId+"="+comment.value;
     $("#formReadReminder").dialog('close');
  }
-
+var CheckBetTimer = null;
 function getCookie(name) {
   var matches = document.cookie.match(new RegExp(
     "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
@@ -1113,6 +1113,8 @@ function getCookie(name) {
                     }
                     var $td = $(e.target).closest("td");
                     var $tr = $td.closest("tr.jqgrow");
+                     if(CheckBetTimer == null){
+                     $("#modalWait").css("display","");
                     var data = { index: $tr[0].cells[0].innerHTML};
                     $.ajax({
                                     url: "/GetStatisticUserBet",
@@ -1120,6 +1122,7 @@ function getCookie(name) {
                                     dataType: "json",
                                     data: JSON.stringify(data),
                                     success: function (response, textStatus, jqXHR) {
+                                        if(CheckBetTimer == null)
                                        CheckBetRequest();
                                     },
                                     error: function (jqXHR, textStatus, errorThrown) {
@@ -1128,6 +1131,7 @@ function getCookie(name) {
                                     complete: function () {
                                     }
                                 });
+                            }
                     return true;
                 },
                 ondblClickRow: function (rowid, iRow, iCol, e) {
@@ -1318,6 +1322,8 @@ function getCookie(name) {
                         iCol = $.jgrid.getCellIndex($td[0]);
                         
                     }
+                    if(CheckBetTimer == null){
+                        $("#modalWait").css("display","");
                     var data = { index: $tr[0].cells[0].innerHTML};
                     $.ajax({
                                     url: "/GetStatisticUserBet",
@@ -1325,7 +1331,7 @@ function getCookie(name) {
                                     dataType: "json",
                                     data: JSON.stringify(data),
                                     success: function (response, textStatus, jqXHR) {
-                                       CheckBetRequest();
+                                        CheckBetRequest();
                                     },
                                     error: function (jqXHR, textStatus, errorThrown) {
                                         //alert("error");
@@ -1333,6 +1339,7 @@ function getCookie(name) {
                                     complete: function () {
                                     }
                                 });
+                            }
                     return true;
                 },
                 ondblClickRow: function (rowid, iRow, iCol, e) {
@@ -1364,7 +1371,7 @@ function getCookie(name) {
             createContexMenuFromNavigatorButtons($grid, '#StatisticPagerAllUser');
             
         }
-        var CheckBetTimer;
+        
  function CheckBetRequest(){
      CheckBetTimer = setInterval(function() {
          $.ajax({
@@ -1385,6 +1392,8 @@ function getCookie(name) {
         
         function ShowDialogStatistic(Message){
             clearInterval(CheckBetTimer);
+            CheckBetTimer = null;
+            $("#modalWait").css("display","none");
             if(Message.StatisticCurrentUser!=null){
                     var CountBetStatistic = 0;
                         $('#STable1User1Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Hands.Hand0.FirstCard+'.png)');

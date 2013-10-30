@@ -390,6 +390,38 @@ public class Game{
             
     }
     
+    public long GetUserFromBet(long IdBet){
+       Connection connection = null;
+        PreparedStatement stmt = null;
+        FieldJdbc FieldJ; 
+            FieldJ = new ConfigManager().GetPropJdbc();
+            String driverName = "com.mysql.jdbc.Driver";
+        try {
+            Class.forName(driverName);
+            String url = "jdbc:mysql://"+FieldJ.serverName+":"+FieldJ.port+"/"+FieldJ.database;
+            connection = DriverManager.getConnection(url, FieldJ.username, FieldJ.password);
+            JSONArray jsA = new JSONArray();
+            String query = "select id_user from user_bet where id=?;";
+            stmt = connection.prepareStatement(query);
+            stmt.setLong(1, IdBet);
+            ResultSet rs = stmt.executeQuery();
+            rs.first();
+            return rs.getLong("id_user");
+        } catch (SQLException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }finally{
+           try {
+               connection.close();
+           } catch (SQLException ex) {
+               Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+           }
+        }
+    }
+    
     
     public long GetRoundFromBet(long IdBet){
        Connection connection = null;
