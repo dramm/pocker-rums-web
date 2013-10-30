@@ -76,7 +76,7 @@ public class CheckBetArea extends HttpServlet {
         JSONObject js = new JSONObject();
         for (StatisticBet object : TableStatus.GetInstance().RequestStatisticBet) 
             if(object.ToketUserRequest.equals(Token) && object.IdUserRequest == DBManager.GetInstance().GetCurrentUserId())
-                if(TableStatus.GetInstance().StatisticBetCurrentUser.containsKey(object.IdBet))
+                if(TableStatus.GetInstance().StatisticBetCurrentUser.containsKey(object.IdBet)){
                     try {
                         Game GMData = new Game();
                    String data = data = GMData.GetDateFromBet(object.IdBet);
@@ -86,6 +86,7 @@ public class CheckBetArea extends HttpServlet {
                 TableStatus.GetInstance().RequestStatisticBet.remove(TableStatus.GetInstance().StatisticBetCurrentUser.get(object.IdBet));
                     } catch (JSONException ex) {
                     Logger.getLogger(CheckBetArea.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 }
         response.setContentType("application/json; charset=utf-8");
         response.setHeader("Cache-Control", "no-cache");

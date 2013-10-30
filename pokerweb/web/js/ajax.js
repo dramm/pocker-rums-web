@@ -185,7 +185,7 @@ function parseMessagesNewPass(responseText) {
 
 
 function RegistClickButton() {
-     document.getElementById("modalWait").className='modal';
+    // document.getElementById("modalWait").className='modal';
     // init();
     var values =  {  
                 "login": FieldLogin.value,

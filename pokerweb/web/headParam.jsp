@@ -16,7 +16,7 @@
         <script type="text/javascript" src="js/json2.js"></script>
         <script type="text/javascript" src="js/script.js"></script>
         <script type="text/javascript" src="js/ajax.js"></script>
-        <script type="text/javascript" src="js/PrivateAreaAjax.js"></script>
+        
         <script type="text/javascript" src="js/game.js"></script>
     <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/redmond/jquery-ui.css" />
     
