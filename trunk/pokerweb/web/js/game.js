@@ -817,6 +817,8 @@ $.ajax({
     CheckGame();
 }
 
+function test(m){$("#modalWait").css("display","");}
+
 function GetBet(index){
 var values =  {  
                 "index": index 
@@ -824,7 +826,7 @@ var values =  {
     var url = "/GetBet";
     reqPrivate = new XMLHttpRequest();
     reqPrivate.open("POST", url, true);
-    reqPrivate.onreadystatechange = null;
+    reqPrivate.onreadystatechange = test;
     reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     reqPrivate.send(JSON.stringify(values));
 //var json = { };
@@ -863,6 +865,7 @@ function StartGameCallback() {
                 var tr = reqPrivate.responseText;
                 console.log(tr);
                 if(Message.StatisticCurrentUser!=null){
+                    
                     var CountBetStatistic = 0;
                         $('#STable1User1Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Hands.Hand0.FirstCard+'.png)');
                         $('#STable1User1Cart2').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Hands.Hand0.SecondCard+'.png)');
@@ -1308,7 +1311,7 @@ function StartGameCallback() {
                                 SetNoActiveButt($("#STable3User8CheckBackground"));
                                 $("#STable3User8Check").attr("disabled",true);
                            }
-                       
+                       $("#modalWait").css("display","none");
                         $("#StatisticDialog").dialog({ modal: true,minHeight:500,minWidth:605});
                 }
                 var BalanceNew = Message.Balance;

@@ -83,6 +83,11 @@ public class GetBet extends HttpServlet {
             if(Token.length() <= 0)
                 return;
                TableStatus.GetInstance().SendGetBetGame(index,Token);
+               JSONObject js = new JSONObject();
+               js.put("completed", "ok");
+            response.setContentType("application/json; charset=utf-8");
+            response.setHeader("Cache-Control", "no-cache");
+            response.getWriter().write(js.toString());
         } catch (JSONException ex) {
             Logger.getLogger(GetBet.class.getName()).log(Level.SEVERE, null, ex);
         }
