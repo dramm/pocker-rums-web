@@ -810,6 +810,7 @@ function StartGame(){
 $.ajax({
    type: "POST",
    url: "/StartGame",
+   
    success: function(msg){
        $("#MaxBet").html(msg.Max);
    }
@@ -817,29 +818,29 @@ $.ajax({
     CheckGame();
 }
 
-function test(m){$("#modalWait").css("display","");}
 
 function GetBet(index){
 var values =  {  
                 "index": index 
             };
-    var url = "/GetBet";
-    reqPrivate = new XMLHttpRequest();
-    reqPrivate.open("POST", url, true);
-    reqPrivate.onreadystatechange = test;
-    reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    reqPrivate.send(JSON.stringify(values));
+//    var url = "/GetBet";
+//    reqPrivate = new XMLHttpRequest();
+//    reqPrivate.open("POST", url, true);
+//    reqPrivate.onreadystatechange = test;
+//    reqPrivate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//    reqPrivate.send(JSON.stringify(values));
 //var json = { };
 //json["index"] = index;
-//    $.ajax({
-//   type: "POST",
-//   url: "/GetBet",
-//  data: json.toString(),
-//   success: function(msg){
-//       alert(msg);
-//       //$("#MaxBet").html(msg.Max);
-//   }
-// });
+   $.ajax({
+   type: "POST",
+   url: "/GetBet",
+   dataType: "json",
+  data: JSON.stringify(values),
+   success: function(msg){
+       if(msg.correct == true)
+           $("#modalWait").css("display","");
+   }
+ });
    // CheckGame();
 }
 

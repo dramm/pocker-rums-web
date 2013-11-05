@@ -311,8 +311,14 @@
 <div id="tabs-13">
    
     <table id="StatisticListAllUser"><tr><td /></tr></table>
-        <div id="StatisticPagerAllUser"></div>
-        <div id="StatisticDialog" style="display: none;">
+        
+        
+</div>
+<%}%>
+</div>
+                    </div>
+<div id="StatisticPagerAllUser"></div>
+                <div id="StatisticDialog" style="display: none;">
                             <div style="float:left;height: 100px;background-color: white;">
                                 <div style="float: left">
                                     <div  style="float: left;border: solid black 1px;width: 300px">
@@ -712,11 +718,6 @@
                 </div>
             </div>
                         </div>
-</div>
-<%}%>
-</div>
-                    </div>
-                
                 </div>
 </body>
 </html>

@@ -12,6 +12,7 @@ import com.pokerweb.Server.StatisticBet;
 import com.pokerweb.Server.TableStatus;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -74,16 +75,17 @@ public class CheckBetArea extends HttpServlet {
             if(Token.length() <= 0)
                 return;
         JSONObject js = new JSONObject();
-        for (StatisticBet object : TableStatus.GetInstance().RequestStatisticBet) 
-            if(object.ToketUserRequest.equals(Token) && object.IdUserRequest == DBManager.GetInstance().GetCurrentUserId())
-                if(TableStatus.GetInstance().StatisticBetCurrentUser.containsKey(object.IdBet)){
+        long UserId = DBManager.GetInstance().GetCurrentUserId();
+        for (Map.Entry<Long,StatisticBet> object : TableStatus.GetInstance().RequestStatisticBet.entrySet()) 
+            if(object.getValue().ToketUserRequest.equals(Token) && object.getKey() == UserId)
+                if(TableStatus.GetInstance().StatisticBetCurrentUser.containsKey(object.getValue().IdBet)){
                     try {
                         Game GMData = new Game();
-                   String data = data = GMData.GetDateFromBet(object.IdBet);
-                   TableStatus.GetInstance().StatisticBetCurrentUser.get(object.IdBet).put("date", data);
-                 js.put("StatisticCurrentUser", TableStatus.GetInstance().StatisticBetCurrentUser.get(object.IdBet));
-                TableStatus.GetInstance().StatisticBetCurrentUser.remove(object.IdBet);
-                TableStatus.GetInstance().RequestStatisticBet.remove(TableStatus.GetInstance().StatisticBetCurrentUser.get(object.IdBet));
+                   String data = data = GMData.GetDateFromBet(object.getValue().IdBet);
+                   TableStatus.GetInstance().StatisticBetCurrentUser.get(object.getValue().IdBet).put("date", data);
+                 js.put("StatisticCurrentUser", TableStatus.GetInstance().StatisticBetCurrentUser.get(object.getValue().IdBet));
+                TableStatus.GetInstance().StatisticBetCurrentUser.remove(object.getValue().IdBet);
+                TableStatus.GetInstance().RequestStatisticBet.remove(TableStatus.GetInstance().StatisticBetCurrentUser.get(object.getValue().IdBet));
                     } catch (JSONException ex) {
                     Logger.getLogger(CheckBetArea.class.getName()).log(Level.SEVERE, null, ex);
                 }
