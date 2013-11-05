@@ -33,7 +33,7 @@ public class TableStatus {
     public Map<Long,Double> WinnUserList;
     public Map<Integer,List<Integer>> ShutdownInfo;
     public Map<Long,JSONObject> StatisticBetCurrentUser;
-    public List<StatisticBet> RequestStatisticBet;
+    public Map<Long,StatisticBet> RequestStatisticBet;
     public int Stage;
     public int Timer;
     public long Round;
@@ -41,7 +41,7 @@ public class TableStatus {
     Game GMData;
     public String strJson;
     private TableStatus(){
-        RequestStatisticBet = new ArrayList<StatisticBet>();
+        RequestStatisticBet = new HashMap<Long,StatisticBet>();
         StatisticBetCurrentUser = new HashMap<Long, JSONObject>();
         ShutdownInfo = new HashMap<Integer, List<Integer>>();
         strJson = "";
@@ -197,15 +197,22 @@ public class TableStatus {
         JSONObject Table2 = new JSONObject();
         long UserId = DBManager.GetInstance().GetCurrentUserId();
         if(Token != null)
-            for (StatisticBet statisticBet : RequestStatisticBet) 
-               if(statisticBet.IdUserRequest == UserId &&
-                       statisticBet.ToketUserRequest.equals(Token) &&
-                       StatisticBetCurrentUser.containsKey(statisticBet.IdBet)){
-                   String data = data = GMData.GetDateFromBet(statisticBet.IdBet);
-                   StatisticBetCurrentUser.get(statisticBet.IdBet).put("date", data);
-                   jsO.put("StatisticCurrentUser", StatisticBetCurrentUser.get(statisticBet.IdBet));
-                   StatisticBetCurrentUser.remove(statisticBet.IdBet);
-                   RequestStatisticBet.remove(statisticBet);
+            for (Map.Entry<Long,StatisticBet> statisticBet : RequestStatisticBet.entrySet()) 
+               if(statisticBet.getKey() == UserId &&
+                       statisticBet.getValue().ToketUserRequest.equals(Token) &&
+                       StatisticBetCurrentUser.containsKey(statisticBet.getValue().IdBet)){
+                   String data = data = GMData.GetDateFromBet(statisticBet.getValue().IdBet);
+                   StatisticBetCurrentUser.get(statisticBet.getValue().IdBet).put("date", data);
+                   jsO.put("StatisticCurrentUser", StatisticBetCurrentUser.get(statisticBet.getValue().IdBet));
+                   boolean NonRemove = false;
+                   for (Map.Entry<Long,StatisticBet> item : RequestStatisticBet.entrySet())
+                       if(item.getValue().IdBet == statisticBet.getValue().IdBet && item.getKey() != UserId){
+                           NonRemove = true;
+                           break;
+                       }
+                   if(!NonRemove)
+                   StatisticBetCurrentUser.remove(statisticBet.getValue().IdBet);
+                   RequestStatisticBet.remove(UserId);
                    break;
                }
         
@@ -707,10 +714,10 @@ public class TableStatus {
                 return false;
             StatisticBet st = new StatisticBet();
             st.IdBet = index;
-            st.IdUserRequest = DBManager.GetInstance().GetCurrentUserId();
+            //st.IdUserRequest = ;
             st.TimeRequest = System.currentTimeMillis();
             st.ToketUserRequest = Token;
-            RequestStatisticBet.add(st);
+            RequestStatisticBet.put(DBManager.GetInstance().GetCurrentUserId(),st);
             JSONObject js = new JSONObject();
             js.put("BetId", index);
             js.put("UserId", GMData.GetUserFromBet(index));
@@ -735,10 +742,10 @@ public class TableStatus {
             long idBet = GMData.GetCurrentUserGameStatistic().getJSONObject(index).getLong("id");
             StatisticBet st = new StatisticBet();
             st.IdBet = idBet;
-            st.IdUserRequest = DBManager.GetInstance().GetCurrentUserId();
+           // st.IdUserRequest = DBManager.GetInstance().GetCurrentUserId();
             st.TimeRequest = System.currentTimeMillis();
             st.ToketUserRequest = Token;
-            RequestStatisticBet.add(st);
+            RequestStatisticBet.put(DBManager.GetInstance().GetCurrentUserId(),st);
             JSONObject js = new JSONObject();
             js.put("BetId", idBet);
             js.put("UserId", DBManager.GetInstance().GetCurrentUserId());
@@ -795,7 +802,7 @@ public class TableStatus {
             Connect.GetInstance().out.write(Functions.intToByteArray(RootJs.toString().length()));
             Connect.GetInstance().out.write(CryptoManager.encode(RootJs.toString().getBytes()));
             Connect.GetInstance().out.flush();
-            System.gc();
+          //  System.gc();
             return true;
         } catch (IOException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);

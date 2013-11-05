@@ -82,9 +82,9 @@ public class GetBet extends HttpServlet {
                     Token = object.getValue();
             if(Token.length() <= 0)
                 return;
-               TableStatus.GetInstance().SendGetBetGame(index,Token);
+              boolean correct = TableStatus.GetInstance().SendGetBetGame(index,Token);
                JSONObject js = new JSONObject();
-               js.put("completed", "ok");
+               js.put("correct", correct);
             response.setContentType("application/json; charset=utf-8");
             response.setHeader("Cache-Control", "no-cache");
             response.getWriter().write(js.toString());

@@ -1395,6 +1395,7 @@ function getCookie(name) {
             CheckBetTimer = null;
             $("#modalWait").css("display","none");
             if(Message.StatisticCurrentUser!=null){
+                $("#StatisticDialog").dialog({ modal: true,minHeight:500,minWidth:605});
                     var CountBetStatistic = 0;
                         $('#STable1User1Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Hands.Hand0.FirstCard+'.png)');
                         $('#STable1User1Cart2').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Hands.Hand0.SecondCard+'.png)');
@@ -1841,7 +1842,7 @@ function getCookie(name) {
                                 $("#STable3User8Check").attr("disabled",true);
                            }
                        
-                        $("#StatisticDialog").dialog({ modal: true,minHeight:500,minWidth:605});
+                        
                 }
         }
      

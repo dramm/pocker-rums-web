@@ -14,7 +14,7 @@ import org.json.JSONObject;
  * @author vadim
  */
 public class StatisticBet {
-   public long IdUserRequest;
+   
    public long IdBet;
    public String ToketUserRequest;
    public long TimeRequest;
