@@ -85,12 +85,12 @@ public class GetStatisticUserBet extends HttpServlet {
                     Token = object.getValue();
             if(Token.length() <= 0)
                 return;
-               TableStatus.GetInstance().SendGetBet(index,Token);
-                  
-              
-               response.setContentType("application/json; charset=utf-8");
-                    response.setHeader("Cache-Control", "no-cache");
-                    response.getWriter().write(js.toString());
+              boolean correct = TableStatus.GetInstance().SendGetBet(index,Token);
+               JSONObject jsO = new JSONObject();
+               jsO.put("correct", correct);
+            response.setContentType("application/json; charset=utf-8");
+            response.setHeader("Cache-Control", "no-cache");
+            response.getWriter().write(jsO.toString());
         } catch (JSONException ex) {
             Logger.getLogger(GetStatisticUserBet.class.getName()).log(Level.SEVERE, null, ex);
         }

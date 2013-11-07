@@ -1114,7 +1114,7 @@ function getCookie(name) {
                     var $td = $(e.target).closest("td");
                     var $tr = $td.closest("tr.jqgrow");
                      if(CheckBetTimer == null){
-                     $("#modalWait").css("display","");
+                    
                     var data = { index: $tr[0].cells[0].innerHTML};
                     $.ajax({
                                     url: "/GetStatisticUserBet",
@@ -1122,7 +1122,7 @@ function getCookie(name) {
                                     dataType: "json",
                                     data: JSON.stringify(data),
                                     success: function (response, textStatus, jqXHR) {
-                                        if(CheckBetTimer == null)
+                                        if(response.correct == true)
                                        CheckBetRequest();
                                     },
                                     error: function (jqXHR, textStatus, errorThrown) {
@@ -1315,15 +1315,10 @@ function getCookie(name) {
                     if (rowid !== lastSel) {
                         $(this).jqGrid('restoreRow', lastSel);
                         lastSel = rowid;
-                        var $this = $(this),
-                                $td = $(e.target).closest("td"),
-                                $tr = $td.closest("tr.jqgrow"),
-                                iRow, iCol;
-                        iCol = $.jgrid.getCellIndex($td[0]);
-                        
                     }
                     if(CheckBetTimer == null){
-                        $("#modalWait").css("display","");
+                         var $td = $(e.target).closest("td");
+                    var $tr = $td.closest("tr.jqgrow");
                     var data = { index: $tr[0].cells[0].innerHTML};
                     $.ajax({
                                     url: "/GetStatisticUserBet",
@@ -1331,6 +1326,7 @@ function getCookie(name) {
                                     dataType: "json",
                                     data: JSON.stringify(data),
                                     success: function (response, textStatus, jqXHR) {
+                                        if(response.correct == true)
                                         CheckBetRequest();
                                     },
                                     error: function (jqXHR, textStatus, errorThrown) {
@@ -1371,9 +1367,19 @@ function getCookie(name) {
             createContexMenuFromNavigatorButtons($grid, '#StatisticPagerAllUser');
             
         }
-        
+        var GetBetStatisticTimer = 0;
  function CheckBetRequest(){
+     $("#modalWait").css("display","");
+     GetBetStatisticTimer = 0;
      CheckBetTimer = setInterval(function() {
+         GetBetStatisticTimer++;
+         if(GetBetStatisticTimer >= 5){
+             $("#modalWait").css("display","none");
+             alert("Сервер перегружен, повторите попытку");
+             clearInterval(CheckBetTimer);
+            CheckBetTimer = null;
+            GetBetStatisticTimer = 0;
+         }
          $.ajax({
              url: "/CheckBetArea",
              type: "post",
@@ -1396,6 +1402,9 @@ function getCookie(name) {
             $("#modalWait").css("display","none");
             if(Message.StatisticCurrentUser!=null){
                 $("#StatisticDialog").dialog({ modal: true,minHeight:500,minWidth:605});
+                var winsTable1 = "";
+                var winsTable2 = "";
+                var winsTable3 = "";
                     var CountBetStatistic = 0;
                         $('#STable1User1Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Hands.Hand0.FirstCard+'.png)');
                         $('#STable1User1Cart2').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Hands.Hand0.SecondCard+'.png)');
@@ -1406,8 +1415,10 @@ function getCookie(name) {
                         else
                            SetNoActiveButt($('#STable1User1CheckBackground'));
                        
-                        if(Message.StatisticCurrentUser.Table0.Hands.Hand0.Wins == true)
+                        if(Message.StatisticCurrentUser.Table0.Hands.Hand0.Wins == true){
                             $("#STableUser11").css("border","solid 1px red");
+                            winsTable1 = "11";
+                }
                         else
                             $('#STableUser11').css("border","0");
                         $('#STable1User1CheckBackground').html(Message.StatisticCurrentUser.Table0.Hands.Hand0.Factor);
@@ -1420,8 +1431,10 @@ function getCookie(name) {
                         }
                         else
                             SetNoActiveButt($('#STable1User2CheckBackground'));
-                       if(Message.StatisticCurrentUser.Table0.Hands.Hand1.Wins == true)
+                       if(Message.StatisticCurrentUser.Table0.Hands.Hand1.Wins == true){
                             $("#STableUser12").css("border","solid 1px red");
+                            winsTable1.length>0?winsTable1 += ",12":winsTable1 += "12";
+                        }
                         else
                             $('#STableUser12').css("border","0");
                         $('#STable1User2CheckBackground').html(Message.StatisticCurrentUser.Table0.Hands.Hand1.Factor);
@@ -1434,8 +1447,10 @@ function getCookie(name) {
                         }
                         else
                             SetNoActiveButt($('#STable1User3CheckBackground'));
-                       if(Message.StatisticCurrentUser.Table0.Hands.Hand2.Wins == true)
+                       if(Message.StatisticCurrentUser.Table0.Hands.Hand2.Wins == true){
                             $("#STableUser13").css("border","solid 1px red");
+                            winsTable1.length>0?winsTable1 += ",13":winsTable1 += "13";
+                }
                         else
                             $('#STableUser13').css("border","0");
                         $('#STable1User3CheckBackground').html(Message.StatisticCurrentUser.Table0.Hands.Hand2.Factor);
@@ -1448,8 +1463,10 @@ function getCookie(name) {
                         }
                         else
                            SetNoActiveButt($('#STable1User4CheckBackground'));
-                       if(Message.StatisticCurrentUser.Table0.Hands.Hand3.Wins == true)
+                       if(Message.StatisticCurrentUser.Table0.Hands.Hand3.Wins == true){
                             $("#STableUser14").css("border","solid 1px red");
+                            winsTable1.length>0?winsTable1 += ",14":winsTable1 += "14";
+                }
                         else
                             $('#STableUser14').css("border","0");
                         $('#STable1User4CheckBackground').html(Message.StatisticCurrentUser.Table0.Hands.Hand3.Factor);
@@ -1462,8 +1479,10 @@ function getCookie(name) {
                         }
                         else
                             SetNoActiveButt($('#STable2User1CheckBackground'));
-                       if(Message.StatisticCurrentUser.Table1.Hands.Hand0.Wins == true)
+                       if(Message.StatisticCurrentUser.Table1.Hands.Hand0.Wins == true){
                             $("#STableUser21").css("border","solid 1px red");
+                            winsTable2 = "21"
+                }
                         else
                             $('#STableUser21').css("border","0");
                         $('#STable2User1CheckBackground').html(Message.StatisticCurrentUser.Table1.Hands.Hand0.Factor);
@@ -1476,8 +1495,10 @@ function getCookie(name) {
                         }
                         else
                             SetNoActiveButt($('#STable2User2CheckBackground'));
-                       if(Message.StatisticCurrentUser.Table1.Hands.Hand1.Wins == true)
+                       if(Message.StatisticCurrentUser.Table1.Hands.Hand1.Wins == true){
                             $("#STableUser22").css("border","solid 1px red");
+                            winsTable2.length>0?winsTable2 += ",22":winsTable2 += "22";
+                }
                         else
                             $('#STableUser22').css("border","0");
                         $('#STable2User2CheckBackground').html(Message.StatisticCurrentUser.Table1.Hands.Hand1.Factor);
@@ -1490,8 +1511,10 @@ function getCookie(name) {
                         }
                         else
                             SetNoActiveButt($('#STable2User3CheckBackground'));
-                       if(Message.StatisticCurrentUser.Table1.Hands.Hand2.Wins == true)
+                       if(Message.StatisticCurrentUser.Table1.Hands.Hand2.Wins == true){
                             $("#STableUser23").css("border","solid 1px red");
+                            winsTable2.length>0?winsTable2 += ",23":winsTable2 += "23";
+                }
                         else
                             $('#STableUser23').css("border","0");
                         $('#STable2User3CheckBackground').html(Message.StatisticCurrentUser.Table1.Hands.Hand2.Factor);
@@ -1504,8 +1527,10 @@ function getCookie(name) {
                         }
                         else
                             SetNoActiveButt($('#STable2User4CheckBackground'));
-                       if(Message.StatisticCurrentUser.Table1.Hands.Hand3.Wins == true)
+                       if(Message.StatisticCurrentUser.Table1.Hands.Hand3.Wins == true){
                             $("#STableUser24").css("border","solid 1px red");
+                            winsTable2.length>0?winsTable2 += ",24":winsTable2 += "24";
+                }
                         else
                             $('#STableUser24').css("border","0");
                         $('#STable2User4CheckBackground').html(Message.StatisticCurrentUser.Table1.Hands.Hand3.Factor);
@@ -1518,8 +1543,10 @@ function getCookie(name) {
                         }
                         else
                             SetNoActiveButt($('#STable2User5CheckBackground'));
-                       if(Message.StatisticCurrentUser.Table1.Hands.Hand4.Wins == true)
+                       if(Message.StatisticCurrentUser.Table1.Hands.Hand4.Wins == true){
                             $("#STableUser25").css("border","solid 1px red");
+                            winsTable2.length>0?winsTable2 += ",25":winsTable2 += "25";
+                }
                         else
                             $('#STableUser25').css("border","0");
                         $('#STable2User5CheckBackground').html(Message.StatisticCurrentUser.Table1.Hands.Hand4.Factor);
@@ -1532,8 +1559,10 @@ function getCookie(name) {
                         }
                         else
                             SetNoActiveButt($('#STable2User6CheckBackground'));
-                       if(Message.StatisticCurrentUser.Table1.Hands.Hand5.Wins == true)
+                       if(Message.StatisticCurrentUser.Table1.Hands.Hand5.Wins == true){
                             $("#STableUser26").css("border","solid 1px red");
+                            winsTable2.length>0?winsTable2 += ",26":winsTable2 += "26";
+                }
                         else
                             $('#STableUser26').css("border","0");
                         $('#STable2User6CheckBackground').html(Message.StatisticCurrentUser.Table1.Hands.Hand5.Factor);
@@ -1546,8 +1575,10 @@ function getCookie(name) {
                         }
                         else
                             SetNoActiveButt($('#STable3User1CheckBackground'));
-                       if(Message.StatisticCurrentUser.Table2.Hands.Hand0.Wins == true)
+                       if(Message.StatisticCurrentUser.Table2.Hands.Hand0.Wins == true){
                             $("#STableUser31").css("border","solid 1px red");
+                            winsTable3 = "31";
+                }
                         else
                             $('#STableUser31').css("border","0");
                         $('#STable3User1CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand0.Factor);
@@ -1560,8 +1591,10 @@ function getCookie(name) {
                         }
                         else
                             SetNoActiveButt($('#STable3User2CheckBackground'));
-                       if(Message.StatisticCurrentUser.Table2.Hands.Hand1.Wins == true)
+                       if(Message.StatisticCurrentUser.Table2.Hands.Hand1.Wins == true){
                             $("#STableUser32").css("border","solid 1px red");
+                            winsTable3.length>0?winsTable3 += ",32":winsTable3 += "32";
+                }
                         else
                             $('#STableUser32').css("border","0");
                         $('#STable3User2CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand1.Factor);
@@ -1574,8 +1607,10 @@ function getCookie(name) {
                         }
                         else
                             SetNoActiveButt($('#STable3User3CheckBackground'));
-                       if(Message.StatisticCurrentUser.Table2.Hands.Hand2.Wins == true)
+                       if(Message.StatisticCurrentUser.Table2.Hands.Hand2.Wins == true){
                             $("#STableUser33").css("border","solid 1px red");
+                            winsTable3.length>0?winsTable3 += ",33":winsTable3 += "33";
+                }
                         else
                             $('#STableUser33').css("border","0");
                         $('#STable3User3CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand2.Factor);
@@ -1588,8 +1623,10 @@ function getCookie(name) {
                         }
                         else
                             SetNoActiveButt($('#STable3User4CheckBackground'));
-                       if(Message.StatisticCurrentUser.Table2.Hands.Hand3.Wins == true)
+                       if(Message.StatisticCurrentUser.Table2.Hands.Hand3.Wins == true){
                             $("#STableUser34").css("border","solid 1px red");
+                            winsTable3.length>0?winsTable3 += ",34":winsTable3 += "34";
+                }
                         else
                             $('#STableUser34').css("border","0");
                         $('#STable3User4CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand3.Factor);
@@ -1602,8 +1639,10 @@ function getCookie(name) {
                         }
                         else
                             SetNoActiveButt($('#STable3User5CheckBackground'));
-                       if(Message.StatisticCurrentUser.Table2.Hands.Hand4.Wins == true)
+                       if(Message.StatisticCurrentUser.Table2.Hands.Hand4.Wins == true){
                             $("#STableUser35").css("border","solid 1px red");
+                            winsTable3.length>0?winsTable3 += ",35":winsTable3 += "35";
+                }
                         else
                             $('#STableUser35').css("border","0");
                         $('#STable3User5CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand4.Factor);
@@ -1616,8 +1655,10 @@ function getCookie(name) {
                         }
                         else
                             SetNoActiveButt($('#STable3User6CheckBackground'));
-                       if(Message.StatisticCurrentUser.Table2.Hands.Hand5.Wins == true)
+                       if(Message.StatisticCurrentUser.Table2.Hands.Hand5.Wins == true){
                             $("#STableUser36").css("border","solid 1px red");
+                            winsTable3.length>0?winsTable3 += ",36":winsTable3 += "36";
+                }
                         else
                             $('#STableUser36').css("border","0");
                         $('#STable3User6CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand5.Factor);
@@ -1630,8 +1671,10 @@ function getCookie(name) {
                         }
                         else
                             SetNoActiveButt($('#STable3User7CheckBackground'));
-                       if(Message.StatisticCurrentUser.Table2.Hands.Hand6.Wins == true)
+                       if(Message.StatisticCurrentUser.Table2.Hands.Hand6.Wins == true){
                             $("#STableUser37").css("border","solid 1px red");
+                            winsTable3.length>0?winsTable3 += ",37":winsTable3 += "37";
+                }
                         else
                             $('#STableUser37').css("border","0");
                         $('#STable3User7CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand6.Factor);
@@ -1644,8 +1687,10 @@ function getCookie(name) {
                         }
                         else
                             SetNoActiveButt($('#STable3User8CheckBackground'));
-                       if(Message.StatisticCurrentUser.Table2.Hands.Hand7.Wins == true)
+                       if(Message.StatisticCurrentUser.Table2.Hands.Hand7.Wins == true){
                             $("#STableUser38").css("border","solid 1px red");
+                            winsTable3.length>0?winsTable3 += ",38":winsTable3 += "38";
+                }
                         else
                             $('#STableUser38').css("border","0");
                         $('#STable3User8CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand7.Factor);
@@ -1663,7 +1708,11 @@ function getCookie(name) {
                         else    
                             $('#SBetInfoStatus').html("Выиграно");
                         $('#SBetInfoDateBet').html(Message.StatisticCurrentUser.date);
-                        
+                        $('#SBetInfoStageBet').html(Message.StatisticCurrentUser.BetInfo.Stage);
+                        $('#StatisticRaund').html(Message.StatisticCurrentUser.round);
+                        $('#StatisticForecastTable1').html(winsTable1);
+                        $('#StatisticForecastTable2').html(winsTable2);
+                        $('#StatisticForecastTable3').html(winsTable3);
                         $('#STable1Flop1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Board.Board[0]+'.png)');
                         $('#STable1Flop2').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Board.Board[1]+'.png)');
                         $('#STable1Flop3').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Board.Board[2]+'.png)');
@@ -1684,165 +1733,105 @@ function getCookie(name) {
                         if(Message.StatisticCurrentUser.Table0.Hands.Hand0.Factor == -1 )
                             $('#STable1User1Factor').hide();
                         else
-                            if(Message.StatisticCurrentUser.Table0.Hands.Hand0.Factor == 1){
                                 $('#STable1User1Factor').show();
-                                SetNoActiveButt($("#STable1User1CheckBackground"));
-                                $("#STable1User1Check").attr("disabled",true);
-                           }
-                       
+                           
                        if(Message.StatisticCurrentUser.Table0.Hands.Hand1.Factor == -1)
                             $('#STable1User2Factor').hide();
                         else
-                            if(Message.StatisticCurrentUser.Table0.Hands.Hand1.Factor == 1){
                                 $('#STable1User2Factor').show();
-                                SetNoActiveButt($("#STable1User2CheckBackground"));
-                                $("#STable1User2Check").attr("disabled",true);
-                           }
-                       
+                           
                        if(Message.StatisticCurrentUser.Table0.Hands.Hand2.Factor == -1)
                             $('#STable1User3Factor').hide();
                         else
-                            if(Message.StatisticCurrentUser.Table0.Hands.Hand2.Factor == 1){
                                 $('#STable1User3Factor').show();
-                                SetNoActiveButt($("#STable1User3CheckBackground"));
-                                $("#STable1User3Check").attr("disabled",true);
-                           }                       
+                                                   
                        if(Message.StatisticCurrentUser.Table0.Hands.Hand3.Factor == -1)
                             $('#STable1User4Factor').hide();
                         else
-                            if(Message.StatisticCurrentUser.Table0.Hands.Hand3.Factor == 1){
                                 $('#STable1User4Factor').show();
-                                SetNoActiveButt($("#STable1User4CheckBackground"));
-                                $("#STable1User4Check").attr("disabled",true);
-                           }
+                            
                        
                        if(Message.StatisticCurrentUser.Table1.Hands.Hand0.Factor == -1)
                             $('#STable2User1Factor').hide();
                         else
-                            if(Message.StatisticCurrentUser.Table1.Hands.Hand0.Factor == 1){
                                 $('#STable2User1Factor').show();
-                                SetNoActiveButt($("#STable2User1CheckBackground"));
-                                $("#STable2User1Check").attr("disabled",true);
-                           }
+                            
                        
                        if(Message.StatisticCurrentUser.Table1.Hands.Hand1.Factor == -1)
                             $('#STable2User2Factor').hide();
                         else
-                            if(Message.StatisticCurrentUser.Table1.Hands.Hand1.Factor == 1){
                                 $('#STable2User2Factor').show();
-                                SetNoActiveButt($("#STable2User2CheckBackground"));
-                                $("#STable2User2Check").attr("disabled",true);
-                           }
+                            
                        
                        if(Message.StatisticCurrentUser.Table1.Hands.Hand2.Factor == -1)
                             $('#STable2User3Factor').hide();
                         else
-                            if(Message.StatisticCurrentUser.Table1.Hands.Hand2.Factor == 1){
                                 $('#STable2User3Factor').show();
-                                SetNoActiveButt($("#STable2User3CheckBackground"));
-                                $("#STable2User3Check").attr("disabled",true);
-                           }
-                       
+                            
                        if(Message.StatisticCurrentUser.Table1.Hands.Hand3.Factor == -1)
                             $('#STable2User4Factor').hide();
                         else
-                            if(Message.StatisticCurrentUser.Table1.Hands.Hand3.Factor == 1){
                                 $('#STable2User4Factor').show();
-                                SetNoActiveButt($("#STable2User4CheckBackground"));
-                                $("#STable2User4Check").attr("disabled",true);
-                           }
+                            
                        
                        if(Message.StatisticCurrentUser.Table1.Hands.Hand4.Factor == -1)
                             $('#STable2User5Factor').hide();
                         else
-                            if(Message.StatisticCurrentUser.Table1.Hands.Hand4.Factor == 1){
                                 $('#STable2User5Factor').show();
-                                SetNoActiveButt($("#STable2User5CheckBackground"));
-                                $("#STable2User5Check").attr("disabled",true);
-                           }
+                            
                        
                        if(Message.StatisticCurrentUser.Table1.Hands.Hand5.Factor == -1)
                             $('#STable2User6Factor').hide();
                         else
-                            if(Message.StatisticCurrentUser.Table1.Hands.Hand5.Factor == 1){
                                 $('#STable2User6Factor').show();
-                                SetNoActiveButt($("#STable2User6CheckBackground"));
-                                $("#STable2User6Check").attr("disabled",true);
-                           }
+                            
                        
                        if(Message.StatisticCurrentUser.Table2.Hands.Hand0.Factor == -1)
                             $('#STable3User1Factor').hide();
                         else
-                            if(Message.StatisticCurrentUser.Table2.Hands.Hand0.Factor == 1){
                                 $('#STable3User1Factor').show();
-                                SetNoActiveButt($("#STable3User1CheckBackground"));
-                                $("#STable3User1Check").attr("disabled",true);
-                           }
+                            
                        
                        if(Message.StatisticCurrentUser.Table2.Hands.Hand1.Factor == -1)
                             $('#STable3User2Factor').hide();
                         else
-                            if(Message.StatisticCurrentUser.Table2.Hands.Hand1.Factor == 1){
                                 $('#STable3User2Factor').show();
-                                SetNoActiveButt($("#STable3User2CheckBackground"));
-                                $("#STable3User2Check").attr("disabled",true);
-                           }
+                            
                        
                        if(Message.StatisticCurrentUser.Table2.Hands.Hand2.Factor == -1)
                             $('#STable3User3Factor').hide();
                         else
-                            if(Message.StatisticCurrentUser.Table2.Hands.Hand2.Factor == 1){
                                 $('#STable3User3Factor').show();
-                                SetNoActiveButt($("#STable3User3CheckBackground"));
-                                $("#STable3User3Check").attr("disabled",true);
-                           }
+                            
                        
                        if(Message.StatisticCurrentUser.Table2.Hands.Hand3.Factor == -1)
                             $('#STable3User4Factor').hide();
                         else
-                            if(Message.StatisticCurrentUser.Table2.Hands.Hand3.Factor == 1){
                                 $('#STable3User4Factor').show();
-                                SetNoActiveButt($("#STable3User4CheckBackground"));
-                                $("#STable3User4Check").attr("disabled",true);
-                           }
+                            
                        
                        if(Message.StatisticCurrentUser.Table2.Hands.Hand4.Factor == -1)
                             $('#STable3User5Factor').hide();
                         else
-                            if(Message.StatisticCurrentUser.Table2.Hands.Hand4.Factor == 1){
                                 $('#STable3User5Factor').show();
-                                SetNoActiveButt($("#STable3User5CheckBackground"));
-                                $("#STable3User5Check").attr("disabled",true);
-                           }
+                            
                        
                        if(Message.StatisticCurrentUser.Table2.Hands.Hand5.Factor == -1)
                             $('#STable3User6Factor').hide();
                         else
-                            if(Message.StatisticCurrentUser.Table2.Hands.Hand7.Factor == 1){
                                 $('#STable3User6Factor').show();
-                                SetNoActiveButt($("#STable3User6CheckBackground"));
-                                $("#STable3User6Check").attr("disabled",true);
-                           }
+                            
                        
                        if(Message.StatisticCurrentUser.Table2.Hands.Hand6.Factor == -1)
                             $('#STable3User7Factor').hide();
                         else
-                            if(Message.StatisticCurrentUser.Table2.Hands.Hand6.Factor == 1){
                                 $('#STable3User7Factor').show();
-                                SetNoActiveButt($("#STable3User7CheckBackground"));
-                                $("#STable3User7Check").attr("disabled",true);
-                           }
+                            
                        
                        if(Message.StatisticCurrentUser.Table2.Hands.Hand7.Factor == -1)
                             $('#STable3User8Factor').hide();
                         else
-                            if(Message.StatisticCurrentUser.Table2.Hands.Hand7.Factor == 1){
-                                $('#STable3User8Factor').show();
-                                SetNoActiveButt($("#STable3User8CheckBackground"));
-                                $("#STable3User8Check").attr("disabled",true);
-                           }
-                       
-                        
+                            $('#STable3User8Factor').show();     
                 }
         }
      

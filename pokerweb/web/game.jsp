@@ -69,7 +69,7 @@
                                         </div>
                                     </div>
                                     <div style="float: left;border: solid black 1px;width: 300px;height: 21px;">
-                                    
+                                     
                                     </div>
                                     <div style="float: left;border: solid black 1px;width: 300px;height: 21px;">
                                     
@@ -423,7 +423,12 @@
             </div>
                 </div>
                 <div class="SBetTable">
-                    
+                   <div style="float: left;margin-left: 45px">Раунд:<div style="float: right" id="StatisticRaund">343434</div></div>
+                    <div id="SBetInfoStageBet" style="float: left;margin-left: 75px"></div>
+                    <div style="float: left;width: 200px"><div style="float: left">Стол 1:</div><div style="float: left" id="StatisticForecastTable1">12,12,12,12</div></div>
+                    <div style="float: left;width: 200px"><div style="float: left">Стол 2:</div><div style="float: left" id="StatisticForecastTable2">22,22,22,22</div></div>
+                    <div style="float: left;width: 200px"><div style="float: left">Стол 3:</div><div style="float: left" id="StatisticForecastTable3">33,33,33,33</div></div>
+              
                 </div>
             </div>
                         </div>

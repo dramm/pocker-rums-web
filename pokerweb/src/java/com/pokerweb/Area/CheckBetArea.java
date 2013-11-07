@@ -83,6 +83,7 @@ public class CheckBetArea extends HttpServlet {
                         Game GMData = new Game();
                    String data = data = GMData.GetDateFromBet(object.getValue().IdBet);
                    TableStatus.GetInstance().StatisticBetCurrentUser.get(object.getValue().IdBet).put("date", data);
+                   TableStatus.GetInstance().StatisticBetCurrentUser.get(object.getValue().IdBet).put("round", GMData.GetRoundFromBet(object.getValue().IdBet));
                  js.put("StatisticCurrentUser", TableStatus.GetInstance().StatisticBetCurrentUser.get(object.getValue().IdBet));
                 TableStatus.GetInstance().StatisticBetCurrentUser.remove(object.getValue().IdBet);
                 TableStatus.GetInstance().RequestStatisticBet.remove(TableStatus.GetInstance().StatisticBetCurrentUser.get(object.getValue().IdBet));
