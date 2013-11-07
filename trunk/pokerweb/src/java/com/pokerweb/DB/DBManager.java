@@ -1614,4 +1614,28 @@ public class DBManager{
         }
         }
     }   
+    
+    public double GetBalanceSummAllUser(){
+    PreparedStatement stmt = null;
+        try {
+              String query="select sum(balance) as summ from users;";
+               stmt = connection.prepareStatement(query);
+               ResultSet rs = stmt.executeQuery();
+               if(rs.first())
+                  return rs.getDouble("summ");
+               else
+                   return 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+    }
 }

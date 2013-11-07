@@ -80,38 +80,59 @@ public class TableStatus {
                         
                     case 1:
                         if(TableStatus.GetInstance().Timer >= 42){
-                            ServerResponce = false;
-                            SendBetsToServer();
+                        //    ServerResponce = false;
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
                             TableStatus.GetInstance().Timer = 0;
                         }
-                        else
+                        else{
                             TableStatus.GetInstance().Timer++;
+                            if(Timer == 41){
+                                SendBetsToServer();
+                                Connect.GetInstance().out.write(Functions.intToByteArray(1040));
+                                Connect.GetInstance().out.flush();
+                            }
+                            if(Timer % 2 == 0 && Timer != 42)
+                                SendBetsToServer();
+                        }
                         break;
                         
                     case 2:
                         if(TableStatus.GetInstance().Timer >= 42){ 
-                            ServerResponce = false;
-                            SendBetsToServer();
+                        //    ServerResponce = false;
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
                             TableStatus.GetInstance().Timer = 0;
                         }
-                        else
+                        else{
                             TableStatus.GetInstance().Timer++;
+                            if(Timer == 41){
+                                SendBetsToServer();
+                                Connect.GetInstance().out.write(Functions.intToByteArray(1040));
+                                Connect.GetInstance().out.flush();
+                            }
+                            if(Timer % 2 == 0 && Timer != 42)
+                                SendBetsToServer();
+                        }
                         break;
                             
                     case 3:
                         if(TableStatus.GetInstance().Timer >= 42){
-                            ServerResponce = false;
-                            SendBetsToServer();
+                      //      ServerResponce = false;
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
                             TableStatus.GetInstance().Timer = 0;
                         }
-                        else
+                        else{
                             TableStatus.GetInstance().Timer++;
+                            if(Timer == 41){
+                                SendBetsToServer();
+                                Connect.GetInstance().out.write(Functions.intToByteArray(1040));
+                                Connect.GetInstance().out.flush();   
+                            }
+                            if(Timer % 2 == 0 && Timer != 42)
+                                SendBetsToServer();
+                        }
                         break;
                                 
                     case 4:
@@ -203,6 +224,7 @@ public class TableStatus {
                        StatisticBetCurrentUser.containsKey(statisticBet.getValue().IdBet)){
                    String data = data = GMData.GetDateFromBet(statisticBet.getValue().IdBet);
                    StatisticBetCurrentUser.get(statisticBet.getValue().IdBet).put("date", data);
+                   StatisticBetCurrentUser.get(statisticBet.getValue().IdBet).put("round", GMData.GetRoundFromBet(statisticBet.getValue().IdBet));
                    jsO.put("StatisticCurrentUser", StatisticBetCurrentUser.get(statisticBet.getValue().IdBet));
                    boolean NonRemove = false;
                    for (Map.Entry<Long,StatisticBet> item : RequestStatisticBet.entrySet())
