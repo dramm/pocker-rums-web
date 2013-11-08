@@ -1298,17 +1298,17 @@ function StartGameCallback() {
                             $('#STable3User8Factor').hide();
                         else
                                 $('#STable3User8Factor').show();
-                            
+                            GetBetStatisticTimer = 0;
                        $("#modalWait").css("display","none");
                         $("#StatisticDialog").dialog({ modal: true,minHeight:500,minWidth:605});
                 }else
                 {
-                    if($("#modalWait").css("display") == ""){
-                    GetBetStatisticTimer++;
-         if(GetBetStatisticTimer >= 5){
-             $("#modalWait").css("display","none");
-             alert("Сервер перегружен, повторите попытку");
-             GetBetStatisticTimer = 0;
+                    if($("#modalWait").css("display") != "none"){
+                        GetBetStatisticTimer++;
+                        if(GetBetStatisticTimer >= 7){
+                            $("#modalWait").css("display","none");
+                            alert("Сервер перегружен, повторите попытку");
+                            GetBetStatisticTimer = 0;
          }}
                 }
                 var BalanceNew = Message.Balance;
