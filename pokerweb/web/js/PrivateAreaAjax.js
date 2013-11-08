@@ -1373,7 +1373,7 @@ function getCookie(name) {
      GetBetStatisticTimer = 0;
      CheckBetTimer = setInterval(function() {
          GetBetStatisticTimer++;
-         if(GetBetStatisticTimer >= 5){
+         if(GetBetStatisticTimer >= 7){
              $("#modalWait").css("display","none");
              alert("Сервер перегружен, повторите попытку");
              clearInterval(CheckBetTimer);

@@ -6,7 +6,6 @@ package com.pokerweb.Server;
 
 import com.pokerweb.Config.ConfigManager;
 import com.pokerweb.Config.FieldJdbc;
-import com.pokerweb.DB.DBManager;
 import com.pokerweb.crypto.CryptoManager;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
