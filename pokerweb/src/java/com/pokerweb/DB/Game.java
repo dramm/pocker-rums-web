@@ -326,21 +326,7 @@ public class Game{
             String url = "jdbc:mysql://"+FieldJ.serverName+":"+FieldJ.port+"/"+FieldJ.database;
             connection = DriverManager.getConnection(url, FieldJ.username, FieldJ.password);
             JSONArray jsA = new JSONArray();
-            String query = "select t1.id_game,t1.id as id_bet,"
-                    + "t5.login,t5.id, "
-                    + "t4.s as sum_bet,"
-                    + "t1.sum_win,"
-                    + "t1.date_bet,t6.c as count "
-                    + "from user_bet as t1,"
-                    + "bet_table as t3,"
-                    + "users as t5,"
-                    + "(select id_user,id_game, sum(sum_bet) as s from user_bet group by id_game) as t4,"
-                    + "(select count(t7.c) as c from (select count(*) as c from user_bet group by id_game) as t7) as t6 " 
-                    + "where " 
-                    + " t3.id_bet=t1.id and " 
-                    + " t4.id_user=t1.id_user and " 
-                    + " t4.id_game=t1.id_game and t5.id=t1.id_user "  
-                    + "group by t1.id_game LIMIT ? OFFSET ?";
+            String query = "select t1.id_game,t1.id as id_bet,t5.login,t5.id,t1.sum_bet,t1.sum_win,t1.date_bet,t6.c as count from user_bet as t1,bet_table as t3,users as t5,(select count(t7.c) as c from (select count(*) as c from user_bet group by id_game) as t7) as t6 where t3.id_bet=t1.id and t5.id=t1.id_user group by t1.id LIMIT ? OFFSET ?";
             stmt = DBManager.GetInstance().connection.prepareStatement(query);
             stmt.setInt(1, limit);
             stmt.setInt(2, offset);

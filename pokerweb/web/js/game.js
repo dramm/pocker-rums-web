@@ -1305,7 +1305,7 @@ function StartGameCallback() {
                 {
                     if($("#modalWait").css("display") != "none"){
                         GetBetStatisticTimer++;
-                        if(GetBetStatisticTimer >= 7){
+                        if(GetBetStatisticTimer >= 10){
                             $("#modalWait").css("display","none");
                             alert("Сервер перегружен, повторите попытку");
                             GetBetStatisticTimer = 0;
