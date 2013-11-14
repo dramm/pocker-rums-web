@@ -9,7 +9,6 @@ import com.pokerweb.ajax.ConfirmRegistration;
 import com.pokerweb.registration.UserBasicInformation;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;

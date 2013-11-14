@@ -2,7 +2,6 @@ package com.pokerweb.mail;
 
 import com.pokerweb.Config.ConfigManager;
 import com.pokerweb.Config.FieldMail;
-import com.pokerweb.DB.DBManager;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -29,6 +28,7 @@ public class SendMail {
             props.put("mail.smtp.starttls.enable", "true");
             session = Session.getInstance(props);
             message = new MimeMessage(session);
+            
             transport = session.getTransport("smtp");
             
             FieldMail FieldM;
@@ -76,6 +76,7 @@ public class SendMail {
     private boolean Send(String MessageText,String Subject){
         try {
             message.setSubject(Subject);
+            message.setHeader("Content-Transfer-Encoding", "utf-8");
             message.setContent(MessageText, "text/html; charset=utf-8");
             transport.sendMessage(message, message.getAllRecipients());
             logger.error("successfully send email");

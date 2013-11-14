@@ -4,23 +4,25 @@
  */
 package com.pokerweb.mail;
 
-import com.pokerweb.DB.DBManager;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author vadim
  */
-public class EventResponceMoneyСanceled implements Runnable {
+public class EventResponceMoneyСanceled extends Thread {
   private String Mail;
+  private String Comment;
    @Override
    public void run(){
-       DBManager.GetInstance().GetCurrentUserLogin();
-           SendMail.GetInstance().SendOneAddress(Mail,"Запрос на вывод средств отклонен с коментакием-", 
+           SendMail.GetInstance().SendOneAddress(Mail,"Запрос на вывод средств отклонен с коментарием-"+Comment, 
                         "SergioRio");
+    }
+
+    public String getComment() {
+        return Comment;
+    }
+
+    public void setComment(String Comment) {
+        this.Comment = Comment;
     }
    
    public String GetMail(){

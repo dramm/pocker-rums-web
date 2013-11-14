@@ -48,13 +48,8 @@ public class Connect {
         PreparedStatement stmt = null;
         FieldJdbc FieldJ; 
             FieldJ = new ConfigManager().GetPropJdbc();
-            
             String driverName = "com.mysql.jdbc.Driver";
-            
-            
-      
             Class.forName(driverName);
-            
             String url = "jdbc:mysql://"+FieldJ.serverName+":"+FieldJ.port+"/"+FieldJ.database;
             connection = DriverManager.getConnection(url, FieldJ.username, FieldJ.password);
             String query="select sum(balance) as summ from users;";
@@ -74,14 +69,19 @@ public class Connect {
          out.flush();
         } catch (UnknownHostException ex) {
             Logger.getLogger(Connect.class.getName()).log(Level.SEVERE, null, ex);
+            instanse = new Connect();
         } catch (IOException ex) {
             Logger.getLogger(Connect.class.getName()).log(Level.SEVERE, null, ex);
+            instanse = new Connect();
         } catch (JSONException ex) {
             Logger.getLogger(Connect.class.getName()).log(Level.SEVERE, null, ex);
+            instanse = new Connect();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Connect.class.getName()).log(Level.SEVERE, null, ex);
+            instanse = new Connect();
         } catch (SQLException ex) {
             Logger.getLogger(Connect.class.getName()).log(Level.SEVERE, null, ex);
+            instanse = new Connect();
         }
     }
     
