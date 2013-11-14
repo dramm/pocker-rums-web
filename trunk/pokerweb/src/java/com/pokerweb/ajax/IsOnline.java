@@ -6,7 +6,6 @@ package com.pokerweb.ajax;
 
 import com.pokerweb.DB.DBManager;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

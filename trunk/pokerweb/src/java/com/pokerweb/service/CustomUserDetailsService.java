@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import java.sql.ResultSet;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -8,6 +8,8 @@ import com.pokerweb.Area.FieldOutMoney;
 import com.pokerweb.Config.ConfigManager;
 import com.pokerweb.Config.FieldJdbc;
 import com.pokerweb.crypto.CryptoManager;
+import com.pokerweb.mail.EventResponceMoneyСanceled;
+import com.pokerweb.mail.EventResponceMoneyСonfirmed;
 import com.pokerweb.mail.NewPassFromMail;
 import com.pokerweb.mail.SendConfirmRegistMessage;
 import com.pokerweb.mail.SendConfirmSettingMessage;
@@ -214,6 +216,28 @@ public class DBManager{
                     + " t2.id_user=t3.id and"
                     + " t2.id=? and t2.id=t1.id and"
                     + " t2.status=?;";
+            for (Map.Entry<Long,Map<Integer,String>> entry : arr.entrySet()){
+                for (Map.Entry<Integer,String> item : entry.getValue().entrySet()) {
+               String queryResponse="SELECT email FROM pokerwebdb.request_out_money as f1,users as f2 where f1.id=? and f2.id=f1.id_user;";
+                stmt = connection.prepareStatement(queryResponse);
+                stmt.setLong(1, entry.getKey());
+                ResultSet rs = stmt.executeQuery();
+                if(!rs.first())
+                    return false;
+                if(item.getKey() == 1){
+                    EventResponceMoneyСonfirmed eResponse = new EventResponceMoneyСonfirmed();
+                    eResponse.SetMail(rs.getString("email"));
+                    eResponse.setComment(item.getValue());
+                    eResponse.start();
+                }else{
+                    EventResponceMoneyСanceled eCanceled = new EventResponceMoneyСanceled();
+                    eCanceled.SetMail(rs.getString("email"));
+                    eCanceled.setComment(item.getValue());
+                    eCanceled.start();
+                }
+                stmt.close();
+                }
+            }
              for (Map.Entry<Long,Map<Integer,String>> entry : arr.entrySet()){
                  for (Map.Entry<Integer,String> item : entry.getValue().entrySet()) {
                      stmt = connection.prepareStatement(query);
@@ -298,9 +322,10 @@ public class DBManager{
                       stmt.setInt(2,item.getKey());
                       stmt.executeUpdate();
                       stmt.close();
-              
+                     
                  }
              }
+            
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);

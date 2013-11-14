@@ -6,11 +6,9 @@ package com.pokerweb.Area;
 
 import com.pokerweb.DB.DBManager;
 import com.pokerweb.ajax.AjaxController;
-import com.pokerweb.ajax.ValidationField;
 import com.pokerweb.registration.UserBasicInformation;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;

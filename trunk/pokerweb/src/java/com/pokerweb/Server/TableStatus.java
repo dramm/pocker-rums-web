@@ -238,13 +238,7 @@ public class TableStatus {
                    break;
                }
         
-      //  JSONObject jsCoolect = new JSONObject();
-      //  for (Map.Entry<Long,JSONObject> object : StatisticBetCurrentUser.entrySet()) {
-      //      jsCoolect.put(object.getKey().toString(), object.getValue());
-       // }
-       // jsO.put("BETSSOURCE", jsCoolect);
         if(StageUser == -1 || StageUser == 4){
-           // if(Stage >= 0)
                 jsO.append("Round", Round);
             if(Stage >= 1 && StageUser != 4){
             for(int i = 0; i < 4; i++){
@@ -517,7 +511,6 @@ public class TableStatus {
                 GetTableThree().Hands.get(i).Indicator = T1Arr.getJSONObject(2).getInt("Indicator");
             }
             Stage = 1;
-          //   GMData.WriteGameStatistic();
             System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -554,7 +547,6 @@ public class TableStatus {
                 GetTableThree().Hands.get(i).Indicator = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
             }
             Stage = 2; 
-          //   GMData.WriteGameStatistic();
             System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -584,7 +576,6 @@ public class TableStatus {
                 GetTableThree().Hands.get(i).Indicator = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
             }
              Stage = 3;
-          //    GMData.WriteGameStatistic();
              System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -614,7 +605,6 @@ public class TableStatus {
               GetTableThree().Hands.get(i).Indicator = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
           }
           Stage = 4;
-       //    GMData.WriteGameStatistic();
           System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -663,8 +653,6 @@ public class TableStatus {
             Stage = 0;
             JSONObject js = new JSONObject(data);
             Round = js.getLong("Round");
-           // ShutdownInfo = new JSONArray();
-      //      GMData.WriteGameStatistic();
             System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -711,7 +699,6 @@ public class TableStatus {
                 Bets.put(UserId, bet);
             }
             System.gc();
-           // GMData.CalculateBalanceUserNewBet(bet,UserId);
             return true;
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -764,7 +751,6 @@ public class TableStatus {
             long idBet = GMData.GetCurrentUserGameStatistic().getJSONObject(index).getLong("id");
             StatisticBet st = new StatisticBet();
             st.IdBet = idBet;
-           // st.IdUserRequest = DBManager.GetInstance().GetCurrentUserId();
             st.TimeRequest = System.currentTimeMillis();
             st.ToketUserRequest = Token;
             RequestStatisticBet.put(DBManager.GetInstance().GetCurrentUserId(),st);

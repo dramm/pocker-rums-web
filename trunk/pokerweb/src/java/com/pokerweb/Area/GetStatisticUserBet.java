@@ -4,13 +4,10 @@
  */
 package com.pokerweb.Area;
 
-import com.pokerweb.DB.DBManager;
-import com.pokerweb.DB.Game;
 import com.pokerweb.Server.TableStatus;
 import com.pokerweb.registration.UserAllInformation;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
