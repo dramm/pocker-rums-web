@@ -12,6 +12,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/jquery-ui.css" type="text/css" media="screen" />
         <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.jcarousel.min.js"></script>
+       <link rel="stylesheet" href="/css/carousel.css" type="text/css" media="screen" />
         <script type="text/javascript" src="js/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/json2.js"></script>
         <script type="text/javascript" src="js/script.js"></script>

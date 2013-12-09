@@ -94,6 +94,7 @@ public class GetAllUser extends HttpServlet {
                     UserData.append("Role", item.RoleName);
                     UserData.append("Banned", item.banned);
                     UserData.append("Activated", item.Activated);
+                    UserData.append("LastLogin", item.last_login);
                     js.append("User", UserData);
                 }
             long CountUser = DBM.GetCountAllUser();

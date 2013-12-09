@@ -4,11 +4,14 @@
     Author     : vadim
 --%>
 
+<%@page import="org.springframework.security.core.userdetails.UserDetails"%>
+<%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
      <html>
    <head>
        <jsp:include page="headParam.jsp" flush="true" />
+       
 </head>
 <body style="background-image: url(/pic/backgroundGame.png);
     background-size: cover;
@@ -24,7 +27,7 @@
         </div>
 
     <div class="leftCol"></div>
-        <div id="centerCol" style="float: left;width: 70%;" >
+    <div class="centerCol" style="margin-bottom: 50px;">
             
             <div  id="StatisticDialog" style="display: none;">
                 <!--<div class="modal"></div>-->
@@ -87,8 +90,10 @@
                                 <input type="checkbox" name="STable1User1Check" />
                             </span>
                         </div>
+                                                <div id="SCartsUser11" class="CartsUser">
                         <div id="STable1User1Cart1" class="STableUserCart"></div>
                         <div id="STable1User1Cart2" class="STableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="Sprogressbar-value">
                                 <em id="STable1User1Progress" class="progressbar-cover"></em>
@@ -103,8 +108,10 @@
                                 <input type="checkbox" name="STable1User2Check" />
                             </span>
                         </div>
+                        <div id="SCartsUser12" class="CartsUser">
                         <div id="STable1User2Cart1" class="STableUserCart"></div>
                         <div id="STable1User2Cart2" class="STableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="Sprogressbar-value">
                                 <em id="STable1User2Progress" class="progressbar-cover"></em>
@@ -131,8 +138,10 @@
                                 <input type="checkbox" name="STable1User3Check" />
                             </span>
                         </div>
+                        <div id="SCartsUser13" class="CartsUser">
                         <div id="STable1User3Cart1" class="STableUserCart"></div>
                         <div id="STable1User3Cart2" class="STableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="Sprogressbar-value">
                                 <em id="STable1User3Progress" class="progressbar-cover"></em>
@@ -147,8 +156,10 @@
                                 <input type="checkbox" name="STable1User4Check" />
                             </span>
                         </div>
+                        <div id="SCartsUser14" class="CartsUser">
                         <div id="STable1User4Cart1" class="STableUserCart"></div>
                         <div id="STable1User4Cart2" class="STableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="Sprogressbar-value">
                                 <em id="STable1User4Progress" class="progressbar-cover"></em>
@@ -169,8 +180,10 @@
                                 <input type="checkbox" name="STable2User1Check" />
                             </span>
                         </div>
+                        <div id="SCartsUser21" class="CartsUser">
                         <div id="STable2User1Cart1" class="STableUserCart"></div>
                         <div id="STable2User1Cart2" class="STableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="Sprogressbar-value">
                                 <em id="STable2User1Progress" class="progressbar-cover"></em>
@@ -178,6 +191,7 @@
                         </div>
                         <div class="SUserNumber">21</div>
                     </div>
+                      
                     <div class="STableUser" id="STableUser22">
                         <div id="STable2User2Factor" class="STableUserFactor">
                             <div style="position: absolute" id="STable2User2CheckBackground" class="STableUserCheckBackground">1.88</div>
@@ -185,8 +199,10 @@
                                 <input type="checkbox" name="STable2User2Check" />
                             </span>
                         </div>
+                        <div id="SCartsUser22" class="CartsUser">
                         <div id="STable2User2Cart1" class="STableUserCart"></div>
                         <div id="STable2User2Cart2" class="STableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="Sprogressbar-value">
                                 <em id="STable2User2Progress" class="progressbar-cover"></em>
@@ -201,8 +217,10 @@
                                 <input type="checkbox" name="STable2User3Check" />
                             </span>
                         </div>
+                        <div id="SCartsUser23" class="CartsUser">
                         <div id="STable2User3Cart1" class="STableUserCart"></div>
                         <div id="STable2User3Cart2" class="STableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="Sprogressbar-value">
                                 <em id="STable2User3Progress" class="progressbar-cover"></em>
@@ -230,8 +248,10 @@
                                 <input type="checkbox" name="STable2User4Check" />
                             </span>
                         </div>
+                        <div id="SCartsUser24" class="CartsUser">
                         <div id="STable2User4Cart1" class="STableUserCart"></div>
                         <div id="STable2User4Cart2" class="STableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="Sprogressbar-value">
                                 <em id="STable2User4Progress" class="progressbar-cover"></em>
@@ -239,6 +259,7 @@
                         </div>
                         <div class="SUserNumber">24</div>
                     </div>
+                    
                     <div class="STableUser" id="STableUser25" style="float: left;">
                         <div id="STable2User5Factor" class="STableUserFactor">
                             <div style="position: absolute" id="STable2User5CheckBackground" class="STableUserCheckBackground">1.88</div>
@@ -246,8 +267,10 @@
                                 <input type="checkbox" name="STable2User5Check" />
                             </span>
                         </div>
+                        <div id="SCartsUser25" class="CartsUser">
                         <div id="STable2User5Cart1" class="STableUserCart"></div>
                         <div id="STable2User5Cart2" class="STableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="Sprogressbar-value">
                                 <em id="STable2User5Progress" class="progressbar-cover"></em>
@@ -262,8 +285,10 @@
                                 <input type="checkbox" name="STable2User6Check" />
                             </span>
                         </div>
+                        <div id="SCartsUser26" class="CartsUser">
                         <div id="STable2User6Cart1" class="STableUserCart"></div>
                         <div id="STable2User6Cart2" class="STableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="Sprogressbar-value">
                                 <em id="STable2User6Progress" class="progressbar-cover"></em>
@@ -285,9 +310,11 @@
                                 <input type="checkbox" name="STable3User1Check" />
                             </span>
                         </div>
+                        <div id="SCartsUser31" class="CartsUser">
                         <div id="STable3User1Cart1" class="STableUserCart">
                         </div>
                         <div id="STable3User1Cart2" class="STableUserCart"></div>
+                        </div>
                          <div class="progressbar">
                             <span class="Sprogressbar-value">
                                 <em id="STable3User1Progress" class="progressbar-cover"></em>
@@ -302,8 +329,10 @@
                                 <input type="checkbox" name="STable3User2Check" />
                             </span>
                         </div>
+                        <div id="SCartsUser32" class="CartsUser">
                         <div id="STable3User2Cart1" class="STableUserCart"></div>
                         <div id="STable3User2Cart2" class="STableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="Sprogressbar-value">
                                 <em id="STable3User2Progress" class="progressbar-cover"></em>
@@ -318,8 +347,10 @@
                                 <input type="checkbox" name="STable3User3Check" />
                             </span>
                         </div>
+                        <div id="SCartsUser33" class="CartsUser">
                         <div id="STable3User3Cart1" class="STableUserCart"></div>
                         <div id="STable3User3Cart2" class="STableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="Sprogressbar-value">
                                 <em id="STable3User3Progress" class="progressbar-cover"></em>
@@ -334,8 +365,10 @@
                                 <input type="checkbox" name="STable3User4Check" />
                             </span>
                         </div>
+                        <div id="SCartsUser34" class="CartsUser">
                         <div id="STable3User4Cart1" class="STableUserCart"></div>
                         <div id="STable3User4Cart2" class="STableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="Sprogressbar-value">
                                 <em id="STable3User4Progress" class="progressbar-cover"></em>
@@ -362,8 +395,10 @@
                                 <input type="checkbox" name="STable3User5Check" />
                             </span>
                         </div>
+                        <div id="SCartsUser35" class="CartsUser">
                         <div id="STable3User5Cart1" class="STableUserCart"></div>
                         <div id="STable3User5Cart2" class="STableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="Sprogressbar-value">
                                 <em id="STable3User5Progress" class="progressbar-cover"></em>
@@ -378,8 +413,10 @@
                                 <input type="checkbox" name="STable3User6Check" />
                             </span>
                         </div>
+                        <div id="SCartsUser36" class="CartsUser">
                         <div id="STable3User6Cart1" class="STableUserCart"></div>
                         <div id="STable3User6Cart2" class="STableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="Sprogressbar-value">
                                 <em id="STable3User6Progress" class="progressbar-cover"></em>
@@ -394,8 +431,10 @@
                                 <input type="checkbox" name="Table3User7Check" />
                             </span>
                         </div>
+                        <div id="SCartsUser37" class="CartsUser">
                         <div id="STable3User7Cart1" class="STableUserCart"></div>
                         <div id="STable3User7Cart2" class="STableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="Sprogressbar-value">
                                 <em id="STable3User7Progress" class="progressbar-cover"></em>
@@ -410,8 +449,10 @@
                                 <input type="checkbox" name="STable3User8Check" />
                             </span>
                         </div>
+                        <div id="SCartsUser38" class="CartsUser">
                         <div id="STable3User8Cart1" class="STableUserCart"></div>
                         <div id="STable3User8Cart2" class="STableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="Sprogressbar-value">
                                 <em id="STable3User8Progress" class="progressbar-cover"></em>
@@ -423,7 +464,7 @@
             </div>
                 </div>
                 <div class="SBetTable">
-                   <div style="float: left;margin-left: 45px">Раунд:<div style="float: right" id="StatisticRaund">343434</div></div>
+                   <div style="float: left;margin-left: 45px">Раунд:<div style="float: right;" id="StatisticRaund"></div></div>
                     <div id="SBetInfoStageBet" style="float: left;margin-left: 75px"></div>
                     <div style="float: left;width: 200px"><div style="float: left">Стол 1:</div><div style="float: left" id="StatisticForecastTable1">12,12,12,12</div></div>
                     <div style="float: left;width: 200px"><div style="float: left">Стол 2:</div><div style="float: left" id="StatisticForecastTable2">22,22,22,22</div></div>
@@ -434,22 +475,129 @@
                         </div>
             <div id="menuGame" >
                 <div class="SmallLogo"></div>
-                <div style="float: left;color: white;margin-top: 15px;">
-                    <div style="display: none;" id="CurrentStage">-1</div> 
+                <div style="float: left;color: white;margin-top: 15px;font-size: 11px;">
+                    <div style="display: none;" id="CurrentStage">-1</div>
+                    <div style="float: left;">
                     Время до
-                    <b id="ShowNextStage">Ривер</b> Раунд <b id="ShowCurrentRaund">5383</b></div>
+                    </div>
+                    <div id="ShowNextStage" style="min-width: 50px;float: left;margin-left: 5px">Префлоп</div>
+                    <div style="float: left">
+                    Раунд
+                    </div>
+                    <div id="ShowCurrentRaund" style="min-width: 40px;float: left;margin-left: 5px;">0</div>
+                        
+                </div>
                 <div id="progressbar">
                     <b style="position: absolute;margin-left: 60px;" id="BaseProgressTime"></b>
                 </div>
                 <script> 
                     $("#progressbar").progressbar({value: 37});
-                    GetCurrentUserStatistic();
+                  //  GetCurrentUserStatistic();
                 </script>
-                <div class="button">
+                <div class="button" style="margin-top: 10px;margin-left: 10px;float: left">
                     Объяснение
+                    <form class="dropdownMenu" style="font-size: 11px;top: 200 !important; left: 200px;width: 350px;height: 450px;display: none">
+                        <div style="width: 100%; margin-top: 5px; display: inline-block;">
+                            <div style="float: left;width: 165px;">
+                                <div style="float: left;text-align: right;width: 100%;">
+                                    Флеш-рояль
+                                </div>
+                                <div style="float: right;">
+                                    5 старших карт одной масти
+                                </div>
+                            </div>
+                        <img style="float: right;" src="/pic/cart1.png">
+                        </div>
+                        <div style="width: 100%; margin-top: 5px; display: inline-block;">
+                            <div style="float: left;width: 165px;">
+                                <div style="float: left;text-align: right;width: 100%;">
+                                    Стрит-флеш
+                                </div>
+                                <div style="float: right;">
+                                    5 последовательных карт одной масти
+                                </div>
+                            </div>
+                        <img style="float: right;" src="/pic/cart2.png">
+                        </div>
+                        <div style="width: 100%; margin-top: 5px; display: inline-block;">
+                            <div style="float: left;width: 165px;">
+                                <div style="float: left;text-align: right;width: 100%;">Каре</div>
+                                <div style="float: right;">4 карты одного достоинства</div>
+                            </div>
+                        <img style="float: right;" src="/pic/cart3.png">
+                        </div>
+                        <div style="width: 100%; margin-top: 5px; display: inline-block;">
+                            <div style="float: left;width: 165px;">
+                                <div style="float: left;text-align: right;width: 100%;">Фулл-хаус</div>
+                                <div style="float: right;">3 карты одного достоинства и 2 другого</div>
+                            </div>
+                        <img style="float: right;" src="/pic/cart4.png">
+                        </div>
+                        <div style="width: 100%; margin-top: 5px; display: inline-block;">
+                            <div style="float: left;width: 165px;">
+                                <div style="float: left;text-align: right;width: 100%;">Флеш</div>
+                                <div style="float: right;">5 карт одной масти</div>
+                            </div>
+                        <img style="float: right;" src="/pic/cart5.png">
+                        </div>
+                        <div style="width: 100%; margin-top: 5px; display: inline-block;">
+                            <div style="float: left;width: 165px;">
+                                <div style="float: left;text-align: right;width: 100%;">Стрит</div>
+                                <div style="float: right;">5 последовательных карт</div>
+                            </div>
+                        <img style="float: right;" src="/pic/cart6.png">
+                        </div>
+                        <div style="width: 100%; margin-top: 5px; display: inline-block;">
+                            <div style="float: left;width: 165px;">
+                                <div style="float: left;text-align: right;width: 100%;">Тройка</div>
+                                <div style="float: right;">3 карты одного достоинства</div>
+                            </div>
+                        <img style="float: right;" src="/pic/cart7.png">
+                        </div>
+                        <div style="width: 100%; margin-top: 5px; display: inline-block;">
+                            <div style="float: left;width: 165px;">
+                                <div style="float: left;text-align: right;width: 100%;">Две пары</div>
+                                <div style="float: right;">2 карты одного достоинства и 2 другого</div>
+                            </div>
+                        <img style="float: right;" src="/pic/cart8.png">
+                        </div>
+                        <div style="width: 100%; margin-top: 5px; display: inline-block;">
+                            <div style="float: left;width: 165px;">
+                                <div style="float: left;text-align: right;width: 100%;">Пара</div>
+                                <div style="float: right;">2 карты одного достоинства</div>
+                            </div>
+                        <img style="float: right;" src="/pic/cart9.png">
+                        </div>
+                    </form>
                 </div>
+                <div style="background-image: url('/pic/UserImage.png');width: 17px;height: 23px;float: left;margin-top: 10px;margin-left: 10px;"></div>
+                <div style="float: left;margin-top: 10px;margin-left: 10px;font-size: 15px;color: whitesmoke;">login: 
+                <%Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                        UserDetails userDetails = null;
+                        if (principal instanceof UserDetails) {
+                            userDetails = (UserDetails) principal;} 
+                        String s="";
+                        if(userDetails!=null)%>
+                        <%=userDetails.getUsername()%>
+                        </div>
+                        <div id='BalanceUser' style="float: left;margin-top: 10px;margin-left: 10px;font-size: 15px;color: whitesmoke;">0</div>
+                        <div style="float: left;margin-top: 10px;font-size: 15px;color: whitesmoke;">$</div>
+                       <div style="display:inline-block;float: left;margin-top: 10px;margin-left: 10px;font-size: 15px;color: whitesmoke;"> 
+                        <form action="j_spring_security_logout" method="Post">
+                            <input class="button" type="submit" value="Выход"/>
+                        </form>
+                         
+                    </div>
+                        <div class="button" style="float: left;margin-top: 10px;margin-left: 10px;font-size: 15px;color: whitesmoke;">Язык
+                            <form class="dropdownMenu" id="language" method="GET" action="#">
+                                <input class="active" type="submit" name="language" value="Русский"/>
+                                <input type="submit" name="language" value="English"/>
+                                <input type="submit" name="language" value="Germany"/>
+                        </form>
+                        </div>
             </div>
             <div style="margin-top: 60px;">
+                <div style="float: left;display: inline-block;width: 100%">
             <div id="table" class="table1">
                  <div style="float: left;width: 360px;">
                 <div style="height: 95px;width: 360px;">
@@ -460,8 +608,10 @@
                                 <input type="checkbox" name="Table1User1Check" />
                             </span>
                         </div>
+                        <div id="CartsUser11" class="CartsUser">
                         <div id="Table1User1Cart1" class="TableUserCart"></div>
                         <div id="Table1User1Cart2" class="TableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table1User1Progress" class="progressbar-cover"></em>
@@ -478,8 +628,10 @@
                                 <input type="checkbox" name="Table1User2Check" />
                             </span>
                         </div>
+                        <div id="CartsUser12" class="CartsUser">
                         <div id="Table1User2Cart1" class="TableUserCart"></div>
                         <div id="Table1User2Cart2" class="TableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table1User2Progress" class="progressbar-cover"></em>
@@ -508,8 +660,10 @@
                                 <input type="checkbox" name="Table1User3Check" />
                             </span>
                         </div>
+                        <div id="CartsUser13" class="CartsUser">
                         <div id="Table1User3Cart1" class="TableUserCart"></div>
                         <div id="Table1User3Cart2" class="TableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table1User3Progress" class="progressbar-cover"></em>
@@ -525,8 +679,10 @@
                                 <input type="checkbox" name="Table1User4Check" />
                             </span>
                         </div>
+                        <div id="CartsUser14" class="CartsUser">
                         <div id="Table1User4Cart1" class="TableUserCart"></div>
                         <div id="Table1User4Cart2" class="TableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table1User4Progress" class="progressbar-cover"></em>
@@ -538,6 +694,7 @@
                 </div>
             </div>
                                </div>
+                    
             <div id="table" class="table2">
                 <div style="float: left;width: 360px;">
                 <div style="height: 95px;width: 360px;">
@@ -548,8 +705,10 @@
                                 <input type="checkbox" name="Table2User1Check" />
                             </span>
                         </div>
+                        <div id="CartsUser21" class="CartsUser">
                         <div id="Table2User1Cart1" class="TableUserCart"></div>
                         <div id="Table2User1Cart2" class="TableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table2User1Progress" class="progressbar-cover"></em>
@@ -564,8 +723,10 @@
                                 <input type="checkbox" name="Table2User2Check" />
                             </span>
                         </div>
+                        <div id="CartsUser22" class="CartsUser">
                         <div id="Table2User2Cart1" class="TableUserCart"></div>
                         <div id="Table2User2Cart2" class="TableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table2User2Progress" class="progressbar-cover"></em>
@@ -580,8 +741,10 @@
                                 <input type="checkbox" name="Table2User3Check" />
                             </span>
                         </div>
+                        <div id="CartsUser23" class="CartsUser">
                         <div id="Table2User3Cart1" class="TableUserCart"></div>
                         <div id="Table2User3Cart2" class="TableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table2User3Progress" class="progressbar-cover"></em>
@@ -614,8 +777,10 @@
                                 <input type="checkbox" name="Table2User4Check" />
                             </span>
                         </div>
+                        <div id="CartsUser24" class="CartsUser">
                         <div id="Table2User4Cart1" class="TableUserCart"></div>
                         <div id="Table2User4Cart2" class="TableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table2User4Progress" class="progressbar-cover"></em>
@@ -630,8 +795,10 @@
                                 <input type="checkbox" name="Table2User5Check" />
                             </span>
                         </div>
+                        <div id="CartsUser25" class="CartsUser">
                         <div id="Table2User5Cart1" class="TableUserCart"></div>
                         <div id="Table2User5Cart2" class="TableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table2User5Progress" class="progressbar-cover"></em>
@@ -646,8 +813,10 @@
                                 <input type="checkbox" name="Table2User6Check" />
                             </span>
                         </div>
+                        <div id="CartsUser26" class="CartsUser">
                         <div id="Table2User6Cart1" class="TableUserCart"></div>
                         <div id="Table2User6Cart2" class="TableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table2User6Progress" class="progressbar-cover"></em>
@@ -663,7 +832,8 @@
                 </div>
             </div>
              </div>
-            
+                </div>
+                <div style="float: left;display: inline-block;width: 100%">
             <div id="table" class="table3">
                 <div style="float: left;width: 370px;">
                 <div style="height: 95px;width: 370px;">
@@ -674,9 +844,11 @@
                                 <input type="checkbox" name="Table3User1Check" />
                             </span>
                         </div>
+                        <div id="CartsUser31" class="CartsUser">
                         <div id="Table3User1Cart1" class="TableUserCart">
                         </div>
                         <div id="Table3User1Cart2" class="TableUserCart"></div>
+                        </div>
                          <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table3User1Progress" class="progressbar-cover"></em>
@@ -694,8 +866,10 @@
                                 <input type="checkbox" name="Table3User2Check" />
                             </span>
                         </div>
+                        <div id="CartsUser32" class="CartsUser">
                         <div id="Table3User2Cart1" class="TableUserCart"></div>
                         <div id="Table3User2Cart2" class="TableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table3User2Progress" class="progressbar-cover"></em>
@@ -711,8 +885,10 @@
                                 <input type="checkbox" name="Table3User3Check" />
                             </span>
                         </div>
+                        <div id="CartsUser33" class="CartsUser">
                         <div id="Table3User3Cart1" class="TableUserCart"></div>
                         <div id="Table3User3Cart2" class="TableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table3User3Progress" class="progressbar-cover"></em>
@@ -729,8 +905,10 @@
                                 <input type="checkbox" name="Table3User4Check" />
                             </span>
                         </div>
+                        <div id="CartsUser34" class="CartsUser">
                         <div id="Table3User4Cart1" class="TableUserCart"></div>
                         <div id="Table3User4Cart2" class="TableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table3User4Progress" class="progressbar-cover"></em>
@@ -759,8 +937,10 @@
                                 <input type="checkbox" name="Table3User5Check" />
                             </span>
                         </div>
+                        <div id="CartsUser35" class="CartsUser">
                         <div id="Table3User5Cart1" class="TableUserCart"></div>
                         <div id="Table3User5Cart2" class="TableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table3User5Progress" class="progressbar-cover"></em>
@@ -778,8 +958,10 @@
                                 <input type="checkbox" name="Table3User6Check" />
                             </span>
                         </div>
+                        <div id="CartsUser36" class="CartsUser">
                         <div id="Table3User6Cart1" class="TableUserCart"></div>
                         <div id="Table3User6Cart2" class="TableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table3User6Progress" class="progressbar-cover"></em>
@@ -795,8 +977,10 @@
                                 <input type="checkbox" name="Table3User7Check" />
                             </span>
                         </div>
+                        <div id="CartsUser37" class="CartsUser">
                         <div id="Table3User7Cart1" class="TableUserCart"></div>
                         <div id="Table3User7Cart2" class="TableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table3User7Progress" class="progressbar-cover"></em>
@@ -812,8 +996,10 @@
                                 <input type="checkbox" name="Table3User8Check" />
                             </span>
                         </div>
+                        <div id="CartsUser38" class="CartsUser">
                         <div id="Table3User8Cart1" class="TableUserCart"></div>
                         <div id="Table3User8Cart2" class="TableUserCart"></div>
+                        </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table3User8Progress" class="progressbar-cover"></em>
@@ -829,12 +1015,12 @@
                 <div class="BetTable">
                     <div class="BetTableInfoTop">
                         <div style="float: left;margin-left: 5px;margin-top: 5px;">
-                        <div style="float: left;">Коэф.</div>
-                        <div id="Factor" style="margin-right:10px;float: left;">6,00</div>
-                        <div style="float: left;">Мин.</div>
-                        <div id="MinBet" style="margin-right:10px;float: left">4.0</div>
-                        <div style="float: left;">Макс.</div>
-                        <div id="MaxBet" style="float: left;">баланс</div>
+                        <div style="float: left;font-size: 14px;">Коэф.</div>
+                        <div id="Factor" style="margin-right:10px;float: left;font-size: 14px;">0</div>
+                        <div style="float: left;font-size: 14px;">Мин.</div>
+                        <div id="MinBet" style="margin-right:10px;float: left;font-size: 14px;">0</div>
+                        <div style="float: left;font-size: 14px;">Макс.</div>
+                        <div id="MaxBet" style="float: left;font-size: 14px;">0</div>
                         </div>
                         
                         <div class="ExpressBet">
@@ -848,45 +1034,51 @@
                         <div style="float: left;">    
                             <div class="ButtonExpressBetSum" id="SumBetDown">&lt</div>
                             <div class="ButtonExpressBetSum" id="SumBetUser">4.00</div>
-                            <div class="Calculator" name="Calculator" id="Calculator">
-                                <div class="CalculatorDisplay" id="DisplayCalculator">0</div>
+                            <div class="modalCalc" id="ModalBackCalc" style="display: none;">
+                            <div class="Calculator" name="Calculator" id="Calculator" style="width: 410px;height: 520px;display: none">
+                                <!--<div class="modalCalc"></div>-->
+                                <div class="CalculatorDisplay">
+                                    <div id="DisplayCalculator" style="float: right;font-size: 27px;margin-top: 20px;margin-right: 10px;">
+                                        0
+                                    </div>
+                                </div>
                                 <div id="CalculatorButtons" style="display: inline-block">
-                                    <div style="float: left">
+                                    <div style="float: left;margin-top: 20px;">
                                     <div class="CalcButt" id="CalcButt1">
-                                        <b style="margin-left: 25px">1</b>
+                                        <div style="font-size: 30px;margin-left: 25px;margin-top: 15px;">1</div>
                                     </div>
                                     <div class="CalcButt" id="CalcButt2">
-                                        <b style="margin-left: 25px">2</b>
+                                        <div style="font-size: 30px;margin-left: 25px;margin-top: 15px;">2</div>
                                     </div>
                                     <div class="CalcButt" id="CalcButt3">
-                                        <b style="margin-left: 25px">3</b>
+                                        <div style="font-size: 30px;margin-left: 25px;margin-top: 15px;">3</div>
                                     </div>
                                     </div>
-                                    <div style="float: left">
+                                    <div style="float: left;margin-top: 20px;">
                                     <div class="CalcButt" id="CalcButt4">
-                                        <b style="margin-left: 25px">4</b>
+                                        <div style="font-size: 30px;margin-left: 25px;margin-top: 15px;">4</div>
                                     </div>
                                     <div class="CalcButt" id="CalcButt5">
-                                        <b style="margin-left: 25px">5</b>
+                                        <div style="font-size: 30px;margin-left: 25px;margin-top: 15px;">5</div>
                                     </div>
                                     <div class="CalcButt" id="CalcButt6">
-                                        <b style="margin-left: 25px">6</b>
+                                        <div style="font-size: 30px;margin-left: 25px;margin-top: 15px;">6</div>
                                     </div>
                                     </div>
-                                    <div style="float: left">
+                                    <div style="float: left;margin-top: 20px;">
                                     <div class="CalcButt" id="CalcButt7">
-                                        <b style="margin-left: 25px">7</b>
+                                        <div style="font-size: 30px;margin-left: 25px;margin-top: 15px;">7</div>
                                     </div>
                                     <div class="CalcButt" id="CalcButt8">
-                                        <b style="margin-left: 25px">8</b>
+                                        <div style="font-size: 30px;margin-left: 25px;margin-top: 15px;">8</div>
                                     </div>
                                     <div class="CalcButt" id="CalcButt9">
-                                        <b style="margin-left: 25px">9</b>
+                                        <div style="font-size: 30px;margin-left: 25px;margin-top: 15px;">9</div>
                                     </div>
                                     </div>
-                                    <div style="float: left">
+                                    <div style="float: left;margin-top: 20px;">
                                         <div class="CalcButt" id="CalcButt0" style="margin-left: 110px">
-                                        <b style="margin-left: 25px">0</b>
+                                            <div style="font-size: 30px;margin-left: 25px;margin-top: 15px;">0</div>
                                     </div>
                                     </div>
                                 </div>
@@ -901,6 +1093,7 @@
                                     <div id="AppendSum" style="float:right" class="CalcButtAppend">Принять</div>
                                 </div>
                             </div>
+                                </div>
                             <div class="ButtonExpressBetSum" id="SumBetUp">&gt;</div>
                         </div>
                         <div style="float: right;">
@@ -909,12 +1102,12 @@
                         </div>
                         <div class="BetTableColumn" style="float: left">
                             <div style="float: left">
-                            <div style="float: left;width: 120px;text-align: center">Дата</div>
-                            <div style="float: left;width: 100px;text-align: center">Прогноз</div>
-                            <div style="float: left;width: 70px;text-align: center">Ставка</div>
-                            <div style="float: left;width: 60px;text-align: center">Выигрыш</div>
+                            <div style="float: left;width: 120px;text-align: center;font-size: 14px;margin-left: 5px;">Дата</div>
+                            <div style="float: left;width: 100px;text-align: center;margin-left: 20px;font-size: 14px;">Прогноз</div>
+                            <div style="float: left;width: 70px;text-align: center;margin-left: 10px;font-size: 14px;">Ставка</div>
+                            <div style="float: left;width: 60px;text-align: center;font-size: 14px;">Выигрыш</div>
                             </div>
-                            <div style="float: left" id="BetTableCollection">
+                            <div style="float: left;background: none repeat scroll 0% 0% rgb(30, 45, 55);" id="BetTableCollection">
                                
                             </div>
                         </div>
@@ -927,11 +1120,70 @@
                         </div>-->
                     </div>
                 </div>
+                </div>
             </div>
             <script>
-               GetCurrentUserStatistic();
+                (function($) {
+    $(function() {
+        $('.jcarousel').jcarousel({wrap: 'circular'});
+
+        $('.jcarousel-control-prev')
+            .on('jcarouselcontrol:active', function() {
+                $(this).removeClass('inactive');
+            })
+            .on('jcarouselcontrol:inactive', function() {
+                $(this).addClass('inactive');
+            })
+            .jcarouselControl({
+                target: '-=1'
+            });
+
+        $('.jcarousel-control-next')
+            .on('jcarouselcontrol:active', function() {
+                $(this).removeClass('inactive');
+            })
+            .on('jcarouselcontrol:inactive', function() {
+                $(this).addClass('inactive');
+            })
+            .jcarouselControl({
+                target: '+=1'
+            });
+
+        $('.jcarousel-pagination')
+            .on('jcarouselpagination:active', 'a', function() {
+                $(this).addClass('active');
+            })
+            .on('jcarouselpagination:inactive', 'a', function() {
+                $(this).removeClass('active');
+            })
+            .jcarouselPagination();
+    });
+})(jQuery);
+              // GetCurrentUserStatistic();
+     
+    
             </script>
+            <div style="width: 100%;height: 130px;display: inline-block;margin-top: 50px;">
+                <div style="color: whitesmoke;font-size: 22px;">Платежные системы</div>
+            <div class="jcarousel-wrapper">
+            <div class="jcarousel">
+            <ul>
+                <li><img src="/pic/paySystem/beeline.png" style="margin-top: 10px;"></li>
+		<li><img src="/pic/paySystem/evro.png"></li>
+		<li><img src="/pic/paySystem/megafon.png"></li>
+		<li><img src="/pic/paySystem/mts.png"></li>
+                <li><img src="/pic/paySystem/mts.png"></li>
+		<li><img src="/pic/paySystem/novoplat.png"></li>
+		<li><img src="/pic/paySystem/plats.png"></li>
+		    </ul>
+            </div>
+                <a data-jcarouselcontrol="true" href="#" class="jcarousel-control-prev"><img src="/pic/paySystem/toLeft.png"></a>
+                <a data-jcarouselcontrol="true" href="#" class="jcarousel-control-next inactive"><img src="/pic/paySystem/toRight.png"></a>
+                </div>
+                </div>
 <div class="rightCol"></div>
+
     </div>
+    
              <jsp:include page="footer.jsp" flush="true" />
 </body>

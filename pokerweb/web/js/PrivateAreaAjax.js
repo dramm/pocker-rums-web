@@ -103,7 +103,9 @@ function initPrivateBody() {
     CurrentEmail = document.getElementById("CurrentEmail");
     
     CurrentPhone = document.getElementById("CurrentPhone");
-    
+     $(function() {
+         $( "#ValuePersent" ).slider("max", 80 );
+     });
     FieldLoadFromDB();
 }
 
@@ -122,12 +124,32 @@ if(selected == '#tabs-7')
     GetCurrentUserStatistic();
 if(selected == '#tabs-13')
     GetAllUserStatistic();
+if(selected == '#tabs-12')
+    GetBalanceServer();
 
 }
 }).addClass( "ui-tabs-vertical ui-helper-clearfix" );
 $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 
 });
+
+function GetBalanceServer(){
+    $.ajax({
+        url: "/GetCasinoBalance",
+        type: "post",
+        success: function (response, textStatus, jqXHR) {
+            $("#balance").html(response.balance);
+            $("#profit").html(response.spareMoney);
+            $("#spareMoney").html(response.profit);
+            $("#spareMoney").html(response.profit);
+            $("#ValuePersent").html(response.persent);
+            $("#Persent").val(response.persent);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            //alert("error");
+        },
+        complete: function () {}});
+}
 
 function GetRange(){
 var SelectRange = document.getElementById("SelectRange");
@@ -200,6 +222,7 @@ function ShowUsersList(responseText){
     var NewDivBalance = document.createElement("div");
     var NewDivActiveted = document.createElement("div");
     var NewDivBaned = document.createElement("div");
+    var NewDivLastLogin = document.createElement("div");
     var NewDivSelectActions = document.createElement("div");
     var CurrentDiv = document.getElementById("ListUsers");
     NewDivLogin.style.cssText = "float:left;font-size:18px; border: solid red 1px";
@@ -208,6 +231,7 @@ function ShowUsersList(responseText){
     NewDivBalance.style.cssText = "float:left;font-size:18px; border: solid red 1px";
     NewDivActiveted.style.cssText = "float:left;font-size:18px; border: solid red 1px";
     NewDivBaned.style.cssText = "float:left;font-size:18px; border: solid red 1px";
+    NewDivLastLogin.style.cssText = "float:left;font-size:18px; border: solid red 1px";
     NewDivSelectActions.style.cssText = "float:left;font-size:18px; border: solid red 1px";
     rootDiv.style.cssText = "text-align: left; border: solid red 1px";
     CurrentDiv.innerHTML = "";
@@ -217,16 +241,19 @@ function ShowUsersList(responseText){
     var NewPBalance = document.createElement("p");
     var NewPBaned = document.createElement("p");
     var NewPActivated = document.createElement("p");
+    var NewPLastLogin = document.createElement("p");
     var NewPChecked = document.createElement("p");
     NewPLogin.style.cssText = "text-align:center";
     NewPDate.style.cssText = "text-align:center";
     NewPRole.style.cssText = "text-align:center";
     NewPBalance.style.cssText = "text-align:center";
+    NewPLastLogin.style.cssText = "text-align:center";
     NewPChecked.style.cssText = "text-align:center";
     NewPLogin.innerHTML = "Логин";
     NewPDate.innerHTML = "Дата регистрации";
     NewPRole.innerHTML = "Роль";
     NewPBalance.innerHTML = "Баланс";
+    NewPLastLogin.innerHTML = "Последний вход";
     NewPActivated.innerHTML = "Активирован";
     NewPBaned.innerHTML = "Блокирован";
     NewPChecked.innerHTML = "Выбор";
@@ -234,6 +261,7 @@ function ShowUsersList(responseText){
     NewDivDate.appendChild(NewPDate);
     NewDivRole.appendChild(NewPRole);
     NewDivBalance.appendChild(NewPBalance);
+    NewDivLastLogin.appendChild(NewPLastLogin);
     NewDivActiveted.appendChild(NewPActivated);
     NewDivBaned.appendChild(NewPBaned);
     NewDivSelectActions.appendChild(NewPChecked);
@@ -245,6 +273,7 @@ function ShowUsersList(responseText){
        NewDivRole.innerHTML+=responseText.User[i].Role+"</br>";
        NewDivBalance.innerHTML+=responseText.User[i].Balance+"</br>";
        NewDivBaned.innerHTML+=responseText.User[i].Banned+"</br>";
+       NewDivLastLogin.innerHTML+=responseText.User[i].LastLogin+"</br>";
        NewDivActiveted.innerHTML+=responseText.User[i].Activated+"</br>";
        NewSelectedAction = document.createElement("select");
        NewSelectedAction.style.cssText = "float:left;font-size:11px";
@@ -263,6 +292,7 @@ function ShowUsersList(responseText){
        rootDiv.appendChild(NewDivBalance);
        rootDiv.appendChild(NewDivBaned);
        rootDiv.appendChild(NewDivActiveted);
+       rootDiv.appendChild(NewDivLastLogin);
        rootDiv.appendChild(NewDivSelectActions);
     
     var NewDivLink = document.createElement("div");
@@ -1091,8 +1121,8 @@ function getCookie(name) {
                     { name: 'sum_win', index: 'sum_win', width: 100 },
                     { name: 'forecast', index: 'forecast', width: 100 }
                      ],
-                rowNum: 20,
-                rowList: [5, 10, 20],
+                rowNum: 200,
+                //rowList: [5, 10, 20],
                 pager: '#StatisticPagerCurrentUser',
                 gridview: true,
                // rownumbers: true,
@@ -1296,8 +1326,8 @@ function getCookie(name) {
                     { name: 'sum_win', index: 'sum_win', width: 100 },
                     { name: 'forecast', index: 'forecast', width: 100 }
                      ],
-                rowNum: 20,
-                rowList: [5, 10, 20],
+                rowNum: 200,
+                //rowList: [5, 10, 20],
                 pager: '#StatisticPagerAllUser',
                 gridview: true,
                // rownumbers: true,
@@ -1834,4 +1864,25 @@ function getCookie(name) {
                             $('#STable3User8Factor').show();     
                 }
         }
-     
+     function updateTextPersent(val) {
+      $("#ValuePersent").html(val); 
+    }
+     function SendPersent(){
+         //alert($("#Persent").attr("value"));
+         var data = { persent: $("#ValuePersent").html()};
+         $.ajax({
+                                    url: "/SendNewPersent",
+                                    type: "post",
+                                    dataType: "json",
+                                    data: JSON.stringify(data),
+                                    success: function (response, textStatus, jqXHR) {
+                                        if(response.correct == true)
+                                        CheckBetRequest();
+                                    },
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        //alert("error");
+                                    },
+                                    complete: function () {
+                                    }
+                                });
+     }

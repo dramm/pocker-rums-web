@@ -802,7 +802,8 @@ color: white !important;
     background-image: url(/pic/ClearSubstrate.png);
     background-repeat: no-repeat;
     width: 42px;
-    height: 70px;
+    height: 66px;
+    background-size: cover;
 }
 
 .STableUserCart{
@@ -811,7 +812,7 @@ color: white !important;
     background-repeat: no-repeat;
     width: 27px;
     height: 44px;
-   background-size: 100%;
+    background-size: cover;
 }
 
 .progressbar-cover {
@@ -889,7 +890,7 @@ font-family: Segoe UI,Arial,sans-serif;
 
 .ui-widget-header {
 	border: 1px solid #aaaaaa;
-	background: rgb(73,166,232) url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x !important;
+	background: #49a6e8 !important; //url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x !important;
 	color: rgb(73,166,232) !important;
 	font-weight: bold;
 }
@@ -964,6 +965,7 @@ font-family: Segoe UI,Arial,sans-serif;
     width: 400px;
     height: 20px;
     color: white;
+    margin-top: 10px;
 }
 .BetTableSettings{
     background: #395466;
@@ -1107,12 +1109,15 @@ border-radius: 3px;
 }
 
 .ui-dialog {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	padding: 0;
 	outline: 0;
         border-radius: 6px 6px 0px 0px !important;
+        z-index: 1001;
+        border: solid #447b9e;
+        box-shadow: 0px 0px 15px 5px #447b9e;
 }
 .ui-dialog .ui-dialog-titlebar {
 	padding: 0;
@@ -1184,13 +1189,19 @@ border-radius: 3px;
 
 .CalculatorDisplay{
     background-color: white;
-    border-radius: 5px;
+    border-radius: 7px;
     color: red;
     font-size: 15px;
     width: 250px;
-    height: 50px;
+    height: 60px;
     margin-left: 20px;
-   
+    box-shadow: inset 3px 3px 4px 1px gray;
+    background: #d7d7d7;
+    margin-top: 10px;
+}
+
+.ui-draggable .ui-dialog-titlebar {
+    font-size: 11px;
 }
 
 
@@ -1221,3 +1232,43 @@ border-radius: 3px;
 cursor: pointer;
 }
 
+.CartsUser{
+    display: inline-block;
+    float: left;
+}
+
+.modalDialog {
+	position: fixed;
+	background: rgba(0,0,0,0.8);
+	z-index: 99999;
+	opacity:0;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 400ms ease-in;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+}
+
+
+#menuGame .dropdownMenu{
+    /*top: 10px;*/
+    position: absolute;
+    border-radius:0px 0px 8px 8px;
+    border: solid 2px #6B93A5;
+    border-top-width: 0;
+    background-color: #285F74;
+    padding: 4px 15px 4px 15px;
+    box-shadow: black 2px 2px 10px/*, gray 1em 1em 5em*/;    
+    font-size: 12px;     
+    width: 100px;
+    text-align: right;
+    display: none;
+    z-index: 100;
+}
+.modalCalc {
+    position:   fixed;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 0, 0, 0, .8 ) 
+}
