@@ -93,6 +93,21 @@ $(document).ready(function(){
         
         $('#menuGame .button').click(function () {
             var butt = $(this);
+            setButtonGradient(butt,true)
+            var forma = butt.find(".dropdownMenu");
+            var container=$("#menuGame");
+            var left1=butt.offset().left+butt.width()/2 - forma.width()/2-20;
+            forma.css({"top":"300px", "left":left1});
+            forma.hover(
+                    function(){$(this).addClass("under");},
+                    function(){$(this).removeClass("under");}
+            );
+            forma.addClass("started");
+            forma.slideDown("fast");
+        });
+        
+        $('#menuGame .button').click(function () {
+            var butt = $(this);
             setButtonGradient(butt,true);
             
         });

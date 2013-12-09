@@ -410,7 +410,7 @@ public class DBManager{
                     + "t3.role_name,"
                     + "t1.balance,"
                     + "t1.banned,"
-                    + "t1.activated "
+                    + "t1.activated,t1.last_login "
                     + "from users as t1,"
                     + "user_roles as t2,"
                     + "roles as t3 "
@@ -432,6 +432,7 @@ public class DBManager{
                 UserInfo.balance = rs.getDouble("balance");
                 UserInfo.banned = rs.getBoolean("banned");
                 UserInfo.Activated = rs.getBoolean("activated");
+                UserInfo.last_login = rs.getString("last_login");
                 UsersInfo.add(UserInfo);
             }
             return UsersInfo;

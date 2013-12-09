@@ -1,4 +1,5 @@
 $(document).ready(function(){
+     $('#mycarousel').jcarousel();
 $(".niceCheck").mousedown(
 function() {
      changeCheck($(this));
@@ -90,6 +91,7 @@ var el = el,
 
 
 $(document).ready(function(){
+   // $("").
 //    Первый стол
 $("#Table1User1Check").mousedown(
 function() {
@@ -361,10 +363,13 @@ $("#SendNewBet").click(
                 function (){
             if($("#SumBetUser").attr("disabled"))
                 return ;
-           $("#Calculator").dialog({title:"Выберите ставку",closeText:"X", modal: true,maxHeight:500,maxWidth:150,minHeight:500,minWidth:150});
+           $("#Calculator").dialog({title:"Выберите ставку",closeText:"X",height:520,width:300,maxHeight:520,maxWidth:300,minHeight:520,minWidth:300});
+          $("#ModalBackCalc").css("display","");
                 }     
             );   
-
+$('#Calculator').bind('dialogclose', function(event) {
+     $("#ModalBackCalc").css("display","none");
+ });
 
 for(var i = 1; i < 5; i++){
     $("#Table1User"+i+"Check").attr("disabled",true);
@@ -882,11 +887,11 @@ function StartGameCallback() {
                            SetNoActiveButt($('#STable1User1CheckBackground'));
                        
                         if(Message.StatisticCurrentUser.Table0.Hands.Hand0.Wins == true){
-                            $("#STableUser11").css("border","solid 1px red");
+                            $("#SCartsUser11").css("box-shadow","0px 0px 6px 5px whitesmoke");
                             winsTable1 = "11";
                         }
                         else
-                            $('#STableUser11').css("border","0");
+                            $('#SCartsUser11').css("border","0");
                         $('#STable1User1CheckBackground').html(Message.StatisticCurrentUser.Table0.Hands.Hand0.Factor);
                         $('#STable1User1Progress').css('bottom' , Message.StatisticCurrentUser.Table0.Hands.Hand0.Indicator + '%');
                         $('#STable1User2Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Hands.Hand1.FirstCard+'.png)');
@@ -898,11 +903,11 @@ function StartGameCallback() {
                         else
                             SetNoActiveButt($('#STable1User2CheckBackground'));
                        if(Message.StatisticCurrentUser.Table0.Hands.Hand1.Wins == true){
-                            $("#STableUser12").css("border","solid 1px red");
+                            $("#SCartsUser12").css("box-shadow","0px 0px 6px 5px whitesmoke");
                             winsTable1.length>0?winsTable1 += ",12":winsTable1 += "12";
                         }
                         else
-                            $('#STableUser12').css("border","0");
+                            $('#SCartsUser12').css("border","0");
                         $('#STable1User2CheckBackground').html(Message.StatisticCurrentUser.Table0.Hands.Hand1.Factor);
                         $('#STable1User2Progress').css('bottom' , Message.StatisticCurrentUser.Table0.Hands.Hand1.Indicator + '%');
                         $('#STable1User3Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Hands.Hand2.FirstCard+'.png)');
@@ -914,11 +919,11 @@ function StartGameCallback() {
                         else
                             SetNoActiveButt($('#STable1User3CheckBackground'));
                        if(Message.StatisticCurrentUser.Table0.Hands.Hand2.Wins == true){
-                            $("#STableUser13").css("border","solid 1px red");
+                            $("#SCartsUser13").css("box-shadow","0px 0px 6px 5px whitesmoke");
                             winsTable1.length>0?winsTable1 += ",13":winsTable1 += "13";
                         }
                         else
-                            $('#STableUser13').css("border","0");
+                            $('#SCartsUser13').css("border","0");
                         $('#STable1User3CheckBackground').html(Message.StatisticCurrentUser.Table0.Hands.Hand2.Factor);
                         $('#STable1User3Progress').css('bottom' , Message.StatisticCurrentUser.Table0.Hands.Hand2.Indicator + '%');
                         $('#STable1User4Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table0.Hands.Hand3.FirstCard+'.png)');
@@ -930,11 +935,11 @@ function StartGameCallback() {
                         else
                            SetNoActiveButt($('#STable1User4CheckBackground'));
                        if(Message.StatisticCurrentUser.Table0.Hands.Hand3.Wins == true){
-                            $("#STableUser14").css("border","solid 1px red");
+                            $("#SCartsUser14").css("box-shadow","0px 0px 6px 5px whitesmoke");
                             winsTable1.length>0?winsTable1 += ",14":winsTable1 += "14";
                         }
                         else
-                            $('#STableUser14').css("border","0");
+                            $('#SCartsUser14').css("border","0");
                         $('#STable1User4CheckBackground').html(Message.StatisticCurrentUser.Table0.Hands.Hand3.Factor);
                         $('#STable1User4Progress').css('bottom' , Message.StatisticCurrentUser.Table0.Hands.Hand3.Indicator + '%');
                         $('#STable2User1Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table1.Hands.Hand0.FirstCard+'.png)');
@@ -946,11 +951,11 @@ function StartGameCallback() {
                         else
                             SetNoActiveButt($('#STable2User1CheckBackground'));
                        if(Message.StatisticCurrentUser.Table1.Hands.Hand0.Wins == true){
-                            $("#STableUser21").css("border","solid 1px red");
+                            $("#SCartsUser21").css("box-shadow","0px 0px 6px 5px whitesmoke");
                             winsTable2.length>0?winsTable2 += ",21":winsTable2 += "21";
                         }
                         else
-                            $('#STableUser21').css("border","0");
+                            $('#SCartsUser21').css("border","0");
                         $('#STable2User1CheckBackground').html(Message.StatisticCurrentUser.Table1.Hands.Hand0.Factor);
                         $('#STable2User1Progress').css('bottom' , Message.StatisticCurrentUser.Table1.Hands.Hand0.Indicator + '%');
                         $('#STable2User2Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table1.Hands.Hand1.FirstCard+'.png)');
@@ -962,11 +967,11 @@ function StartGameCallback() {
                         else
                             SetNoActiveButt($('#STable2User2CheckBackground'));
                        if(Message.StatisticCurrentUser.Table1.Hands.Hand1.Wins == true){
-                            $("#STableUser22").css("border","solid 1px red");
+                            $("#SCartsUser22").css("box-shadow","0px 0px 6px 5px whitesmoke");
                             winsTable2.length>0?winsTable2 += ",22":winsTable2 += "22";
                         }
                         else
-                            $('#STableUser22').css("border","0");
+                            $('#SCartsUser22').css("border","0");
                         $('#STable2User2CheckBackground').html(Message.StatisticCurrentUser.Table1.Hands.Hand1.Factor);
                         $('#STable2User2Progress').css('bottom' , Message.StatisticCurrentUser.Table1.Hands.Hand1.Indicator + '%');
                         $('#STable2User3Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table1.Hands.Hand2.FirstCard+'.png)');
@@ -978,11 +983,11 @@ function StartGameCallback() {
                         else
                             SetNoActiveButt($('#STable2User3CheckBackground'));
                        if(Message.StatisticCurrentUser.Table1.Hands.Hand2.Wins == true){
-                            $("#STableUser23").css("border","solid 1px red");
+                            $("#SCartsUser23").css("box-shadow","0px 0px 6px 5px whitesmoke");
                             winsTable2.length>0?winsTable2 += ",23":winsTable2 += "23";
                         }
                         else
-                            $('#STableUser23').css("border","0");
+                            $('#SCartsUser23').css("border","0");
                         $('#STable2User3CheckBackground').html(Message.StatisticCurrentUser.Table1.Hands.Hand2.Factor);
                         $('#STable2User3Progress').css('bottom' , Message.StatisticCurrentUser.Table1.Hands.Hand2.Indicator + '%');
                         $('#STable2User4Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table1.Hands.Hand3.FirstCard+'.png)');
@@ -994,11 +999,11 @@ function StartGameCallback() {
                         else
                             SetNoActiveButt($('#STable2User4CheckBackground'));
                        if(Message.StatisticCurrentUser.Table1.Hands.Hand3.Wins == true){
-                            $("#STableUser24").css("border","solid 1px red");
+                            $("#SCartsUser24").css("box-shadow","0px 0px 6px 5px whitesmoke");
                             winsTable2.length>0?winsTable2 += ",24":winsTable2 += "24";
                         }
                         else
-                            $('#STableUser24').css("border","0");
+                            $('#SCartsUser24').css("border","0");
                         $('#STable2User4CheckBackground').html(Message.StatisticCurrentUser.Table1.Hands.Hand3.Factor);
                         $('#STable2User4Progress').css('bottom' , Message.StatisticCurrentUser.Table1.Hands.Hand3.Indicator + '%');
                         $('#STable2User5Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table1.Hands.Hand4.FirstCard+'.png)');
@@ -1010,11 +1015,11 @@ function StartGameCallback() {
                         else
                             SetNoActiveButt($('#STable2User5CheckBackground'));
                        if(Message.StatisticCurrentUser.Table1.Hands.Hand4.Wins == true){
-                            $("#STableUser25").css("border","solid 1px red");
+                            $("#SCartsUser25").css("box-shadow","0px 0px 6px 5px whitesmoke");
                             winsTable2.length>0?winsTable2 += ",25":winsTable2 += "25";
                         }
                         else
-                            $('#STableUser25').css("border","0");
+                            $('#SCartsUser25').css("border","0");
                         $('#STable2User5CheckBackground').html(Message.StatisticCurrentUser.Table1.Hands.Hand4.Factor);
                         $('#STable2User5Progress').css('bottom' , Message.StatisticCurrentUser.Table1.Hands.Hand4.Indicator + '%');
                         $('#STable2User6Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table1.Hands.Hand5.FirstCard+'.png)');
@@ -1026,11 +1031,11 @@ function StartGameCallback() {
                         else
                             SetNoActiveButt($('#STable2User6CheckBackground'));
                        if(Message.StatisticCurrentUser.Table1.Hands.Hand5.Wins == true){
-                            $("#STableUser26").css("border","solid 1px red");
+                            $("#SCartsUser26").css("box-shadow","0px 0px 6px 5px whitesmoke");
                             winsTable2.length>0?winsTable2 += ",26":winsTable2 += "26";
                         }
                         else
-                            $('#STableUser26').css("border","0");
+                            $('#SCartsUser26').css("border","0");
                         $('#STable2User6CheckBackground').html(Message.StatisticCurrentUser.Table1.Hands.Hand5.Factor);
                         $('#STable2User6Progress').css('bottom' , Message.StatisticCurrentUser.Table1.Hands.Hand5.Indicator + '%');
                         $('#STable3User1Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand0.FirstCard+'.png)');
@@ -1042,11 +1047,11 @@ function StartGameCallback() {
                         else
                             SetNoActiveButt($('#STable3User1CheckBackground'));
                        if(Message.StatisticCurrentUser.Table2.Hands.Hand0.Wins == true){
-                            $("#STableUser31").css("border","solid 1px red");
+                            $("#SCartsUser31").css("box-shadow","0px 0px 6px 5px whitesmoke");
                             winsTable3.length>0?winsTable3 += ",31":winsTable3 += "31";
                         }
                         else
-                            $('#STableUser31').css("border","0");
+                            $('#SCartsUser31').css("border","0");
                         $('#STable3User1CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand0.Factor);
                         $('#STable3User1Progress').css('bottom' , Message.StatisticCurrentUser.Table2.Hands.Hand0.Indicator + '%');
                         $('#STable3User2Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand1.FirstCard+'.png)');
@@ -1058,11 +1063,11 @@ function StartGameCallback() {
                         else
                             SetNoActiveButt($('#STable3User2CheckBackground'));
                        if(Message.StatisticCurrentUser.Table2.Hands.Hand1.Wins == true){
-                            $("#STableUser32").css("border","solid 1px red");
+                            $("#SCartsUser32").css("box-shadow","0px 0px 6px 5px whitesmoke");
                             winsTable3.length>0?winsTable3 += ",32":winsTable3 += "32";
                         }
                         else
-                            $('#STableUser32').css("border","0");
+                            $('#SCartsUser32').css("border","0");
                         $('#STable3User2CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand1.Factor);
                         $('#STable3User2Progress').css('bottom' , Message.StatisticCurrentUser.Table2.Hands.Hand1.Indicator + '%');
                         $('#STable3User3Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand2.FirstCard+'.png)');
@@ -1074,11 +1079,11 @@ function StartGameCallback() {
                         else
                             SetNoActiveButt($('#STable3User3CheckBackground'));
                        if(Message.StatisticCurrentUser.Table2.Hands.Hand2.Wins == true){
-                            $("#STableUser33").css("border","solid 1px red");
+                            $("#SCartsUser33").css("box-shadow","0px 0px 6px 5px whitesmoke");
                         winsTable3.length>0?winsTable3 += ",33":winsTable3 += "33";
                     }
                         else
-                            $('#STableUser33').css("border","0");
+                            $('#SCartsUser33').css("border","0");
                         $('#STable3User3CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand2.Factor);
                         $('#STable3User3Progress').css('bottom' , Message.StatisticCurrentUser.Table2.Hands.Hand2.Indicator + '%');
                         $('#STable3User4Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand3.FirstCard+'.png)');
@@ -1090,11 +1095,11 @@ function StartGameCallback() {
                         else
                             SetNoActiveButt($('#STable3User4CheckBackground'));
                        if(Message.StatisticCurrentUser.Table2.Hands.Hand3.Wins == true){
-                            $("#STableUser34").css("border","solid 1px red");
+                            $("#SCartsUser34").css("box-shadow","0px 0px 6px 5px whitesmoke");
                             winsTable3.length>0?winsTable3 += ",34":winsTable3 += "34";
                         }
                         else
-                            $('#STableUser34').css("border","0");
+                            $('#SCartsUser34').css("border","0");
                         $('#STable3User4CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand3.Factor);
                         $('#STable3User4Progress').css('bottom' , Message.StatisticCurrentUser.Table2.Hands.Hand3.Indicator + '%');
                         $('#STable3User5Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand4.FirstCard+'.png)');
@@ -1106,11 +1111,11 @@ function StartGameCallback() {
                         else
                             SetNoActiveButt($('#STable3User5CheckBackground'));
                        if(Message.StatisticCurrentUser.Table2.Hands.Hand4.Wins == true){
-                            $("#STableUser35").css("border","solid 1px red");
+                            $("#SCartsUser35").css("box-shadow","0px 0px 6px 5px whitesmoke");
                             winsTable3.length>0?winsTable3 += ",35":winsTable3 += "35";
                         }
                         else
-                            $('#STableUser35').css("border","0");
+                            $('#SCartsUser35').css("border","0");
                         $('#STable3User5CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand4.Factor);
                         $('#STable3User5Progress').css('bottom' , Message.StatisticCurrentUser.Table2.Hands.Hand4.Indicator + '%');
                         $('#STable3User6Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand5.FirstCard+'.png)');
@@ -1122,11 +1127,11 @@ function StartGameCallback() {
                         else
                             SetNoActiveButt($('#STable3User6CheckBackground'));
                        if(Message.StatisticCurrentUser.Table2.Hands.Hand5.Wins == true){
-                            $("#STableUser36").css("border","solid 1px red");
+                            $("#SCartsUser36").css("box-shadow","0px 0px 6px 5px whitesmoke");
                             winsTable3.length>0?winsTable3 += ",36":winsTable3 += "36";
                             }
                         else
-                            $('#STableUser36').css("border","0");
+                            $('#SCartsUser36').css("border","0");
                         $('#STable3User6CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand5.Factor);
                         $('#STable3User6Progress').css('bottom' , Message.StatisticCurrentUser.Table2.Hands.Hand5.Indicator + '%');
                         $('#STable3User7Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand6.FirstCard+'.png)');
@@ -1138,11 +1143,11 @@ function StartGameCallback() {
                         else
                             SetNoActiveButt($('#STable3User7CheckBackground'));
                        if(Message.StatisticCurrentUser.Table2.Hands.Hand6.Wins == true){
-                            $("#STableUser37").css("border","solid 1px red");
+                            $("#SCartsUser37").css("box-shadow","0px 0px 6px 5px whitesmoke");
                             winsTable3.length>0?winsTable3 += ",37":winsTable3 += "37";
                         }
                         else
-                            $('#STableUser37').css("border","0");
+                            $('#SCartsUser37').css("border","0");
                         $('#STable3User7CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand6.Factor);
                         $('#STable3User7Progress').css('bottom' , Message.StatisticCurrentUser.Table2.Hands.Hand6.Indicator + '%');
                         $('#STable3User8Cart1').css('background-image' , 'url(/pic/cart/'+Message.StatisticCurrentUser.Table2.Hands.Hand7.FirstCard+'.png)');
@@ -1154,11 +1159,11 @@ function StartGameCallback() {
                         else
                             SetNoActiveButt($('#STable3User8CheckBackground'));
                        if(Message.StatisticCurrentUser.Table2.Hands.Hand7.Wins == true){
-                            $("#STableUser38").css("border","solid 1px red");
+                            $("#SCartsUser38").css("box-shadow","0px 0px 6px 5px whitesmoke");
                             winsTable3.length>0?winsTable3 += ",38":winsTable3 += "38";
                         }
                         else
-                            $('#STableUser38').css("border","0");
+                            $('#SCartsUser38').css("border","0");
                         $('#STable3User8CheckBackground').html(Message.StatisticCurrentUser.Table2.Hands.Hand7.Factor);
                         $('#STable3User8Progress').css('bottom' , Message.StatisticCurrentUser.Table2.Hands.Hand7.Indicator + '%');
                        
@@ -1313,16 +1318,29 @@ function StartGameCallback() {
                 }
                 var BalanceNew = Message.Balance;
                 $("#MaxBet").html(BalanceNew);
-                $("#ShowCurrentRaund").html(Message.Round);
+                $("#BalanceUser").html(BalanceNew);
+                if($("#ShowCurrentRaund").html() != Message.Round)
+                    $("#ShowCurrentRaund").html(Message.Round);
+                    
+                    if(Message.Stage == 0)
+                        $("#ShowNextStage").html("Префлоп");
+                    if(Message.Stage == 1)
+                        $("#ShowNextStage").html("Флоп");
+                    if(Message.Stage == 2)        
+                        $("#ShowNextStage").html("Терн");
+                    if(Message.Stage == 3)
+                        $("#ShowNextStage").html("Ривер");
+                           
+                    
                 var StringBets = "";
                 for (var i=0;i<Message.Bets[0].length;i++){
                     StringBets+=
                            "<div style='float: left' id='BetTableCollection'> "+
-                           "<div style='float: left;width: 100%;height: 15px;font-size: 12px'>"+
-                                 "<div onclick='GetBet("+i+");return false;' style='border:solid red 0.5px;float: left;width: 130px;text-align: center'>"+Message.Bets[0][i].date+"</div>"+
-                                    "<div onclick='GetBet("+i+");return false;' style='border:solid red 0.5px;float: left;width: 100px;text-align: center'>"+Message.Bets[0][i].hands+"</div>"+
-                                    "<div onclick='GetBet("+i+");return false;' style='border:solid red 0.5px;float: left;width: 70px;text-align: center'>"+Message.Bets[0][i].sum_bet.toFixed(2)+"</div>"+
-                                    "<div onclick='GetBet("+i+");return false;' style='border:solid red 0.5px;float: left;width: 60px;text-align: center'>"+Message.Bets[0][i].sum_win.toFixed(2)+"</div>"+
+                           "<div style='float: left;width: 100%;height: 20px;font-size: 12px'>"+
+                                 "<div onclick='GetBet("+i+");return false;' style='border:solid rgb(30, 45, 55) 1px;float: left;background-color: #3c5a6e;width: 130px;height:20px;text-align: center'>"+Message.Bets[0][i].date+"</div>"+
+                                    "<div onclick='GetBet("+i+");return false;' style='border:solid rgb(30, 45, 55) 1px;float: left;width: 121px;background-color: #3c5a6e;height:20px;text-align: center'>"+Message.Bets[0][i].hands+"</div>"+
+                                    "<div onclick='GetBet("+i+");return false;' style='border:solid rgb(30, 45, 55) 1px;float: left;width: 60px;background-color: #3c5a6e;height:20px;text-align: center'>"+Message.Bets[0][i].sum_bet.toFixed(2)+"</div>"+
+                                    "<div onclick='GetBet("+i+");return false;' style='border:solid rgb(30, 45, 55) 1px;float: left;width: 81px;background-color: #3c5a6e;height:20px;text-align: center'>"+Message.Bets[0][i].sum_win.toFixed(2)+"</div>"+
                                 "</div>"
                     
                 }
@@ -1447,24 +1465,24 @@ function StartGameCallback() {
                 $('#Table3Flop3').css('background-image' , 'url(/pic/flop.png)');
                 $('#Table3Tern').css('background-image' , 'url(/pic/tern.png)');
                 $('#Table3River').css('background-image' , 'url(/pic/river.png)');
-                $('#TableUser11').css("border","0");
-                $('#TableUser12').css("border","0");
-                $('#TableUser13').css("border","0");
-                $('#TableUser14').css("border","0");
-                $('#TableUser21').css("border","0");
-                $('#TableUser22').css("border","0");
-                $('#TableUser23').css("border","0");
-                $('#TableUser24').css("border","0");
-                $('#TableUser25').css("border","0");
-                $('#TableUser26').css("border","0");
-                $('#TableUser31').css("border","0");
-                $('#TableUser32').css("border","0");
-                $('#TableUser33').css("border","0");
-                $('#TableUser34').css("border","0");
-                $('#TableUser35').css("border","0");
-                $('#TableUser36').css("border","0");
-                $('#TableUser37').css("border","0");
-                $('#TableUser38').css("border","0");
+                $('#CartsUser11').css("box-shadow","");
+                $('#CartsUser12').css("box-shadow","");
+                $('#CartsUser13').css("box-shadow","");
+                $('#CartsUser14').css("box-shadow","");
+                $('#CartsUser21').css("box-shadow","");
+                $('#CartsUser22').css("box-shadow","");
+                $('#CartsUser23').css("box-shadow","");
+                $('#CartsUser24').css("box-shadow","");
+                $('#CartsUser25').css("box-shadow","");
+                $('#CartsUser26').css("box-shadow","");
+                $('#CartsUser31').css("box-shadow","");
+                $('#CartsUser32').css("box-shadow","");
+                $('#CartsUser33').css("box-shadow","");
+                $('#CartsUser34').css("box-shadow","");
+                $('#CartsUser35').css("box-shadow","");
+                $('#CartsUser36').css("box-shadow","");
+                $('#CartsUser37').css("box-shadow","");
+                $('#CartsUser38').css("box-shadow","");
                 return;
             }
             
@@ -1842,7 +1860,7 @@ function StartGameCallback() {
                     }
                     if(Message.Stage == 5)
                         for(var i=0;i<Message.Shutdown.length;i++)
-                            $("#TableUser" + Message.Shutdown[i]).css("border","solid 1px red");
+                            $("#CartsUser" + Message.Shutdown[i]).css("box-shadow","0px 0px 12px 10px whitesmoke");
                         
                     
                     return ;
@@ -2223,7 +2241,7 @@ function StartGameCallback() {
                     }
                     if(Message.Stage == 5)
                         for(var i=0;i<Message.Shutdown.length;i++)
-                            $("#TableUser" + Message.Shutdown[i]).css("border","solid 1px red");
+                            $("#CartsUser" + Message.Shutdown[i]).css("box-shadow","0px 0px 12px 10px whitesmoke");
                     
                     
                     return;
@@ -2561,7 +2579,7 @@ function StartGameCallback() {
                     }
                    if(Message.Stage == 5)
                         for(var i=0;i<Message.Shutdown.length;i++)
-                            $("#TableUser" + Message.Shutdown[i]).css("border","solid 1px red");
+                            $("#CartsUser" + Message.Shutdown[i]).css("box-shadow","0px 0px 12px 10px whitesmoke");
                     
                     return ;
                 }
@@ -2887,7 +2905,7 @@ function StartGameCallback() {
                     }
                     if(Message.Stage == 5)
                         for(var i=0;i<Message.Shutdown.length;i++)
-                            $("#TableUser" + Message.Shutdown[i]).css("border","solid 1px red");
+                            $("#CartsUser" + Message.Shutdown[i]).css("box-shadow","0px 0px 12px 10px whitesmoke");
                     
                     
                     return ;
@@ -3206,18 +3224,19 @@ function StartGameCallback() {
                     }
                     if(Message.Stage == 5)
                         for(var i=0;i<Message.Shutdown.length;i++)
-                            $("#TableUser" + Message.Shutdown[i]).css("border","solid 1px red");
+                            $("#CartsUser" + Message.Shutdown[i]).css("box-shadow","0px 0px 12px 10px whitesmoke");
                     
                     
                     return ;
                 }
                 
                 if($("#CurrentStage").html() == 4){
+                    $("#CurrentStage").html("");
                     $("#CurrentStage").html(Message.Stage);
-                   
+                    //    return ;
                 if(Message.Stage == 5)
                         for(var i=0;i<Message.Shutdown.length;i++)
-                            $("#TableUser" + Message.Shutdown[i]).css("border","solid 1px red");
+                            $("#CartsUser" + Message.Shutdown[i]).css("box-shadow","0px 0px 12px 10px whitesmoke");
                 }
                 
                 if(Message.Stage == 5){

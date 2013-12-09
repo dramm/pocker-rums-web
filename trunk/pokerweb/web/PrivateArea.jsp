@@ -301,6 +301,19 @@
 <%if(IsAdministrator){%>
 <div id="tabs-12">
     <b>Настройки сервера</b>
+    </br>
+    <div style="float: left">Баланс пользователей:&nbsp; </div>
+    <div id="balance" style="float: left;"></div>
+    </br>
+    <div style="float: left">Свободные деньги:&nbsp; </div>
+    <div id="profit" style="float: left;"></div>
+    </br>
+    <div style="float: left">Выигрыш казино:&nbsp; </div>
+    <div id="spareMoney" style="float: left;"></div>
+    </br>
+    <div id="ValuePersent">10</div>
+    <input type="range" min="10" max="80" step="1" value="10" id="Persent" onchange="updateTextPersent(this.value);">
+    <input type="button" id="SetPersent" value="Применить" onclick="SendPersent(); return false"/>
     <input type="button" style="display:block;" id="ExecuteSelectedActions" onclick="" value="Запуск сервера" class="button"/>
     <div id="ListUsers">
     </div>
@@ -309,10 +322,7 @@
 
 <%if(IsAdministrator || IsManager){%>
 <div id="tabs-13">
-   
     <table id="StatisticListAllUser"><tr><td /></tr></table>
-        
-        
 </div>
 <%}%>
 </div>

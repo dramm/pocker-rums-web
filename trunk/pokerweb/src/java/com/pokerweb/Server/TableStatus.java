@@ -5,6 +5,7 @@
 package com.pokerweb.Server;
 
 import com.pokerweb.DB.DBManager;
+import com.pokerweb.DB.DataBalanceServer;
 import com.pokerweb.DB.Game;
 import com.pokerweb.crypto.CryptoManager;
 import java.io.IOException;
@@ -34,10 +35,12 @@ public class TableStatus {
     public Map<Integer,List<Integer>> ShutdownInfo;
     public Map<Long,JSONObject> StatisticBetCurrentUser;
     public Map<Long,StatisticBet> RequestStatisticBet;
+    public DataBalanceServer BalanseServer;
     public int Stage;
     public int Timer;
     public long Round;
     public boolean ServerResponce;
+    public JSONArray Winners;
     Game GMData;
     public String strJson;
     private TableStatus(){
@@ -239,7 +242,7 @@ public class TableStatus {
                }
         
         if(StageUser == -1 || StageUser == 4){
-                jsO.append("Round", Round);
+                //jsO.append("Round", Round);
             if(Stage >= 1 && StageUser != 4){
             for(int i = 0; i < 4; i++){
                     Table0.append("User"+String.valueOf(i),GetTableOne().Hands.get(i).CartOne);
@@ -639,9 +642,9 @@ public class TableStatus {
                 hands.add(T3.getInt(i));
             ShutdownInfo.put(2, hands);
             } 
-            JSONArray Winners = js.getJSONArray("Winners");
+            Winners = js.getJSONArray("Winners");
             GMData.CalculateBalanceUser(Winners);
-             GMData.WriteGameStatistic();
+            GMData.WriteGameStatistic();
             System.gc();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -769,6 +772,48 @@ public class TableStatus {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+    }
+    
+    public boolean ResponceCasinoBalanceFromServer(String data){
+        try {
+            JSONObject js = new JSONObject(data);
+            BalanseServer = new DataBalanceServer();
+            BalanseServer.balance = js.getDouble("balance");
+            BalanseServer.profit = js.getDouble("profit");
+            BalanseServer.spareMoney = js.getDouble("spareMoney");
+            BalanseServer.persent = js.getInt("persent");
+            return true;
+        } catch (JSONException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public boolean SendPersentToServer(int persent){
+        try {
+            JSONObject js = new JSONObject();
+            js.put("persent", persent);
+            Connect.GetInstance().out.write(Functions.intToByteArray(1055));
+            Connect.GetInstance().out.write(Functions.intToByteArray(js.toString().length()));
+            Connect.GetInstance().out.write(CryptoManager.encode(js.toString().getBytes()));
+            Connect.GetInstance().out.flush();
+            return true;
+        } catch (JSONException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    public boolean GetCasinoBalanceFromServer(){
+        try {
+            Connect.GetInstance().out.write(Functions.intToByteArray(1051));
+            Connect.GetInstance().out.flush();
+            return true;
+        } catch (IOException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
     
     public boolean SendBetsToServer(){

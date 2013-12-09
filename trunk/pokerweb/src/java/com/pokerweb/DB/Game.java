@@ -196,7 +196,7 @@ public class Game{
                     "sum_bet," +
                     "sum_win " +
                     "FROM user_bet where id_user = ? ORDER BY date_bet desc " +
-                    "LIMIT 11 OFFSET 0;";
+                    "LIMIT 8 OFFSET 0;";
             stmt = connection.prepareStatement(query);
             stmt.setLong(1,DBManager.GetInstance().GetCurrentUserId());
             ResultSet rs = stmt.executeQuery();
