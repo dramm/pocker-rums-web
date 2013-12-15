@@ -37,22 +37,7 @@ public class GetCasinoBalance extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet GetCasinoBalance</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet GetCasinoBalance at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {
-            out.close();
-        }
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -93,6 +78,7 @@ public class GetCasinoBalance extends HttpServlet {
                 js.put("profit", TableStatus.GetInstance().BalanseServer.profit);
                 js.put("spareMoney", TableStatus.GetInstance().BalanseServer.spareMoney);
                 js.put("persent", TableStatus.GetInstance().BalanseServer.persent);
+                TableStatus.GetInstance().BalanseServer = null;
                 response.setContentType("application/json; charset=utf-8");
                 response.setHeader("Cache-Control", "no-cache");
                 response.getWriter().write(js.toString());

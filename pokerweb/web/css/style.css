@@ -595,30 +595,30 @@ color: white !important;
 
 .table1{
     float:left;
-    background-image: url(/pic/table.png);
+    background-image: url(/pic/table1.png);
     background-position: left; /* Положение фона */
     background-repeat: no-repeat; /* Отменяем повторение фона */
-    background-size: 80%;
+    /*background-size: 80%;*/
     width: 440px;
-    height: 250px;
+    height: 300px;
 }
 .table2{
     float:left;
-    background-image: url(/pic/table.png);
+    background-image: url(/pic/table2.png);
     background-position: left; /* Положение фона */
     background-repeat: no-repeat; /* Отменяем повторение фона */
-    background-size: 80%;
+    /*background-size: 80%;*/
     width: 440px;
-    height: 250px;
+    height: 300px;
 }
 .table3{
     float:left;
-    background-image: url(/pic/table.png);
+    background-image: url(/pic/table3.png);
     background-position: left; /* Положение фона */
     background-repeat: no-repeat; /* Отменяем повторение фона */
-    background-size: 80%;
+    /*background-size: 80%;*/
     width: 440px;
-    height: 250px;
+    height: 300px;
     margin-top: 30px;
     margin-bottom: 30px;
 }
@@ -738,7 +738,8 @@ color: white !important;
     background-repeat: no-repeat; /* Отменяем повторение фона */
     width: 42px;
     height: 67px;
-    margin-left:2px;
+    margin-left:5px;
+    /*border: 1px solid rgb(54, 76, 92);*/
 }
 .tern{
     float: left;
@@ -746,7 +747,8 @@ color: white !important;
     background-repeat: no-repeat; /* Отменяем повторение фона */
     width: 42px;
     height: 67px;
-    margin-left:2px;
+    margin-left:5px;
+    /*border: 1px solid rgb(54, 76, 92);*/
 }
 .river{
     float: left;
@@ -754,7 +756,8 @@ color: white !important;
     background-repeat: no-repeat; /* Отменяем повторение фона */
     width: 42px;
     height: 67px;
-    margin-left:2px;
+    margin-left:5px;
+    /*border: 1px solid rgb(54, 76, 92);*/
 }
 
 .Sflop{
@@ -787,9 +790,9 @@ color: white !important;
 
 .TableCart{
     float: left;
-    margin-left: 10px;
-    
-}
+    margin-left: 90px;
+    margin-top: 25px;}
+
 
 .STableCart{
     float: left;
@@ -801,9 +804,10 @@ color: white !important;
     float: left;
     background-image: url(/pic/ClearSubstrate.png);
     background-repeat: no-repeat;
-    width: 42px;
-    height: 66px;
-    background-size: cover;
+    width: 40px;
+    height: 65px;
+    /*background-size: cover;*/
+    border: solid #364c5c 1px;
 }
 
 .STableUserCart{
@@ -838,7 +842,7 @@ font-family: Segoe UI,Arial,sans-serif;
  border: 0;
  width: 5px;
  height: 25px;
- top: 45px;
+ top: 55px;
  overflow: hidden;
  text-indent: -30px;
  background: url(/pic/fullindicator.png) repeat scroll center center #0f0;
@@ -904,7 +908,7 @@ font-family: Segoe UI,Arial,sans-serif;
 }
 
 .TableUser{
-    width: 89px;
+    width: 95px;
     float: left;
     text-align: center;
     height: 80px;
@@ -927,6 +931,7 @@ font-family: Segoe UI,Arial,sans-serif;
     color: white;
     font-size: 12px;
     margin-top: 75px;
+    margin-top: 80px;
 }
 .SUserNumber{
     color: white;
@@ -938,7 +943,8 @@ font-family: Segoe UI,Arial,sans-serif;
     float:left;
     width: 400px;
     height: 250px;
-    background: #2f4554;
+    background-image: url('/pic/backgroundStatisticBlock.png');
+    background-size: cover;
     margin-top: 30px;
     border-radius: 6px;
 }
@@ -968,7 +974,6 @@ font-family: Segoe UI,Arial,sans-serif;
     margin-top: 10px;
 }
 .BetTableSettings{
-    background: #395466;
     width: 400px;
     height: 40px;
 }
@@ -1071,9 +1076,9 @@ width: 50px;
 height: 20px;
 position: absolute;
 float: left;
-margin-left: 15px;
+margin-left: 20px;
 margin-top: 55px;
-color:black;
+color:whitesmoke;
 font-weight: 700;
 }
 .STableUserFactor{
@@ -1088,11 +1093,11 @@ font-weight: 700;
 font-size: 13px;
 }
 .TableUserCheckBackground{
-background: -moz-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%);
-background: -webkit-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%);
-background: -o-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%);
-background: -ms-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%);
-background: linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%);
+/*background: -moz-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%);*/
+/*background: -webkit-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%);*/
+/*background: -o-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%);*/
+/*background: -ms-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%);*/
+/*background: linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%);*/
 float: left;
 width: 50px;
 border-radius: 3px;
@@ -1271,4 +1276,16 @@ cursor: pointer;
     height:     100%;
     width:      100%;
     background: rgba( 0, 0, 0, .8 ) 
+}
+.payEnter{
+display: table-cell;
+font-family: "Helvetica Neue","Arial";
+font-size: 12px;
+font-weight: bold;
+height: 88px;
+text-align: center;
+width: 100%;
+vertical-align: middle;
+color: rgb(59, 81, 96);
+text-decoration: none;
 }

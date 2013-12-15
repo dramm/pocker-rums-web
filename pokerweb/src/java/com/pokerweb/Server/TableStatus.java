@@ -82,7 +82,7 @@ public class TableStatus {
                         break;
                         
                     case 1:
-                        if(TableStatus.GetInstance().Timer >= 42){
+                        if(TableStatus.GetInstance().Timer >= 30){
                         //    ServerResponce = false;
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
@@ -90,18 +90,18 @@ public class TableStatus {
                         }
                         else{
                             TableStatus.GetInstance().Timer++;
-                            if(Timer == 41){
+                            if(Timer == 29){
                                 SendBetsToServer();
                                 Connect.GetInstance().out.write(Functions.intToByteArray(1040));
                                 Connect.GetInstance().out.flush();
                             }
-                            if(Timer % 2 == 0 && Timer != 42)
+                            if(Timer % 2 == 0 && Timer != 30)
                                 SendBetsToServer();
                         }
                         break;
                         
                     case 2:
-                        if(TableStatus.GetInstance().Timer >= 42){ 
+                        if(TableStatus.GetInstance().Timer >= 30){ 
                         //    ServerResponce = false;
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
@@ -109,18 +109,18 @@ public class TableStatus {
                         }
                         else{
                             TableStatus.GetInstance().Timer++;
-                            if(Timer == 41){
+                            if(Timer == 29){
                                 SendBetsToServer();
                                 Connect.GetInstance().out.write(Functions.intToByteArray(1040));
                                 Connect.GetInstance().out.flush();
                             }
-                            if(Timer % 2 == 0 && Timer != 42)
+                            if(Timer % 2 == 0 && Timer != 30)
                                 SendBetsToServer();
                         }
                         break;
                             
                     case 3:
-                        if(TableStatus.GetInstance().Timer >= 42){
+                        if(TableStatus.GetInstance().Timer >= 30){
                       //      ServerResponce = false;
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
@@ -128,12 +128,12 @@ public class TableStatus {
                         }
                         else{
                             TableStatus.GetInstance().Timer++;
-                            if(Timer == 41){
+                            if(Timer == 29){
                                 SendBetsToServer();
                                 Connect.GetInstance().out.write(Functions.intToByteArray(1040));
                                 Connect.GetInstance().out.flush();   
                             }
-                            if(Timer % 2 == 0 && Timer != 42)
+                            if(Timer % 2 == 0 && Timer != 30)
                                 SendBetsToServer();
                         }
                         break;
@@ -148,7 +148,7 @@ public class TableStatus {
                             TableStatus.GetInstance().Timer++;
                         break;
                     case 5:{
-                        if(TableStatus.GetInstance().Timer >= 42){             
+                        if(TableStatus.GetInstance().Timer >= 30){             
                             Connect.GetInstance().out.write(byteCommand);
                             Connect.GetInstance().out.flush();
                             TableStatus.GetInstance().Timer = 0;

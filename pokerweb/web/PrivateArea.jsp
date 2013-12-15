@@ -73,6 +73,7 @@
 <%if(IsManager || IsAdministrator){%>
 <li><a href="#tabs-13">Статистика пользователей</a></li>
 <%}%>
+<li><a href="#tabs-14">Ввод средств</a></li>
 </ul>
     
 <div id="tabs-1">
@@ -301,6 +302,9 @@
 <%if(IsAdministrator){%>
 <div id="tabs-12">
     <b>Настройки сервера</b>
+        </br>
+     <div style="float: left">Общий баланс:&nbsp; </div>
+    <div id="balanceAll" style="float: left;"></div>
     </br>
     <div style="float: left">Баланс пользователей:&nbsp; </div>
     <div id="balance" style="float: left;"></div>
@@ -313,8 +317,8 @@
     </br>
     <div id="ValuePersent">10</div>
     <input type="range" min="10" max="80" step="1" value="10" id="Persent" onchange="updateTextPersent(this.value);">
-    <input type="button" id="SetPersent" value="Применить" onclick="SendPersent(); return false"/>
-    <input type="button" style="display:block;" id="ExecuteSelectedActions" onclick="" value="Запуск сервера" class="button"/>
+    <input type="button" class="button" id="SetPersent" value="Применить" onclick="SendPersent(); return false"/>
+    <!--<input type="button" style="display:block;" id="ExecuteSelectedActions" onclick="" value="Запуск сервера" class="button"/>-->
     <div id="ListUsers">
     </div>
     </div>
@@ -325,6 +329,32 @@
     <table id="StatisticListAllUser"><tr><td /></tr></table>
 </div>
 <%}%>
+
+<div id="tabs-14">
+   <div id="tabsPay">
+<ul>
+    <li><a href="#tabs-1" class="payEnter" style="background: url('/pic/logos-sprite_145_.png') no-repeat scroll 0px -78px transparent;"></a></li>
+    <li><a href="#tabs-2" class="payEnter" style="background: url('/pic/logos-sprite_145_.png') no-repeat scroll 0px -546px transparent;"></a></li>
+    <li><a href="#tabs-3" class="payEnter" style="background: url('/pic/logos-sprite_145_.png') no-repeat scroll 0px -234px transparent;"></a></li>
+    <li><a href="#tabs-4" class="payEnter" style="background: url('/pic/logos-sprite_145_.png') no-repeat scroll 0px -702px transparent;"></a></li>
+    <li><a href="#tabs-5" class="payEnter" style="background: url('/pic/logos-sprite_145_.png') no-repeat scroll 0px -1246px transparent;"></a></li>
+    <li><a href="#tabs-6" class="payEnter" style="background: url('/pic/logos-sprite_145_.png') no-repeat scroll 0px -1015px transparent;"></a></li>
+</ul>
+    
+<div id="tabs-1">
+</div>
+       <div id="tabs-2">
+</div>
+       <div id="tabs-3">
+</div>
+       <div id="tabs-4">
+</div>
+       <div id="tabs-5">
+</div>
+       <div id="tabs-6">
+</div>
+    
+   </div>
 </div>
                     </div>
 <div id="StatisticPagerAllUser"></div>

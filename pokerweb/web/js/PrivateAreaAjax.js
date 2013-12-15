@@ -131,6 +131,13 @@ if(selected == '#tabs-12')
 }).addClass( "ui-tabs-vertical ui-helper-clearfix" );
 $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 
+
+$( "#tabsPay" ).tabs({
+beforeActivate: function(event, ui) {
+var selected = ui.newTab.find("a").attr("href");
+
+}
+}).addClass( "ui-tabs-horizontall ui-helper-clearfix" );
 });
 
 function GetBalanceServer(){
@@ -141,9 +148,9 @@ function GetBalanceServer(){
             $("#balance").html(response.balance);
             $("#profit").html(response.spareMoney);
             $("#spareMoney").html(response.profit);
-            $("#spareMoney").html(response.profit);
             $("#ValuePersent").html(response.persent);
             $("#Persent").val(response.persent);
+            $("#balanceAll").html(parseFloat(response.balance)+parseFloat(response.spareMoney)+parseFloat(response.profit));
         },
         error: function (jqXHR, textStatus, errorThrown) {
             //alert("error");
@@ -1865,9 +1872,21 @@ function getCookie(name) {
                 }
         }
      function updateTextPersent(val) {
-      $("#ValuePersent").html(val); 
+      $("#ValuePersent").html(val);
+      document.getElementById("SetPersent").disabled=false;
+     $("#SetPersent").css("background","-moz-linear-gradient(top, #285F74 0%, #0d2a34 100%)");
+    $("#SetPersent").css("background","-webkit-linear-gradient(top, #285F74 0%, #0d2a34 100%)");
+    $("#SetPersent").css("background","-o-linear-gradient(top, #285F74 0%, #0d2a34 100%)");
+    $("#SetPersent").css("background","-ms-linear-gradient(top, #285F74 0%, #0d2a34 100%)");
+    $("#SetPersent").css("linear-gradient(top, #285F74 0%, #0d2a34 100%)");
     }
      function SendPersent(){
+         document.getElementById("SetPersent").disabled=true;
+         $("#SetPersent").css("background","-moz-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+         $("#SetPersent").css("background","-webkit-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+         $("#SetPersent").css("background","-o-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+         $("#SetPersent").css("background","-ms-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+         $("#SetPersent").css("background","linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
          //alert($("#Persent").attr("value"));
          var data = { persent: $("#ValuePersent").html()};
          $.ajax({

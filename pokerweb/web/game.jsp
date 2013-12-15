@@ -600,8 +600,8 @@
                 <div style="float: left;display: inline-block;width: 100%">
             <div id="table" class="table1">
                  <div style="float: left;width: 360px;">
-                <div style="height: 95px;width: 360px;">
-                    <div class="TableUser" id="TableUser11" style="margin-left: 85px;">
+                <div style="height: 95px;width: 270px;margin-left: 70px;">
+                    <div class="TableUser" id="TableUser11" style="float: left">
                         <div id="Table1User1Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table1User1CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table1User1Check">
@@ -610,7 +610,7 @@
                         </div>
                         <div id="CartsUser11" class="CartsUser">
                         <div id="Table1User1Cart1" class="TableUserCart"></div>
-                        <div id="Table1User1Cart2" class="TableUserCart"></div>
+                        <div id="Table1User1Cart2" class="TableUserCart" style="margin-left: 3px;"></div>
                         </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
@@ -621,7 +621,7 @@
                     </div>
                     <script>$('#Table1User1Progress').css('bottom' , 40 + '%');
                     </script>
-                    <div class="TableUser" id="TableUser12" style="margin-left: 15px;">
+                    <div class="TableUser" id="TableUser12" style="float: right;">
                         <div id="Table1User2Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table1User2CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table1User2Check">
@@ -630,7 +630,7 @@
                         </div>
                         <div id="CartsUser12" class="CartsUser">
                         <div id="Table1User2Cart1" class="TableUserCart"></div>
-                        <div id="Table1User2Cart2" class="TableUserCart"></div>
+                        <div id="Table1User2Cart2" class="TableUserCart" style="margin-left: 3px;"></div>
                         </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
@@ -642,9 +642,7 @@
                     <script>$('#Table1User2Progress').css('bottom' , 40 + '%');</script>
                 </div>
                     
-                <div class='tableNumber'>
-                    <div style="height: 13px;"></div>
-                    1</div>
+                
                 <div class="TableCart">
                 <div id="Table1Flop1" class="flop"></div>
                 <div id="Table1Flop2" class="flop"></div>
@@ -652,43 +650,45 @@
                 <div id="Table1Tern" class="tern"></div>
                 <div id="Table1River" class="river"></div>
                 </div>
-                <div style="float: left;margin-top: 25px;">
-                    <div class="TableUser" id="TableUser13" style="margin-left: 85px;">
-                        <div id="Table1User3Factor" class="TableUserFactor">
+                <div style="float: left;margin-top: 15px;width: 270px;margin-left: 70px;">
+                    <div class="TableUser" id="TableUser13" style="float: left">
+                        <div id="Table1User3Factor" class="TableUserFactor" style="margin-top: 80px">
                             <div style="position: absolute" id="Table1User3CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table1User3Check">
                                 <input type="checkbox" name="Table1User3Check" />
                             </span>
                         </div>
+                        <div style="color: white;font-size: 12px;margin-bottom: 10px;">13</div>
                         <div id="CartsUser13" class="CartsUser">
                         <div id="Table1User3Cart1" class="TableUserCart"></div>
-                        <div id="Table1User3Cart2" class="TableUserCart"></div>
+                        <div id="Table1User3Cart2" class="TableUserCart" style="margin-left: 3px;"></div>
                         </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table1User3Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">13</div>
+                        
                     </div>
                     <script>$('#Table1User3Progress').css('bottom' , 40 + '%');</script>
-                    <div class="TableUser" id="TableUser14" style="margin-left: 15px;">
-                        <div id="Table1User4Factor" class="TableUserFactor">
+                    <div class="TableUser" id="TableUser14" style="float: right">
+                        <div id="Table1User4Factor" class="TableUserFactor" style="margin-top: 80px">
                             <div style="position: absolute" id="Table1User4CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table1User4Check">
                                 <input type="checkbox" name="Table1User4Check" />
                             </span>
                         </div>
+                        <div style="color: white;font-size: 12px;margin-bottom: 10px;">14</div>
                         <div id="CartsUser14" class="CartsUser">
                         <div id="Table1User4Cart1" class="TableUserCart"></div>
-                        <div id="Table1User4Cart2" class="TableUserCart"></div>
+                        <div id="Table1User4Cart2" class="TableUserCart" style="margin-left: 3px;"></div>
                         </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table1User4Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">14</div>
+                       
                     </div>
                     <script>$('#Table1User4Progress').css('bottom' , 40 + '%');</script>
                 </div>
@@ -697,17 +697,17 @@
                     
             <div id="table" class="table2">
                 <div style="float: left;width: 360px;">
-                <div style="height: 95px;width: 360px;">
-                    <div class="TableUser" id="TableUser21" style="margin-left: 50px;">
+                <div style="height: 95px;width: 330px;margin-left: 50px;">
+                    <div class="TableUser" id="TableUser21">
                         <div id="Table2User1Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table2User1CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table2User1Check">
                                 <input type="checkbox" name="Table2User1Check" />
                             </span>
                         </div>
-                        <div id="CartsUser21" class="CartsUser">
+                        <div id="CartsUser21" class="CartsUser" >
                         <div id="Table2User1Cart1" class="TableUserCart"></div>
-                        <div id="Table2User1Cart2" class="TableUserCart"></div>
+                        <div id="Table2User1Cart2" class="TableUserCart" style="margin-left: 3px;"></div>
                         </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
@@ -716,7 +716,7 @@
                         </div>
                         <div class="UserNumber">21</div>
                     </div>
-                    <div class="TableUser" id="TableUser22">
+                    <div class="TableUser" id="TableUser22" style="margin-left: 20px;">
                         <div id="Table2User2Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table2User2CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table2User2Check">
@@ -725,7 +725,7 @@
                         </div>
                         <div id="CartsUser22" class="CartsUser">
                         <div id="Table2User2Cart1" class="TableUserCart"></div>
-                        <div id="Table2User2Cart2" class="TableUserCart"></div>
+                        <div id="Table2User2Cart2" class="TableUserCart" style="margin-left: 3px;"></div>
                         </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
@@ -734,7 +734,7 @@
                         </div>
                         <div class="UserNumber">22</div>
                     </div>
-                    <div class="TableUser" id="TableUser23">
+                    <div class="TableUser" id="TableUser23" style="margin-left: 20px;">
                         <div id="Table2User3Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table2User3CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table2User3Check">
@@ -743,7 +743,7 @@
                         </div>
                         <div id="CartsUser23" class="CartsUser">
                         <div id="Table2User3Cart1" class="TableUserCart"></div>
-                        <div id="Table2User3Cart2" class="TableUserCart"></div>
+                        <div id="Table2User3Cart2" class="TableUserCart" style="margin-left: 3px;"></div>
                         </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
@@ -758,9 +758,7 @@
                         $('#Table2User2Progress').css('bottom' , 40 + '%');
                         $('#Table2User3Progress').css('bottom' , 40 + '%');
                     </script>
-                <div class='tableNumber'>
-                    <div style="height: 13px;"></div>
-                    2</div>
+                
                 <div class="TableCart">
                 <div id="Table2Flop1" class="flop"></div>
                 <div id="Table2Flop2" class="flop"></div>
@@ -768,61 +766,63 @@
                 <div id="Table2Tern" class="tern"></div>
                 <div id="Table2River" class="river"></div>
                 </div>
-                <div style="float: left;margin-top: 25px;">
+                <div style="float: left;margin-top: 15px;width: 330px;margin-left: 50px;">
                     
-                    <div class="TableUser" id="TableUser24" style="float: left;margin-left: 50px;">
-                        <div id="Table2User4Factor" class="TableUserFactor">
+                    <div class="TableUser" id="TableUser24">
+                        <div id="Table2User4Factor" class="TableUserFactor" style="margin-top: 80px">
                             <div style="position: absolute" id="Table2User4CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table2User4Check">
                                 <input type="checkbox" name="Table2User4Check" />
                             </span>
                         </div>
+                        <div style="color: white;font-size: 12px;margin-bottom: 10px;">24</div>
                         <div id="CartsUser24" class="CartsUser">
                         <div id="Table2User4Cart1" class="TableUserCart"></div>
-                        <div id="Table2User4Cart2" class="TableUserCart"></div>
+                        <div id="Table2User4Cart2" class="TableUserCart" style="margin-left: 3px;"></div>
                         </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table2User4Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">24</div>
                     </div>
-                    <div class="TableUser" id="TableUser25" style="float: left;">
-                        <div id="Table2User5Factor" class="TableUserFactor">
+                    <div class="TableUser" id="TableUser25" style="margin-left: 20px;">
+                        <div id="Table2User5Factor" class="TableUserFactor" style="margin-top: 80px">
                             <div style="position: absolute" id="Table2User5CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table2User5Check">
                                 <input type="checkbox" name="Table2User5Check" />
                             </span>
                         </div>
+                        <div style="color: white;font-size: 12px;margin-bottom: 10px;">25</div>
                         <div id="CartsUser25" class="CartsUser">
                         <div id="Table2User5Cart1" class="TableUserCart"></div>
-                        <div id="Table2User5Cart2" class="TableUserCart"></div>
+                        <div id="Table2User5Cart2" class="TableUserCart" style="margin-left: 3px;"></div>
                         </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table2User5Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">25</div>
+                        
                     </div>
-                    <div class="TableUser" id="TableUser26" style="float: left;">
-                        <div id="Table2User6Factor" class="TableUserFactor">
+                    <div class="TableUser" id="TableUser26" style="margin-left: 20px;">
+                        <div id="Table2User6Factor" class="TableUserFactor" style="margin-top: 80px">
                             <div style="position: absolute" id="Table2User6CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table2User6Check">
                                 <input type="checkbox" name="Table2User6Check" />
                             </span>
                         </div>
+                        <div style="color: white;font-size: 12px;margin-bottom: 10px;">26</div>
                         <div id="CartsUser26" class="CartsUser">
                         <div id="Table2User6Cart1" class="TableUserCart"></div>
-                        <div id="Table2User6Cart2" class="TableUserCart"></div>
+                        <div id="Table2User6Cart2" class="TableUserCart" style="margin-left: 3px;"></div>
                         </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table2User6Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">26</div>
+                        
                     </div>
                     <script>
                         $('#Table2User4Progress').css('bottom' , 40 + '%');
@@ -833,11 +833,11 @@
             </div>
              </div>
                 </div>
-                <div style="float: left;display: inline-block;width: 100%">
+                <div style="float: left;display: inline-block;width: 100%;margin-top: 30px;">
             <div id="table" class="table3">
-                <div style="float: left;width: 370px;">
-                <div style="height: 95px;width: 370px;">
-                    <div class="TableUser" id="TableUser31">
+                <div style="float: left;width: 410px;">
+                <div style="height: 95px;width: 410px;">
+                    <div class="TableUser" id="TableUser31" >
                         <div id="Table3User1Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table3User1CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table3User1Check">
@@ -847,7 +847,7 @@
                         <div id="CartsUser31" class="CartsUser">
                         <div id="Table3User1Cart1" class="TableUserCart">
                         </div>
-                        <div id="Table3User1Cart2" class="TableUserCart"></div>
+                        <div id="Table3User1Cart2" class="TableUserCart" style="margin-left: 3px;"></div>
                         </div>
                          <div class="progressbar">
                             <span class="progressbar-value">
@@ -859,7 +859,7 @@
                     <script>
                         $('#Table3User1Progress').css('bottom' , 40 + '%'); 
                     </script>
-                    <div class="TableUser" id="TableUser32">
+                    <div class="TableUser" id="TableUser32" style="margin-left: 10px;">
                         <div id="Table3User2Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table3User2CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table3User2Check">
@@ -868,7 +868,7 @@
                         </div>
                         <div id="CartsUser32" class="CartsUser">
                         <div id="Table3User2Cart1" class="TableUserCart"></div>
-                        <div id="Table3User2Cart2" class="TableUserCart"></div>
+                        <div id="Table3User2Cart2" class="TableUserCart" style="margin-left: 3px;"></div>
                         </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
@@ -878,7 +878,7 @@
                         <div class="UserNumber">32</div>
                     </div>
                     <script>$('#Table3User2Progress').css('bottom' , 40 + '%');</script>
-                    <div  class="TableUser" id="TableUser33">
+                    <div  class="TableUser" id="TableUser33" style="margin-left: 10px;">
                         <div id="Table3User3Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table3User3CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table3User3Check">
@@ -887,7 +887,7 @@
                         </div>
                         <div id="CartsUser33" class="CartsUser">
                         <div id="Table3User3Cart1" class="TableUserCart"></div>
-                        <div id="Table3User3Cart2" class="TableUserCart"></div>
+                        <div id="Table3User3Cart2" class="TableUserCart" style="margin-left: 3px;"></div>
                         </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
@@ -898,7 +898,7 @@
                     </div>
                     <script>$('#Table3User3Progress').css('bottom' , 40 + '%');</script>
                     
-                    <div  class="TableUser" id="TableUser34">
+                    <div  class="TableUser" id="TableUser34" style="margin-left: 10px;">
                         <div id="Table3User4Factor" class="TableUserFactor">
                             <div style="position: absolute" id="Table3User4CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table3User4Check">
@@ -907,7 +907,7 @@
                         </div>
                         <div id="CartsUser34" class="CartsUser">
                         <div id="Table3User4Cart1" class="TableUserCart"></div>
-                        <div id="Table3User4Cart2" class="TableUserCart"></div>
+                        <div id="Table3User4Cart2" class="TableUserCart" style="margin-left: 3px;"></div>
                         </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
@@ -919,9 +919,7 @@
                     <script>$('#Table3User4Progress').css('bottom' , 40 + '%');</script>
                 </div>
                     
-                <div class='tableNumber'>
-                    <div style="height: 13px;"></div>
-                    3</div>
+               
                 <div class="TableCart">
                     <div id="Table3Flop1" class="flop"></div>
                 <div id="Table3Flop2" class="flop"></div>
@@ -929,83 +927,83 @@
                 <div id="Table3Tern" class="tern"></div>
                 <div id="Table3River" class="river"></div>
                 </div>
-                <div style="float: left;margin-top: 25px;">
+                <div style="float: left;margin-top: 15px;">
                     <div  class="TableUser" id="TableUser35">
-                        <div id="Table3User5Factor" class="TableUserFactor">
+                        <div id="Table3User5Factor" class="TableUserFactor" style="margin-top: 80px">
                             <div style="position: absolute" id="Table3User5CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table3User5Check">
                                 <input type="checkbox" name="Table3User5Check" />
                             </span>
                         </div>
+                        <div style="color: white;font-size: 12px;margin-bottom: 10px;">35</div>
                         <div id="CartsUser35" class="CartsUser">
                         <div id="Table3User5Cart1" class="TableUserCart"></div>
-                        <div id="Table3User5Cart2" class="TableUserCart"></div>
+                        <div id="Table3User5Cart2" class="TableUserCart" style="margin-left: 3px;"></div>
                         </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table3User5Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">35</div>
                     </div>
                     <script>
                         $('#Table3User5Progress').css('bottom' , 40 + '%');                
                     </script>
-                    <div  class="TableUser" id="TableUser36">
-                        <div id="Table3User6Factor" class="TableUserFactor">
+                    <div  class="TableUser" id="TableUser36" style="margin-left: 10px;">
+                        <div id="Table3User6Factor" class="TableUserFactor" style="margin-top: 80px">
                             <div style="position: absolute" id="Table3User6CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table3User6Check">
                                 <input type="checkbox" name="Table3User6Check" />
                             </span>
                         </div>
+                        <div style="color: white;font-size: 12px;margin-bottom: 10px;">36</div>
                         <div id="CartsUser36" class="CartsUser">
                         <div id="Table3User6Cart1" class="TableUserCart"></div>
-                        <div id="Table3User6Cart2" class="TableUserCart"></div>
+                        <div id="Table3User6Cart2" class="TableUserCart" style="margin-left: 3px;"></div>
                         </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table3User6Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">36</div>
                     </div>
                     <script>$('#Table3User6Progress').css('bottom' , 40 + '%');</script>
-                    <div  class="TableUser" id="TableUser37">
-                        <div id="Table3User7Factor" class="TableUserFactor">
+                    <div  class="TableUser" id="TableUser37" style="margin-left: 10px;">
+                        <div id="Table3User7Factor" class="TableUserFactor" style="margin-top: 80px">
                             <div style="position: absolute" id="Table3User7CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table3User7Check">
                                 <input type="checkbox" name="Table3User7Check" />
                             </span>
                         </div>
+                        <div style="color: white;font-size: 12px;margin-bottom: 10px;">37</div>
                         <div id="CartsUser37" class="CartsUser">
                         <div id="Table3User7Cart1" class="TableUserCart"></div>
-                        <div id="Table3User7Cart2" class="TableUserCart"></div>
+                        <div id="Table3User7Cart2" class="TableUserCart" style="margin-left: 3px;"></div>
                         </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table3User7Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">37</div>
                     </div>
                     <script>$('#Table3User7Progress').css('bottom' , 40 + '%');</script>
-                    <div  class="TableUser" id="TableUser38">
-                        <div id="Table3User8Factor" class="TableUserFactor">
+                    <div  class="TableUser" id="TableUser38" style="margin-left: 10px;">
+                        <div id="Table3User8Factor" class="TableUserFactor" style="margin-top: 80px">
                             <div style="position: absolute" id="Table3User8CheckBackground" class="TableUserCheckBackground">1.88</div>
                             <span class="TableUserCheck" id="Table3User8Check">
                                 <input type="checkbox" name="Table3User8Check" />
                             </span>
                         </div>
+                        <div style="color: white;font-size: 12px;margin-bottom: 10px;">38</div>
                         <div id="CartsUser38" class="CartsUser">
                         <div id="Table3User8Cart1" class="TableUserCart"></div>
-                        <div id="Table3User8Cart2" class="TableUserCart"></div>
+                        <div id="Table3User8Cart2" class="TableUserCart" style="margin-left: 3px;"></div>
                         </div>
                         <div class="progressbar">
                             <span class="progressbar-value">
                                 <em id="Table3User8Progress" class="progressbar-cover"></em>
                             </span>
                         </div>
-                        <div class="UserNumber">38</div>
                     </div>
                    <script>$('#Table3User8Progress').css('bottom' , 40 + '%');</script>
                 </div>
@@ -1034,7 +1032,7 @@
                         <div style="float: left;">    
                             <div class="ButtonExpressBetSum" id="SumBetDown">&lt</div>
                             <div class="ButtonExpressBetSum" id="SumBetUser">4.00</div>
-                            <div class="modalCalc" id="ModalBackCalc" style="display: none;">
+                            <div class="modalCalc" id="ModalBackCalc" style="display: none;z-index: 1;">
                             <div class="Calculator" name="Calculator" id="Calculator" style="width: 410px;height: 520px;display: none">
                                 <!--<div class="modalCalc"></div>-->
                                 <div class="CalculatorDisplay">
@@ -1082,15 +1080,15 @@
                                     </div>
                                     </div>
                                 </div>
-                                <div id="SumMinAndMax" style="float: left;display: inline-block;width:295px">
-                                    <div style="float: left;font-size: 12px;">Мин. ставка <div style="color: white;float: right;" id="CalcMinSumBet">4.0</div>
+                                <div id="SumMinAndMax" style="float: left;display: inline-block;width: 250px;margin-left: 20px;margin-top: 10px;margin-bottom: 20px;">
+                                    <div style="float: left;font-size: 12px;color: whitesmoke;font-weight: 600">Мин. ставка <div style="float: right;" id="CalcMinSumBet">&nbsp;4.0</div>
                                         </div>
-                                    <div style="float:right;font-size: 12px;">Макс. ставка <div style="color: white;float: right;" id="CalcMaxSumBet">50.0</div>
+                                    <div style="float:right;font-size: 12px;color: whitesmoke;font-weight: 600">Макс. ставка <div style="float: right;" id="CalcMaxSumBet">&nbsp;50.0</div>
                                     </div>
                                 </div>
-                                <div id="CalcButAppendAndMax" style="float: left;display: inline-block;width: 300px;">
-                                    <div id="SetMaxBet" style="float:left" class="CalcButtAppend">Макс.</div>
-                                    <div id="AppendSum" style="float:right" class="CalcButtAppend">Принять</div>
+                                <div id="CalcButAppendAndMax" style="float: left;display: inline-block;width: 250px;margin-left: 20px;">
+                                    <div id="SetMaxBet" style="float:left;text-align: center;width: 100px;border-radius: 7px;color: whitesmoke;height: 30px;" class="CalcButtAppend">Макс.</div>
+                                    <div id="AppendSum" style="float: right;text-align: center;width: 130px;height: 30px;border-radius: 7px;color: whitesmoke;background-image: url('/pic/ButtState4.png');background-size: cover;" class="CalcButtAppend">Принять</div>
                                 </div>
                             </div>
                                 </div>
@@ -1107,7 +1105,7 @@
                             <div style="float: left;width: 70px;text-align: center;margin-left: 10px;font-size: 14px;">Ставка</div>
                             <div style="float: left;width: 60px;text-align: center;font-size: 14px;">Выигрыш</div>
                             </div>
-                            <div style="float: left;background: none repeat scroll 0% 0% rgb(30, 45, 55);" id="BetTableCollection">
+                            <div style="float: left;" id="BetTableCollection">
                                
                             </div>
                         </div>
@@ -1174,7 +1172,8 @@
 		<li><img src="/pic/paySystem/mts.png"></li>
                 <li><img src="/pic/paySystem/mts.png"></li>
 		<li><img src="/pic/paySystem/novoplat.png"></li>
-		<li><img src="/pic/paySystem/plats.png"></li>
+                <li><img src="/pic/paySystem/novoplat.png"></li>
+		<!--<li><img src="/pic/paySystem/plats.png"></li>-->
 		    </ul>
             </div>
                 <a data-jcarouselcontrol="true" href="#" class="jcarousel-control-prev"><img src="/pic/paySystem/toLeft.png"></a>
