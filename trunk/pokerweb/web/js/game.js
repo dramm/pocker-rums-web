@@ -92,6 +92,244 @@ var el = el,
 
 $(document).ready(function(){
    // $("").
+   
+   $('#Table1User1Check').hover(function () {
+       if(!$('#Table1User1Check').attr("disabled"))
+       if($('#Table1User1Check').attr("checked"))
+           $("#Table1User1CheckBackground").css("backgroundImage","url(/pic/ButtState6.png)");
+       else
+           $("#Table1User1CheckBackground").css("backgroundImage","url(/pic/ButtState3.png)");
+},function (e) {
+    if(!$('#Table1User1Check').attr("disabled"))
+    if($('#Table1User1Check').attr("checked"))
+           $("#Table1User1CheckBackground").css("backgroundImage", "url(/pic/ButtState4.png)");
+       else
+           $("#Table1User1CheckBackground").css("backgroundImage", "url(/pic/ButtState1.png)");
+});
+$('#Table1User2Check').hover(function () {
+if(!$('#Table1User2Check').attr("disabled"))
+       if($('#Table1User2Check').attr("checked"))
+           $("#Table1User2CheckBackground").css("backgroundImage","url(/pic/ButtState6.png)");
+       else
+           $("#Table1User2CheckBackground").css("backgroundImage","url(/pic/ButtState3.png)");
+},function (e) {
+    if(!$('#Table1User2Check').attr("disabled"))
+    if($('#Table1User2Check').attr("checked"))
+           $("#Table1User2CheckBackground").css("backgroundImage", "url(/pic/ButtState4.png)");
+       else
+           $("#Table1User2CheckBackground").css("backgroundImage", "url(/pic/ButtState1.png)");
+});
+$('#Table1User3Check').hover(function () {
+if(!$('#Table1User3Check').attr("disabled"))
+       if($('#Table1User3Check').attr("checked"))
+           $("#Table1User3CheckBackground").css("backgroundImage","url(/pic/ButtState6.png)");
+       else
+           $("#Table1User3CheckBackground").css("backgroundImage","url(/pic/ButtState3.png)");
+},function (e) {
+    if(!$('#Table1User3Check').attr("disabled"))
+    if($('#Table1User3Check').attr("checked"))
+           $("#Table1User3CheckBackground").css("backgroundImage", "url(/pic/ButtState4.png)");
+       else
+           $("#Table1User3CheckBackground").css("backgroundImage", "url(/pic/ButtState1.png)");
+});
+$('#Table1User4Check').hover(function () {
+if(!$('#Table1User4Check').attr("disabled"))
+       if($('#Table1User4Check').attr("checked"))
+           $("#Table1User4CheckBackground").css("backgroundImage","url(/pic/ButtState6.png)");
+       else
+           $("#Table1User4CheckBackground").css("backgroundImage","url(/pic/ButtState3.png)");
+},function (e) {
+    if(!$('#Table1User4Check').attr("disabled"))
+    if($('#Table1User4Check').attr("checked"))
+           $("#Table1User4CheckBackground").css("backgroundImage", "url(/pic/ButtState4.png)");
+       else
+           $("#Table1User4CheckBackground").css("backgroundImage", "url(/pic/ButtState1.png)");
+});
+
+$('#Table2User1Check').hover(function () {
+if(!$('#Table2User1Check').attr("disabled"))
+       if($('#Table2User1Check').attr("checked"))
+           $("#Table2User1CheckBackground").css("backgroundImage","url(/pic/ButtState6.png)");
+       else
+           $("#Table2User1CheckBackground").css("backgroundImage","url(/pic/ButtState3.png)");
+},function (e) {
+    if(!$('#Table2User1Check').attr("disabled"))
+    if($('#Table2User1Check').attr("checked"))
+           $("#Table2User1CheckBackground").css("backgroundImage", "url(/pic/ButtState4.png)");
+       else
+           $("#Table2User1CheckBackground").css("backgroundImage", "url(/pic/ButtState1.png)");
+});
+$('#Table2User2Check').hover(function () {
+if(!$('#Table2User2Check').attr("disabled"))
+       if($('#Table2User2Check').attr("checked"))
+           $("#Table2User2CheckBackground").css("backgroundImage","url(/pic/ButtState6.png)");
+       else
+           $("#Table2User2CheckBackground").css("backgroundImage","url(/pic/ButtState3.png)");
+},function (e) {
+    if(!$('#Table2User2Check').attr("disabled"))
+    if($('#Table2User2Check').attr("checked"))
+           $("#Table2User2CheckBackground").css("backgroundImage", "url(/pic/ButtState4.png)");
+       else
+           $("#Table2User2CheckBackground").css("backgroundImage", "url(/pic/ButtState1.png)");
+});
+$('#Table2User3Check').hover(function () {
+if(!$('#Table2User3Check').attr("disabled"))
+       if($('#Table2User3Check').attr("checked"))
+           $("#Table2User3CheckBackground").css("backgroundImage","url(/pic/ButtState6.png)");
+       else
+           $("#Table2User3CheckBackground").css("backgroundImage","url(/pic/ButtState3.png)");
+},function (e) {
+    if(!$('#Table2User3Check').attr("disabled"))
+    if($('#Table2User3Check').attr("checked"))
+           $("#Table2User3CheckBackground").css("backgroundImage", "url(/pic/ButtState4.png)");
+       else
+           $("#Table2User3CheckBackground").css("backgroundImage", "url(/pic/ButtState1.png)");
+});
+$('#Table2User4Check').hover(function () {
+if(!$('#Table2User4Check').attr("disabled"))
+       if($('#Table2User4Check').attr("checked"))
+           $("#Table2User4CheckBackground").css("backgroundImage","url(/pic/ButtState6.png)");
+       else
+           $("#Table2User4CheckBackground").css("backgroundImage","url(/pic/ButtState3.png)");
+},function (e) {
+    if(!$('#Table2User4Check').attr("disabled"))
+    if($('#Table2User4Check').attr("checked"))
+           $("#Table2User4CheckBackground").css("backgroundImage", "url(/pic/ButtState4.png)");
+       else
+           $("#Table2User4CheckBackground").css("backgroundImage", "url(/pic/ButtState1.png)");
+});
+$('#Table2User5Check').hover(function () {
+if(!$('#Table2User5Check').attr("disabled"))
+       if($('#Table2User5Check').attr("checked"))
+           $("#Table2User5CheckBackground").css("backgroundImage","url(/pic/ButtState6.png)");
+       else
+           $("#Table2User5CheckBackground").css("backgroundImage","url(/pic/ButtState3.png)");
+},function (e) {
+    if(!$('#Table2User5Check').attr("disabled"))
+    if($('#Table2User5Check').attr("checked"))
+           $("#Table2User5CheckBackground").css("backgroundImage", "url(/pic/ButtState4.png)");
+       else
+           $("#Table2User5CheckBackground").css("backgroundImage", "url(/pic/ButtState1.png)");
+});
+$('#Table2User6Check').hover(function () {
+if(!$('#Table2User6Check').attr("disabled"))
+       if($('#Table2User6Check').attr("checked"))
+           $("#Table2User6CheckBackground").css("backgroundImage","url(/pic/ButtState6.png)");
+       else
+           $("#Table2User6CheckBackground").css("backgroundImage","url(/pic/ButtState3.png)");
+},function (e) {
+    if(!$('#Table2User6Check').attr("disabled"))
+    if($('#Table2User6Check').attr("checked"))
+           $("#Table2User6CheckBackground").css("backgroundImage", "url(/pic/ButtState4.png)");
+       else
+           $("#Table2User6CheckBackground").css("backgroundImage", "url(/pic/ButtState1.png)");
+});
+
+$('#Table3User1Check').hover(function () {
+if(!$('#Table3User1Check').attr("disabled"))
+       if($('#Table3User1Check').attr("checked"))
+           $("#Table3User1CheckBackground").css("backgroundImage","url(/pic/ButtState6.png)");
+       else
+           $("#Table3User1CheckBackground").css("backgroundImage","url(/pic/ButtState3.png)");
+},function (e) {
+    if(!$('#Table3User1Check').attr("disabled"))
+    if($('#Table3User1Check').attr("checked"))
+           $("#Table3User1CheckBackground").css("backgroundImage", "url(/pic/ButtState4.png)");
+       else
+           $("#Table3User1CheckBackground").css("backgroundImage", "url(/pic/ButtState1.png)");
+});
+$('#Table3User2Check').hover(function () {
+if(!$('#Table3User2Check').attr("disabled"))
+       if($('#Table3User2Check').attr("checked"))
+           $("#Table3User2CheckBackground").css("backgroundImage","url(/pic/ButtState6.png)");
+       else
+           $("#Table3User2CheckBackground").css("backgroundImage","url(/pic/ButtState3.png)");
+},function (e) {
+    if(!$('#Table3User2Check').attr("disabled"))
+    if($('#Table3User2Check').attr("checked"))
+           $("#Table3User2CheckBackground").css("backgroundImage", "url(/pic/ButtState4.png)");
+       else
+           $("#Table3User2CheckBackground").css("backgroundImage", "url(/pic/ButtState1.png)");
+});
+$('#Table3User3Check').hover(function () {
+if(!$('#Table2User3Check').attr("disabled"))
+       if($('#Table3User3Check').attr("checked"))
+           $("#Table3User3CheckBackground").css("backgroundImage","url(/pic/ButtState6.png)");
+       else
+           $("#Table3User3CheckBackground").css("backgroundImage","url(/pic/ButtState3.png)");
+},function (e) {
+    if(!$('#Table2User3Check').attr("disabled"))
+    if($('#Table3User3Check').attr("checked"))
+           $("#Table3User3CheckBackground").css("backgroundImage", "url(/pic/ButtState4.png)");
+       else
+           $("#Table3User3CheckBackground").css("backgroundImage", "url(/pic/ButtState1.png)");
+});
+$('#Table3User4Check').hover(function () {
+if(!$('#Table3User4Check').attr("disabled"))
+       if($('#Table3User4Check').attr("checked"))
+           $("#Table3User4CheckBackground").css("backgroundImage","url(/pic/ButtState6.png)");
+       else
+           $("#Table3User4CheckBackground").css("backgroundImage","url(/pic/ButtState3.png)");
+},function (e) {
+    if(!$('#Table3User4Check').attr("disabled"))
+    if($('#Table3User4Check').attr("checked"))
+           $("#Table3User4CheckBackground").css("backgroundImage", "url(/pic/ButtState4.png)");
+       else
+           $("#Table3User4CheckBackground").css("backgroundImage", "url(/pic/ButtState1.png)");
+});
+$('#Table3User5Check').hover(function () {
+if(!$('#Table3User5Check').attr("disabled"))
+       if($('#Table3User5Check').attr("checked"))
+           $("#Table3User5CheckBackground").css("backgroundImage","url(/pic/ButtState6.png)");
+       else
+           $("#Table3User5CheckBackground").css("backgroundImage","url(/pic/ButtState3.png)");
+},function (e) {
+    if(!$('#Table3User5Check').attr("disabled"))
+    if($('#Table3User5Check').attr("checked"))
+           $("#Table3User5CheckBackground").css("backgroundImage", "url(/pic/ButtState4.png)");
+       else
+           $("#Table3User5CheckBackground").css("backgroundImage", "url(/pic/ButtState1.png)");
+});
+$('#Table3User6Check').hover(function () {
+if(!$('#Table3User6Check').attr("disabled"))
+       if($('#Table3User6Check').attr("checked"))
+           $("#Table3User6CheckBackground").css("backgroundImage","url(/pic/ButtState6.png)");
+       else
+           $("#Table3User6CheckBackground").css("backgroundImage","url(/pic/ButtState3.png)");
+},function (e) {
+    if(!$('#Table3User6Check').attr("disabled"))
+    if($('#Table3User6Check').attr("checked"))
+           $("#Table3User6CheckBackground").css("backgroundImage", "url(/pic/ButtState4.png)");
+       else
+           $("#Table3User6CheckBackground").css("backgroundImage", "url(/pic/ButtState1.png)");
+});
+$('#Table3User7Check').hover(function () {
+if(!$('#Table3User7Check').attr("disabled"))
+       if($('#Table3User7Check').attr("checked"))
+           $("#Table3User7CheckBackground").css("backgroundImage","url(/pic/ButtState6.png)");
+       else
+           $("#Table3User7CheckBackground").css("backgroundImage","url(/pic/ButtState3.png)");
+},function (e) {
+    if(!$('#Table3User7Check').attr("disabled"))
+    if($('#Table3User7Check').attr("checked"))
+           $("#Table3User7CheckBackground").css("backgroundImage", "url(/pic/ButtState4.png)");
+       else
+           $("#Table3User7CheckBackground").css("backgroundImage", "url(/pic/ButtState1.png)");
+});
+$('#Table3User8Check').hover(function () {
+if(!$('#Table3User8Check').attr("disabled"))
+       if($('#Table3User8Check').attr("checked"))
+           $("#Table3User8CheckBackground").css("backgroundImage","url(/pic/ButtState6.png)");
+       else
+           $("#Table3User8CheckBackground").css("backgroundImage","url(/pic/ButtState3.png)");
+},function (e) {
+    if(!$('#Table3User8Check').attr("disabled"))
+    if($('#Table3User8Check').attr("checked"))
+           $("#Table3User8CheckBackground").css("backgroundImage", "url(/pic/ButtState4.png)");
+       else
+           $("#Table3User8CheckBackground").css("backgroundImage", "url(/pic/ButtState1.png)");
+});
+
 //    Первый стол
 $("#Table1User1Check").mousedown(
 function() {
@@ -363,7 +601,7 @@ $("#SendNewBet").click(
                 function (){
             if($("#SumBetUser").attr("disabled"))
                 return ;
-           $("#Calculator").dialog({title:"Выберите ставку",closeText:"X",height:520,width:300,maxHeight:520,maxWidth:300,minHeight:520,minWidth:300});
+           $("#Calculator").dialog({title:"Выберите ставку",closeText:"X",height:550,width:300,maxHeight:550,maxWidth:300,minHeight:550,minWidth:300});
           $("#ModalBackCalc").css("display","");
                 }     
             );   
@@ -486,11 +724,12 @@ for(var i = 1; i < 9; i++)
 }
 
 function DisableCheck(el,input){
-    el.css("background","-moz-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
-    el.css("background","-webkit-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
-    el.css("background","-o-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
-    el.css("background","-ms-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
-    el.css("background","linear-gradient(top, #49a6e8 0%, #4281a9 100%)");	
+    el.css("backgroundImage", "url(/pic/ButtState2.png)");
+   // el.css("background","-moz-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
+   // el.css("background","-webkit-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
+   // el.css("background","-o-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
+   // el.css("background","-ms-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
+  //  el.css("background","linear-gradient(top, #49a6e8 0%, #4281a9 100%)");	
     input.attr("checked", false);
 }
 
@@ -506,11 +745,12 @@ function TableUserChangeCheck(el,input)
             // var exp = document.getElementById("ExpressCheck");
             // if(exp.getAttribute("checked"))
                 // DisableOtherBet(input);
-		el.css("background","-moz-linear-gradient(top, #d52711 0%, #d76255 100%)");
-                el.css("background","-webkit-linear-gradient(top, #d52711 0%, #d76255 100%)");
-                el.css("background","-o-linear-gradient(top, #d52711 0%, #d76255 100%)");
-                el.css("background","-ms-linear-gradient(top, #d52711 0%, #d76255 100%)");
-                el.css("background","linear-gradient(top, #d52711 0%, #d76255 100%)");
+                el.css("backgroundImage", "url(/pic/ButtState4.png)");
+		//el.css("background","-moz-linear-gradient(top, #d52711 0%, #d76255 100%)");
+                //el.css("background","-webkit-linear-gradient(top, #d52711 0%, #d76255 100%)");
+                //el.css("background","-o-linear-gradient(top, #d52711 0%, #d76255 100%)");
+                //el.css("background","-ms-linear-gradient(top, #d52711 0%, #d76255 100%)");
+                //el.css("background","linear-gradient(top, #d52711 0%, #d76255 100%)");
                 input.attr("checked", true);
             for(var i = 1; i < 5; i++)
                 if($("#Table1User"+i+"Check").attr("checked"))
@@ -609,11 +849,13 @@ function TableUserChangeCheck(el,input)
 	}
               //  SetBetHand(true);
 	} else {
-                el.css("background","-moz-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
-                el.css("background","-webkit-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
-                el.css("background","-o-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
-                el.css("background","-ms-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
-                el.css("background","linear-gradient(top, #49a6e8 0%, #4281a9 100%)");	
+               // el.css("background","-moz-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
+              //  el.css("background","-webkit-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
+              //  el.css("background","-o-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
+              //  el.css("background","-ms-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
+              //  el.css("background","linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
+                
+                el.css("backgroundImage", "url(/pic/ButtState1.png)");
                 input.attr("checked", false);
             for(var i = 1; i < 5; i++)
                 if($("#Table1User"+i+"Check").attr("checked"))
@@ -725,39 +967,43 @@ function TableUserChangeCheck(el,input)
 }
 
 function SetNoActiveButt(el){
-    el.css("background","-moz-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
-    el.css("background","-webkit-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
-    el.css("background","-o-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
-    el.css("background","-ms-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
-    el.css("background","linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+   // el.css("background","-moz-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+   // el.css("background","-webkit-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+   // el.css("background","-o-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+   // el.css("background","-ms-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+   // el.css("background","linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+   
+   el.css("backgroundImage", "url(/pic/ButtState2.png)");
 }
 
 function SetActiveButt(el){
-    el.css("background","-moz-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
-    el.css("background","-webkit-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
-    el.css("background","-o-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
-    el.css("background","-ms-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
-    el.css("background","linear-gradient(top, #49a6e8 0%, #4281a9 100%)");	
+   // el.css("background","-moz-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
+   // el.css("background","-webkit-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
+  //  el.css("background","-o-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
+  //  el.css("background","-ms-linear-gradient(top, #49a6e8 0%, #4281a9 100%)");
+  //  el.css("background","linear-gradient(top, #49a6e8 0%, #4281a9 100%)");	
+el.css("backgroundImage", "url(/pic/ButtState1.png)");
 }
 
 function SetActiveSetBetButt(el){
-   		el.css("background","-moz-linear-gradient(top, #d52711 0%, #d76255 100%)");
-                el.css("background","-webkit-linear-gradient(top, #d52711 0%, #d76255 100%)");
-                el.css("background","-o-linear-gradient(top, #d52711 0%, #d76255 100%)");
-                el.css("background","-ms-linear-gradient(top, #d52711 0%, #d76255 100%)");
-                el.css("background","linear-gradient(top, #d52711 0%, #d76255 100%)");
-   
+   		//el.css("background","-moz-linear-gradient(top, #d52711 0%, #d76255 100%)");
+               // el.css("background","-webkit-linear-gradient(top, #d52711 0%, #d76255 100%)");
+               // el.css("background","-o-linear-gradient(top, #d52711 0%, #d76255 100%)");
+               // el.css("background","-ms-linear-gradient(top, #d52711 0%, #d76255 100%)");
+               // el.css("background","linear-gradient(top, #d52711 0%, #d76255 100%)");
+   el.css("backgroundImage", "url(/pic/ButtState4.png)");
 }
 
 function TableUserChangeCheckStart(el,input){
 var el = el,input = input;
       if(input.attr("checked")) {
-          el.css("background","-moz-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
-          el.css("background","-webkit-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
-          el.css("background","-o-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
-          el.css("background","-ms-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
-          el.css("background","linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");	
-		
+        //  el.css("background","-moz-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+        //  el.css("background","-webkit-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+        //  el.css("background","-o-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+        //  el.css("background","-ms-linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+        //  el.css("background","linear-gradient(top, #A9A9A9 0%, #C0C0C0 100%)");
+        
+        el.css("backgroundImage", "url(/pic/ButtState2.png)");
     }
      return true;
 }
@@ -1334,13 +1580,18 @@ function StartGameCallback() {
                     
                 var StringBets = "";
                 for (var i=0;i<Message.Bets[0].length;i++){
+                    var hands;
+                    if(Message.Bets[0][i].hands.length > 19)
+                        hands = Message.Bets[0][i].hands.substr(0,19)+"...";
+                    else
+                        hands = Message.Bets[0][i].hands;
                     StringBets+=
                            "<div style='float: left' id='BetTableCollection'> "+
                            "<div style='float: left;width: 100%;height: 20px;font-size: 12px'>"+
-                                 "<div onclick='GetBet("+i+");return false;' style='border:solid rgb(30, 45, 55) 1px;float: left;background-color: #3c5a6e;width: 130px;height:20px;text-align: center'>"+Message.Bets[0][i].date+"</div>"+
-                                    "<div onclick='GetBet("+i+");return false;' style='border:solid rgb(30, 45, 55) 1px;float: left;width: 121px;background-color: #3c5a6e;height:20px;text-align: center'>"+Message.Bets[0][i].hands+"</div>"+
-                                    "<div onclick='GetBet("+i+");return false;' style='border:solid rgb(30, 45, 55) 1px;float: left;width: 60px;background-color: #3c5a6e;height:20px;text-align: center'>"+Message.Bets[0][i].sum_bet.toFixed(2)+"</div>"+
-                                    "<div onclick='GetBet("+i+");return false;' style='border:solid rgb(30, 45, 55) 1px;float: left;width: 81px;background-color: #3c5a6e;height:20px;text-align: center'>"+Message.Bets[0][i].sum_win.toFixed(2)+"</div>"+
+                                 "<div onclick='GetBet("+i+");return false;' style='border:solid rgb(30, 45, 55) 1px;float: left;width: 130px;height:20px;text-align: center'><div style='margin-top:3px'>"+Message.Bets[0][i].date+"</div></div>"+
+                                    "<div onclick='GetBet("+i+");return false;' style='border:solid rgb(30, 45, 55) 1px;float: left;width: 121px;height:20px;text-align: center'><div style='margin-top:3px'>"+hands+"</div></div>"+
+                                    "<div onclick='GetBet("+i+");return false;' style='border:solid rgb(30, 45, 55) 1px;float: left;width: 60px;height:20px;text-align: center'><div style='margin-top:3px'>"+Message.Bets[0][i].sum_bet.toFixed(2)+"</div></div>"+
+                                    "<div onclick='GetBet("+i+");return false;' style='border:solid rgb(30, 45, 55) 1px;float: left;width: 81px;height:20px;text-align: center'><div style='margin-top:3px'>"+Message.Bets[0][i].sum_win.toFixed(2)+"</div></div>"+
                                 "</div>"
                     
                 }
@@ -1400,9 +1651,9 @@ function StartGameCallback() {
                     SetNoActiveButt($("#SendNewBet"));
                 }
                 if(Message.Timer != null){
-                    var valueBaseProgress = Message.Timer * 100 / ((Message.Stage > 0) ? 42 : 5);
+                    var valueBaseProgress = Message.Timer * 100 / ((Message.Stage > 0) ? 30 : 5);
                     $("#progressbar").progressbar({value: valueBaseProgress}); 
-                    $("#BaseProgressTime").html((Message.Stage > 0 ? 42 : 5) - Message.Timer);
+                    $("#BaseProgressTime").html("00:"+((Message.Stage > 0 ? 30 : 5) - Message.Timer));
                     if(Message.Stage > 0 && Message.Timer>=40){
                         for(var i=1;i<5;i++){
                             SetNoActiveButt($("#Table1User"+i+"CheckBackground"));
@@ -1465,24 +1716,42 @@ function StartGameCallback() {
                 $('#Table3Flop3').css('background-image' , 'url(/pic/flop.png)');
                 $('#Table3Tern').css('background-image' , 'url(/pic/tern.png)');
                 $('#Table3River').css('background-image' , 'url(/pic/river.png)');
-                $('#CartsUser11').css("box-shadow","");
-                $('#CartsUser12').css("box-shadow","");
-                $('#CartsUser13').css("box-shadow","");
-                $('#CartsUser14').css("box-shadow","");
-                $('#CartsUser21').css("box-shadow","");
-                $('#CartsUser22').css("box-shadow","");
-                $('#CartsUser23').css("box-shadow","");
-                $('#CartsUser24').css("box-shadow","");
-                $('#CartsUser25').css("box-shadow","");
-                $('#CartsUser26').css("box-shadow","");
-                $('#CartsUser31').css("box-shadow","");
-                $('#CartsUser32').css("box-shadow","");
-                $('#CartsUser33').css("box-shadow","");
-                $('#CartsUser34').css("box-shadow","");
-                $('#CartsUser35').css("box-shadow","");
-                $('#CartsUser36').css("box-shadow","");
-                $('#CartsUser37').css("box-shadow","");
-                $('#CartsUser38').css("box-shadow","");
+                $("#Table1User1Cart1").css("box-shadow","");
+                                        $("#Table1User1Cart2").css("box-shadow","");
+                                        $("#Table1User2Cart1").css("box-shadow","");
+                                        $("#Table1User2Cart2").css("box-shadow","");
+                                        $("#Table1User3Cart1").css("box-shadow","");
+                                        $("#Table1User3Cart2").css("box-shadow","");
+                                        $("#Table1User4Cart1").css("box-shadow","");
+                                        $("#Table1User4Cart2").css("box-shadow","");
+                                        $("#Table2User1Cart1").css("box-shadow","");
+                                        $("#Table2User1Cart2").css("box-shadow","");
+                                        $("#Table2User2Cart1").css("box-shadow","");
+                                        $("#Table2User2Cart2").css("box-shadow","");
+                                        $("#Table2User3Cart1").css("box-shadow","");
+                                        $("#Table2User3Cart2").css("box-shadow","");
+                                        $("#Table2User4Cart1").css("box-shadow","");
+                                        $("#Table2User4Cart2").css("box-shadow","");
+                                        $("#Table2User5Cart1").css("box-shadow","");
+                                        $("#Table2User5Cart2").css("box-shadow","");
+                                        $("#Table2User6Cart1").css("box-shadow","");
+                                        $("#Table2User6Cart2").css("box-shadow","");
+                                        $("#Table3User1Cart1").css("box-shadow","");
+                                        $("#Table3User1Cart2").css("box-shadow","");
+                                        $("#Table3User2Cart1").css("box-shadow","");
+                                        $("#Table3User2Cart2").css("box-shadow","");
+                                        $("#Table3User3Cart1").css("box-shadow","");
+                                        $("#Table3User3Cart2").css("box-shadow","");
+                                        $("#Table3User4Cart1").css("box-shadow","");
+                                        $("#Table3User4Cart2").css("box-shadow","");
+                                        $("#Table3User5Cart1").css("box-shadow","");
+                                        $("#Table3User5Cart2").css("box-shadow","");
+                                        $("#Table3User6Cart1").css("box-shadow","");
+                                        $("#Table3User6Cart2").css("box-shadow","");
+                                        $("#Table3User7Cart1").css("box-shadow","");
+                                        $("#Table3User7Cart2").css("box-shadow","");
+                                        $("#Table3User8Cart1").css("box-shadow","");
+                                        $("#Table3User8Cart2").css("box-shadow","");
                 return;
             }
             
@@ -1859,9 +2128,85 @@ function StartGameCallback() {
                         $('#Table3River').css('background-image' , 'url(/pic/cart/'+Message.Table2.Bord[4]+'.png)');
                     }
                     if(Message.Stage == 5)
-                        for(var i=0;i<Message.Shutdown.length;i++)
-                            $("#CartsUser" + Message.Shutdown[i]).css("box-shadow","0px 0px 12px 10px whitesmoke");
-                        
+                        for(var i=0;i<Message.Shutdown.length;i++){
+                        switch (Message.Shutdown[i]){
+                                    case 11:
+                                        $("#Table1User1Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User1Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 12:
+                                        $("#Table1User2Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User2Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 13:
+                                        $("#Table1User3Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User3Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 14:
+                                        $("#Table1User4Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User4Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        
+                                        case 21:
+                                        $("#Table2User1Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User1Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 22:
+                                        $("#Table2User2Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User2Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 23:
+                                        $("#Table2User3Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User3Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 24:
+                                        $("#Table2User4Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User4Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 25:
+                                        $("#Table2User5Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User5Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 26:
+                                        $("#Table2User6Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User6Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        
+                                        case 31:
+                                        $("#Table3User1Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User1Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 32:
+                                        $("#Table3User2Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User2Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 33:
+                                        $("#Table3User3Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User3Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 34:
+                                        $("#Table3User4Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User4Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 35:
+                                        $("#Table3User5Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User5Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 36:
+                                        $("#Table3User6Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User6Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 37:
+                                        $("#Table3User7Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User7Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 38:
+                                        $("#Table3User8Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User8Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                    
+                                }
+                            }
                     
                     return ;
                 }
@@ -2240,9 +2585,85 @@ function StartGameCallback() {
                         
                     }
                     if(Message.Stage == 5)
-                        for(var i=0;i<Message.Shutdown.length;i++)
-                            $("#CartsUser" + Message.Shutdown[i]).css("box-shadow","0px 0px 12px 10px whitesmoke");
-                    
+                         for(var i=0;i<Message.Shutdown.length;i++){
+                                switch (Message.Shutdown[i]){
+                                    case 11:
+                                        $("#Table1User1Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User1Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 12:
+                                        $("#Table1User2Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User2Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 13:
+                                        $("#Table1User3Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User3Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 14:
+                                        $("#Table1User4Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User4Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        
+                                        case 21:
+                                        $("#Table2User1Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User1Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 22:
+                                        $("#Table2User2Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User2Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 23:
+                                        $("#Table2User3Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User3Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 24:
+                                        $("#Table2User4Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User4Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 25:
+                                        $("#Table2User5Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User5Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 26:
+                                        $("#Table2User6Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User6Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        
+                                        case 31:
+                                        $("#Table3User1Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User1Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 32:
+                                        $("#Table3User2Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User2Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 33:
+                                        $("#Table3User3Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User3Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 34:
+                                        $("#Table3User4Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User4Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 35:
+                                        $("#Table3User5Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User5Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 36:
+                                        $("#Table3User6Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User6Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 37:
+                                        $("#Table3User7Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User7Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 38:
+                                        $("#Table3User8Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User8Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                    
+                                }
+                               }
                     
                     return;
                 }
@@ -2578,9 +2999,85 @@ function StartGameCallback() {
                         
                     }
                    if(Message.Stage == 5)
-                        for(var i=0;i<Message.Shutdown.length;i++)
-                            $("#CartsUser" + Message.Shutdown[i]).css("box-shadow","0px 0px 12px 10px whitesmoke");
-                    
+                         for(var i=0;i<Message.Shutdown.length;i++){
+                            switch (Message.Shutdown[i]){
+                                    case 11:
+                                        $("#Table1User1Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User1Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 12:
+                                        $("#Table1User2Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User2Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 13:
+                                        $("#Table1User3Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User3Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 14:
+                                        $("#Table1User4Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User4Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        
+                                        case 21:
+                                        $("#Table2User1Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User1Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 22:
+                                        $("#Table2User2Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User2Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 23:
+                                        $("#Table2User3Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User3Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 24:
+                                        $("#Table2User4Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User4Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 25:
+                                        $("#Table2User5Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User5Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 26:
+                                        $("#Table2User6Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User6Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        
+                                        case 31:
+                                        $("#Table3User1Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User1Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 32:
+                                        $("#Table3User2Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User2Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 33:
+                                        $("#Table3User3Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User3Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 34:
+                                        $("#Table3User4Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User4Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 35:
+                                        $("#Table3User5Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User5Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 36:
+                                        $("#Table3User6Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User6Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 37:
+                                        $("#Table3User7Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User7Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 38:
+                                        $("#Table3User8Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User8Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                    
+                                }
+                            }
                     return ;
                 }
                 
@@ -2904,9 +3401,85 @@ function StartGameCallback() {
                         
                     }
                     if(Message.Stage == 5)
-                        for(var i=0;i<Message.Shutdown.length;i++)
-                            $("#CartsUser" + Message.Shutdown[i]).css("box-shadow","0px 0px 12px 10px whitesmoke");
-                    
+                         for(var i=0;i<Message.Shutdown.length;i++){
+                          switch (Message.Shutdown[i]){
+                                    case 11:
+                                        $("#Table1User1Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User1Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 12:
+                                        $("#Table1User2Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User2Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 13:
+                                        $("#Table1User3Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User3Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 14:
+                                        $("#Table1User4Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User4Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        
+                                        case 21:
+                                        $("#Table2User1Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User1Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 22:
+                                        $("#Table2User2Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User2Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 23:
+                                        $("#Table2User3Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User3Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 24:
+                                        $("#Table2User4Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User4Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 25:
+                                        $("#Table2User5Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User5Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 26:
+                                        $("#Table2User6Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User6Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        
+                                        case 31:
+                                        $("#Table3User1Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User1Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 32:
+                                        $("#Table3User2Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User2Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 33:
+                                        $("#Table3User3Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User3Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 34:
+                                        $("#Table3User4Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User4Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 35:
+                                        $("#Table3User5Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User5Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 36:
+                                        $("#Table3User6Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User6Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 37:
+                                        $("#Table3User7Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User7Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 38:
+                                        $("#Table3User8Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User8Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                    
+                                }
+                            }
                     
                     return ;
                 }
@@ -3223,9 +3796,85 @@ function StartGameCallback() {
                            }
                     }
                     if(Message.Stage == 5)
-                        for(var i=0;i<Message.Shutdown.length;i++)
-                            $("#CartsUser" + Message.Shutdown[i]).css("box-shadow","0px 0px 12px 10px whitesmoke");
-                    
+                         for(var i=0;i<Message.Shutdown.length;i++){
+                        switch (Message.Shutdown[i]){
+                                    case 11:
+                                        $("#Table1User1Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User1Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 12:
+                                        $("#Table1User2Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User2Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 13:
+                                        $("#Table1User3Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User3Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 14:
+                                        $("#Table1User4Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User4Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        
+                                        case 21:
+                                        $("#Table2User1Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User1Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 22:
+                                        $("#Table2User2Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User2Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 23:
+                                        $("#Table2User3Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User3Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 24:
+                                        $("#Table2User4Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User4Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 25:
+                                        $("#Table2User5Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User5Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 26:
+                                        $("#Table2User6Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User6Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        
+                                        case 31:
+                                        $("#Table3User1Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User1Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 32:
+                                        $("#Table3User2Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User2Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 33:
+                                        $("#Table3User3Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User3Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 34:
+                                        $("#Table3User4Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User4Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 35:
+                                        $("#Table3User5Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User5Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 36:
+                                        $("#Table3User6Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User6Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 37:
+                                        $("#Table3User7Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User7Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 38:
+                                        $("#Table3User8Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User8Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                    
+                                }
+                            }
                     
                     return ;
                 }
@@ -3235,8 +3884,85 @@ function StartGameCallback() {
                     $("#CurrentStage").html(Message.Stage);
                     //    return ;
                 if(Message.Stage == 5)
-                        for(var i=0;i<Message.Shutdown.length;i++)
-                            $("#CartsUser" + Message.Shutdown[i]).css("box-shadow","0px 0px 12px 10px whitesmoke");
+                        for(var i=0;i<Message.Shutdown.length;i++){
+                     switch (Message.Shutdown[i]){
+                                    case 11:
+                                        $("#Table1User1Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User1Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 12:
+                                        $("#Table1User2Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User2Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 13:
+                                        $("#Table1User3Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User3Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 14:
+                                        $("#Table1User4Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table1User4Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        
+                                        case 21:
+                                        $("#Table2User1Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User1Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 22:
+                                        $("#Table2User2Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User2Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 23:
+                                        $("#Table2User3Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User3Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 24:
+                                        $("#Table2User4Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User4Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 25:
+                                        $("#Table2User5Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User5Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 26:
+                                        $("#Table2User6Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table2User6Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        
+                                        case 31:
+                                        $("#Table3User1Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User1Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 32:
+                                        $("#Table3User2Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User2Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 33:
+                                        $("#Table3User3Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User3Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 34:
+                                        $("#Table3User4Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User4Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 35:
+                                        $("#Table3User5Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User5Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 36:
+                                        $("#Table3User6Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User6Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 37:
+                                        $("#Table3User7Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User7Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                        case 38:
+                                        $("#Table3User8Cart1").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        $("#Table3User8Cart2").css("box-shadow","0px 0px 12px 10px whitesmoke");
+                                        break;
+                                    
+                                }
+                            }
                 }
                 
                 if(Message.Stage == 5){
