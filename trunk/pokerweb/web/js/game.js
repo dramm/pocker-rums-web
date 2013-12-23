@@ -598,15 +598,25 @@ $("#SendNewBet").click(
         }
             );                
         $("#SumBetUser").click(
-                function (){
+                function (){//$("#CloseCalculatorButt").offset({top:ui.position.top-20, left:ui.position.left+300-20})
             if($("#SumBetUser").attr("disabled"))
                 return ;
-           $("#Calculator").dialog({title:"Выберите ставку",closeText:"X",height:550,width:300,maxHeight:550,maxWidth:300,minHeight:550,minWidth:300});
+           $("#Calculator").dialog({title:"Выберите ставку",height:560,width:300,maxHeight:560,maxWidth:300,minHeight:560,minWidth:300,
+           drag: function(event, ui) {
+       $("#CloseCalculatorButt").offset({top:ui.position.top-20, left:ui.position.left+300-20});
+           }});
           $("#ModalBackCalc").css("display","");
+           $("#CloseCalculatorButt").css("display","");
                 }     
             );   
+  
 $('#Calculator').bind('dialogclose', function(event) {
      $("#ModalBackCalc").css("display","none");
+     $("#CloseCalculatorButt").css("display","none");
+ });
+ 
+ $("#CloseCalculatorButt").click(function (){
+    $("#Calculator").dialog("close");
  });
 
 for(var i = 1; i < 5; i++){

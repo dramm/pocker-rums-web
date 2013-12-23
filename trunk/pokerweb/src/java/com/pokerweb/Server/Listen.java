@@ -85,6 +85,7 @@ public class Listen extends Thread {
                                 flag = in.read(message, 0, message.length);
                                 String mess = new String(CryptoManager.encode(message));
                                 TableStatus.GetInstance().SetResponceCurrentUserBet(mess);
+                                System.out.println(mess);
                                 break;
                     }
                             case 1580:{//1030 Запрос статистики

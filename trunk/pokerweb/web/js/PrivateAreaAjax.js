@@ -103,9 +103,6 @@ function initPrivateBody() {
     CurrentEmail = document.getElementById("CurrentEmail");
     
     CurrentPhone = document.getElementById("CurrentPhone");
-     $(function() {
-         $( "#ValuePersent" ).slider("max", 80 );
-     });
     FieldLoadFromDB();
 }
 
@@ -1129,10 +1126,10 @@ function getCookie(name) {
                     { name: 'forecast', index: 'forecast', width: 100 }
                      ],
                 rowNum: 200,
-                //rowList: [5, 10, 20],
+                rowList: [10,30,60,150,200],
                 pager: '#StatisticPagerCurrentUser',
                 gridview: true,
-               // rownumbers: true,
+                rownumbers: true,
                 //multiselect: true,
                 mtype: "POST",
                 autoencode: true,
@@ -1334,10 +1331,10 @@ function getCookie(name) {
                     { name: 'forecast', index: 'forecast', width: 100 }
                      ],
                 rowNum: 200,
-                //rowList: [5, 10, 20],
+                rowList: [10,30,60,150,200],
                 pager: '#StatisticPagerAllUser',
                 gridview: true,
-               // rownumbers: true,
+                rownumbers: true,
                 //multiselect: true,
                 mtype: "POST",
                 autoencode: true,

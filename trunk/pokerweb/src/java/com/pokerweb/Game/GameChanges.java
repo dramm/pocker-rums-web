@@ -71,12 +71,14 @@ public class GameChanges extends HttpServlet {
                 jb.append(line);
             Cookie[] c = request.getCookies();
             String Token = null;
-              for (Cookie object : request.getCookies()) 
+            String Data = null;
+            if(c != null){
+              for (Cookie object : c) 
                 if(object.getName().equals("JSESSIONID"))
                     Token = object.getValue();
-           // if(Token == null)
             JSONObject jsonObject = new JSONObject(jb.toString());
-            String Data = TableStatus.GetInstance().GetNewData(jsonObject.getInt("start"),Token);
+            Data = TableStatus.GetInstance().GetNewData(jsonObject.getInt("start"),Token);
+            }
             response.setContentType("application/json; charset=utf-8");
             response.setHeader("Cache-Control", "no-cache");
             response.getWriter().write(Data);

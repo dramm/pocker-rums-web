@@ -1028,12 +1028,15 @@
                             </span>
                         </div><b>Экспресс</b></div>
                         </div>
+                    <div id="CloseCalculatorButt" style="width: 44px;height: 44px;z-index: 2000;display: none;background-image: url('/pic/CloseButt.png')"></div>
+
                     <div class="BetTableSettings">
                         <div style="float: left;">    
                             <div class="ButtonExpressBetSum" id="SumBetDown">&lt</div>
                             <div class="ButtonExpressBetSum" id="SumBetUser">4.00</div>
                             <div class="modalCalc" id="ModalBackCalc" style="display: none;z-index: 1;">
-                            <div class="Calculator" name="Calculator" id="Calculator" style="width: 410px;height: 520px;display: none">
+                             
+                                <div class="Calculator" name="Calculator" id="Calculator" style="width: 410px;height: 520px;display: none">
                                 <!--<div class="modalCalc"></div>-->
                                 <div class="CalculatorDisplay">
                                     <div id="DisplayCalculator" style="float: right;font-size: 27px;margin-top: 20px;margin-right: 10px;">
@@ -1081,9 +1084,9 @@
                                     </div>
                                 </div>
                                 <div id="SumMinAndMax" style="float: left;display: inline-block;width: 250px;margin-left: 20px;margin-top: 10px;margin-bottom: 20px;">
-                                    <div style="float: left;font-size: 12px;color: whitesmoke;font-weight: 600">Мин. ставка <div style="float: right;" id="CalcMinSumBet">&nbsp;4.0</div>
+                                    <div style="float: left;font-size: 12px;color: whitesmoke;font-weight: 600;display: inline-flex;">Мин. ставка <div style="float: right;" id="CalcMinSumBet">&nbsp;4.0</div>
                                         </div>
-                                    <div style="float:right;font-size: 12px;color: whitesmoke;font-weight: 600">Макс. ставка <div style="float: right;" id="CalcMaxSumBet">&nbsp;50.0</div>
+                                    <div style="float:right;font-size: 12px;color: whitesmoke;font-weight: 600;display: inline-flex;">Макс. ставка <div style="float: right;" id="CalcMaxSumBet">&nbsp;50.0</div>
                                     </div>
                                 </div>
                                 <div id="CalcButAppendAndMax" style="float: left;display: inline-block;width: 250px;margin-left: 20px;">
