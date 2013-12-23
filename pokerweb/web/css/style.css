@@ -1150,6 +1150,7 @@ border-radius: 3px;
 	margin: -10px 0 0 0;
 	padding: 1px;
         background-image: url("/pic/CloseButt.png");
+        
 }
 .ui-dialog .ui-dialog-content {
 	position: relative;

@@ -65,7 +65,7 @@ public class GetCurrentUserAllStatistic extends HttpServlet {
             Game GM = new Game();
             int page = Integer.valueOf(request.getParameter("page"));
             int limit = Integer.valueOf(request.getParameter("rows"));
-            JSONObject js = GM.GetCurrentUserAllGameStatistic(limit,page-1);
+            JSONObject js = GM.GetCurrentUserAllGameStatistic(limit,(page-1)*limit);
             js.put("page", page);
             int d = (js.getInt("records")+(limit-1))/limit;
             js.put("total", d);
