@@ -141,7 +141,7 @@ a{
 #mainMenu .button{
     padding: 3px;
     display:inline-block;    
-    width: 8%;
+    width: 7%;
     min-width: 50px;    
     text-align: center;
     margin: 2px;
@@ -593,6 +593,17 @@ color: white !important;
     background: linear-gradient(top, #285F74 0%, #0d2a34 100%);
 }
 
+.tableHoldem{
+    float:left;
+    background-image: url(/pic/table.png);
+    background-position: left; /* Положение фона */
+    background-repeat: no-repeat; /* Отменяем повторение фона */
+    width: 440px;
+    height: 300px;
+    margin-left: 200px;
+    margin-top: 100px;
+}
+
 .table1{
     float:left;
     background-image: url(/pic/table1.png);
@@ -905,6 +916,22 @@ font-family: Segoe UI,Arial,sans-serif;
      background-repeat: no-repeat;
      width: 62px;
      height: 49px;
+}
+
+.UserHoldemGame{
+    border:solid red 1px;
+    float: left;
+    width: 150px;
+    height: 100px;
+}
+.UserHoldemProfile{
+    background-image: url(/pic/UserHoldemProfile.png);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    width: 150px;
+    height: 50px;
+    position: absolute;
+    margin-top: 50px;
 }
 
 .TableUser{
@@ -1241,6 +1268,12 @@ cursor: pointer;
 .CartsUser{
     display: inline-block;
     float: left;
+}
+
+.CartsUserHoldem{
+    display: inline-block;
+    float: left;
+    margin-left: 30px;
 }
 
 .modalDialog {

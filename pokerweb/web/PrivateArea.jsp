@@ -33,8 +33,8 @@
 <!DOCTYPE html>
 <html>
    <head>
-       <jsp:include page="headParam.jsp" flush="true" />
-       <script type="text/javascript" src="js/PrivateAreaAjax.js"></script>
+       <jsp:include page="/headParam.jsp" flush="true" />
+       <script type="text/javascript" src="/js/PrivateAreaAjax.js"></script>
 </head>
 <body onload="initPrivateBody()">
      <div id="modalWait" class="modal" style="background-image: url(/pic/ajax-loader.gif);display: none;"></div>
