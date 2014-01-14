@@ -10,26 +10,26 @@
         <meta name="description" content="Sergio Richi - лучшее казино....">
         <meta name="keywords" content="Rergio Richi казино играть live спорт футбол ставки выиграть ">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="css/jquery-ui.css" type="text/css" media="screen" />
-        <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+        <link rel="stylesheet" href="/css/jquery-ui.css" type="text/css" media="screen" />
+        <script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="/js/jquery.jcarousel.min.js"></script>
        <link rel="stylesheet" href="/css/carousel.css" type="text/css" media="screen" />
-        <script type="text/javascript" src="js/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="js/json2.js"></script>
-        <script type="text/javascript" src="js/script.js"></script>
-        <script type="text/javascript" src="js/ajax.js"></script>
+        <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/js/json2.js"></script>
+        <script type="text/javascript" src="/js/script.js"></script>
+        <script type="text/javascript" src="/js/ajax.js"></script>
         
-        <script type="text/javascript" src="js/game.js"></script>
+        <script type="text/javascript" src="/js/game.js"></script>
     <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/redmond/jquery-ui.css" />
     
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
     
-    <script type="text/javascript" src="slider/jquery.nivo.slider.js"></script>    
-    <link rel="stylesheet" href="slider/themes/default/default.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="slider/themes/light/light.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="slider/themes/dark/dark.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="slider/themes/bar/bar.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="slider/nivo-slider.css" type="text/css" media="screen" />
+    <script type="text/javascript" src="/slider/jquery.nivo.slider.js"></script>    
+    <link rel="stylesheet" href="/slider/themes/default/default.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/slider/themes/light/light.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/slider/themes/dark/dark.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/slider/themes/bar/bar.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/slider/nivo-slider.css" type="text/css" media="screen" />
     
     <link rel="stylesheet" href="/css/ui.jqgrid.css" rel="stylesheet" />
     <link rel="stylesheet" href="/css/ui.multiselect.css" rel="stylesheet" />
