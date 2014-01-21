@@ -19,9 +19,9 @@
     <div id="header">
             <div class="leftCol"> </div>
             <div class="centerCol"> 
-                <jsp:include page="topMenu.jsp" flush="true" />
-                <jsp:include page="headerContent.jsp" flush="true" />
-                <jsp:include page="mainMenu.jsp" flush="true" />
+                <jsp:include page="/topMenu.jsp" flush="true" />
+                <jsp:include page="/headerContent.jsp" flush="true" />
+                <jsp:include page="/mainMenu.jsp" flush="true" />
             </div>
             <div class="rightCol"> </div>      
         </div>
