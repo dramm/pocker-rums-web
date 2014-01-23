@@ -1664,7 +1664,7 @@ function StartGameCallback() {
                     var valueBaseProgress = Message.Timer * 100 / ((Message.Stage > 0) ? 30 : 5);
                     $("#progressbar").progressbar({value: valueBaseProgress}); 
                     $("#BaseProgressTime").html("00:"+((Message.Stage > 0 ? 30 : 5) - Message.Timer));
-                    if(Message.Stage > 0 && Message.Timer>=40){
+                    if(Message.Stage > 0 && Message.Timer>=28){
                         for(var i=1;i<5;i++){
                             SetNoActiveButt($("#Table1User"+i+"CheckBackground"));
                             $("#Table1User"+i+"Check").attr("disabled",true);
