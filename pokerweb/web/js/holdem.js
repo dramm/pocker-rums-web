@@ -62,11 +62,22 @@ function GetAllUserStatistic() {
             $grid.jqGrid({
                 url: 'GetAllTablesHoldem',
                 datatype: "json",
-                colNames: ['flopView','players', 'blinds','distributionCount', 'averageBank', 'type'],
+                colNames: [
+                    'flopView',
+                    'players',
+                    'MinBlinds',
+                    'MaxBlinds',
+                    'PlayerSittings',
+                    'distributionCount',
+                    'averageBank',
+                    'type'
+                ],
                 colModel: [
                     { name: 'flopView', index: 'flopView',width: 80},
                     { name: 'players', index: 'players',width: 80},
-                    { name: 'blinds', index: 'blinds',width: 80},
+                    { name: 'MinBlinds', index: 'MinBlinds',width: 80},
+                    { name: 'MaxBlinds', index: 'MaxBlinds',width: 80},
+                    { name: 'PlayerSittings', index: 'playersSitting',width: 80},
                     { name: 'distributionCount', index: 'distributionCount',width: 80},
                     { name: 'averageBank', index: 'averageBank', width: 80 },
                     { name: 'type', index: 'type', width: 80 },
