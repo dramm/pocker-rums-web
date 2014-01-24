@@ -6,12 +6,20 @@
 
 package com.pokerweb.servlets.holdem;
 
+import com.pokerweb.Area.GetAllUserStatistic;
+import com.pokerweb.DB.Game;
+import com.pokerweb.ServerHoldem.TableStatus;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -48,6 +56,15 @@ public class GetAllTablesHoldem extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try {
+            JSONArray js = new JSONArray(TableStatus.GetInstance().GetListTable());
+            response.setContentType("application/json; charset=utf-8");
+            response.setHeader("Cache-Control", "no-cache");
+            response.getWriter().write(js.toString());
+        } catch (JSONException ex) {
+            Logger.getLogger(GetAllUserStatistic.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
     }
 

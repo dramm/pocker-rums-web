@@ -19,7 +19,7 @@ import org.json.JSONObject;
  * @author vadim
  */
 public class TableStatus {
-    private static TableStatus instanse;
+    private static TableStatus instanse = new TableStatus();
     public List<TableHoldem> TableList; 
     private TableStatus(){
         TableList = new ArrayList<TableHoldem>();
@@ -40,8 +40,6 @@ public class TableStatus {
     }
     
     public synchronized static TableStatus GetInstance(){
-        if(instanse == null)
-            instanse = new TableStatus();
         return instanse;
     }
     
@@ -51,11 +49,13 @@ public class TableStatus {
             try {
                 JSONObject js = new JSONObject();
                 js.put("averageBank", tableHoldem.averageBank);
-                js.put("blinds", tableHoldem.blinds);
+                js.put("MaxBlinds", tableHoldem.MaxBlinds);
+                js.put("MinBlinds", tableHoldem.MinBlinds);
                 js.put("distributionCount", tableHoldem.distributionCount);
                 js.put("flopView", tableHoldem.flopView);
                 js.put("players", tableHoldem.players);
                 js.put("type", tableHoldem.type);
+                js.put("PlayerSittings", tableHoldem.playersSitting);
                 jsArr.put(js);
             } catch (JSONException ex) {
                 Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,16 +65,18 @@ public class TableStatus {
     }
     
     public boolean SetListTable(String json){
+        TableList.clear();
         try {
-            JSONArray jsArr = new JSONArray(json);
-            for (int i = 0; i < jsArr.length(); i++) {
+            JSONObject jsObj = new JSONObject(json);
+            for (int i = 0; i < jsObj.getJSONArray("data").length(); i++) {
                 TableHoldem table = new TableHoldem();
-                table.averageBank = jsArr.getJSONObject(i).getInt("averageBank");
-                table.blinds = jsArr.getJSONObject(i).getString("blinds");
-                table.distributionCount = jsArr.getJSONObject(i).getInt("distributionCount");
-                table.flopView = jsArr.getJSONObject(i).getInt("flopView");
-                table.players = jsArr.getJSONObject(i).getInt("players");
-                table.type = jsArr.getJSONObject(i).getString("type");
+                table.averageBank = jsObj.getJSONArray("data").getJSONObject(i).getInt("averageBank");
+                table.MinBlinds = jsObj.getJSONArray("data").getJSONObject(i).getJSONArray("blinds").getDouble(0);
+                table.MaxBlinds = jsObj.getJSONArray("data").getJSONObject(i).getJSONArray("blinds").getDouble(1);
+                table.distributionCount = jsObj.getJSONArray("data").getJSONObject(i).getInt("distributionCount");
+                table.flopView = jsObj.getJSONArray("data").getJSONObject(i).getInt("flopView");
+                table.players = jsObj.getJSONArray("data").getJSONObject(i).getInt("players");
+                table.type = jsObj.getJSONArray("data").getJSONObject(i).getInt("type");
                 TableList.add(table);
             }
             return true;

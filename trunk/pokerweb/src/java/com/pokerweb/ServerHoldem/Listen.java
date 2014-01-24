@@ -27,7 +27,7 @@ public class Listen extends Thread {
                 flag = in.read(bytes, 0, 4);
                 int command = Functions.byteArrayToInt(bytes);
                 switch (command) {
-                    case 1500:{
+                    case 101:{
                         flag = in.read(bytes, 0, 4);
                         byte[] message = new byte[Functions.byteArrayToInt(bytes)];
                         flag = in.read(message, 0, message.length);

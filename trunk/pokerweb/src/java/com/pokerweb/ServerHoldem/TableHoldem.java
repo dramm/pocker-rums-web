@@ -13,11 +13,12 @@ package com.pokerweb.ServerHoldem;
 public class TableHoldem {
    public int flopView;
    public int players;
-   public String blinds;
+   public double MinBlinds;
+   public double MaxBlinds;
    public int distributionCount; 
    public int averageBank;
-   public String type;
-
+   public int playersSitting;
+   public int type;
 
    
 }
