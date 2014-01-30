@@ -25,11 +25,193 @@
         </div>
             <div class="leftCol"></div>
             <div class="centerCol" style="margin-bottom: 50px;">
+                <div id="BackToList" style="
+                     cursor: pointer;
+                     width: 100px;
+                     height: 25px;
+                     background-color: rgb(19, 30, 36);
+                     text-align: center;
+                     color: whitesmoke;
+                     display: none;
+                     ">Список</div>
+                     
+                <div>
+                    <div></div>
+                    <div>
+                        <div style="width: 300px;
+height: 350px;
+background-color: rgb(56, 79, 95);">
+                            <div style="width: 100%;
+height: 30px;
+text-align: center;
+color: whitesmoke;">Buy-in And Fee</div>
+                            <div style="
+                                 width: 50%;
+height: 100px;
+margin-left: 70px;
+margin-top: 20px;">
+                                <div style="
+                                     width: 100px;
+height: 60px;
+background-color: rgb(40, 62, 76);
+float: right;">
+                                    
+                                </div>
+                                <div style="float: left;
+position: absolute;
+width: 115px;">
+                                    <div style="
+                                         float: left;
+                                         color: whitesmoke;
+                                         ">1ST</div>
+                                    <div style="
+                                         float: right;
+                                         color: whitesmoke;
+                                         ">$250</div>
+                                </div>
+                                <div style="position: absolute;
+margin-top: 20px;
+width: 115px;">
+                                    <div style="
+                                         float: left;
+                                         color: whitesmoke;
+                                         ">2ND</div>
+                                    
+                                    <div style="
+                                         float: right;
+                                         color: whitesmoke;
+                                         ">$150</div>
+                                </div>
+                                <div style="width: 115px;
+margin-top: 40px;
+position: absolute;">
+                                    <div style="
+                                         float: left;
+                                         color: whitesmoke;
+                                         ">3RD</div>
+                                    
+                                    <div style="
+                                         float: right;
+                                         color: whitesmoke;
+                                         ">$100</div>
+                                </div>
+                            </div>
+                            <div style="width: 100%">
+                                <div style="width: 100%;
+color: whitesmoke;
+text-align: center;">Buy-in and Fee</div>
+                                <div></div>
+                            </div>
+                            
+                            <div style="
+                                 width: 55%;
+height: 100px;
+margin-left: 70px;
+margin-top: 20px;">
+                                <div style="
+                                     width: 100px;
+height: 60px;
+background-color: rgb(40, 62, 76);
+float: right;">
+                                    
+                                </div>
+                                <div style="float: left;
+position: absolute;
+width: 100px;">
+                                    <div style="
+                                         float: left;
+                                         color: whitesmoke;
+                                         ">Players</div>
+                                    <div style="
+                                         float: right;
+                                         color: whitesmoke;
+                                         ">5</div>
+                                </div>
+                                <div style="position: absolute;
+margin-top: 20px;
+width: 125px;">
+                                    <div style="
+                                         float: left;
+                                         color: whitesmoke;
+                                         ">Buy-in</div>
+                                    
+                                    <div style="
+                                         float: right;
+                                         color: whitesmoke;
+                                         ">$100</div>
+                                </div>
+                                <div style="width: 115px;
+margin-top: 40px;
+position: absolute;">
+                                    <div style="
+                                         float: left;
+                                         color: whitesmoke;
+                                         ">Fee</div>
+                                    
+                                    <div style="
+                                         float: right;
+                                         color: whitesmoke;
+                                         ">$10</div>
+                                </div>
+                            </div>
+                            
+                            
+                            <div style="width: 100%;
+height: 35px;">
+                                <div style="color: whitesmoke;
+text-align: center;
+width: 140px;
+height: 30px;
+float: left;
+background-color: rgb(40, 123, 175);" id="ButtCanselSelectSumm">
+                                    CANSEL
+                                </div>
+                                <div style="color: whitesmoke;
+text-align: center;
+width: 140px;
+float: right;
+height: 30px;
+background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
+                                    OK
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="SelectTablePanel" style="
+                     width: 700px;
+                     height: 200px;
+                     background-color: rgb(19, 30, 36);
+                     margin-left: 100px;
+                     margin-top: 100px;
+                     display: none;
+                     ">
+                    <div style="
+                         width: 100%;
+                         height: 25px;
+                         border: 1px solid red;
+                         color: whitesmoke;
+                         text-align: center;
+                         ">
+                        Какой-то текст заголовка
+                    </div>
+                    <div style="margin-left: 10px"><table id="ListTables"><tr><td /></tr></table></div>
+                <div style="width: 100%;height: 40px">
+                    <div style="width: 300px;height: 100%;float: left;"></div>
+                    <div id="JoinTable" style="
+                         float: right;
+                         width: 100px;
+                         height: 30px;
+                         border: 1px solid red;
+                         text-align: center;
+                         cursor: pointer;
+                         background-color: #256388;
+                         margin-top: 5px;
+                         ">JOIN</div>
+                </div>
+                </div>
                 
-                <table id="ListTables"><tr><td /></tr></table>
-                
-                
-                <div id="table" style="display: none" class="tableHoldem">
+                <div id="Tables" style="display: none" class="tableHoldem">
                     <div class="TableImageHoldem"></div>
                  <div class="TableCartHoldem">
                 <div id="Table1Flop1" class="flop"></div>
@@ -124,6 +306,7 @@
                                  width: 28px;
                                  height: 28px;
                                  position: absolute;
+                                 cursor: pointer;
                                  "></div>
                         </div>
                             </div>
@@ -184,6 +367,7 @@
                                  width: 28px;
                                  height: 28px;
                                  position: absolute;
+                                 cursor: pointer;
                                  "></div>
                         </div>
                         </div>
@@ -312,6 +496,7 @@
                                  width: 28px;
                                  height: 28px;
                                  position: absolute;
+                                 cursor: pointer;
                                  "></div>
                         </div>
                             </div>
@@ -371,6 +556,7 @@
                                  width: 28px;
                                  height: 28px;
                                  position: absolute;
+                                 cursor: pointer;
                                  "></div>
                         </div>
                         </div>
@@ -497,6 +683,7 @@
                                  width: 28px;
                                  height: 28px;
                                  position: absolute;
+                                 cursor: pointer;
                                  "></div>
                         </div>
                             </div>
@@ -553,6 +740,7 @@
                                  width: 28px;
                                  height: 28px;
                                  position: absolute;
+                                 cursor: pointer;
                                  "></div>
                         </div>
                         </div>
@@ -687,6 +875,7 @@
                                  width: 28px;
                                  height: 28px;
                                  position: absolute;
+                                 cursor: pointer;
                                  "></div>
                         </div>
                             </div>
@@ -747,6 +936,7 @@
                                  width: 28px;
                                  height: 28px;
                                  position: absolute;
+                                 cursor: pointer;
                                  "></div>
                         </div>
                         </div>
@@ -840,6 +1030,7 @@
                                  width: 28px;
                                  height: 28px;
                                  position: absolute;
+                                 cursor: pointer;
                                  "></div>
                         </div>
                         </div>
@@ -968,6 +1159,7 @@
                                  width: 28px;
                                  height: 28px;
                                  position: absolute;
+                                 cursor: pointer;
                                  "></div>
                         </div>
                             </div>
@@ -1017,6 +1209,7 @@
                                  width: 28px;
                                  height: 28px;
                                  position: absolute;
+                                 cursor: pointer;
                                  "></div>
                         </div>
                         </div>
@@ -1134,6 +1327,7 @@
                                  width: 28px;
                                  height: 28px;
                                  position: absolute;
+                                 cursor: pointer;
                                  "></div>
                         </div>
                             </div>
@@ -1184,6 +1378,7 @@
                                  width: 28px;
                                  height: 28px;
                                  position: absolute;
+                                 cursor: pointer;
                                  "></div>
                         </div>
                         </div>
@@ -1264,6 +1459,7 @@
                                  width: 28px;
                                  height: 28px;
                                  position: absolute;
+                                 cursor: pointer;
                                  "></div>
                         </div>
                         </div>
@@ -1396,6 +1592,7 @@
                                  width: 28px;
                                  height: 28px;
                                  position: absolute;
+                                 cursor: pointer;
                                  "></div>
                         </div>
                             </div>
@@ -1446,6 +1643,7 @@
                                  width: 28px;
                                  height: 28px;
                                  position: absolute;
+                                 cursor: pointer;
                                  "></div>
                         </div>
                         </div>
@@ -1559,6 +1757,7 @@
                                  width: 28px;
                                  height: 28px;
                                  position: absolute;
+                                 cursor: pointer;
                                  "></div>
                         </div>
                             </div>
@@ -1609,6 +1808,7 @@
                                  width: 28px;
                                  height: 28px;
                                  position: absolute;
+                                 cursor: pointer;
                                  "></div>
                         </div>
                         </div>

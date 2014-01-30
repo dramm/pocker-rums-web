@@ -11,6 +11,6 @@ package com.pokerweb.Server;
 public class Hand {
     public int CartOne;
     public int CartTwo;
-    public double Factor;
+    public float Factor;
     public int Indicator;
 }
