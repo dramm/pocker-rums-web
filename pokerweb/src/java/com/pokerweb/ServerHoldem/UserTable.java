@@ -16,8 +16,15 @@ public class UserTable {
     public boolean Dialer;
     public double UserCash;
     public double UserBet;
+    
     public double MinRaise;
-
+    public boolean IsRaise;
+    
+    public double SumCall;
+    public boolean IsCall;
+    
+    public int TimerFoBet;
+    
     public UserTable() {
         CartOne = 0;
         CartTwo = 0;
