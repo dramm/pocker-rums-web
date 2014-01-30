@@ -40,7 +40,9 @@ public class Listen extends Thread {
                         byte[] message = new byte[Functions.byteArrayToInt(bytes)];
                         flag = in.read(message, 0, message.length);
                         String mess = new String(CryptoManager.encode(message));
+                        System.out.println(mess);
                         TableStatus.GetInstance().SetPreflop(mess);
+                        
                     break;
                     }
                     case 1520:{

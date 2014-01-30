@@ -21,25 +21,24 @@ public final class Connect {
     public Connect() {
        NewConnect();
     }
+    
     public void NewConnect(){
         try {
-            socket = new Socket("5.178.85.44", 7778);
+            socket = new Socket("148.251.10.241", 7778);
             while(!socket.isConnected())
-                socket = new Socket("5.178.85.44", 7778);
+                socket = new Socket("148.251.10.241", 7778);
             Listen listen = new Listen();
             listen.setIn(socket.getInputStream());
             listen.start();
             out = new BufferedOutputStream(socket.getOutputStream());
         } catch (IOException ex) {
             Logger.getLogger(Connect.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         
+        }    
     }
     
     public static Connect GetInstance(){
-        if(instanse == null){
+        if(instanse == null)
             instanse = new Connect();
-        }
         return instanse;
     }
     

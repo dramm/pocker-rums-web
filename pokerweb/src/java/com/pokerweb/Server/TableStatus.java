@@ -9,6 +9,7 @@ import com.pokerweb.DB.DataBalanceServer;
 import com.pokerweb.DB.Game;
 import com.pokerweb.crypto.CryptoManager;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -482,6 +483,10 @@ public class TableStatus {
         return jsO.toString();
     }
     
+    public float FormaterFloat(float f){
+        DecimalFormat df = new DecimalFormat("0.##");
+        return Float.valueOf(df.format(f));
+    }
     
     public void SetPreflop(String data){
         try {
@@ -492,7 +497,7 @@ public class TableStatus {
                 JSONArray T1Arr = T1.getJSONArray("Player" + String.valueOf(i));
                 GetTableOne().Hands.get(i).CartOne = T1Arr.getInt(0);
                 GetTableOne().Hands.get(i).CartTwo = T1Arr.getInt(1);
-                GetTableOne().Hands.get(i).Factor = T1Arr.getJSONObject(2).getDouble("Factor");
+                GetTableOne().Hands.get(i).Factor = FormaterFloat(Double.valueOf(T1Arr.getJSONObject(2).getDouble("Factor")).floatValue());
                 GetTableOne().Hands.get(i).Indicator = T1Arr.getJSONObject(2).getInt("Indicator");
             }
             
@@ -501,7 +506,7 @@ public class TableStatus {
                 JSONArray T1Arr = T2.getJSONArray("Player" + String.valueOf(i));
                 GetTableTwo().Hands.get(i).CartOne = T1Arr.getInt(0);
                 GetTableTwo().Hands.get(i).CartTwo = T1Arr.getInt(1);
-                GetTableTwo().Hands.get(i).Factor = T1Arr.getJSONObject(2).getDouble("Factor");
+                GetTableTwo().Hands.get(i).Factor = FormaterFloat(Double.valueOf(T1Arr.getJSONObject(2).getDouble("Factor")).floatValue());
                 GetTableTwo().Hands.get(i).Indicator= T1Arr.getJSONObject(2).getInt("Indicator");
             }
             
@@ -510,7 +515,7 @@ public class TableStatus {
                 JSONArray T1Arr = T3.getJSONArray("Player" + String.valueOf(i));
                 GetTableThree().Hands.get(i).CartOne = T1Arr.getInt(0);
                 GetTableThree().Hands.get(i).CartTwo = T1Arr.getInt(1);
-                GetTableThree().Hands.get(i).Factor = T1Arr.getJSONObject(2).getDouble("Factor");
+                GetTableThree().Hands.get(i).Factor = FormaterFloat(Double.valueOf(T1Arr.getJSONObject(2).getDouble("Factor")).floatValue());
                 GetTableThree().Hands.get(i).Indicator = T1Arr.getJSONObject(2).getInt("Indicator");
             }
             Stage = 1;
@@ -529,7 +534,7 @@ public class TableStatus {
             GetTableOne().FlopTwo = T1.getJSONObject(0).getJSONArray("Bord").getInt(1);
             GetTableOne().FlopThree = T1.getJSONObject(0).getJSONArray("Bord").getInt(2);
             for(int i = 0; i < 4; i++){
-                GetTableOne().Hands.get(i).Factor = T1.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
+                GetTableOne().Hands.get(i).Factor = FormaterFloat(Double.valueOf(T1.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor")).floatValue());
                 GetTableOne().Hands.get(i).Indicator = T1.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
             
             }
@@ -538,7 +543,7 @@ public class TableStatus {
             GetTableTwo().FlopTwo = T2.getJSONObject(0).getJSONArray("Bord").getInt(1);
             GetTableTwo().FlopThree = T2.getJSONObject(0).getJSONArray("Bord").getInt(2);
             for(int i = 0; i < 6; i++){
-                GetTableTwo().Hands.get(i).Factor = T2.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
+                GetTableTwo().Hands.get(i).Factor = FormaterFloat(Double.valueOf(T2.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor")).floatValue());
                 GetTableTwo().Hands.get(i).Indicator = T2.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
             }
             JSONArray T3 = js.getJSONArray("Table2");
@@ -546,7 +551,7 @@ public class TableStatus {
             GetTableThree().FlopTwo = T3.getJSONObject(0).getJSONArray("Bord").getInt(1);
             GetTableThree().FlopThree = T3.getJSONObject(0).getJSONArray("Bord").getInt(2);
             for(int i = 0; i < 8; i++){
-                GetTableThree().Hands.get(i).Factor = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
+                GetTableThree().Hands.get(i).Factor = FormaterFloat(Double.valueOf(T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor")).floatValue());
                 GetTableThree().Hands.get(i).Indicator = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
             }
             Stage = 2; 
@@ -563,19 +568,19 @@ public class TableStatus {
             JSONArray T1 = js.getJSONArray("Table0");
             GetTableOne().Tern = T1.getJSONObject(0).getJSONArray("Bord").getInt(3);
             for(int i = 0; i < 4; i++){
-                GetTableOne().Hands.get(i).Factor = T1.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
+                GetTableOne().Hands.get(i).Factor = FormaterFloat(Double.valueOf(T1.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor")).floatValue());
                 GetTableOne().Hands.get(i).Indicator = T1.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
             }
             JSONArray T2 = js.getJSONArray("Table1");
             GetTableTwo().Tern = T2.getJSONObject(0).getJSONArray("Bord").getInt(3);
             for(int i = 0; i < 6; i++){
-                GetTableTwo().Hands.get(i).Factor = T2.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
+                GetTableTwo().Hands.get(i).Factor = FormaterFloat(Double.valueOf(T2.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor")).floatValue());
                 GetTableTwo().Hands.get(i).Indicator = T2.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
             }
             JSONArray T3 = js.getJSONArray("Table2");
             GetTableThree().Tern = T3.getJSONObject(0).getJSONArray("Bord").getInt(3);
             for(int i = 0; i < 8; i++){
-                GetTableThree().Hands.get(i).Factor = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
+                GetTableThree().Hands.get(i).Factor = FormaterFloat(Double.valueOf(T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor")).floatValue());
                 GetTableThree().Hands.get(i).Indicator = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
             }
              Stage = 3;
@@ -591,20 +596,20 @@ public class TableStatus {
           JSONArray T1 = js.getJSONArray("Table0");
           GetTableOne().River = T1.getJSONObject(0).getJSONArray("Bord").getInt(4);
           for(int i = 0; i < 4; i++){
-              GetTableOne().Hands.get(i).Factor = T1.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
+              GetTableOne().Hands.get(i).Factor = FormaterFloat(Double.valueOf(T1.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor")).floatValue());
               GetTableOne().Hands.get(i).Indicator = T1.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
           }
           
           JSONArray T2 = js.getJSONArray("Table1");
           GetTableTwo().River = T2.getJSONObject(0).getJSONArray("Bord").getInt(4);
           for(int i = 0; i < 6; i++){
-              GetTableTwo().Hands.get(i).Factor = T2.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
+              GetTableTwo().Hands.get(i).Factor = FormaterFloat(Double.valueOf(T2.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor")).floatValue());
               GetTableTwo().Hands.get(i).Indicator = T2.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
           }
           JSONArray T3 = js.getJSONArray("Table2");
           GetTableThree().River = T3.getJSONObject(0).getJSONArray("Bord").getInt(4);
           for(int i = 0; i < 8; i++){
-              GetTableThree().Hands.get(i).Factor = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor");
+              GetTableThree().Hands.get(i).Factor = FormaterFloat(Double.valueOf(T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getDouble("Factor")).floatValue());
               GetTableThree().Hands.get(i).Indicator = T3.getJSONObject(1).getJSONObject("Player" + String.valueOf(i)).getInt("Indicator");
           }
           Stage = 4;
