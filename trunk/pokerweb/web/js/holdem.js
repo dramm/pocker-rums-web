@@ -4,7 +4,13 @@
  * and open the template in the editor.
  */
 
+
+var idTable;
+var plaseId;
+
 $(document).ready(function(){
+    idTable = -1;
+    plaseId = -1;
     GetAllUserStatistic();
     $("#JoinTable").click(function(){
         SelectTable();
@@ -24,7 +30,44 @@ $(document).ready(function(){
     $('#ListTables').on('reloadGrid', function() {
         $("#ListTables").jqGrid('hideCol',"TableId");
 });
+
+
+$("#Table9User0SitThis").click(function(){SitThis(0);});
+$("#Table9User1SitThis").click(function(){SitThis(1);});
+$("#Table9User2SitThis").click(function(){SitThis(2);});
+$("#Table9User3SitThis").click(function(){SitThis(3);});
+$("#Table9User4SitThis").click(function(){SitThis(4);});
+$("#Table9User5SitThis").click(function(){SitThis(5);});
+$("#Table9User6SitThis").click(function(){SitThis(6);});
+$("#Table9User7SitThis").click(function(){SitThis(7);});
+$("#Table9User8SitThis").click(function(){SitThis(8);});
+
+$("#Table5User0SitThis").click(function(){SitThis(0);});
+$("#Table5User1SitThis").click(function(){SitThis(1);});
+$("#Table5User2SitThis").click(function(){SitThis(2);});
+$("#Table5User3SitThis").click(function(){SitThis(3);});
+$("#Table5User4SitThis").click(function(){SitThis(4);});
+
+$("#Table4User0SitThis").click(function(){SitThis(0);});
+$("#Table4User1SitThis").click(function(){SitThis(1);});
+$("#Table4User2SitThis").click(function(){SitThis(2);});
+$("#Table4User3SitThis").click(function(){SitThis(3);});
+
+
+$("#DialogSumToTableCansel").click(function (){
+    $("#DialogSelectSumToTable").dialog("close");
 });
+
+$("#DialogSumToTableOk").click(function (){
+    $.post("")
+});
+});
+
+function SitThis(plaseId){
+    $("#DialogSelectSumToTable").dialog({title:"Выберите сумму",height:200,width:300,maxHeight:200,maxWidth:300,minHeight:200,minWidth:300});
+
+}
+
 function GetAllUserStatistic() {
     
             'use strict';
