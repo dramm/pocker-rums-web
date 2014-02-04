@@ -602,6 +602,7 @@ public class DBManager{
         }
     }
     
+    
     public synchronized long GetCurrentUserId(){
         PreparedStatement stmt = null;
         try {
@@ -727,7 +728,35 @@ public class DBManager{
         }
         
     }
-      
+     
+    public String GetUserLoginFromId(Long Id){
+        PreparedStatement stmt = null;
+        try {
+            String query="select login "
+                    + "from users "
+                    + "where id=?";
+            stmt = connection.prepareStatement(query);
+            stmt.setLong(1, Id);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.first())
+               return rs.getString("login");
+            else 
+                return null;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+        
+    }
+    
     public boolean ExistsNewSettingsCurUser(long Id){
         PreparedStatement stmt = null;
         try {

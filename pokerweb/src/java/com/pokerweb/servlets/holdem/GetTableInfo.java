@@ -8,7 +8,6 @@ package com.pokerweb.servlets.holdem;
 
 import com.pokerweb.DB.DBManager;
 import com.pokerweb.ServerHoldem.TableStatus;
-import com.pokerweb.registration.UserAllInformation;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,8 +26,8 @@ import org.json.JSONObject;
  *
  * @author vadim
  */
-@WebServlet(name = "SitThisUser", urlPatterns = {"/SitThisUser"})
-public class SitThisUser extends HttpServlet {
+@WebServlet(name = "GetTableInfo", urlPatterns = {"/GetTableInfo"})
+public class GetTableInfo extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -52,6 +52,7 @@ public class SitThisUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
     }
 
     /**
@@ -73,12 +74,12 @@ public class SitThisUser extends HttpServlet {
             while ((line = reader.readLine()) != null)
                 jb.append(line);
             JSONObject jsonObject = new JSONObject(jb.toString());
-            int IdTable = jsonObject.getInt("IdTable");
-            int plaseId = jsonObject.getInt("plaseId");
-            double summ = jsonObject.getDouble("summ");
-            TableStatus.GetInstance().SendSitThisRequest(IdTable, plaseId, summ);
+            JSONObject js = new JSONObject(TableStatus.GetInstance().GetDataTable(jsonObject.getInt("IdTable")));
+            response.setContentType("application/json; charset=utf-8");
+            response.setHeader("Cache-Control", "no-cache");
+            response.getWriter().write(js.toString());
         } catch (JSONException ex) {
-            Logger.getLogger(SitThisUser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GetTableInfo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

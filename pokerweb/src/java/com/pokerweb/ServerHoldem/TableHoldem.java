@@ -29,6 +29,7 @@ public class TableHoldem {
     private int FlopThree;
     private int Tern;
     private int River;
+    
     Map<Integer,UserTable> Users;
 
     public int getAverageBank() {
@@ -86,7 +87,7 @@ public class TableHoldem {
     public void setCountMaxUsers(int CountMaxUsers) {
         Users = new HashMap<Integer, UserTable>();
         for(int i = 0; i < CountMaxUsers; i++)
-            Users.put(0, new UserTable());
+            Users.put(i, new UserTable());
         this.CountMaxUsers = CountMaxUsers;
      }
 
