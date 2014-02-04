@@ -16,15 +16,13 @@ public class UserTable {
     public boolean Dialer;
     public double UserCash;
     public double UserBet;
-    
+    private boolean UserSit;
     public double MinRaise;
     public boolean IsRaise;
-    
     public double SumCall;
     public boolean IsCall;
-    
     public int TimerFoBet;
-    
+    private String Name;
     public UserTable() {
         CartOne = 0;
         CartTwo = 0;
@@ -34,6 +32,25 @@ public class UserTable {
         UserCash = 0;
     }
 
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String Name) {
+        this.Name = Name;
+    }
+
+    
+    
+    public void setUserSit(boolean UserSit) {
+        this.UserSit = UserSit;
+    }
+
+    public boolean isUserSit() {
+        return UserSit;
+    }
+
+    
     public int getCartOne() {
         return CartOne;
     }

@@ -4,7 +4,9 @@
  */
 package com.pokerweb.ServerHoldem;
 
+import com.pokerweb.DB.DBManager;
 import com.pokerweb.Server.Functions;
+import com.pokerweb.crypto.CryptoManager;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,7 +37,7 @@ public class TableStatus {
                 }
             }
         };
-  timer.schedule( task,0, 1000 );
+  timer.schedule( task,0, 10000 );
   
     }
     
@@ -43,13 +45,21 @@ public class TableStatus {
         JSONObject jsO = new JSONObject();
         JSONObject jsUsers = new JSONObject();
         JSONObject jsUser = new JSONObject();
+        System.out.println(IdTable);
         try {
             for (Map.Entry<Integer,UserTable> User : TableList.get(IdTable).Users.entrySet()) {
-                jsUser.put("CartOne", User.getValue().CartOne);
-                jsUser.put("CartTwo", User.getValue().CartTwo);
+                jsUser.put("CartOne", User.getValue().getCartOne());
+                jsUser.put("CartTwo", User.getValue().getCartTwo());
                 jsUser.put("Dialer", User.getValue().Dialer);
                 jsUser.put("UserBet", User.getValue().UserBet);
                 jsUser.put("UserCash", User.getValue().UserCash);
+                jsUser.put("UserName", User.getValue().getName());
+                jsUser.put("IsRaise", User.getValue().IsRaise);
+                jsUser.put("MinRaise", User.getValue().MinRaise);
+                jsUser.put("SumCall", User.getValue().SumCall);
+                jsUser.put("IsCall", User.getValue().IsCall);
+                jsUser.put("TimerFoBet", User.getValue().TimerFoBet);
+                jsUser.put("isUserSit", User.getValue().isUserSit());
                 jsUsers.put("User"+User.getKey(), jsUser);
             }
             
@@ -72,6 +82,51 @@ public class TableStatus {
         return instanse;
     }
     
+    public void SendSitThisRequest(int IdTable,int Idplase,double sum){
+        try {
+            JSONObject js = new JSONObject();
+            js.put("tableId", IdTable);
+            js.put("plaseId", Idplase);
+            js.put("stack", sum);
+            js.put("userId", DBManager.GetInstance().GetCurrentUserId());
+            Connect.GetInstance().out.write(Functions.intToByteArray(120));
+            Connect.GetInstance().out.write(Functions.intToByteArray(js.toString().length()));
+            Connect.GetInstance().out.write(CryptoManager.encode(js.toString().getBytes()));
+            Connect.GetInstance().out.flush();
+        } catch (JSONException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void SetResponceSitThis(String Message){
+        try {
+            JSONObject jsObj = new JSONObject(Message);
+            System.out.println("SetResponceSitThis");
+            System.out.println(Message);
+            for(int i = 0; i < jsObj.getJSONArray("data").length(); i++)
+                if(jsObj.getJSONArray("data").getJSONObject(i).length() != 0){
+                    TableList.get(jsObj.getInt("tableId")).
+                            Users.get(jsObj.getJSONArray("data").
+                                    getJSONObject(i).getInt("plaseId")).setUserSit(true);
+                    
+                    TableList.get(jsObj.getInt("tableId")).
+                            Users.get(jsObj.getJSONArray("data").getJSONObject(i).getInt("plaseId")).
+                            setName(DBManager.GetInstance().GetUserLoginFromId(jsObj.getJSONArray("data").
+                                    getJSONObject(i).getLong("playerId")));
+                    
+                TableList.get(jsObj.getInt("tableId")).Users.get(jsObj.getJSONArray("data").
+                        getJSONObject(i).getInt("plaseId")).
+                        UserCash = jsObj.getJSONArray("data").getJSONObject(i).getDouble("stack");
+                }
+            
+        } catch (JSONException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
     public String GetListTable(){
         JSONArray jsArr = new JSONArray();
         for (Map.Entry<Integer,TableHoldem> tableHoldem : TableList.entrySet()) {
@@ -87,6 +142,7 @@ public class TableStatus {
                 js.put("type", tableHoldem.getValue().getType());
                 js.put("PlayerSittings", tableHoldem.getValue().getCountUsers());
                 jsArr.put(js);
+                
             } catch (JSONException ex) {
                 Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
             }

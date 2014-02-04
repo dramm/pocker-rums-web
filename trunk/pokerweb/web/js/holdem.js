@@ -59,11 +59,57 @@ $("#DialogSumToTableCansel").click(function (){
 });
 
 $("#DialogSumToTableOk").click(function (){
-    $.post("")
-});
+    var data = {};
+    data.IdTable = idTable;
+    data.plaseId = plaseId;
+    
+    data.summ = $("#RangeSelectSumToTable").val();
+    $.ajax({
+                                    url: "/SitThisUser",
+                                    type: "post",
+                                    dataType: "json",
+                                    data: JSON.stringify(data),
+                                    success: function (response, textStatus, jqXHR) {
+                                       
+                                    },
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        //alert("error");
+                                    },
+                                    complete: function () {
+                                    }
+                                });
+$("#DialogSelectSumToTable").dialog("close");
+
 });
 
-function SitThis(plaseId){
+
+});
+
+
+function CheckGame(){
+    setInterval(function() {
+    var data = {};
+    data.IdTable = idTable;
+    $.ajax({
+                                    url: "/GetTableInfo",
+                                    type: "post",
+                                    dataType: "json",
+                                    data: JSON.stringify(data),
+                                    success: function (response, textStatus, jqXHR) {
+                                       console.log(response);
+                                    },
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        //alert("error");
+                                    },
+                                    complete: function () {
+                                    }
+                                });
+},1000);
+}
+
+function SitThis(Id){
+    plaseId = Id;
+    //alert(plaseId);
     $("#DialogSelectSumToTable").dialog({title:"Выберите сумму",height:200,width:300,maxHeight:200,maxWidth:300,minHeight:200,minWidth:300});
 
 }
@@ -226,6 +272,9 @@ function GetAllUserStatistic() {
                             celValue = myGrid.jqGrid ('getCell', selRowId, 'players');
                    var celValueId = myGrid.jqGrid ('getCell', selRowId, 'TableId');
                     //alert(celValueId);
+                    idTable = celValueId;
+                    CheckGame();
+                    
                     $("#BackToList").show();
                     if (celValue == 4){
                             $("#SelectTablePanel").hide();
