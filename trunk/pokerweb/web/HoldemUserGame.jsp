@@ -269,8 +269,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                     <div class="UserHoldemGame" id="Table9User8" style="float: left;margin-left: 250px;">
                         <div>
                         <div style="
-                             border: 1px solid red;
-                             width: 70px;
+                                                         width: 70px;
                              height: 80px;
                              float: left;
                              margin-top: 20px;
@@ -306,6 +305,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              position: absolute;
                              margin-top: 20px;
                              margin-left: 80px;
+                            display: none;
                              "></div>
                         <div id="UserProfile" style="
                              width: 69px;
@@ -327,7 +327,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                                  height: 100%;
                                  font-size: 13px;
                                  width: 40px;
-                                 ">1000$</div>  
+                                 ">0$</div>  
                         </div>
                             <div id="Table9User8SitThis" style="
                                  margin-top: -10px;
@@ -369,6 +369,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              position: absolute;
                              margin-top: 20px;
                              margin-left: 70px;
+                             display: none;
                              "></div>
                         <div id="Table9User0Name" style="
                              color: #fee006;
@@ -388,7 +389,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                                  height: 100%;
                                  font-size: 13px;
                                  width: 40px;
-                                 ">1000$</div>  
+                                 ">0$</div>  
                         </div>
                             <div id="Table9User0SitThis" style="
                                  margin-top: -10px;
@@ -408,7 +409,6 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              height: 90px;
                              ">
                         <div style="
-                             border: 1px solid red;
                              width: 70px;
                              height: 80px;
                              float: right;
@@ -457,7 +457,6 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                    <div class="UserHoldemGame" id="Table9User7" style="float: left;">
                         <div>
                         <div style="
-                             border: 1px solid red;
                              width: 70px;
                              height: 80px;
                              float: left;
@@ -494,6 +493,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              position: absolute;
                              margin-top: 20px;
                              margin-left: 80px;
+                             display: none;
                              "></div>
                         <div id="UserProfile" style="
                              width: 69px;
@@ -517,7 +517,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                                  height: 100%;
                                  font-size: 13px;
                                  width: 40px;
-                                 ">1000$</div>  
+                                 ">0$</div>  
                         </div>
                             <div id="Table9User7SitThis" style="
                                  margin-top: -10px;
@@ -558,6 +558,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              position: absolute;
                              margin-top: 20px;
                              margin-left: 70px;
+                             display: none;
                              "></div>
                         <div id="Table9User1Name" style="
                              color: #fee006;
@@ -577,9 +578,9 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                                  height: 100%;
                                  font-size: 13px;
                                  width: 40px;
-                                 ">1000$</div>  
+                                 ">0$</div>  
                         </div>
-                            <div style="
+                            <div id="Table9User1SitThis" style="
                                  margin-top: -10px;
                                  margin-left: -10px;
                                  background-image: url(/pic/SitThisButt.png);
@@ -597,7 +598,6 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              height: 90px;
                              ">
                         <div style="
-                             border: 1px solid red;
                              width: 70px;
                              height: 80px;
                              float: right;
@@ -647,7 +647,6 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                     <div class="UserHoldemGame" id="TableUser6" style="float: left;">
                         <div>
                         <div style="
-                             border: 1px solid red;
                              width: 70px;
                              height: 80px;
                              float: left;
@@ -684,6 +683,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              position: absolute;
                              margin-top: 20px;
                              margin-left: 80px;
+                             display: none;
                              "></div>
                         <div id="UserProfile" style="width: 69px;height: 90px;float: right;">
                         <div id="Table9User6Name" style="
@@ -704,7 +704,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                                  height: 100%;
                                  font-size: 13px;
                                  width: 40px;
-                                 ">1000$</div>  
+                                 ">0$</div>  
                         </div>
                             <div id="Table9User6SitThis" style="
                                  margin-top: -10px;
@@ -742,6 +742,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              position: absolute;
                              margin-top: 20px;
                              margin-left: 70px;
+                             display: none;
                              "></div>
                         <div id="Table9User3Name" style="
                              color: #fee006;
@@ -761,7 +762,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                                  height: 100%;
                                  font-size: 13px;
                                  width: 40px;
-                                 ">1000$</div>  
+                                 ">0$</div>  
                         </div>
                             <div id="Table9User2SitThis" style="
                                  margin-top: -10px;
@@ -781,7 +782,6 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              height: 90px;
                              ">
                         <div style="
-                             border: 1px solid red;
                              width: 70px;
                              height: 80px;
                              float: right;
@@ -835,7 +835,6 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                          ">
                         <div>
                         <div style="
-                             border: 1px solid red;
                              width: 70px;
                              height: 80px;
                              float: left;
@@ -872,6 +871,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              position: absolute;
                              margin-top: 20px;
                              margin-left: 80px;
+                             display: none;
                              "></div>
                         <div id="UserProfile" style="
                              width: 69px;
@@ -896,7 +896,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                                  height: 100%;
                                  font-size: 13px;
                                  width: 40px;
-                                 ">1000$</div>  
+                                 ">0$</div>  
                         </div>
                             <div id="Table9User5SitThis" style="
                                  margin-top: -10px;
@@ -938,6 +938,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              position: absolute;
                              margin-top: 20px;
                              margin-left: 70px;
+                             display: none;
                              "></div>
                         <div id="Table9User4Name" style="
                              color: #fee006;
@@ -977,7 +978,6 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              height: 90px;
                              ">
                         <div style="
-                             border: 1px solid red;
                              width: 70px;
                              height: 80px;
                              float: right;
@@ -1032,6 +1032,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              position: absolute;
                              margin-top: 20px;
                              margin-left: 70px;
+                             display: none;
                              "></div>
                         <div id="Table9User3Name" style="
                              color: #fee006;
@@ -1051,7 +1052,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                                  height: 100%;
                                  font-size: 13px;
                                  width: 40px;
-                                 ">1000$</div>  
+                                 ">0$</div>  
                         </div>
                             <div id="Table9User3SitThis" style="
                                  margin-top: -10px;
@@ -1071,7 +1072,6 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              height: 90px;
                              ">
                         <div style="
-                             border: 1px solid red;
                              width: 70px;
                              height: 80px;
                              float: right;
@@ -1131,7 +1131,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                         <div style="height: 95px;width: 100%;">
                             <div class="UserHoldemGame" id="Table5User4" style="float: left;margin-left: 250px;">
                                 <div>
-                        <div style="border: 1px solid red;width: 70px;height: 80px;float: left;margin-top: 20px;">
+                        <div style="width: 70px;height: 80px;float: left;margin-top: 20px;">
                             <div id="Table5User4Cart0" style="
                                  background-image: url(/pic/cart/1.png);
                                  -moz-transform: rotate(40deg);
@@ -1163,6 +1163,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              position: absolute;
                              margin-top: 20px;
                              margin-left: 80px;
+                             display: none;
                              "></div>
                         <div id="UserProfile" style="width: 69px;height: 90px;float: right;">
                         <div id="Table5User4Name" style="color: #fee006;height: 20px;">
@@ -1180,7 +1181,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                                  height: 100%;
                                  font-size: 13px;
                                  width: 40px;
-                                 ">1000$</div>  
+                                 ">0$</div>  
                         </div>
                             <div id="Table5User4SitThis" style="
                                  margin-top: -10px;
@@ -1214,6 +1215,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              position: absolute;
                              margin-top: 20px;
                              margin-left: 70px;
+                             display: none;
                              "></div>
                         <div id="Table5User0Name" style="color: #fee006;height: 20px;">
                         </div>
@@ -1230,7 +1232,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                                  height: 100%;
                                  font-size: 13px;
                                  width: 40px;
-                                 ">1000$</div>  
+                                 ">0$</div>  
                         </div>
                             <div id="Table5User0SitThis" style="
                                  margin-top: -10px;
@@ -1250,7 +1252,6 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              height: 90px;
                              ">
                         <div style="
-                             border: 1px solid red;
                              width: 70px;
                              height: 80px;
                              float: right;
@@ -1294,7 +1295,6 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                    <div class="UserHoldemGame" id="TableUser3" style="float: left;">
                         <div>
                         <div style="
-                             border: 1px solid red;
                              width: 70px;
                              height: 80px;
                              float: left;
@@ -1331,6 +1331,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              position: absolute;
                              margin-top: 20px;
                              margin-left: 80px;
+                             display: none;
                              "></div>
                         <div id="UserProfile" style="width: 69px;height: 90px;float: right;">
                         <div id="Table5User3Name" style="color: #fee006;height: 20px;">
@@ -1348,7 +1349,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                                  height: 100%;
                                  font-size: 13px;
                                  width: 40px;
-                                 ">1000$</div>  
+                                 ">0$</div>  
                         </div>
                             <div id="Table5User3SitThis" style="
                                  margin-top: -10px;
@@ -1383,6 +1384,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              position: absolute;
                              margin-top: 20px;
                              margin-left: 70px;
+                             display: none;
                              "></div>
                         <div id="Table5User1Name" style="color: #fee006;height: 20px;">
                         </div>
@@ -1399,7 +1401,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                                  height: 100%;
                                  font-size: 13px;
                                  width: 40px;
-                                 ">1000$</div>  
+                                 ">0$</div>  
                         </div>
                             <div id="Table5User1SitThis" style="
                                  margin-top: -10px;
@@ -1415,7 +1417,6 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                         </div>
                         <div style="float: right;width: 72px;height: 90px;">
                         <div style="
-                             border: 1px solid red;
                              width: 70px;
                              height: 80px;
                              float: right;
@@ -1464,6 +1465,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              position: absolute;
                              margin-top: 20px;
                              margin-left: 70px;
+                             display: none;
                              "></div>
                         <div id="Table5User2Name" style="color: #fee006;height: 20px;">
                         </div>
@@ -1480,7 +1482,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                                  height: 100%;
                                  font-size: 13px;
                                  width: 40px;
-                                 ">1000$</div>  
+                                 ">0$</div>  
                         </div>
                             <div id="Table5User2SitThis" style="
                                  margin-top: -10px;
@@ -1496,7 +1498,6 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                         </div>
                         <div style="float: right;width: 72px;height: 90px;">
                         <div style="
-                             border: 1px solid red;
                              width: 70px;
                              height: 80px;
                              float: right;
@@ -1555,7 +1556,6 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                     <div class="UserHoldemGame" id="Tabl4User3" style="float: left;margin-left: 250px;">
                         <div>
                         <div style="
-                             border: 1px solid red;
                              width: 70px;
                              height: 80px;
                              float: left;
@@ -1592,6 +1592,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              position: absolute;
                              margin-top: 20px;
                              margin-left: 80px;
+                             display: none;
                              "></div>
                         <div id="UserProfile" style="
                              width: 69px;
@@ -1613,7 +1614,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                                  height: 100%;
                                  font-size: 13px;
                                  width: 40px;
-                                 ">1000$</div>  
+                                 ">0$</div>  
                         </div>
                             <div id="Table4User3SitThis" style="
                                  margin-top: -10px;
@@ -1648,6 +1649,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              position: absolute;
                              margin-top: 20px;
                              margin-left: 70px;
+                             display: none;
                              "></div>
                         <div id="Table4User0Name" style="color: #fee006;height: 20px;">
                         </div>
@@ -1664,7 +1666,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                                  height: 100%;
                                  font-size: 13px;
                                  width: 40px;
-                                 ">1000$</div>  
+                                 ">0$</div>  
                         </div>
                             <div id="Table4User0SitThis" style="
                                  margin-top: -10px;
@@ -1680,7 +1682,6 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                         </div>
                         <div style="float: right;width: 72px;height: 90px;">
                         <div style="
-                             border: 1px solid red;
                              width: 70px;
                              height: 80px;
                              float: right;
@@ -1724,7 +1725,6 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                    <div class="UserHoldemGame" id="TableUser2" style="float: left;margin-left: 250px;">
                         <div>
                         <div style="
-                             border: 1px solid red;
                              width: 70px;
                              height: 80px;
                              float: left;
@@ -1761,6 +1761,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              position: absolute;
                              margin-top: 20px;
                              margin-left: 80px;
+                             display: none;
                              "></div>
                         <div id="UserProfile" style="width: 69px;height: 90px;float: right;">
                         <div id="Table4User2Name" style="color: #fee006;height: 20px;">
@@ -1778,7 +1779,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                                  height: 100%;
                                  font-size: 13px;
                                  width: 40px;
-                                 ">1000$</div>  
+                                 ">0$</div>  
                         </div>
                             <div id="Table4User2SitThis" style="
                                  margin-top: -10px;
@@ -1813,6 +1814,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              position: absolute;
                              margin-top: 20px;
                              margin-left: 70px;
+                             display: none;
                              "></div>
                         <div id="Table4User1Name" style="color: #fee006;height: 20px;">
                         </div>
@@ -1829,7 +1831,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                                  height: 100%;
                                  font-size: 13px;
                                  width: 40px;
-                                 ">1000$</div>  
+                                 ">0$</div>  
                         </div>
                             <div id="Table4User1SitThis" style="
                                  margin-top: -10px;
@@ -1845,7 +1847,6 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                         </div>
                         <div style="float: right;width: 72px;height: 90px;">
                         <div style="
-                             border: 1px solid red;
                              width: 70px;
                              height: 80px;
                              float: right;
