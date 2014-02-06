@@ -1,10 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 var idTable;
 var plaseId;
 
@@ -65,19 +58,20 @@ $("#DialogSumToTableOk").click(function (){
     
     data.summ = $("#RangeSelectSumToTable").val();
     $.ajax({
-                                    url: "/SitThisUser",
-                                    type: "post",
-                                    dataType: "json",
-                                    data: JSON.stringify(data),
-                                    success: function (response, textStatus, jqXHR) {
-                                       
-                                    },
-                                    error: function (jqXHR, textStatus, errorThrown) {
-                                        //alert("error");
-                                    },
-                                    complete: function () {
-                                    }
-                                });
+        url: "/SitThisUser",
+        type: "post",
+        dataType: "json",
+        data: JSON.stringify(data),
+        success: function (response, textStatus, jqXHR) {
+            
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            
+        },
+        complete: function () {
+            
+        }
+    });
 $("#DialogSelectSumToTable").dialog("close");
 
 });
@@ -91,25 +85,25 @@ function CheckGame(){
     var data = {};
     data.IdTable = idTable;
     $.ajax({
-                                    url: "/GetTableInfo",
-                                    type: "post",
-                                    dataType: "json",
-                                    data: JSON.stringify(data),
-                                    success: function (response, textStatus, jqXHR) {
-                                       console.log(response);
-                                    },
-                                    error: function (jqXHR, textStatus, errorThrown) {
-                                        //alert("error");
-                                    },
-                                    complete: function () {
-                                    }
-                                });
+        url: "/GetTableInfo",
+        type: "post",
+        dataType: "json",
+        data: JSON.stringify(data),
+        success: function (response, textStatus, jqXHR) {
+            
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            
+        },
+        complete: function () {
+            
+        }
+    });
 },1000);
 }
 
 function SitThis(Id){
     plaseId = Id;
-    //alert(plaseId);
     $("#DialogSelectSumToTable").dialog({title:"Выберите сумму",height:200,width:300,maxHeight:200,maxWidth:300,minHeight:200,minWidth:300});
 
 }

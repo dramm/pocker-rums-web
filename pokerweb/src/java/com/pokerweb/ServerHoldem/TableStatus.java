@@ -44,10 +44,10 @@ public class TableStatus {
     public String GetDataTable(int IdTable){
         JSONObject jsO = new JSONObject();
         JSONObject jsUsers = new JSONObject();
-        JSONObject jsUser = new JSONObject();
         System.out.println(IdTable);
         try {
             for (Map.Entry<Integer,UserTable> User : TableList.get(IdTable).Users.entrySet()) {
+                JSONObject jsUser = new JSONObject();
                 jsUser.put("CartOne", User.getValue().getCartOne());
                 jsUser.put("CartTwo", User.getValue().getCartTwo());
                 jsUser.put("Dialer", User.getValue().Dialer);
@@ -74,7 +74,7 @@ public class TableStatus {
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        System.out.println(jsO.toString());
         return jsO.toString();
     }
     

@@ -25,8 +25,9 @@ public final class Connect {
     public void NewConnect(){
         try {
             socket = new Socket("148.251.10.241", 7778);
-            while(!socket.isConnected())
-                socket = new Socket("148.251.10.241", 7778);
+            //while(!socket.isConnected())
+            //    socket = new Socket("148.251.10.241", 7778);
+            //System.out.println("reconect");
             Listen listen = new Listen();
             listen.setIn(socket.getInputStream());
             listen.start();
