@@ -29,6 +29,7 @@ public class TableStatus {
         TimerTask task = new TimerTask() {
             public void run(){
                 try {
+                                System.out.println("GetListFromServer");
                     byte[] byteCommand = Functions.intToByteArray(100);            
                     Connect.GetInstance().out.write(byteCommand);
                     Connect.GetInstance().out.flush();
@@ -43,7 +44,7 @@ public class TableStatus {
     
     public String GetDataTable(int IdTable){
         JSONObject jsO = new JSONObject();
-        JSONObject jsUsers = new JSONObject();
+        JSONArray jsUsers = new JSONArray();
         System.out.println(IdTable);
         try {
             for (Map.Entry<Integer,UserTable> User : TableList.get(IdTable).Users.entrySet()) {
@@ -60,7 +61,7 @@ public class TableStatus {
                 jsUser.put("IsCall", User.getValue().IsCall);
                 jsUser.put("TimerFoBet", User.getValue().TimerFoBet);
                 jsUser.put("isUserSit", User.getValue().isUserSit());
-                jsUsers.put("User"+User.getKey(), jsUser);
+                jsUsers.put(jsUser);
             }
             
             jsO.put("Users", jsUsers.toString());
@@ -129,6 +130,7 @@ public class TableStatus {
     
     public String GetListTable(){
         JSONArray jsArr = new JSONArray();
+        System.out.println("GetListFromWeb");
         for (Map.Entry<Integer,TableHoldem> tableHoldem : TableList.entrySet()) {
             try {
                 JSONObject js = new JSONObject();
@@ -139,7 +141,10 @@ public class TableStatus {
                 js.put("distributionCount", tableHoldem.getValue().getDistributionCount());
                 js.put("flopView", tableHoldem.getValue().getFlopView());
                 js.put("players", tableHoldem.getValue().getCountMaxUsers());
-                js.put("type", tableHoldem.getValue().getType());
+                if(tableHoldem.getValue().getType() == 0)
+                    js.put("type", "Лимитный");
+                else
+                    js.put("type", "Безлимитный");
                 js.put("PlayerSittings", tableHoldem.getValue().getCountUsers());
                 jsArr.put(js);
                 
@@ -153,6 +158,7 @@ public class TableStatus {
     
     public boolean SetListTable(String json){
         try {
+            System.out.println("SetListFromServer");
             JSONObject jsObj = new JSONObject(json);
             if(TableList.size() <= 0){
             for (int i = 0; i < jsObj.getJSONArray("data").length(); i++) {

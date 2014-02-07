@@ -1,6 +1,6 @@
 var idTable;
 var plaseId;
-
+var countUserTable;
 $(document).ready(function(){
     idTable = -1;
     plaseId = -1;
@@ -90,7 +90,7 @@ function CheckGame(){
         dataType: "json",
         data: JSON.stringify(data),
         success: function (response, textStatus, jqXHR) {
-            
+                UpdateTable(response);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             
@@ -106,6 +106,17 @@ function SitThis(Id){
     plaseId = Id;
     $("#DialogSelectSumToTable").dialog({title:"Выберите сумму",height:200,width:300,maxHeight:200,maxWidth:300,minHeight:200,minWidth:300});
 
+}
+
+function UpdateTable(root){
+    for(var i = 0; i < countUserTable; i++){
+        if(JSON.parse(root.Users)[i].isUserSit == true){
+            $("#Table"+countUserTable+"User"+i+"Name").html(JSON.parse(root.Users)[i].UserName);
+            $("#Table"+countUserTable+"User"+i+"Money").html(JSON.parse(root.Users)[i].UserCash+"$");
+            $("#Table"+countUserTable+"User"+i+"SitThis").hide();
+        }
+        
+    }
 }
 
 function GetAllUserStatistic() {
@@ -166,25 +177,25 @@ function GetAllUserStatistic() {
                 datatype: "json",
                 colNames: [
                     'TableId',
-                    'flopView',
-                    'players',
+                    'Флоп',
+                    'Мест',
                     'MinBlinds',
                     'MaxBlinds',
-                    'PlayerSittings',
-                    'distributionCount',
-                    'averageBank',
-                    'type'
+                    'Играют',
+                    'Количество раздач',
+                    'Средний банк',
+                    'Тип'
                 ],
                 colModel: [
-                    { name: 'TableId', index: 'TableId',width: 80},
-                    { name: 'flopView', index: 'flopView',width: 80},
-                    { name: 'players', index: 'players',width: 80},
-                    { name: 'MinBlinds', index: 'MinBlinds',width: 80},
-                    { name: 'MaxBlinds', index: 'MaxBlinds',width: 80},
-                    { name: 'PlayerSittings', index: 'playersSitting',width: 80},
+                    { name: 'TableId', index: 'TableId',width: 0},
+                    { name: 'flopView', index: 'flopView',width: 70},
+                    { name: 'players', index: 'players',width: 60},
+                    { name: 'MinBlinds', index: 'MinBlinds',width: 70},
+                    { name: 'MaxBlinds', index: 'MaxBlinds',width: 70},
+                    { name: 'PlayerSittings', index: 'playersSitting',width: 60},
                     { name: 'distributionCount', index: 'distributionCount',width: 120},
                     { name: 'averageBank', index: 'averageBank', width: 80 },
-                    { name: 'type', index: 'type', width: 40 },
+                    { name: 'type', index: 'type', width: 100 },
                      ],
                 rowNum: 200,
                 rowList: [10,30,60,150,200],
@@ -267,8 +278,13 @@ function GetAllUserStatistic() {
                    var celValueId = myGrid.jqGrid ('getCell', selRowId, 'TableId');
                     //alert(celValueId);
                     idTable = celValueId;
+                    countUserTable = myGrid.jqGrid ('getCell', selRowId, 'players');
                     CheckGame();
-                    
+                    for(var i = 0; i < countUserTable; i++){
+            $("#Table"+countUserTable+"User"+i+"Name").html("");
+            $("#Table"+countUserTable+"User"+i+"Money").html("0$");
+            $("#Table"+countUserTable+"User"+i+"SitThis").show();
+        }
                     $("#BackToList").show();
                     if (celValue == 4){
                             $("#SelectTablePanel").hide();
