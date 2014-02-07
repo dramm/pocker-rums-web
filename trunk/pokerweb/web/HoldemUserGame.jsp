@@ -209,19 +209,20 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                         </div>
                     </div>
                 </div>
+                
                 <div id="SelectTablePanel" style="
                      width: 700px;
                      height: 200px;
                      background-color: rgb(19, 30, 36);
                      margin-left: 100px;
                      margin-top: 100px;
-                     display: none;
+                  
                      ">
                     <div style="
                          width: 100%;
                          height: 25px;
                          border: 1px solid red;
-                         color: whitesmoke;
+                         color: wihtesmoke;
                          text-align: center;
                          ">
                         Какой-то текст заголовка
@@ -242,7 +243,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                 </div>
                 </div>
                 
-                <div id="Tables" style="" class="tableHoldem">
+                <div id="Tables" style="display: none" class="tableHoldem">
                     <div class="TableImageHoldem"></div>
                  <div class="TableCartHoldem">
                 <div id="Table1Flop1" class="flop"></div>
@@ -744,7 +745,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              margin-left: 70px;
                              display: none;
                              "></div>
-                        <div id="Table9User3Name" style="
+                        <div id="Table9User2Name" style="
                              color: #fee006;
                              height: 20px;
                              ">
