@@ -71,7 +71,7 @@ public class TableStatus {
             jsO.put("FlopThree",TableList.get(IdTable).getFlopThree());
             jsO.put("Tern",TableList.get(IdTable).getTern());
             jsO.put("River",TableList.get(IdTable).getRiver());
-        
+            jsO.put("Balance", DBManager.GetInstance().GetCurrentUserAllInfo().balance);
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
         }

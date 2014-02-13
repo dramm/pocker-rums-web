@@ -41,8 +41,8 @@
                          height: 20px;
                          margin-top: 30px;
                          margin-left: 100px;
-                         text-align: center;"></div>
-                    <input type="range" id="RangeSelectSumToTable" style="width: 100%;">
+                         text-align: center;">0$</div>
+                    <input type="range" id="RangeSelectSumToTable" step = "0.1" value = "0" onchange="updateTextSum(this.value);" style="width: 100%;">
                     <div style="
                          width: 100%;
                          margin-top: 10px;
@@ -222,10 +222,10 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                          width: 100%;
                          height: 25px;
                          border: 1px solid red;
-                         color: wihtesmoke;
+                         color: whitesmoke;
                          text-align: center;
                          ">
-                        Какой-то текст заголовка
+                        Список столов
                     </div>
                     <div style="margin-left: 10px"><table id="ListTables"><tr><td /></tr></table></div>
                 <div style="width: 100%;height: 40px">
