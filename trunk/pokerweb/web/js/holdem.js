@@ -1,6 +1,8 @@
 var idTable;
 var plaseId;
 var countUserTable;
+var BigBlinds;
+var Balance;
 $(document).ready(function(){
     idTable = -1;
     plaseId = -1;
@@ -77,6 +79,7 @@ $("#DialogSelectSumToTable").dialog("close");
 });
 
 
+
 });
 
 
@@ -104,11 +107,14 @@ function CheckGame(){
 
 function SitThis(Id){
     plaseId = Id;
-    $("#DialogSelectSumToTable").dialog({title:"Выберите сумму",height:200,width:300,maxHeight:200,maxWidth:300,minHeight:200,minWidth:300});
+    if(Balance >= BigBlinds*10)
+        $("#DialogSelectSumToTable").dialog({title:"Выберите сумму",height:200,width:300,maxHeight:200,maxWidth:300,minHeight:200,minWidth:300});
+
 
 }
 
 function UpdateTable(root){
+    Balance = root.Balance;
     for(var i = 0; i < countUserTable; i++){
         if(JSON.parse(root.Users)[i].isUserSit == true){
             $("#Table"+countUserTable+"User"+i+"Name").html(JSON.parse(root.Users)[i].UserName);
@@ -199,7 +205,6 @@ function GetAllUserStatistic() {
                      ],
                 rowNum: 200,
                 rowList: [10,30,60,150,200],
-//                pager: '#PagerListTables',
                 gridview: true,
                 mtype: "POST",
                 autoencode: true,
@@ -216,27 +221,6 @@ function GetAllUserStatistic() {
                     var $td = $(e.target).closest("td");
                     var $tr = $td.closest("tr.jqgrow");
                     var data = { index: $tr[0].cells[1].innerHTML};
-                    
-//                    if(CheckBetTimer == null){
-//                         var $td = $(e.target).closest("td");
-//                    var $tr = $td.closest("tr.jqgrow");
-//                    var data = { index: $tr[0].cells[0].innerHTML};
-//                    $.ajax({
-//                                    url: "/SelectTable",
-//                                    type: "post",
-//                                    dataType: "json",
-//                                    data: JSON.stringify(data),
-//                                    success: function (response, textStatus, jqXHR) {
-//                                        if(response.correct == true)
-//                                        CheckBetRequest();
-//                                    },
-//                                    error: function (jqXHR, textStatus, errorThrown) {
-//                                        //alert("error");
-//                                    },
-//                                    complete: function () {
-//                                    }
-//                                });
-//                            }
                     return true;
                 },
                 ondblClickRow: function (rowid, iRow, iCol, e) {
@@ -246,59 +230,67 @@ function GetAllUserStatistic() {
                     return;
                 }
             });
-
-           
-           jQuery("#StatisticListAllUser").jqGrid('navGrid','#StatisticPagerAllUser',{edit:false,add:false,del:false,view: false});
-//            $grid.jqGrid('navGrid', '#pager', { view: true });
             
-            $("#AutoEdit").button({
-                text: false,
-                icons: { primary: "ui-icon-mail-closed" }
-            }).click(function () {
-                var iconClass, $this = $(this);
-                if (!autoedit) { // $this.is(':checked')) {
-                    autoedit = true;
-                    iconClass = "ui-icon-mail-open";
-                } else {
-                    autoedit = false;
-                    iconClass = "ui-icon-mail-closed";
-                }
-                $this.button("option", { icons: { primary: iconClass } });
-            });
-            createContexMenuFromNavigatorButtons($grid, '#StatisticPagerAllUser');
-            $(".ui-jqgrid-titlebar").hide();
-            $("#ListTables").jqGrid('hideCol',"TableId");
+    $("#StatisticListAllUser").jqGrid('navGrid','#StatisticPagerAllUser',{edit:false,add:false,del:false,view: false});
+    $("#AutoEdit").button({
+        text: false,
+        icons: { primary: "ui-icon-mail-closed" }
+    }).click(function () {
+        var iconClass, $this = $(this);
+        if (!autoedit) {
+            autoedit = true;
+            iconClass = "ui-icon-mail-open";
+        } else {
+            autoedit = false;
+            iconClass = "ui-icon-mail-closed";
+        }
+        $this.button("option", { icons: { primary: iconClass } });
+    });
+    createContexMenuFromNavigatorButtons($grid, '#StatisticPagerAllUser');
+    $(".ui-jqgrid-titlebar").hide();
+    $("#ListTables").jqGrid('hideCol',"TableId");
         }
         
-        
-        function SelectTable(){
-            var myGrid = $('#ListTables'),
-                            selRowId = myGrid.jqGrid ('getGridParam', 'selrow'),
-                            celValue = myGrid.jqGrid ('getCell', selRowId, 'players');
-                   var celValueId = myGrid.jqGrid ('getCell', selRowId, 'TableId');
-                    //alert(celValueId);
-                    idTable = celValueId;
-                    countUserTable = myGrid.jqGrid ('getCell', selRowId, 'players');
-                    CheckGame();
-                    for(var i = 0; i < countUserTable; i++){
-            $("#Table"+countUserTable+"User"+i+"Name").html("");
-            $("#Table"+countUserTable+"User"+i+"Money").html("0$");
-            $("#Table"+countUserTable+"User"+i+"SitThis").show();
-        }
-                    $("#BackToList").show();
-                    if (celValue == 4){
-                            $("#SelectTablePanel").hide();
-                            $("#Tables").show();
-                            $("#Table4Users").show();
-                        }
-                    if (celValue == 5){
-                            $("#SelectTablePanel").hide();
-                            $("#Tables").show();
-                            $("#Table5Users").show();
-                        }
-                            if (celValue == 9){
-                            $("#SelectTablePanel").hide();
-                            $("#Tables").show();
-                            $("#Table9Users").show();
-                        }
-        }
+
+function SelectTable(){
+    var myGrid = $('#ListTables'),
+            selRowId = myGrid.jqGrid ('getGridParam', 'selrow'),
+            celValue = myGrid.jqGrid ('getCell', selRowId, 'players');
+    var celValueId = myGrid.jqGrid ('getCell', selRowId, 'TableId');
+    idTable = celValueId;
+    BigBlinds = myGrid.jqGrid ('getCell', selRowId, 'MaxBlinds');
+    $("#RangeSelectSumToTable").attr("min",BigBlinds*10);
+    $("#RangeSelectSumToTable").attr("max",BigBlinds*20);
+    $("#RangeSelectSumToTable").attr("value",0);
+    $("#DisplaySummToTable").html("0$");
+    countUserTable = myGrid.jqGrid ('getCell', selRowId, 'players');
+    CheckGame();
+    for(var i = 0; i < countUserTable; i++){
+        $("#Table" + countUserTable + "User" + i + "Name").html("");
+        $("#Table" + countUserTable + "User" + i + "Money").html("0$");
+        $("#Table" + countUserTable + "User" + i + "SitThis").show();
+    }
+    $("#BackToList").show();
+    
+    if (celValue == 4){
+        $("#SelectTablePanel").hide();
+        $("#Tables").show();
+        $("#Table4Users").show();
+    }
+    
+    if (celValue == 5){
+        $("#SelectTablePanel").hide();
+        $("#Tables").show();
+        $("#Table5Users").show();
+    }
+    
+    if (celValue == 9){
+        $("#SelectTablePanel").hide();
+        $("#Tables").show();
+        $("#Table9Users").show();
+    }
+}
+
+function updateTextSum(val) {
+    $("#DisplaySummToTable").html(val+"$");
+}

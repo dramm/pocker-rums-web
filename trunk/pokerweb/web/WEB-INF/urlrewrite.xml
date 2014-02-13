@@ -15,6 +15,11 @@
     <rule>
         <from>^/PrivateArea$</from>
        <to type="forward">/PrivateArea.jsp</to>
+       
+    </rule>
+    <rule>
+        <from>^/Holdem$</from>
+       <to type="forward">/HoldemUserGame.jsp</to>
     </rule>
     
     
