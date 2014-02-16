@@ -79,10 +79,9 @@ $("#DialogSelectSumToTable").dialog("close");
 });
 
 
-
 });
-
-
+var scrollPosition;
+var ids = new Array();
 function CheckGame(){
     setInterval(function() {
     var data = {};
@@ -101,7 +100,11 @@ function CheckGame(){
         complete: function () {
             
         }
-    });
+    }); 
+    scrollPosition = $("#ListTables").closest(".ui-jqgrid-bdiv").scrollTop();
+    $("#ListTables").trigger("reloadGrid",[{current:true}]);
+        //    $("#ListTables").closest(".ui-jqgrid-bdiv").scrollTop(scrollPosition);
+            
 },1000);
 }
 
@@ -213,6 +216,7 @@ function GetAllUserStatistic() {
                 sortorder: 'asc',
                 height: '110px',
                 caption: 'Статистика текущего пользователя',
+                loadui: 'disable',
                 beforeSelectRow: function (rowid,e) {
                     if (rowid !== lastSel) {
                         $(this).jqGrid('restoreRow', lastSel);
@@ -228,7 +232,11 @@ function GetAllUserStatistic() {
                         $("input, select", e.target).focus();
                     });
                     return;
-                }
+                },
+                loadComplete: function(data){
+                    $("#ListTables").closest(".ui-jqgrid-bdiv").scrollTop(scrollPosition);
+
+           }
             });
             
     $("#StatisticListAllUser").jqGrid('navGrid','#StatisticPagerAllUser',{edit:false,add:false,del:false,view: false});
