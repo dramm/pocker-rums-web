@@ -59,15 +59,26 @@ $(document).ready(function(){
         var s=(cont.parent().width()-(cont.prev().width()+cont.next().width())-cont.width())/2-5;
        cont.css({"margin":"0 "+s+"px 0 "+s+"px"});
         
+        if(document.URL.substr(document.URL.lastIndexOf("/") + 1,document.URL.lenght) == "Holdem")
+           $("#HoldemMenuId").addClass("active");
+        if(document.URL.substr(document.URL.lastIndexOf("/") + 1,document.URL.lenght) == "game")
+           $("#GameMenuId").addClass("active");
+        
+        
         $("#mainMenu .button").click(function()
         {    
             $("#mainMenu .active").removeClass("active");
             $(this).addClass("active");
+            if($(this).attr("id") == "HoldemMenuId")
+                window.location = "../Holdem";
+            if($(this).attr("id") == "GameMenuId")
+                window.location = "../game";
+            
         });
         
         $("#menuGame .button").keyup(function()
         {   
-            setButtonGradient($(this),false)
+            setButtonGradient($(this),false);
         });
         
         $("#table .button").click(function()

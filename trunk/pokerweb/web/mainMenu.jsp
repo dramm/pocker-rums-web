@@ -12,8 +12,8 @@
                     <div class="button">Казино</div>
                     <div class="button">Live казино</div>
                     <div class="button">Покер</div>
-                    <div class="button"><a href="/game">Игры</a></div>
-                    <div class="button active"><a href="/Holdem">Holdem</a></div>
+                    <div class="button" id="GameMenuId">Игры</div>
+                    <div class="button" id="HoldemMenuId">Holdem</div>
                     <div class="button">Аркады</div>
                     <div class="button">Топ столы</div>
                     <div class="button">Акции</div>
