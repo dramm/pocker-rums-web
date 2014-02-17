@@ -10,6 +10,7 @@ import com.pokerweb.DB.DBManager;
 import com.pokerweb.ServerHoldem.TableStatus;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -24,8 +25,8 @@ import org.json.JSONObject;
  *
  * @author vadim
  */
-@WebServlet(name = "GetTableInfo", urlPatterns = {"/GetTableInfo"})
-public class GetTableInfo extends HttpServlet {
+@WebServlet(name = "ExitUserTable", urlPatterns = {"/ExitUserTable"})
+public class ExitUserTable extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,7 +51,6 @@ public class GetTableInfo extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
     }
 
     /**
@@ -64,6 +64,7 @@ public class GetTableInfo extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         try {
             StringBuilder jb = new StringBuilder();
             String line = null;
@@ -72,11 +73,10 @@ public class GetTableInfo extends HttpServlet {
             while ((line = reader.readLine()) != null)
                 jb.append(line);
             JSONObject jsonObject = new JSONObject(jb.toString());
-            int TableId = jsonObject.getInt("IdTable");
-            String jsMessage = TableStatus.GetInstance().GetDataTable(TableId);
+            TableStatus.GetInstance().ExitTable(jsonObject.getInt("IdTable"));
             response.setContentType("application/json; charset=utf-8");
             response.setHeader("Cache-Control", "no-cache");
-            response.getWriter().write(jsMessage);
+            response.getWriter().write("{error:null}");
         } catch (JSONException ex) {
             Logger.getLogger(GetTableInfo.class.getName()).log(Level.SEVERE, null, ex);
         }
