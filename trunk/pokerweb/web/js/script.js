@@ -69,9 +69,9 @@ $(document).ready(function(){
         {    
             $("#mainMenu .active").removeClass("active");
             $(this).addClass("active");
-            if($(this).attr("id") == "HoldemMenuId")
+            if($(this).attr("id") == "HoldemMenuId" && document.URL.substr(document.URL.lastIndexOf("/") + 1,document.URL.lenght) != "Holdem")
                 window.location = "../Holdem";
-            if($(this).attr("id") == "GameMenuId")
+            if($(this).attr("id") == "GameMenuId" && document.URL.substr(document.URL.lastIndexOf("/") + 1,document.URL.lenght) != "game")
                 window.location = "../game";
             
         });

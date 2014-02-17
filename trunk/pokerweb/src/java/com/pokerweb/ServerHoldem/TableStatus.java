@@ -46,6 +46,8 @@ public class TableStatus {
         JSONObject jsO = new JSONObject();
         JSONArray jsUsers = new JSONArray();
         System.out.println(IdTable);
+        if(TableList.size() <= 0)
+            return "{}";
         try {
             for (Map.Entry<Integer,UserTable> User : TableList.get(IdTable).Users.entrySet()) {
                 JSONObject jsUser = new JSONObject();
@@ -128,6 +130,31 @@ public class TableStatus {
         
     }
     
+     public void SetResponceExit(String Message){
+        try {
+            JSONObject jsObj = new JSONObject(Message);
+            System.out.println("SetResponceExit");
+            System.out.println(Message);
+            for(int i = 0; i < jsObj.getJSONArray("data").length(); i++){
+                System.out.println("LenAll="+jsObj.getJSONArray("data").length());
+                System.out.println("Lenght="+jsObj.getJSONArray("data").getJSONObject(i).length());
+                if(jsObj.getJSONArray("data").getJSONObject(i).length() <= 0){
+                    TableList.get(jsObj.getInt("tableId")).
+                            Users.get(i).setUserSit(false);
+                    
+                    TableList.get(jsObj.getInt("tableId")).
+                            Users.get(i).
+                            setName("");
+                    
+                TableList.get(jsObj.getInt("tableId")).Users.get(i).UserCash = 0;
+                }
+            }
+        } catch (JSONException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
     public String GetListTable(){
         JSONArray jsArr = new JSONArray();
         System.out.println("GetListFromWeb");
@@ -160,6 +187,7 @@ public class TableStatus {
         try {
             System.out.println("SetListFromServer");
             JSONObject jsObj = new JSONObject(json);
+            System.out.println(json);
             if(TableList.size() <= 0){
             for (int i = 0; i < jsObj.getJSONArray("data").length(); i++) {
                 TableHoldem table = new TableHoldem();
@@ -173,7 +201,8 @@ public class TableStatus {
                 table.setType(jsObj.getJSONArray("data").getJSONObject(i).getInt("type"));
                 table.setCountUsers(jsObj.getJSONArray("data").getJSONObject(i).getInt("playersSitting"));
                 TableList.put(table.getIdTable(), table);
-            }}else{
+            }
+            }else{
                 for (int i = 0; i < jsObj.getJSONArray("data").length(); i++) {
                     int IdTable = jsObj.getJSONArray("data").getJSONObject(i).getInt("tableId");
                     
@@ -207,6 +236,22 @@ public class TableStatus {
     
     public synchronized String GetNewData(int StageUser,String Token){
         return "";
+    }
+    
+    public void ExitTable(int TableId){
+        try {
+            JSONObject js = new JSONObject();
+            js.put("tableId", TableId);
+            js.put("userId", DBManager.GetInstance().GetCurrentUserId());
+            Connect.GetInstance().out.write(Functions.intToByteArray(140));
+            Connect.GetInstance().out.write(Functions.intToByteArray(js.toString().length()));
+            Connect.GetInstance().out.write(CryptoManager.encode(js.toString().getBytes()));
+            Connect.GetInstance().out.flush();
+        } catch (JSONException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
    

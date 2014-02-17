@@ -12,11 +12,30 @@ $(document).ready(function(){
     });
     
     $("#BackToList").click(function (){
+    var data = {};
+    data.IdTable = idTable;
+        $.ajax({
+        url: "/ExitUserTable",
+        type: "post",
+        dataType: "json",
+        data: JSON.stringify(data),
+        success: function (response, textStatus, jqXHR) {
+            
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            
+        },
+        complete: function () {
+            
+        }
+    });
+    
        $("#SelectTablePanel").show();
        $("#Tables").hide();
        $("#Table4Users").hide();
        $("#Table5Users").hide();
        $("#Table9Users").hide();
+       idTable = -1;
     });
     $('#ListTables').on('loadComplete', function() {
         $("#ListTables").jqGrid('hideCol',"TableId");
@@ -25,8 +44,6 @@ $(document).ready(function(){
     $('#ListTables').on('reloadGrid', function() {
         $("#ListTables").jqGrid('hideCol',"TableId");
 });
-
-
 $("#Table9User0SitThis").click(function(){SitThis(0);});
 $("#Table9User1SitThis").click(function(){SitThis(1);});
 $("#Table9User2SitThis").click(function(){SitThis(2);});
@@ -78,14 +95,23 @@ $("#DialogSelectSumToTable").dialog("close");
 
 });
 
-
+setInterval(function() {
+    if(idTable == -1){
+    scrollPosition = $("#ListTables").closest(".ui-jqgrid-bdiv").scrollTop();
+    $("#ListTables").trigger("reloadGrid",[{current:true}]);
+}
+},3000);
 });
 var scrollPosition;
 var ids = new Array();
+var RowId;
+var timer = null;
 function CheckGame(){
-    setInterval(function() {
+    if(timer == null)
+   timer =  setInterval(function() {
     var data = {};
     data.IdTable = idTable;
+    if(idTable != -1){
     $.ajax({
         url: "/GetTableInfo",
         type: "post",
@@ -101,9 +127,13 @@ function CheckGame(){
             
         }
     }); 
-    scrollPosition = $("#ListTables").closest(".ui-jqgrid-bdiv").scrollTop();
-    $("#ListTables").trigger("reloadGrid",[{current:true}]);
-        //    $("#ListTables").closest(".ui-jqgrid-bdiv").scrollTop(scrollPosition);
+}
+    //var myGrid = $('#ListTables'),
+    //        selRowId = myGrid.jqGrid ('getGridParam', 'selrow');
+           // RowId = selRowId;
+           // console.log("RowIdGet = "+RowId);
+  //  scrollPosition = $("#ListTables").closest(".ui-jqgrid-bdiv").scrollTop();
+  //  $("#ListTables").trigger("reloadGrid",[{current:true}]);
             
 },1000);
 }
@@ -123,6 +153,10 @@ function UpdateTable(root){
             $("#Table"+countUserTable+"User"+i+"Name").html(JSON.parse(root.Users)[i].UserName);
             $("#Table"+countUserTable+"User"+i+"Money").html(JSON.parse(root.Users)[i].UserCash+"$");
             $("#Table"+countUserTable+"User"+i+"SitThis").hide();
+        }else{
+            $("#Table"+countUserTable+"User"+i+"Name").html("");
+            $("#Table"+countUserTable+"User"+i+"Money").html("0$");
+            $("#Table"+countUserTable+"User"+i+"SitThis").show();
         }
         
     }
@@ -234,6 +268,8 @@ function GetAllUserStatistic() {
                     return;
                 },
                 loadComplete: function(data){
+               //     console.log("RowIdSet = "+RowId);
+             //       $("#ListTables").jqGrid('setSelection', RowId);
                     $("#ListTables").closest(".ui-jqgrid-bdiv").scrollTop(scrollPosition);
 
            }
@@ -269,8 +305,8 @@ function SelectTable(){
     BigBlinds = myGrid.jqGrid ('getCell', selRowId, 'MaxBlinds');
     $("#RangeSelectSumToTable").attr("min",BigBlinds*10);
     $("#RangeSelectSumToTable").attr("max",BigBlinds*20);
-    $("#RangeSelectSumToTable").attr("value",0);
-    $("#DisplaySummToTable").html("0$");
+    $("#RangeSelectSumToTable").val(0);
+    $("#DisplaySummToTable").html((BigBlinds*10)+"$");
     countUserTable = myGrid.jqGrid ('getCell', selRowId, 'players');
     CheckGame();
     for(var i = 0; i < countUserTable; i++){

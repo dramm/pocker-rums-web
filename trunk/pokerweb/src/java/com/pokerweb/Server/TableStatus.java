@@ -685,7 +685,7 @@ public class TableStatus {
                 for (int i = 0; i < Table1.length(); i++) 
                     hand.add(Table1.getInt(i));
                     ub.TableHand.put(0,hand);
-                        }
+            }
             if(Table2.length() > 0){
                 hand = new ArrayList<Integer>();
                 for (int i = 0; i < Table2.length(); i++) 
