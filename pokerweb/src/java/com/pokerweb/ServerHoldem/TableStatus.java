@@ -64,8 +64,10 @@ public class TableStatus {
                 jsUser.put("TimerFoBet", User.getValue().TimerFoBet);
                 jsUser.put("isUserSit", User.getValue().isUserSit());
                 jsUsers.put(jsUser);
+                if(User.getValue().isUserSit() && User.getValue().getIdUser() == DBManager.GetInstance().GetCurrentUserId())
+                    jsO.put("CurrentUserSit", true);
+                    
             }
-            
             jsO.put("Users", jsUsers.toString());
             jsO.put("BankTable",TableList.get(IdTable).getBankTable());
             jsO.put("FlopOne",TableList.get(IdTable).getFlopOne());
@@ -74,6 +76,8 @@ public class TableStatus {
             jsO.put("Tern",TableList.get(IdTable).getTern());
             jsO.put("River",TableList.get(IdTable).getRiver());
             jsO.put("Balance", DBManager.GetInstance().GetCurrentUserAllInfo().balance);
+            
+            
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -118,6 +122,11 @@ public class TableStatus {
                             Users.get(jsObj.getJSONArray("data").getJSONObject(i).getInt("plaseId")).
                             setName(DBManager.GetInstance().GetUserLoginFromId(jsObj.getJSONArray("data").
                                     getJSONObject(i).getLong("playerId")));
+                    
+                    TableList.get(jsObj.getInt("tableId")).
+                            Users.get(jsObj.getJSONArray("data").getJSONObject(i).getInt("plaseId")).
+                            setIdUser(jsObj.getJSONArray("data").
+                                    getJSONObject(i).getLong("playerId"));
                     
                 TableList.get(jsObj.getInt("tableId")).Users.get(jsObj.getJSONArray("data").
                         getJSONObject(i).getInt("plaseId")).

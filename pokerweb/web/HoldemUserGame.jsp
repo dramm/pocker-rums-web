@@ -1890,7 +1890,54 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                 </div>
             </div>
                                </div>
-                
+                <div id="ControlPanel" 
+                     style="
+                     width: 100%;
+                     height: 300px;
+                     border: solid red 1px;
+                     display: none;
+                     margin-top: 600px">
+                    <div style="width: 100%;height: 50px;float: left"></div>
+                    <div style="width: 100%;height: 250px;border: solid 1px green;float: left">
+                        <div style="width: 290px;height: 200px;border: solid 1px red;float: left">
+                            
+                        </div>
+                        <div style="width: 300px;height: 200px;border: solid green 1px;float: left">
+                            <div style="margin-top: 5px;margin-left: 30px;width: 80%;border-radius: 10px;height: 20px;float: left;background-color: #565656">
+                                <div style="color: whitesmoke;margin-left: 80px;">
+                                    <div style="float: left">Raise</div>
+                                    <div style="float: left" id="RaiseSumUser">0</div>
+                                    <div style="float: left">$</div>
+                                </div>
+                            </div>
+                            <div style="margin-left: 30px;margin-top: 5px;width: 80%;border-radius: 10px;height: 20px;float: left;background-color: #565656">
+                                <div style="color: whitesmoke;margin-left: 80px;">
+                                    <div style="float: left">Call</div>
+                                    <div style="float: left" id="CallSumUser">10</div>
+                                    <div style="float: left">$</div>
+                                </div>
+                            </div>
+                            <div style="margin-left: 30px;margin-top: 5px;width: 80%;border-radius: 10px;height: 20px;float: left;background-color: #565656;">
+                                <div style="color: whitesmoke;margin-left: 80px;">
+                                    <div>Fold</div>
+                                </div>
+                            </div>
+                            <div style="margin-left: 30px;margin-top: 5px;width: 80%;border-radius: 10px;height: 20px;float: left;background-color: #565656;">
+                                <div style="color: whitesmoke;margin-left: 80px;">
+                                    <div>Check</div>
+                                </div>
+                            </div>
+                            <div style="margin-left: 30px;margin-top: 5px;width: 80%;height: 20px;float: left;">
+                                <input type="range" style="width: 100%" value="0" min="0" max="100">
+                            </div>
+                            
+                        </div>
+                        <div style="width: 280px;height: 200px;border: solid 1px red;float: right" >
+                            
+                        </div>
+                        <div style="width: 100%;height: 50px;"></div>
+                    </div>
+                </div>
                 <div class="rightCol"></div>
             </div>
             <jsp:include page="footer.jsp" flush="true" />

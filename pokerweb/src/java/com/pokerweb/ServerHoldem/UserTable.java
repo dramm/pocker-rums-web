@@ -23,6 +23,16 @@ public class UserTable {
     public boolean IsCall;
     public int TimerFoBet;
     private String Name;
+    private long IdUser;
+
+    public long getIdUser() {
+        return IdUser;
+    }
+
+    public void setIdUser(long IdUser) {
+        this.IdUser = IdUser;
+    }
+    
     public UserTable() {
         CartOne = 0;
         CartTwo = 0;
