@@ -148,6 +148,10 @@ function SitThis(Id){
 
 function UpdateTable(root){
     Balance = root.Balance;
+    if(root.CurrentUserSit == true)
+        for(var i = 0; i < countUserTable; i++){
+            $("#Table"+countUserTable+"User"+i+"SitThis").hide();
+    }
     for(var i = 0; i < countUserTable; i++){
         if(JSON.parse(root.Users)[i].isUserSit == true){
             $("#Table"+countUserTable+"User"+i+"Name").html(JSON.parse(root.Users)[i].UserName);
@@ -156,6 +160,7 @@ function UpdateTable(root){
         }else{
             $("#Table"+countUserTable+"User"+i+"Name").html("");
             $("#Table"+countUserTable+"User"+i+"Money").html("0$");
+            if(root.CurrentUserSit != true)
             $("#Table"+countUserTable+"User"+i+"SitThis").show();
         }
         
