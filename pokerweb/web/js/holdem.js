@@ -35,6 +35,7 @@ $(document).ready(function(){
        $("#Table4Users").hide();
        $("#Table5Users").hide();
        $("#Table9Users").hide();
+       $("#ControlPanel").hide();
        idTable = -1;
     });
     $('#ListTables').on('loadComplete', function() {
@@ -313,6 +314,7 @@ function SelectTable(){
     $("#RangeSelectSumToTable").val(0);
     $("#DisplaySummToTable").html((BigBlinds*10)+"$");
     countUserTable = myGrid.jqGrid ('getCell', selRowId, 'players');
+    $("#ControlPanel").show();
     CheckGame();
     for(var i = 0; i < countUserTable; i++){
         $("#Table" + countUserTable + "User" + i + "Name").html("");

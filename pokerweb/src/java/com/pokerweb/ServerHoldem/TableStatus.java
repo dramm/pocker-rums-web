@@ -148,14 +148,9 @@ public class TableStatus {
                 System.out.println("LenAll="+jsObj.getJSONArray("data").length());
                 System.out.println("Lenght="+jsObj.getJSONArray("data").getJSONObject(i).length());
                 if(jsObj.getJSONArray("data").getJSONObject(i).length() <= 0){
-                    TableList.get(jsObj.getInt("tableId")).
-                            Users.get(i).setUserSit(false);
-                    
-                    TableList.get(jsObj.getInt("tableId")).
-                            Users.get(i).
-                            setName("");
-                    
-                TableList.get(jsObj.getInt("tableId")).Users.get(i).UserCash = 0;
+                    TableList.get(jsObj.getInt("tableId")).Users.get(i).setUserSit(false);
+                    TableList.get(jsObj.getInt("tableId")).Users.get(i).setName("");
+                    TableList.get(jsObj.getInt("tableId")).Users.get(i).UserCash = 0;
                 }
             }
         } catch (JSONException ex) {
