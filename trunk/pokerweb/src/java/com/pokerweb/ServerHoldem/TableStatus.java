@@ -136,7 +136,9 @@ public class TableStatus {
                     TableList.get(TableId).Users.get(PlaseId).setIdUser(PlayerId);
                     TableList.get(TableId).Users.get(PlaseId).setIdTable(TableId);
                     TableList.get(TableId).Users.get(PlaseId).UserCash = Stack;
+                    TableList.get(TableId).Users.get(PlaseId).setPositionTable(PlaseId);
                     Users.put(PlayerId, TableList.get(TableId).Users.get(PlaseId));
+                    
                 }
             
         } catch (JSONException ex) {
@@ -266,12 +268,14 @@ public class TableStatus {
         }
     }
     
-    public void UserMoved(long UserId,int TableId,long TimeMillils){
+    public void UserMoved(long UserId,int TableId,long TimeMillils,int PlaseId){
         JSONObject js = new JSONObject();
         try {
+            System.out.println("UserMoved" + TimeMillils);
             js.put("TableId", TableId);
             js.put("TimeMillils", TimeMillils);
             js.put("UserId", UserId);
+            js.put("PlaseId", PlaseId);
             Connect.GetInstance().out.write(Functions.intToByteArray(130));
             Connect.GetInstance().out.write(Functions.intToByteArray(js.toString().length()));
             Connect.GetInstance().out.write(CryptoManager.encode(js.toString().getBytes()));
