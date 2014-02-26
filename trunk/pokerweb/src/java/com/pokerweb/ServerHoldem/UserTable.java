@@ -6,6 +6,8 @@
 
 package com.pokerweb.ServerHoldem;
 
+import java.util.Timer;
+
 /**
  *
  * @author vadim
@@ -24,7 +26,26 @@ public class UserTable {
     public int TimerFoBet;
     private String Name;
     private long IdUser;
+    private long LastUserOnline;
+    private int IdTable;
+    Timer timer;
 
+    public int getIdTable() {
+        return IdTable;
+    }
+
+    public void setIdTable(int IdTable) {
+        this.IdTable = IdTable;
+    }
+    
+    public long getLastUserOnline() {
+        return LastUserOnline;
+    }
+
+    public synchronized void setLastUserOnline(long LastUserOnline) {
+        this.LastUserOnline = LastUserOnline;
+    }
+    
     public long getIdUser() {
         return IdUser;
     }
@@ -50,10 +71,15 @@ public class UserTable {
         this.Name = Name;
     }
 
-    
-    
     public void setUserSit(boolean UserSit) {
         this.UserSit = UserSit;
+        if(UserSit){
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new WatchUserOnline(), 5*1000, 5*1000);
+        }else{
+            if(timer != null)
+                timer.cancel();
+        }
     }
 
     public boolean isUserSit() {

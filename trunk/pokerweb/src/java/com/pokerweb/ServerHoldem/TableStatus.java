@@ -9,6 +9,7 @@ import com.pokerweb.Server.Functions;
 import com.pokerweb.crypto.CryptoManager;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -21,15 +22,17 @@ import org.json.JSONObject;
  * @author vadim
  */
 public class TableStatus {
-    private static TableStatus instanse = new TableStatus();
+    private static TableStatus instanse;
     public Map<Integer,TableHoldem> TableList; 
+    public Map<Long,UserTable> Users;
     private TableStatus(){
-        TableList = new HashMap<Integer, TableHoldem>();
+        TableList = new java.util.concurrent.ConcurrentHashMap<Integer, TableHoldem>();
+        Users = new java.util.concurrent.ConcurrentHashMap<Long,UserTable>();
         java.util.Timer timer = new java.util.Timer();
         TimerTask task = new TimerTask() {
             public void run(){
                 try {
-                                System.out.println("GetListFromServer");
+                    System.out.println("GetListFromServer");
                     byte[] byteCommand = Functions.intToByteArray(100);            
                     Connect.GetInstance().out.write(byteCommand);
                     Connect.GetInstance().out.flush();
@@ -42,29 +45,35 @@ public class TableStatus {
   
     }
     
-    public String GetDataTable(int IdTable){
+    public synchronized String GetDataTable(int IdTable){
         JSONObject jsO = new JSONObject();
         JSONArray jsUsers = new JSONArray();
         System.out.println(IdTable);
-        if(TableList.size() <= 0)
-            return "{}";
+         if(TableList == null || TableList.size() <= 0)
+            return jsO.toString();
+        long UserId = DBManager.GetInstance().GetCurrentUserId();
+        System.out.println("UserId= "+UserId);
+        System.out.println("Size = "+TableList.get(IdTable).Users.size());
+        UserTable us =  Users.get(UserId);
+        if(us != null)
+            us.setLastUserOnline(System.currentTimeMillis());
         try {
             for (Map.Entry<Integer,UserTable> User : TableList.get(IdTable).Users.entrySet()) {
                 JSONObject jsUser = new JSONObject();
                 jsUser.put("CartOne", User.getValue().getCartOne());
                 jsUser.put("CartTwo", User.getValue().getCartTwo());
-                jsUser.put("Dialer", User.getValue().Dialer);
-                jsUser.put("UserBet", User.getValue().UserBet);
-                jsUser.put("UserCash", User.getValue().UserCash);
+                jsUser.put("Dialer", User.getValue().isDialer());
+                jsUser.put("UserBet", User.getValue().getUserBet());
+                jsUser.put("UserCash", User.getValue().getUserCash());
                 jsUser.put("UserName", User.getValue().getName());
                 jsUser.put("IsRaise", User.getValue().IsRaise);
-                jsUser.put("MinRaise", User.getValue().MinRaise);
+                jsUser.put("MinRaise", User.getValue().getMinRaise());
                 jsUser.put("SumCall", User.getValue().SumCall);
                 jsUser.put("IsCall", User.getValue().IsCall);
                 jsUser.put("TimerFoBet", User.getValue().TimerFoBet);
                 jsUser.put("isUserSit", User.getValue().isUserSit());
                 jsUsers.put(jsUser);
-                if(User.getValue().isUserSit() && User.getValue().getIdUser() == DBManager.GetInstance().GetCurrentUserId())
+                if(User.getValue().isUserSit() && User.getValue().getIdUser() == UserId)
                     jsO.put("CurrentUserSit", true);
                     
             }
@@ -86,6 +95,8 @@ public class TableStatus {
     }
     
     public synchronized static TableStatus GetInstance(){
+        if(instanse == null)
+            instanse = new TableStatus();
         return instanse;
     }
     
@@ -96,6 +107,8 @@ public class TableStatus {
             js.put("plaseId", Idplase);
             js.put("stack", sum);
             js.put("userId", DBManager.GetInstance().GetCurrentUserId());
+            System.out.println("SITTHIS");
+            System.out.println(js.toString());
             Connect.GetInstance().out.write(Functions.intToByteArray(120));
             Connect.GetInstance().out.write(Functions.intToByteArray(js.toString().length()));
             Connect.GetInstance().out.write(CryptoManager.encode(js.toString().getBytes()));
@@ -114,23 +127,16 @@ public class TableStatus {
             System.out.println(Message);
             for(int i = 0; i < jsObj.getJSONArray("data").length(); i++)
                 if(jsObj.getJSONArray("data").getJSONObject(i).length() != 0){
-                    TableList.get(jsObj.getInt("tableId")).
-                            Users.get(jsObj.getJSONArray("data").
-                                    getJSONObject(i).getInt("plaseId")).setUserSit(true);
-                    
-                    TableList.get(jsObj.getInt("tableId")).
-                            Users.get(jsObj.getJSONArray("data").getJSONObject(i).getInt("plaseId")).
-                            setName(DBManager.GetInstance().GetUserLoginFromId(jsObj.getJSONArray("data").
-                                    getJSONObject(i).getLong("playerId")));
-                    
-                    TableList.get(jsObj.getInt("tableId")).
-                            Users.get(jsObj.getJSONArray("data").getJSONObject(i).getInt("plaseId")).
-                            setIdUser(jsObj.getJSONArray("data").
-                                    getJSONObject(i).getLong("playerId"));
-                    
-                TableList.get(jsObj.getInt("tableId")).Users.get(jsObj.getJSONArray("data").
-                        getJSONObject(i).getInt("plaseId")).
-                        UserCash = jsObj.getJSONArray("data").getJSONObject(i).getDouble("stack");
+                    int TableId = jsObj.getInt("tableId");
+                    int PlaseId = jsObj.getJSONArray("data").getJSONObject(i).getInt("plaseId");
+                    long PlayerId = jsObj.getJSONArray("data").getJSONObject(i).getLong("playerId");
+                    double Stack = jsObj.getJSONArray("data").getJSONObject(i).getDouble("stack");
+                    TableList.get(TableId).Users.get(PlaseId).setUserSit(true);
+                    TableList.get(TableId).Users.get(PlaseId).setName(DBManager.GetInstance().GetUserLoginFromId(PlayerId));
+                    TableList.get(TableId).Users.get(PlaseId).setIdUser(PlayerId);
+                    TableList.get(TableId).Users.get(PlaseId).setIdTable(TableId);
+                    TableList.get(TableId).Users.get(PlaseId).UserCash = Stack;
+                    Users.put(PlayerId, TableList.get(TableId).Users.get(PlaseId));
                 }
             
         } catch (JSONException ex) {
@@ -183,6 +189,8 @@ public class TableStatus {
                 Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        System.out.println(jsArr.toString());
         return jsArr.toString();
     }
 
@@ -248,6 +256,23 @@ public class TableStatus {
             js.put("tableId", TableId);
             js.put("userId", DBManager.GetInstance().GetCurrentUserId());
             Connect.GetInstance().out.write(Functions.intToByteArray(140));
+            Connect.GetInstance().out.write(Functions.intToByteArray(js.toString().length()));
+            Connect.GetInstance().out.write(CryptoManager.encode(js.toString().getBytes()));
+            Connect.GetInstance().out.flush();
+        } catch (JSONException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void UserMoved(long UserId,int TableId,long TimeMillils){
+        JSONObject js = new JSONObject();
+        try {
+            js.put("TableId", TableId);
+            js.put("TimeMillils", TimeMillils);
+            js.put("UserId", UserId);
+            Connect.GetInstance().out.write(Functions.intToByteArray(130));
             Connect.GetInstance().out.write(Functions.intToByteArray(js.toString().length()));
             Connect.GetInstance().out.write(CryptoManager.encode(js.toString().getBytes()));
             Connect.GetInstance().out.flush();
