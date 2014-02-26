@@ -27,7 +27,7 @@ public class WatchUserOnline extends TimerTask {
     }
 
     public void SendServerUserMoved(long TimeMillils){
-        TableStatus.GetInstance().UserMoved(user.getIdUser(), user.getIdTable(), TimeMillils);
+        TableStatus.GetInstance().UserMoved(user.getIdUser(), user.getIdTable(), TimeMillils,user.getPositionTable());
     }
     
 }

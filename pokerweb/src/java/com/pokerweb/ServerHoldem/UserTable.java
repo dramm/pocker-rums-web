@@ -28,8 +28,19 @@ public class UserTable {
     private long IdUser;
     private long LastUserOnline;
     private int IdTable;
+    private int PositionTable;
     Timer timer;
 
+    public int getPositionTable() {
+        return PositionTable;
+    }
+
+    public void setPositionTable(int PositionTable) {
+        this.PositionTable = PositionTable;
+    }
+
+    
+    
     public int getIdTable() {
         return IdTable;
     }
@@ -75,7 +86,9 @@ public class UserTable {
         this.UserSit = UserSit;
         if(UserSit){
             timer = new Timer();
-            timer.scheduleAtFixedRate(new WatchUserOnline(), 5*1000, 5*1000);
+            WatchUserOnline Watcher = new WatchUserOnline();
+            Watcher.setUser(this);
+            timer.scheduleAtFixedRate(Watcher, 5*1000, 5*1000);
         }else{
             if(timer != null)
                 timer.cancel();
