@@ -73,6 +73,7 @@ public class GetTableInfo extends HttpServlet {
                 jb.append(line);
             JSONObject jsonObject = new JSONObject(jb.toString());
             int TableId = jsonObject.getInt("IdTable");
+            System.out.println("TableId = "+TableId);
             String jsMessage = TableStatus.GetInstance().GetDataTable(TableId);
             response.setContentType("application/json; charset=utf-8");
             response.setHeader("Cache-Control", "no-cache");
