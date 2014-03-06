@@ -158,12 +158,21 @@ function UpdateTable(root){
             $("#Table"+countUserTable+"User"+i+"Name").html(JSON.parse(root.Users)[i].UserName);
             $("#Table"+countUserTable+"User"+i+"Money").html(JSON.parse(root.Users)[i].UserCash+"$");
             $("#Table"+countUserTable+"User"+i+"SitThis").hide();
+            if(JSON.parse(root.Users)[i].Dialer == true){
+                $("#Table"+countUserTable+"User"+i+"Dialer").show();
+            }
+        else
+            $("#Table"+countUserTable+"User"+i+"Dialer").hide();
         }else{
             $("#Table"+countUserTable+"User"+i+"Name").html("");
             $("#Table"+countUserTable+"User"+i+"Money").html("0$");
             if(root.CurrentUserSit != true)
             $("#Table"+countUserTable+"User"+i+"SitThis").show();
+            $("#Table"+countUserTable+"User"+i+"Dialer").hide();
+
         }
+        
+
         
     }
 }
