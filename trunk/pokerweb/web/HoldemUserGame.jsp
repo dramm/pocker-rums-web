@@ -270,7 +270,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                     <div class="UserHoldemGame" id="Table9User8" style="float: left;margin-left: 250px;">
                         <div>
                         <div style="
-                                                         width: 70px;
+                             width: 70px;
                              height: 80px;
                              float: left;
                              margin-top: 20px;
@@ -1643,7 +1643,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
     
                     <div class="UserHoldemGame" id="TableUser0" style="float: right;margin-right: 240px;">
                         <div style="width: 90px;height: 110px;float: left;">
-                        <div id="Table4User2Dialer" style="
+                        <div id="Table4User0Dialer" style="
                              background-image: url(/pic/DialerIcon.png);
                              height: 19px;
                              width: 19px;
