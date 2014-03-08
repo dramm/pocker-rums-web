@@ -308,6 +308,15 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              margin-left: 80px;
                             display: none;
                              "></div>
+                             <div id="Table9User8Timer" style="
+                             height: 19px;
+                             width: 19px;
+                             position: absolute;
+                             margin-top: 40px;
+                             margin-left: 80px;
+                             color: whitesmoke;
+                             display: none;
+                             ">20</div>
                         <div id="UserProfile" style="
                              width: 69px;
                              height: 90px;
@@ -372,6 +381,16 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              margin-left: 70px;
                              display: none;
                              "></div>
+                             
+                            <div id="Table9User0Timer" style="
+                             height: 19px;
+                             width: 19px;
+                             position: absolute;
+                             margin-top: 40px;
+                             margin-left: 70px;
+                             color: whitesmoke;
+                             display: none;
+                             ">20</div>
                         <div id="Table9User0Name" style="
                              color: #fee006;
                              height: 20px;
@@ -496,6 +515,15 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              margin-left: 80px;
                              display: none;
                              "></div>
+                             <div id="Table9User7Timer" style="
+                             height: 19px;
+                             width: 19px;
+                             position: absolute;
+                             margin-top: 40px;
+                             margin-left: 80px;
+                             color: whitesmoke;
+                             display: none;
+                             ">20</div>
                         <div id="UserProfile" style="
                              width: 69px;
                              height: 90px;
@@ -561,6 +589,15 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              margin-left: 70px;
                              display: none;
                              "></div>
+                             <div id="Table9User1Timer" style="
+                             height: 19px;
+                             width: 19px;
+                             position: absolute;
+                             margin-top: 40px;
+                             margin-left: 70px;
+                             color: whitesmoke;
+                             display: none;
+                             ">20</div>
                         <div id="Table9User1Name" style="
                              color: #fee006;
                              height: 20px;
@@ -686,6 +723,15 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              margin-left: 80px;
                              display: none;
                              "></div>
+                             <div id="Table9User6Timer" style="
+                             height: 19px;
+                             width: 19px;
+                             position: absolute;
+                             margin-top: 40px;
+                             margin-left: 80px;
+                             color: whitesmoke;
+                             display: none;
+                             ">20</div>
                         <div id="UserProfile" style="width: 69px;height: 90px;float: right;">
                         <div id="Table9User6Name" style="
                              color: #fee006;
@@ -745,6 +791,15 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              margin-left: 70px;
                              display: none;
                              "></div>
+                             <div id="Table9User2Timer" style="
+                             height: 19px;
+                             width: 19px;
+                             position: absolute;
+                             margin-top: 40px;
+                             margin-left: 70px;
+                             color: whitesmoke;
+                             display: none;
+                             ">20</div>
                         <div id="Table9User2Name" style="
                              color: #fee006;
                              height: 20px;
@@ -874,6 +929,15 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              margin-left: 80px;
                              display: none;
                              "></div>
+                             <div id="Table9User5Timer" style="
+                             height: 19px;
+                             width: 19px;
+                             position: absolute;
+                             margin-top: 40px;
+                             margin-left: 80px;
+                             color: whitesmoke;
+                             display: none;
+                             ">20</div>
                         <div id="UserProfile" style="
                              width: 69px;
                              height: 90px;
@@ -941,6 +1005,15 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              margin-left: 70px;
                              display: none;
                              "></div>
+                             <div id="Table9User4Timer" style="
+                             height: 19px;
+                             width: 19px;
+                             position: absolute;
+                             margin-top: 40px;
+                             margin-left: 70px;
+                             color: whitesmoke;
+                             display: none;
+                             ">20</div>
                         <div id="Table9User4Name" style="
                              color: #fee006;
                              height: 20px;
@@ -1035,6 +1108,15 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              margin-left: 70px;
                              display: none;
                              "></div>
+                             <div id="Table9User3Timer" style="
+                             height: 19px;
+                             width: 19px;
+                             position: absolute;
+                             margin-top: 40px;
+                             margin-left: 70px;
+                             color: whitesmoke;
+                             display: none;
+                             ">20</div>
                         <div id="Table9User3Name" style="
                              color: #fee006;
                              height: 20px;
@@ -1166,6 +1248,15 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              margin-left: 80px;
                              display: none;
                              "></div>
+                             <div id="Table5User4Timer" style="
+                             height: 19px;
+                             width: 19px;
+                             position: absolute;
+                             margin-top: 40px;
+                             margin-left: 80px;
+                             color: whitesmoke;
+                             display: none;
+                             ">20</div>
                         <div id="UserProfile" style="width: 69px;height: 90px;float: right;">
                         <div id="Table5User4Name" style="color: #fee006;height: 20px;">
                         </div>
@@ -1209,7 +1300,7 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
     
                     <div class="UserHoldemGame" id="Table5User0" style="float: right;margin-right: 240px;">
                         <div style="width: 90px;height: 110px;float: left;">
-                        <div id="Table5User4Dialer" style="
+                        <div id="Table5User0Dialer" style="
                              background-image: url(/pic/DialerIcon.png);
                              height: 19px;
                              width: 19px;
@@ -1218,6 +1309,15 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              margin-left: 70px;
                              display: none;
                              "></div>
+                             <div id="Table5User0Timer" style="
+                             height: 19px;
+                             width: 19px;
+                             position: absolute;
+                             margin-top: 40px;
+                             margin-left: 70px;
+                             color: whitesmoke;
+                             display: none;
+                             ">20</div>
                         <div id="Table5User0Name" style="color: #fee006;height: 20px;">
                         </div>
                         <div id="Table5User0Avatar" style="
@@ -1334,6 +1434,15 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              margin-left: 80px;
                              display: none;
                              "></div>
+                             <div id="Table5User3Timer" style="
+                             height: 19px;
+                             width: 19px;
+                             position: absolute;
+                             margin-top: 40px;
+                             margin-left: 80px;
+                             color: whitesmoke;
+                             display: none;
+                             ">20</div>
                         <div id="UserProfile" style="width: 69px;height: 90px;float: right;">
                         <div id="Table5User3Name" style="color: #fee006;height: 20px;">
                         </div>
@@ -1387,6 +1496,15 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              margin-left: 70px;
                              display: none;
                              "></div>
+                             <div id="Table5User1Timer" style="
+                             height: 19px;
+                             width: 19px;
+                             position: absolute;
+                             margin-top: 40px;
+                             margin-left: 70px;
+                             color: whitesmoke;
+                             display: none;
+                             ">20</div>
                         <div id="Table5User1Name" style="color: #fee006;height: 20px;">
                         </div>
                         <div id="Table5User1Avatar" style="
@@ -1468,6 +1586,15 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              margin-left: 70px;
                              display: none;
                              "></div>
+                             <div id="Table5User2Timer" style="
+                             height: 19px;
+                             width: 19px;
+                             position: absolute;
+                             margin-top: 40px;
+                             margin-left: 70px;
+                             color: whitesmoke;
+                             display: none;
+                             ">20</div>
                         <div id="Table5User2Name" style="color: #fee006;height: 20px;">
                         </div>
                         <div id="Table5User2Avatar" style="
@@ -1595,6 +1722,15 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              margin-left: 80px;
                              display: none;
                              "></div>
+                             <div id="Table4User3Timer" style="
+                             height: 19px;
+                             width: 19px;
+                             position: absolute;
+                             margin-top: 40px;
+                             margin-left: 80px;
+                             color: whitesmoke;
+                             display: none;
+                             ">20</div>
                         <div id="UserProfile" style="
                              width: 69px;
                              height: 90px;
@@ -1652,6 +1788,15 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              margin-left: 70px;
                              display: none;
                              "></div>
+                             <div id="Table4User0Timer" style="
+                             height: 19px;
+                             width: 19px;
+                             position: absolute;
+                             margin-top: 40px;
+                             margin-left: 70px;
+                             color: whitesmoke;
+                             display: none;
+                             ">20</div>
                         <div id="Table4User0Name" style="color: #fee006;height: 20px;">
                         </div>
                         <div id="Table4User0Avatar" style="
@@ -1764,6 +1909,15 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              margin-left: 80px;
                              display: none;
                              "></div>
+                             <div id="Table4User2Timer" style="
+                             height: 19px;
+                             width: 19px;
+                             position: absolute;
+                             margin-top: 40px;
+                             margin-left: 80px;
+                             color: whitesmoke;
+                             display: none;
+                             ">20</div>
                         <div id="UserProfile" style="width: 69px;height: 90px;float: right;">
                         <div id="Table4User2Name" style="color: #fee006;height: 20px;">
                         </div>
@@ -1817,6 +1971,15 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                              margin-left: 70px;
                              display: none;
                              "></div>
+                             <div id="Table4User4Timer" style="
+                             height: 19px;
+                             width: 19px;
+                             position: absolute;
+                             margin-top: 40px;
+                             margin-left: 70px;
+                             color: whitesmoke;
+                             display: none;
+                             ">20</div>
                         <div id="Table4User1Name" style="color: #fee006;height: 20px;">
                         </div>
                         <div id="Table4User1Avatar" style="

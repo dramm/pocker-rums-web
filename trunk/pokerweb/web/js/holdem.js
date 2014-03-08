@@ -161,8 +161,18 @@ function UpdateTable(root){
             if(JSON.parse(root.Users)[i].Dialer == true){
                 $("#Table"+countUserTable+"User"+i+"Dialer").show();
             }
+            if(JSON.parse(root.Users)[i].Lack == true){
+                $("#Table"+countUserTable+"User"+i+"Timer").show();
+             //   var User+i = 
+//                if(timer == null)
+//   timer =  setInterval(function() {
+       
+//   },1000);
+                 $("#Table"+countUserTable+"User"+i+"Timer").html(JSON.parse(root.Users)[i].TimerLack);
+            }
         else
             $("#Table"+countUserTable+"User"+i+"Dialer").hide();
+            $("#Table"+countUserTable+"User"+i+"Timer").html(0);
         }else{
             $("#Table"+countUserTable+"User"+i+"Name").html("");
             $("#Table"+countUserTable+"User"+i+"Money").html("0$");
