@@ -72,6 +72,7 @@ public class TableStatus {
                 jsUser.put("IsCall", User.getValue().IsCall);
                 jsUser.put("TimerFoBet", User.getValue().TimerFoBet);
                 jsUser.put("isUserSit", User.getValue().isUserSit());
+                jsUser.put("Lack", User.getValue().isLack());
                 jsUsers.put(jsUser);
                 if(User.getValue().isUserSit() && User.getValue().getIdUser() == UserId)
                     jsO.put("CurrentUserSit", true);

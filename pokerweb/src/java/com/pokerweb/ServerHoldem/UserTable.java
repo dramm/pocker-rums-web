@@ -29,8 +29,20 @@ public class UserTable {
     private long LastUserOnline;
     private int IdTable;
     private int PositionTable;
+    private boolean Lack;
     Timer timer;
 
+    public boolean isLack() {
+        return Lack;
+    }
+
+    public void setLack(boolean Lack) {
+        this.Lack = Lack;
+    }
+
+    
+
+    
     public int getPositionTable() {
         return PositionTable;
     }
