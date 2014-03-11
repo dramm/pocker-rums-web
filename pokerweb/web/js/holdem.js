@@ -147,6 +147,8 @@ function SitThis(Id){
 
 }
 
+var timers = [];
+var timersObj = [];
 function UpdateTable(root){
     Balance = root.Balance;
     if(root.CurrentUserSit == true)
@@ -162,24 +164,29 @@ function UpdateTable(root){
                 $("#Table"+countUserTable+"User"+i+"Dialer").show();
             }
             if(JSON.parse(root.Users)[i].Lack == true){
-                $("#Table"+countUserTable+"User"+i+"Timer").show();
-             //   var User+i = 
-//                if(timer == null)
-//   timer =  setInterval(function() {
-       
-//   },1000);
-                 $("#Table"+countUserTable+"User"+i+"Timer").html(JSON.parse(root.Users)[i].TimerLack);
+                if(timers[i] == null){
+                    //$("#Table"+countUserTable+"User"+i+"Timer").html(0);
+                    $("#Table"+countUserTable+"User"+i+"Timer").show();
+                    timersObj[0] = $("#Table"+countUserTable+"User"+i+"Timer");
+                    timers[i] = setInterval(function() {
+                        console.log("#Table"+countUserTable+"User"+i+"Timer");
+                        $(timersObj[0]).html(10);
+                      console.log($(timersObj[0]).html());
+                    },1000);
             }
-        else
-            $("#Table"+countUserTable+"User"+i+"Dialer").hide();
-            $("#Table"+countUserTable+"User"+i+"Timer").html(0);
+   
+            }
         }else{
             $("#Table"+countUserTable+"User"+i+"Name").html("");
             $("#Table"+countUserTable+"User"+i+"Money").html("0$");
             if(root.CurrentUserSit != true)
             $("#Table"+countUserTable+"User"+i+"SitThis").show();
+            if(timers[i] != null)
+                clearInterval(timers[i]);
             $("#Table"+countUserTable+"User"+i+"Dialer").hide();
-
+            $("#Table"+countUserTable+"User"+i+"Timer").html(0);
+            $("#Table"+countUserTable+"User"+i+"Timer").hide();
+            
         }
         
 
