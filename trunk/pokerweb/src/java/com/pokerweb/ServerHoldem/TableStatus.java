@@ -161,6 +161,7 @@ public class TableStatus {
                     TableList.get(jsObj.getInt("tableId")).Users.get(i).setName("");
                     TableList.get(jsObj.getInt("tableId")).Users.get(i).UserCash = 0;
                     TableList.get(jsObj.getInt("tableId")).Users.get(i).setDialer(false);
+                    TableList.get(jsObj.getInt("tableId")).Users.get(i).setLack(false);
                 }
             }
         } catch (JSONException ex) {
