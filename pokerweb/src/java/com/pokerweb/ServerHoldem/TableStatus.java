@@ -52,8 +52,8 @@ public class TableStatus {
          if(TableList == null || TableList.size() <= 0)
             return jsO.toString();
         long UserId = DBManager.GetInstance().GetCurrentUserId();
-        System.out.println("UserId= "+UserId);
-        System.out.println("Size = "+TableList.get(IdTable).Users.size());
+       // System.out.println("UserId= "+UserId);
+       // System.out.println("Size = "+TableList.get(IdTable).Users.size());
         UserTable us =  Users.get(UserId);
         if(us != null)
             us.setLastUserOnline(System.currentTimeMillis());
@@ -91,7 +91,11 @@ public class TableStatus {
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println("@@@@@@@@@@@GETDATA");
+        System.out.println("Time="+System.currentTimeMillis());
+        System.out.println("*********************************************************");
         System.out.println(jsO.toString());
+        System.out.println("*********************************************************");
         return jsO.toString();
     }
     
@@ -108,8 +112,12 @@ public class TableStatus {
             js.put("plaseId", Idplase);
             js.put("stack", sum);
             js.put("userId", DBManager.GetInstance().GetCurrentUserId());
-            System.out.println("SITTHIS");
+            System.out.println("@@@@@@@@@@@@@@@SITTHIS");
+            System.out.println("Time="+System.currentTimeMillis());
+            System.out.println("*********************************************************");
             System.out.println(js.toString());
+            System.out.println("*********************************************************");
+            
             Connect.GetInstance().out.write(Functions.intToByteArray(120));
             Connect.GetInstance().out.write(Functions.intToByteArray(js.toString().length()));
             Connect.GetInstance().out.write(CryptoManager.encode(js.toString().getBytes()));
@@ -124,8 +132,12 @@ public class TableStatus {
     public void SetResponceSitThis(String Message){
         try {
             JSONObject jsObj = new JSONObject(Message);
-            System.out.println("SetResponceSitThis");
+            System.out.println("!!!!!!!!!!!!!SetResponceSitThis");
+            System.out.println("Time="+System.currentTimeMillis());
+            System.out.println("*********************************************************");
             System.out.println(Message);
+            System.out.println("*********************************************************");
+            
             for(int i = 0; i < jsObj.getJSONArray("data").length(); i++)
                 if(jsObj.getJSONArray("data").getJSONObject(i).length() != 0){
                     int TableId = jsObj.getInt("tableId");
@@ -151,8 +163,11 @@ public class TableStatus {
      public void SetResponceExit(String Message){
         try {
             JSONObject jsObj = new JSONObject(Message);
-            System.out.println("SetResponceExit");
+            System.out.println("!!!!!!SetResponceExit");
+            System.out.println("Time="+System.currentTimeMillis());
+            System.out.println("*********************************************************");
             System.out.println(Message);
+            System.out.println("*********************************************************");
             for(int i = 0; i < jsObj.getJSONArray("data").length(); i++){
                 System.out.println("LenAll="+jsObj.getJSONArray("data").length());
                 System.out.println("Lenght="+jsObj.getJSONArray("data").getJSONObject(i).length());
@@ -194,15 +209,21 @@ public class TableStatus {
                 Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+        System.out.println("Time="+System.currentTimeMillis());
+        System.out.println("*********************************************************");
         System.out.println(jsArr.toString());
+        System.out.println("*********************************************************");
         return jsArr.toString();
     }
 
     
     public boolean SetListTable(String json){
         try {
-            System.out.println("SetListFromServer");
+            System.out.println("!!!!!!!!!!!!!!!!!!SetListFromServer");
+            System.out.println("Time="+System.currentTimeMillis());
+            System.out.println("*********************************************************");
+            System.out.println(json);
+            System.out.println("*********************************************************");
             JSONObject jsObj = new JSONObject(json);
             System.out.println(json);
             if(TableList.size() <= 0){
@@ -260,6 +281,12 @@ public class TableStatus {
             JSONObject js = new JSONObject();
             js.put("tableId", TableId);
             js.put("userId", DBManager.GetInstance().GetCurrentUserId());
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@ExitTable");
+            System.out.println("Time="+System.currentTimeMillis());
+            System.out.println("*********************************************************");
+            System.out.println(js.toString());
+            System.out.println("*********************************************************");
+            
             Connect.GetInstance().out.write(Functions.intToByteArray(140));
             Connect.GetInstance().out.write(Functions.intToByteArray(js.toString().length()));
             Connect.GetInstance().out.write(CryptoManager.encode(js.toString().getBytes()));
@@ -279,6 +306,12 @@ public class TableStatus {
             js.put("TimeMillils", TimeMillils);
             js.put("UserId", UserId);
             js.put("PlaseId", PlaseId);
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@UserMoved");
+            System.out.println("Time="+System.currentTimeMillis());
+            System.out.println("*********************************************************");
+            System.out.println(js.toString());
+            System.out.println("*********************************************************");
+            
             Connect.GetInstance().out.write(Functions.intToByteArray(130));
             Connect.GetInstance().out.write(Functions.intToByteArray(js.toString().length()));
             Connect.GetInstance().out.write(CryptoManager.encode(js.toString().getBytes()));
@@ -292,8 +325,12 @@ public class TableStatus {
     
     public void SetStartStage(String Message){
         try {
-            System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-            //{"tableId":6,"request":150,"data":{"dealer":{"playerId":7,"plaseId":0,"stack":14.9},"smalBlind":"Empty","bigBlind":"Empty"}}
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!SetStartStage");
+            System.out.println("Time="+System.currentTimeMillis());
+            System.out.println("*********************************************************");
+            System.out.println(Message);
+            System.out.println("*********************************************************");
+            
             JSONObject js = new JSONObject(Message);
             int TableId = js.getInt("tableId");
             long IdUserDealer = js.getJSONObject("data").getJSONObject("dealer").getLong("playerId");
