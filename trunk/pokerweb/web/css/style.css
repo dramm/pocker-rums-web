@@ -44,6 +44,7 @@ body{
     /*background-color: darkcyan;*/
     width: 70%;
     float: left;
+    min-width: 775px;
 }
 
 .leftCol, .rightCol
@@ -827,6 +828,8 @@ margin-top: 10px;
 margin-left: 355px;
 margin-top: 200px;
 position: absolute;
+width: 240px;
+height: 70px;
 }
 
 .BankHoldem{

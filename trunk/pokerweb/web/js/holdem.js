@@ -165,24 +165,37 @@ function UpdateTable(root){
             }
             if(JSON.parse(root.Users)[i].Lack == true){
                 if(timers[i] == null){
-                    //$("#Table"+countUserTable+"User"+i+"Timer").html(0);
+                    $("#Table"+countUserTable+"User"+i+"Timer").html(0);
                     $("#Table"+countUserTable+"User"+i+"Timer").show();
-                    timersObj[0] = $("#Table"+countUserTable+"User"+i+"Timer");
+                    var index = i;
+                    timersObj[index] = {};
+                    timersObj[index].obj = $("#Table"+countUserTable+"User"+i+"Timer");
                     timers[i] = setInterval(function() {
-                        console.log("#Table"+countUserTable+"User"+i+"Timer");
-                        $(timersObj[0]).html(10);
-                      console.log($(timersObj[0]).html());
+                        $(timersObj[index].obj).html(parseInt($(timersObj[index].obj).html())+1);
+                        if(parseInt($(timersObj[index].obj).html()) == 5){
+                            clearInterval(timersObj[index].timer);
+                            timersObj[index].timer = null;
+                        }
                     },1000);
+                    timersObj[index].timer = timers[i];
             }
-   
+        }else{
+            if(timers[i] != null){
+                clearInterval(timers[i]);
+                timers[i] = null;
+                $("#Table"+countUserTable+"User"+i+"Timer").html(0);
+            $("#Table"+countUserTable+"User"+i+"Timer").hide();
             }
+        }
         }else{
             $("#Table"+countUserTable+"User"+i+"Name").html("");
             $("#Table"+countUserTable+"User"+i+"Money").html("0$");
             if(root.CurrentUserSit != true)
             $("#Table"+countUserTable+"User"+i+"SitThis").show();
-            if(timers[i] != null)
+            if(timers[i] != null){
                 clearInterval(timers[i]);
+                timers[i] = null;
+            }
             $("#Table"+countUserTable+"User"+i+"Dialer").hide();
             $("#Table"+countUserTable+"User"+i+"Timer").html(0);
             $("#Table"+countUserTable+"User"+i+"Timer").hide();

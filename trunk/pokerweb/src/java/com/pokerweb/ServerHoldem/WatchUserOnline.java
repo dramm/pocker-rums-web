@@ -18,10 +18,13 @@ public class WatchUserOnline extends TimerTask {
     public void run() {
         long lastUserOnline = user.getLastUserOnline();
         long CurrentTime = System.currentTimeMillis();
-        if((CurrentTime - lastUserOnline) > 1 * 1000 )
+        if((CurrentTime - lastUserOnline) > 1000 )
            this.user.setLack(true);
+        else
+            this.user.setLack(false);
         if((CurrentTime - lastUserOnline) > 5 * 1000 ){
             this.SendServerUserMoved((CurrentTime - lastUserOnline));
+            this.user.setUserSit(false);
             this.user.timer.cancel();
         }
     }
