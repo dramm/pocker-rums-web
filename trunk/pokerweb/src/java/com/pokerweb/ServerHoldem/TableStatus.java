@@ -60,8 +60,13 @@ public class TableStatus {
         try {
             for (Map.Entry<Integer,UserTable> User : TableList.get(IdTable).Users.entrySet()) {
                 JSONObject jsUser = new JSONObject();
-                jsUser.put("CartOne", User.getValue().getCartOne());
-                jsUser.put("CartTwo", User.getValue().getCartTwo());
+                if(UserId == User.getValue().getIdUser()){
+                    jsUser.put("CartOne", User.getValue().getCartOne());
+                    jsUser.put("CartTwo", User.getValue().getCartTwo());
+                }else{
+                    jsUser.put("CartOne", 0);
+                    jsUser.put("CartTwo", 0);
+                }
                 jsUser.put("Dialer", User.getValue().isDialer());
                 jsUser.put("UserBet", User.getValue().getUserBet());
                 jsUser.put("UserCash", User.getValue().getUserCash());
@@ -302,10 +307,10 @@ public class TableStatus {
         JSONObject js = new JSONObject();
         try {
             System.out.println("UserMoved" + TimeMillils);
-            js.put("TableId", TableId);
-            js.put("TimeMillils", TimeMillils);
-            js.put("UserId", UserId);
-            js.put("PlaseId", PlaseId);
+            js.put("tableId", TableId);
+          //  js.put("timeMillils", TimeMillils);
+            js.put("userId", UserId);
+           // js.put("plaseId", PlaseId);
             System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@UserMoved");
             System.out.println("Time="+System.currentTimeMillis());
             System.out.println("*********************************************************");
@@ -335,26 +340,39 @@ public class TableStatus {
             int TableId = js.getInt("tableId");
             long IdUserDealer = js.getJSONObject("data").getJSONObject("dealer").getLong("playerId");
             int PlaseUserDealer = js.getJSONObject("data").getJSONObject("dealer").getInt("plaseId");
+            long IdUserSmallBlaind = js.getJSONObject("data").getJSONObject("smalBlind").getLong("playerId");
+            int PlaseUserSmallBlaind = js.getJSONObject("data").getJSONObject("smalBlind").getInt("plaseId");
+            double SummUserSmallBlaind = js.getJSONObject("data").getJSONObject("smalBlind").getDouble("stack");
+            
+            long IdUserBigBlaind = js.getJSONObject("data").getJSONObject("bigBlind").getLong("playerId");
+            int PlaseUserBigBlaind = js.getJSONObject("data").getJSONObject("bigBlind").getInt("plaseId");
+            double SummUserBigBlaind = js.getJSONObject("data").getJSONObject("bigBlind").getDouble("stack");
+            
+            TableList.get(TableId).Users.get(PlaseUserDealer).Dialer = true;
+            
+            TableList.get(TableId).Users.get(PlaseUserSmallBlaind).setUserCash(SummUserSmallBlaind);
+            TableList.get(TableId).Users.get(PlaseUserBigBlaind).setUserCash(SummUserBigBlaind);
+            
             System.out.println("TableId = "+TableId);
             System.out.println("Plase = "+PlaseUserDealer);
             System.out.println(TableList.get(TableId) == null? "null":"not null");
             System.out.println(TableList.get(TableId).Users.get(PlaseUserDealer) == null? "null":"not null");
-             for (Map.Entry<Integer,UserTable> User : TableList.get(TableId).Users.entrySet()) {
-                System.out.println("CartOne="+ User.getValue().getCartOne());
-                System.out.println("CartTwo="+ User.getValue().getCartTwo());
-                System.out.println("Dialer="+ User.getValue().isDialer());
-                System.out.println("UserBet="+ User.getValue().getUserBet());
-                System.out.println("UserCash="+ User.getValue().getUserCash());
-                System.out.println("UserName="+ User.getValue().getName());
-                System.out.println("IsRaise="+ User.getValue().IsRaise);
-                System.out.println("MinRaise="+ User.getValue().getMinRaise());
-                System.out.println("SumCall="+ User.getValue().SumCall);
-                System.out.println("IsCall="+ User.getValue().IsCall);
-                System.out.println("TimerFoBet="+ User.getValue().TimerFoBet);
-                System.out.println("isUserSit="+ User.getValue().isUserSit());
-                    System.out.println("PLASE!!! = "+User.getKey());
-            }
-            TableList.get(TableId).Users.get(PlaseUserDealer).Dialer = true;
+//             for (Map.Entry<Integer,UserTable> User : TableList.get(TableId).Users.entrySet()) {
+//                System.out.println("CartOne="+ User.getValue().getCartOne());
+//                System.out.println("CartTwo="+ User.getValue().getCartTwo());
+//                System.out.println("Dialer="+ User.getValue().isDialer());
+//                System.out.println("UserBet="+ User.getValue().getUserBet());
+//                System.out.println("UserCash="+ User.getValue().getUserCash());
+//                System.out.println("UserName="+ User.getValue().getName());
+//                System.out.println("IsRaise="+ User.getValue().IsRaise);
+//                System.out.println("MinRaise="+ User.getValue().getMinRaise());
+//                System.out.println("SumCall="+ User.getValue().SumCall);
+//                System.out.println("IsCall="+ User.getValue().IsCall);
+//                System.out.println("TimerFoBet="+ User.getValue().TimerFoBet);
+//                System.out.println("isUserSit="+ User.getValue().isUserSit());
+//                    System.out.println("PLASE!!! = "+User.getKey());
+//            }
+            
             
                     
             System.out.println(Message);
@@ -363,5 +381,28 @@ public class TableStatus {
         }
     }
     
+    public void SetPreflopStage(String Message){
+        try {
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!SetStartStage");
+            System.out.println("Time="+System.currentTimeMillis());
+            System.out.println("*********************************************************");
+            System.out.println(Message);
+            System.out.println("*********************************************************");
+            
+            JSONObject js = new JSONObject(Message);
+            //{"tableId":6,"request":160,"data":[{"firstCard":30,"secondCard":48,"plaseId":0,"userId":1},{"firstCard":17,"secondCard":37,"plaseId":3,"userId":7}]}
+              int tableId = js.getInt("tableId");
+              for (int i = 0; i < js.getJSONArray("data").length(); i++) {
+                 int PlaseId = js.getJSONArray("data").getJSONObject(i).getInt("plaseId");
+                 int CartOne = js.getJSONArray("data").getJSONObject(i).getInt("firstCard");
+                 int CartTwo = js.getJSONArray("data").getJSONObject(i).getInt("secondCard");
+                 TableList.get(tableId).Users.get(PlaseId).CartOne = CartOne;
+                 TableList.get(tableId).Users.get(PlaseId).CartTwo = CartTwo;
+              }
+            System.out.println(Message);
+        } catch (JSONException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
    
 }
