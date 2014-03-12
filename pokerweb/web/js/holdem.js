@@ -157,6 +157,8 @@ function UpdateTable(root){
     }
     for(var i = 0; i < countUserTable; i++){
         if(JSON.parse(root.Users)[i].isUserSit == true){
+            $("#Table"+countUserTable+"User"+i+"Cart0").css("backgroundImage","url(/pic/cart/"+JSON.parse(root.Users)[i].CartOne+".png)");
+            $("#Table"+countUserTable+"User"+i+"Cart1").css("backgroundImage","url(/pic/cart/"+JSON.parse(root.Users)[i].CartTwo+".png)");
             $("#Table"+countUserTable+"User"+i+"Name").html(JSON.parse(root.Users)[i].UserName);
             $("#Table"+countUserTable+"User"+i+"Money").html(JSON.parse(root.Users)[i].UserCash+"$");
             $("#Table"+countUserTable+"User"+i+"SitThis").hide();
