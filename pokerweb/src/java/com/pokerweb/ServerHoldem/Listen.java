@@ -67,6 +67,14 @@ public class Listen extends Thread {
                         TableStatus.GetInstance().SetPreflopStage(mess);
                         break;
                     }
+                     case 200:{
+                        flag = in.read(bytes, 0, 4);
+                        byte[] message = new byte[Functions.byteArrayToInt(bytes)];
+                        flag = in.read(message, 0, message.length);
+                        String mess = new String(CryptoManager.encode(message));
+                        TableStatus.GetInstance().SetButtonSettings(mess);
+                        break;
+                    }
                     default:{
                         break;    
                     }

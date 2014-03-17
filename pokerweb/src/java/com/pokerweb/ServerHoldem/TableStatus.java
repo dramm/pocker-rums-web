@@ -8,8 +8,6 @@ import com.pokerweb.DB.DBManager;
 import com.pokerweb.Server.Functions;
 import com.pokerweb.crypto.CryptoManager;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -71,16 +69,27 @@ public class TableStatus {
                 jsUser.put("UserBet", User.getValue().getUserBet());
                 jsUser.put("UserCash", User.getValue().getUserCash());
                 jsUser.put("UserName", User.getValue().getName());
-                jsUser.put("IsRaise", User.getValue().IsRaise);
-                jsUser.put("MinRaise", User.getValue().getMinRaise());
-                jsUser.put("SumCall", User.getValue().SumCall);
-                jsUser.put("IsCall", User.getValue().IsCall);
+                
+                
+                
                 jsUser.put("TimerFoBet", User.getValue().TimerFoBet);
                 jsUser.put("isUserSit", User.getValue().isUserSit());
                 jsUser.put("Lack", User.getValue().isLack());
                 jsUsers.put(jsUser);
                 if(User.getValue().isUserSit() && User.getValue().getIdUser() == UserId)
                     jsO.put("CurrentUserSit", true);
+                if(User.getValue().isUserSit() && User.getValue().getIdUser() == UserId && User.getValue().isActivateButton()){
+                    JSONObject jsButton = new JSONObject();
+                    jsButton.put("IsRaise", User.getValue().isIsRaise());
+                    jsButton.put("MinRaise", User.getValue().getMinRaise());
+                    jsButton.put("MaxRaise", User.getValue().getMaxRaise());
+                    jsButton.put("ValueRaise", User.getValue().getValueRaise());
+                    jsButton.put("IsFold", User.getValue().isIsFold());
+                    jsButton.put("IsCheck", User.getValue().isIsCheck());
+                    jsButton.put("SumCall", User.getValue().getSumCall());
+                    jsButton.put("IsCall", User.getValue().isIsCall());
+                    jsO.put("ButtonActivate",jsButton.toString());
+                }
                     
             }
             jsO.put("Users", jsUsers.toString());
@@ -357,23 +366,6 @@ public class TableStatus {
             System.out.println("Plase = "+PlaseUserDealer);
             System.out.println(TableList.get(TableId) == null? "null":"not null");
             System.out.println(TableList.get(TableId).Users.get(PlaseUserDealer) == null? "null":"not null");
-//             for (Map.Entry<Integer,UserTable> User : TableList.get(TableId).Users.entrySet()) {
-//                System.out.println("CartOne="+ User.getValue().getCartOne());
-//                System.out.println("CartTwo="+ User.getValue().getCartTwo());
-//                System.out.println("Dialer="+ User.getValue().isDialer());
-//                System.out.println("UserBet="+ User.getValue().getUserBet());
-//                System.out.println("UserCash="+ User.getValue().getUserCash());
-//                System.out.println("UserName="+ User.getValue().getName());
-//                System.out.println("IsRaise="+ User.getValue().IsRaise);
-//                System.out.println("MinRaise="+ User.getValue().getMinRaise());
-//                System.out.println("SumCall="+ User.getValue().SumCall);
-//                System.out.println("IsCall="+ User.getValue().IsCall);
-//                System.out.println("TimerFoBet="+ User.getValue().TimerFoBet);
-//                System.out.println("isUserSit="+ User.getValue().isUserSit());
-//                    System.out.println("PLASE!!! = "+User.getKey());
-//            }
-            
-            
                     
             System.out.println(Message);
         } catch (JSONException ex) {
@@ -383,7 +375,7 @@ public class TableStatus {
     
     public void SetPreflopStage(String Message){
         try {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!SetStartStage");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!SetPreflopStage");
             System.out.println("Time="+System.currentTimeMillis());
             System.out.println("*********************************************************");
             System.out.println(Message);
@@ -399,6 +391,80 @@ public class TableStatus {
                  TableList.get(tableId).Users.get(PlaseId).CartOne = CartOne;
                  TableList.get(tableId).Users.get(PlaseId).CartTwo = CartTwo;
               }
+            System.out.println(Message);
+        } catch (JSONException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void SetButtonSettingsResponce(String Message){
+        try {
+            JSONObject js = new JSONObject();
+            long UserId = DBManager.GetInstance().GetCurrentUserId();
+            js.put("userId", UserId);
+            js.put("placeId", Users.get(UserId).getPositionTable());
+            js.put("tableId", Users.get(UserId).getIdTable());
+            JSONObject jsCommand = new JSONObject();
+            JSONObject ParseCommand = new JSONObject(Message);
+            switch(ParseCommand.getInt("command")){
+                case 1:
+                    JSONObject RaiseSumm = new JSONObject();
+                    RaiseSumm.put("sum", ParseCommand.getDouble("summ"));
+                    jsCommand.put("raise", RaiseSumm);
+                    break;
+                case 2:
+                    jsCommand.put("call", "{}");
+                    break;
+               case 3:
+                    jsCommand.put("fold", "{}");
+                    break;
+               case 4:
+                    jsCommand.put("check", "{}");
+                    break;
+            }
+            
+            js.put("Command", js.toString());
+            Connect.GetInstance().out.write(Functions.intToByteArray(201));
+            Connect.GetInstance().out.write(Functions.intToByteArray(js.toString().length()));
+            Connect.GetInstance().out.write(CryptoManager.encode(js.toString().getBytes()));
+            Connect.GetInstance().out.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void SetButtonSettings(String Message){
+        try {
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!SetButtonSettings");
+            System.out.println("Time="+System.currentTimeMillis());
+            System.out.println("*********************************************************");
+            System.out.println(Message);
+            System.out.println("*********************************************************");
+           
+            JSONObject js = new JSONObject(Message);
+            int tableId = js.getInt("tableId");
+            int PlaseId = js.getJSONObject("data").getInt("plaseId");
+            boolean IsCall = js.getJSONObject("data").getJSONObject("buttons").getJSONObject("call").getBoolean("visible");
+            double SumCall = js.getJSONObject("data").getJSONObject("buttons").getJSONObject("call").getDouble("value");
+            boolean IsCheck = js.getJSONObject("data").getJSONObject("buttons").getJSONObject("check").getBoolean("visible");
+            boolean IsRaise = js.getJSONObject("data").getJSONObject("buttons").getJSONObject("raise").getBoolean("visible");
+            double MinRaise = js.getJSONObject("data").getJSONObject("buttons").getJSONObject("raise").getDouble("min");
+            double MaxRaise = js.getJSONObject("data").getJSONObject("buttons").getJSONObject("raise").getDouble("max");
+            double ValueRaise = js.getJSONObject("data").getJSONObject("buttons").getJSONObject("raise").getDouble("value");
+            boolean IsFold = js.getJSONObject("data").getJSONObject("buttons").getJSONObject("fold").getBoolean("visible");
+             
+            TableList.get(tableId).Users.get(PlaseId).setActivateButton(true);
+            TableList.get(tableId).Users.get(PlaseId).setIsCall(IsCall);
+            TableList.get(tableId).Users.get(PlaseId).setSumCall(SumCall);
+            TableList.get(tableId).Users.get(PlaseId).setIsCheck(IsCheck);
+            TableList.get(tableId).Users.get(PlaseId).setIsRaise(IsRaise);
+            TableList.get(tableId).Users.get(PlaseId).setMinRaise(MinRaise);
+            TableList.get(tableId).Users.get(PlaseId).setMaxRaise(MaxRaise);
+            TableList.get(tableId).Users.get(PlaseId).setValueRaise(ValueRaise);
+            TableList.get(tableId).Users.get(PlaseId).setIsFold(IsFold);
+              
             System.out.println(Message);
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);

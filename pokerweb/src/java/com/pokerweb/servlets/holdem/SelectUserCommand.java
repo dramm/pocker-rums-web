@@ -8,7 +8,6 @@ package com.pokerweb.servlets.holdem;
 
 import com.pokerweb.DB.DBManager;
 import com.pokerweb.ServerHoldem.TableStatus;
-import com.pokerweb.registration.UserAllInformation;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,8 +25,8 @@ import org.json.JSONObject;
  *
  * @author vadim
  */
-@WebServlet(name = "SitThisUser", urlPatterns = {"/SitThisUser"})
-public class SitThisUser extends HttpServlet {
+@WebServlet(name = "SelectUserCommand", urlPatterns = {"/SelectUserCommand"})
+public class SelectUserCommand extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -52,7 +51,7 @@ public class SitThisUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    }
+     }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -65,20 +64,15 @@ public class SitThisUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
             StringBuilder jb = new StringBuilder();
             String line = null;
             BufferedReader reader = request.getReader();
             while ((line = reader.readLine()) != null)
                 jb.append(line);
-            JSONObject jsonObject = new JSONObject(jb.toString());
-            int IdTable = jsonObject.getInt("IdTable");
-            int plaseId = jsonObject.getInt("plaseId");
-            double summ = jsonObject.getDouble("summ");
-            TableStatus.GetInstance().SendSitThisRequest(IdTable, plaseId, summ);
-        } catch (JSONException ex) {
-            Logger.getLogger(SitThisUser.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            TableStatus.GetInstance().SetButtonSettingsResponce(jb.toString());
+            response.setContentType("application/json; charset=utf-8");
+            response.setHeader("Cache-Control", "no-cache");
+            response.getWriter().write("{error:null}");
     }
 
     /**
