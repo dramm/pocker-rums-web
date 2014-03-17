@@ -2066,34 +2066,39 @@ background-color: rgb(40, 123, 175);" id="ButtSelectSumm">
                             
                         </div>
                         <div style="width: 300px;height: 200px;border: solid green 1px;float: left">
+                            
                             <div style="margin-top: 5px;margin-left: 30px;width: 80%;border-radius: 10px;height: 20px;float: left;background-color: #565656">
-                                <div style="position: absolute;width: 240px;height: 20px;cursor: pointer;"></div>
+                                <div style="position: absolute;width: 240px;height: 20px;cursor: pointer;" disabled id="RaiseButton"></div>
                                 <div style="color: whitesmoke;margin-left: 80px;">
                                     <div style="float: left;margin-left: 2px">Raise</div>
                                     <div style="float: left;margin-left: 2px" id="RaiseSumUser">0</div>
                                     <div style="float: left">$</div>
                                 </div>
                             </div>
+                            
                             <div style="margin-left: 30px;margin-top: 5px;width: 80%;border-radius: 10px;height: 20px;float: left;background-color: #565656">
                                 <div style="color: whitesmoke;margin-left: 80px;">
-                                    <div style="position: absolute;width: 240px;height: 20px;cursor: pointer;"></div>
+                                    <div style="position: absolute;width: 240px;height: 20px;cursor: pointer;" disabled id="CallButton"></div>
                                     <div style="float: left;margin-left: 2px">Call</div>
                                     <div style="float: left" id="CallSumUser">10</div>
                                     <div style="float: left;margin-left: 2px">$</div>
                                 </div>
                             </div>
+                            
                             <div style="margin-left: 30px;margin-top: 5px;width: 80%;border-radius: 10px;height: 20px;float: left;background-color: #565656;">
                                 <div style="color: whitesmoke;margin-left: 80px;">
-                                    <div style="position: absolute;width: 240px;height: 20px;cursor: pointer;"></div>
+                                    <div style="position: absolute;width: 240px;height: 20px;cursor: pointer;" disabled id="FoldButton"></div>
                                     <div>Fold</div>
                                 </div>
                             </div>
+                            
                             <div style="margin-left: 30px;margin-top: 5px;width: 80%;border-radius: 10px;height: 20px;float: left;background-color: #565656;">
                                 <div style="color: whitesmoke;margin-left: 80px;">
-                                    <div style="position: absolute;width: 240px;height: 20px;cursor: pointer;"></div>
+                                    <div style="position: absolute;width: 240px;height: 20px;cursor: pointer;" disabled id="CheckButton"></div>
                                     <div>Check</div>
                                 </div>
                             </div>
+                            
                             <div style="margin-left: 30px;margin-top: 5px;width: 80%;height: 20px;float: left;">
                                 <input type="range" style="width: 100%" value="0" min="0" max="100">
                             </div>

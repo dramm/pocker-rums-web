@@ -67,6 +67,11 @@ $("#Table4User2SitThis").click(function(){SitThis(2);});
 $("#Table4User3SitThis").click(function(){SitThis(3);});
 
 
+$("#RaiseButton").click(function(){ResponceCommand(1);});
+$("#CallButton").click(function(){ResponceCommand(2);});
+$("#FoldButton").click(function(){ResponceCommand(3);});
+$("#CheckButton").click(function(){ResponceCommand(4);});
+
 $("#DialogSumToTableCansel").click(function (){
     $("#DialogSelectSumToTable").dialog("close");
 });
@@ -103,6 +108,50 @@ setInterval(function() {
 }
 },3000);
 });
+
+function ResponceCommand(command){
+    var data = {};
+    $("#RaiseButton").attr("disabled","disabled");
+    $("#CallButton").attr("disabled","disabled");
+    $("#FoldButton").attr("disabled","disabled");
+    $("#CheckButton").attr("disabled","disabled");
+
+    switch (command){
+        case 1:
+            data.command = command;
+            data.summ = $("#RaiseSumUser").html();
+            break;
+            
+        case 2:
+            data.command = command;
+            break;
+            
+        case 3:
+            data.command = command;
+            break;
+            
+        case 4:
+            data.command = command;
+            break;
+    }
+    
+    $.ajax({
+        url: "/SelectUserCommand",
+        type: "post",
+        dataType: "json",
+        data: JSON.stringify(data),
+        success: function (response, textStatus, jqXHR) {
+                UpdateTable(response);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            
+        },
+        complete: function () {
+            
+        }
+    }); 
+}
+
 var scrollPosition;
 var ids = new Array();
 var RowId;
@@ -147,14 +196,33 @@ function SitThis(Id){
 
 }
 
-var timers = [];
-var timersObj = [];
 function UpdateTable(root){
     Balance = root.Balance;
     if(root.CurrentUserSit == true)
         for(var i = 0; i < countUserTable; i++){
             $("#Table"+countUserTable+"User"+i+"SitThis").hide();
     }
+if(root.ButtonActivate != null){
+   if(JSON.parse(root.ButtonActivate).IsRaise){
+       $("#RaiseButton").removeAttr("disabled");
+       $("#RaiseSumUser").html(JSON.parse(root.ButtonActivate).ValueRaise);
+       
+   }
+   
+   if(JSON.parse(root.ButtonActivate).IsCall){
+       $("#CallButton").removeAttr("disabled");
+       $("#CallSumUser").html(JSON.parse(root.ButtonActivate).SumCall);
+
+        }
+   
+   if(JSON.parse(root.ButtonActivate).IsFold){
+       $("#FoldButton").removeAttr("disabled");
+   }
+   
+   if(JSON.parse(root.ButtonActivate).IsCheck){
+       $("#CheckButton").removeAttr("disabled");
+   }
+}
     for(var i = 0; i < countUserTable; i++){
         if(JSON.parse(root.Users)[i].isUserSit == true){
             $("#Table"+countUserTable+"User"+i+"Cart0").css("backgroundImage","url(/pic/cart/"+JSON.parse(root.Users)[i].CartOne+".png)");
@@ -166,38 +234,14 @@ function UpdateTable(root){
                 $("#Table"+countUserTable+"User"+i+"Dialer").show();
             }
             if(JSON.parse(root.Users)[i].Lack == true){
-                if(timers[i] == null){
-                    $("#Table"+countUserTable+"User"+i+"Timer").html(0);
-                    $("#Table"+countUserTable+"User"+i+"Timer").show();
-                    var index = i;
-                    timersObj[index] = {};
-                    timersObj[index].obj = $("#Table"+countUserTable+"User"+i+"Timer");
-                    timers[i] = setInterval(function() {
-                        $(timersObj[index].obj).html(parseInt($(timersObj[index].obj).html())+1);
-                        if(parseInt($(timersObj[index].obj).html()) == 5){
-                            clearInterval(timersObj[index].timer);
-                            timersObj[index].timer = null;
-                        }
-                    },1000);
-                    timersObj[index].timer = timers[i];
-            }
-        }else{
-            if(timers[i] != null){
-                clearInterval(timers[i]);
-                timers[i] = null;
-                $("#Table"+countUserTable+"User"+i+"Timer").html(0);
-            $("#Table"+countUserTable+"User"+i+"Timer").hide();
-            }
         }
+        
         }else{
             $("#Table"+countUserTable+"User"+i+"Name").html("");
             $("#Table"+countUserTable+"User"+i+"Money").html("0$");
             if(root.CurrentUserSit != true)
             $("#Table"+countUserTable+"User"+i+"SitThis").show();
-            if(timers[i] != null){
-                clearInterval(timers[i]);
-                timers[i] = null;
-            }
+            
             $("#Table"+countUserTable+"User"+i+"Dialer").hide();
             $("#Table"+countUserTable+"User"+i+"Timer").html(0);
             $("#Table"+countUserTable+"User"+i+"Timer").hide();

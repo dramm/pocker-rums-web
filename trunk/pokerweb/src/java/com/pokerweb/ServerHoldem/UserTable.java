@@ -19,10 +19,17 @@ public class UserTable {
     public double UserCash;
     public double UserBet;
     private boolean UserSit;
-    public double MinRaise;
-    public boolean IsRaise;
-    public double SumCall;
-    public boolean IsCall;
+    
+    private double MinRaise;
+    private double MaxRaise;
+    private double ValueRaise;
+    private boolean IsRaise;
+    private double SumCall;
+    private boolean IsCall;
+    private boolean IsFold;
+    private boolean IsCheck;
+    private boolean ActivateButton;
+    
     public int TimerFoBet;
     private String Name;
     private long IdUser;
@@ -40,9 +47,70 @@ public class UserTable {
         this.Lack = Lack;
     }
 
-    
+    public double getMaxRaise() {
+        return MaxRaise;
+    }
 
-    
+    public double getSumCall() {
+        return SumCall;
+    }
+
+    public boolean isIsCall() {
+        return IsCall;
+    }
+
+    public boolean isIsCheck() {
+        return IsCheck;
+    }
+
+    public boolean isIsFold() {
+        return IsFold;
+    }
+
+    public boolean isIsRaise() {
+        return IsRaise;
+    }
+
+    public void setIsCall(boolean IsCall) {
+        this.IsCall = IsCall;
+    }
+
+    public void setIsCheck(boolean IsCheck) {
+        this.IsCheck = IsCheck;
+    }
+
+    public void setIsFold(boolean IsFold) {
+        this.IsFold = IsFold;
+    }
+
+    public void setIsRaise(boolean IsRaise) {
+        this.IsRaise = IsRaise;
+    }
+
+    public void setMaxRaise(double MaxRaise) {
+        this.MaxRaise = MaxRaise;
+    }
+
+    public void setSumCall(double SumCall) {
+        this.SumCall = SumCall;
+    }
+
+    public double getValueRaise() {
+        return ValueRaise;
+    }
+
+    public void setValueRaise(double ValueRaise) {
+        this.ValueRaise = ValueRaise;
+    }
+
+    public boolean isActivateButton() {
+        return ActivateButton;
+    }
+
+    public void setActivateButton(boolean ActivateButton) {
+        this.ActivateButton = ActivateButton;
+    }
+
     public int getPositionTable() {
         return PositionTable;
     }
