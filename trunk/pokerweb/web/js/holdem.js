@@ -111,10 +111,10 @@ setInterval(function() {
 
 function ResponceCommand(command){
     var data = {};
-    $("#RaiseButton").attr("disabled","disabled");
-    $("#CallButton").attr("disabled","disabled");
-    $("#FoldButton").attr("disabled","disabled");
-    $("#CheckButton").attr("disabled","disabled");
+    $("#RaiseButton").hide();
+    $("#CallButton").hide();
+    $("#FoldButton").hide();
+    $("#CheckButton").hide();
 
     switch (command){
         case 1:
@@ -204,23 +204,23 @@ function UpdateTable(root){
     }
 if(root.ButtonActivate != null){
    if(JSON.parse(root.ButtonActivate).IsRaise){
-       $("#RaiseButton").removeAttr("disabled");
+       $("#RaiseButton").show();
        $("#RaiseSumUser").html(JSON.parse(root.ButtonActivate).ValueRaise);
        
    }
    
    if(JSON.parse(root.ButtonActivate).IsCall){
-       $("#CallButton").removeAttr("disabled");
+       $("#CallButton").show();
        $("#CallSumUser").html(JSON.parse(root.ButtonActivate).SumCall);
 
         }
    
    if(JSON.parse(root.ButtonActivate).IsFold){
-       $("#FoldButton").removeAttr("disabled");
+       $("#FoldButton").show();
    }
    
    if(JSON.parse(root.ButtonActivate).IsCheck){
-       $("#CheckButton").removeAttr("disabled");
+       $("#CheckButton").show();
    }
 }
     for(var i = 0; i < countUserTable; i++){

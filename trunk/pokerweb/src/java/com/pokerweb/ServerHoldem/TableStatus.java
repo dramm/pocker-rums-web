@@ -402,7 +402,7 @@ public class TableStatus {
             JSONObject js = new JSONObject();
             long UserId = DBManager.GetInstance().GetCurrentUserId();
             js.put("userId", UserId);
-            js.put("placeId", Users.get(UserId).getPositionTable());
+            js.put("plaseId", Users.get(UserId).getPositionTable());
             js.put("tableId", Users.get(UserId).getIdTable());
             JSONObject jsCommand = new JSONObject();
             JSONObject ParseCommand = new JSONObject(Message);
@@ -423,8 +423,8 @@ public class TableStatus {
                     break;
             }
             
-            js.put("Command", js.toString());
-            Connect.GetInstance().out.write(Functions.intToByteArray(201));
+            js.put("Command", jsCommand);
+            Connect.GetInstance().out.write(Functions.intToByteArray(200));
             Connect.GetInstance().out.write(Functions.intToByteArray(js.toString().length()));
             Connect.GetInstance().out.write(CryptoManager.encode(js.toString().getBytes()));
             Connect.GetInstance().out.flush();
