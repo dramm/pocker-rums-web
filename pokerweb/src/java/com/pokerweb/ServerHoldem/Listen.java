@@ -67,7 +67,7 @@ public class Listen extends Thread {
                         TableStatus.GetInstance().SetPreflopStage(mess);
                         break;
                     }
-                     case 200:{
+                     case 201:{
                         flag = in.read(bytes, 0, 4);
                         byte[] message = new byte[Functions.byteArrayToInt(bytes)];
                         flag = in.read(message, 0, message.length);
