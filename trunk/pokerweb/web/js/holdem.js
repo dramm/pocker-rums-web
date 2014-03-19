@@ -161,6 +161,7 @@ function CheckGame(){
    timer =  setInterval(function() {
     var data = {};
     data.IdTable = idTable;
+    data.Stage = $("#StageCurrentTable").html(); 
     if(idTable != -1){
     $.ajax({
         url: "/GetTableInfo",
@@ -178,13 +179,6 @@ function CheckGame(){
         }
     }); 
 }
-    //var myGrid = $('#ListTables'),
-    //        selRowId = myGrid.jqGrid ('getGridParam', 'selrow');
-           // RowId = selRowId;
-           // console.log("RowIdGet = "+RowId);
-  //  scrollPosition = $("#ListTables").closest(".ui-jqgrid-bdiv").scrollTop();
-  //  $("#ListTables").trigger("reloadGrid",[{current:true}]);
-            
 },1000);
 }
 
@@ -192,16 +186,27 @@ function SitThis(Id){
     plaseId = Id;
     if(Balance >= BigBlinds*10)
         $("#DialogSelectSumToTable").dialog({title:"Выберите сумму",height:200,width:300,maxHeight:200,maxWidth:300,minHeight:200,minWidth:300});
-
-
 }
 
 function UpdateTable(root){
     Balance = root.Balance;
+    if($("#StageCurrentTable").html() == 0){
+        if(root.stage == 0){
+            Balance = root.Balance;
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
     if(root.CurrentUserSit == true)
         for(var i = 0; i < countUserTable; i++){
             $("#Table"+countUserTable+"User"+i+"SitThis").hide();
     }
+
 if(root.ButtonActivate != null){
    if(JSON.parse(root.ButtonActivate).IsRaise){
        $("#RaiseButton").show();
