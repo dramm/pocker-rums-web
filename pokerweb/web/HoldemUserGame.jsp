@@ -3,7 +3,8 @@
     Created on : Jan 12, 2014, 9:17:59 PM
     Author     : vadim
 --%>
-
+<%@page import="org.springframework.security.core.userdetails.UserDetails"%>
+<%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -25,6 +26,132 @@
         </div>
             <div class="leftCol"></div>
             <div class="centerCol" style="margin-bottom: 50px;">
+                <div id="StageCurrentTable" style="display: none">0</div>
+                
+                <div id="menuGame" >
+                <div class="SmallLogo"></div>
+                <div style="float: left;color: white;margin-top: 15px;font-size: 11px;">
+                    <div style="display: none;" id="CurrentStage">-1</div>
+                    <div style="float: left;">
+                    Время до
+                    </div>
+                    <div id="ShowNextStage" style="min-width: 50px;float: left;margin-left: 5px">Префлоп</div>
+                    <div style="float: left">
+                    Раунд
+                    </div>
+                    <div id="ShowCurrentRaund" style="min-width: 40px;float: left;margin-left: 5px;">0</div>
+                        
+                </div>
+                <div id="progressbar">
+                    <b style="position: absolute;margin-left: 60px;" id="BaseProgressTime"></b>
+                </div>
+                <script> 
+                    $("#progressbar").progressbar({value: 37});
+                  //  GetCurrentUserStatistic();
+                </script>
+                <div class="button" style="margin-top: 10px;margin-left: 10px;float: left">
+                    Объяснение
+                    <form class="dropdownMenu" style="font-size: 11px;top: 200 !important; left: 200px;width: 350px;height: 450px;display: none">
+                        <div style="width: 100%; margin-top: 5px; display: inline-block;">
+                            <div style="float: left;width: 165px;">
+                                <div style="float: left;text-align: right;width: 100%;">
+                                    Флеш-рояль
+                                </div>
+                                <div style="float: right;">
+                                    5 старших карт одной масти
+                                </div>
+                            </div>
+                        <img style="float: right;" src="/pic/cart1.png">
+                        </div>
+                        <div style="width: 100%; margin-top: 5px; display: inline-block;">
+                            <div style="float: left;width: 165px;">
+                                <div style="float: left;text-align: right;width: 100%;">
+                                    Стрит-флеш
+                                </div>
+                                <div style="float: right;">
+                                    5 последовательных карт одной масти
+                                </div>
+                            </div>
+                        <img style="float: right;" src="/pic/cart2.png">
+                        </div>
+                        <div style="width: 100%; margin-top: 5px; display: inline-block;">
+                            <div style="float: left;width: 165px;">
+                                <div style="float: left;text-align: right;width: 100%;">Каре</div>
+                                <div style="float: right;">4 карты одного достоинства</div>
+                            </div>
+                        <img style="float: right;" src="/pic/cart3.png">
+                        </div>
+                        <div style="width: 100%; margin-top: 5px; display: inline-block;">
+                            <div style="float: left;width: 165px;">
+                                <div style="float: left;text-align: right;width: 100%;">Фулл-хаус</div>
+                                <div style="float: right;">3 карты одного достоинства и 2 другого</div>
+                            </div>
+                        <img style="float: right;" src="/pic/cart4.png">
+                        </div>
+                        <div style="width: 100%; margin-top: 5px; display: inline-block;">
+                            <div style="float: left;width: 165px;">
+                                <div style="float: left;text-align: right;width: 100%;">Флеш</div>
+                                <div style="float: right;">5 карт одной масти</div>
+                            </div>
+                        <img style="float: right;" src="/pic/cart5.png">
+                        </div>
+                        <div style="width: 100%; margin-top: 5px; display: inline-block;">
+                            <div style="float: left;width: 165px;">
+                                <div style="float: left;text-align: right;width: 100%;">Стрит</div>
+                                <div style="float: right;">5 последовательных карт</div>
+                            </div>
+                        <img style="float: right;" src="/pic/cart6.png">
+                        </div>
+                        <div style="width: 100%; margin-top: 5px; display: inline-block;">
+                            <div style="float: left;width: 165px;">
+                                <div style="float: left;text-align: right;width: 100%;">Тройка</div>
+                                <div style="float: right;">3 карты одного достоинства</div>
+                            </div>
+                        <img style="float: right;" src="/pic/cart7.png">
+                        </div>
+                        <div style="width: 100%; margin-top: 5px; display: inline-block;">
+                            <div style="float: left;width: 165px;">
+                                <div style="float: left;text-align: right;width: 100%;">Две пары</div>
+                                <div style="float: right;">2 карты одного достоинства и 2 другого</div>
+                            </div>
+                        <img style="float: right;" src="/pic/cart8.png">
+                        </div>
+                        <div style="width: 100%; margin-top: 5px; display: inline-block;">
+                            <div style="float: left;width: 165px;">
+                                <div style="float: left;text-align: right;width: 100%;">Пара</div>
+                                <div style="float: right;">2 карты одного достоинства</div>
+                            </div>
+                        <img style="float: right;" src="/pic/cart9.png">
+                        </div>
+                    </form>
+                </div>
+                <div style="background-image: url('/pic/UserImage.png');width: 17px;height: 23px;float: left;margin-top: 10px;margin-left: 10px;"></div>
+                <div style="float: left;margin-top: 10px;margin-left: 10px;font-size: 15px;color: whitesmoke;">login: 
+                <%Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                        UserDetails userDetails = null;
+                        if (principal instanceof UserDetails) {
+                            userDetails = (UserDetails) principal;} 
+                        String s="";
+                        if(userDetails!=null)%>
+                        <%=userDetails.getUsername()%>
+                        </div>
+                        <div id='BalanceUser' style="float: left;margin-top: 10px;margin-left: 10px;font-size: 15px;color: whitesmoke;">0</div>
+                        <div style="float: left;margin-top: 10px;font-size: 15px;color: whitesmoke;">$</div>
+                       <div style="display:inline-block;float: left;margin-top: 10px;margin-left: 10px;font-size: 15px;color: whitesmoke;"> 
+                        <form action="j_spring_security_logout" method="Post">
+                            <input class="button" type="submit" value="Выход"/>
+                        </form>
+                         
+                    </div>
+                        <div class="button" style="float: left;margin-top: 10px;margin-left: 10px;font-size: 15px;color: whitesmoke;">Язык
+                            <form class="dropdownMenu" id="language" method="GET" action="#">
+                                <input class="active" type="submit" name="language" value="Русский"/>
+                                <input type="submit" name="language" value="English"/>
+                                <input type="submit" name="language" value="Germany"/>
+                        </form>
+                        </div>
+            </div>
+                        
                 <div id="BackToList" style="
                      cursor: pointer;
                      width: 100px;
