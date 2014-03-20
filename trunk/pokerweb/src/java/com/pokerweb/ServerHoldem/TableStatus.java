@@ -43,74 +43,97 @@ public class TableStatus {
   
     }
     
-    public synchronized String GetDataTable(int IdTable){
-        JSONObject jsO = new JSONObject();
-        JSONArray jsUsers = new JSONArray();
-        System.out.println(IdTable);
-         if(TableList == null || TableList.size() <= 0)
-            return jsO.toString();
-        long UserId = DBManager.GetInstance().GetCurrentUserId();
-       // System.out.println("UserId= "+UserId);
-       // System.out.println("Size = "+TableList.get(IdTable).Users.size());
-        UserTable us =  Users.get(UserId);
-        if(us != null)
-            us.setLastUserOnline(System.currentTimeMillis());
+    public synchronized String GetDataTable(String Message){
         try {
-            for (Map.Entry<Integer,UserTable> User : TableList.get(IdTable).Users.entrySet()) {
-                JSONObject jsUser = new JSONObject();
-                if(UserId == User.getValue().getIdUser()){
-                    jsUser.put("CartOne", User.getValue().getCartOne());
-                    jsUser.put("CartTwo", User.getValue().getCartTwo());
-                }else{
-                    jsUser.put("CartOne", 0);
-                    jsUser.put("CartTwo", 0);
-                }
-                jsUser.put("Dialer", User.getValue().isDialer());
-                jsUser.put("UserBet", User.getValue().getUserBet());
-                jsUser.put("UserCash", User.getValue().getUserCash());
-                jsUser.put("UserName", User.getValue().getName());
-                
-                
-                
-                jsUser.put("TimerFoBet", User.getValue().TimerFoBet);
-                jsUser.put("isUserSit", User.getValue().isUserSit());
-                jsUser.put("Lack", User.getValue().isLack());
-                jsUsers.put(jsUser);
-                if(User.getValue().isUserSit() && User.getValue().getIdUser() == UserId)
-                    jsO.put("CurrentUserSit", true);
-                if(User.getValue().isUserSit() && User.getValue().getIdUser() == UserId && User.getValue().isActivateButton()){
-                    JSONObject jsButton = new JSONObject();
-                    jsButton.put("IsRaise", User.getValue().isIsRaise());
-                    jsButton.put("MinRaise", User.getValue().getMinRaise());
-                    jsButton.put("MaxRaise", User.getValue().getMaxRaise());
-                    jsButton.put("ValueRaise", User.getValue().getValueRaise());
-                    jsButton.put("IsFold", User.getValue().isIsFold());
-                    jsButton.put("IsCheck", User.getValue().isIsCheck());
-                    jsButton.put("SumCall", User.getValue().getSumCall());
-                    jsButton.put("IsCall", User.getValue().isIsCall());
-                    jsO.put("ButtonActivate",jsButton.toString());
-                }
+            JSONObject js = new JSONObject(Message);
+            
+            int IdTable = js.getInt("IdTable");
+            int StageClient = js.getInt("Stage");
+            JSONObject jsO = new JSONObject();
+            JSONArray jsUsers = new JSONArray();
+            System.out.println(IdTable);
+            if(TableList == null || TableList.size() <= 0)
+                return jsO.toString();
+            long UserId = DBManager.GetInstance().GetCurrentUserId();
+            // System.out.println("UserId= "+UserId);
+            // System.out.println("Size = "+TableList.get(IdTable).Users.size());
+            UserTable us =  Users.get(UserId);
+            if(us != null)
+                us.setLastUserOnline(System.currentTimeMillis());
+            int StageServer = TableList.get(IdTable).getStage();
+            jsO.put("StageServer",StageServer);
+            switch(StageClient){
+                case 0:
+                    if(StageServer >= 0)
+                        jsO.put("Balance", DBManager.GetInstance().GetCurrentUserAllInfo().balance);
+                    break;
+                case 1:
+                    if(StageServer >= 1)
+                        jsO.put("Balance", DBManager.GetInstance().GetCurrentUserAllInfo().balance);
+                    break;
                     
             }
-            jsO.put("Users", jsUsers.toString());
-            jsO.put("BankTable",TableList.get(IdTable).getBankTable());
-            jsO.put("FlopOne",TableList.get(IdTable).getFlopOne());
-            jsO.put("FlopTwo",TableList.get(IdTable).getFlopTwo());
-            jsO.put("FlopThree",TableList.get(IdTable).getFlopThree());
-            jsO.put("Tern",TableList.get(IdTable).getTern());
-            jsO.put("River",TableList.get(IdTable).getRiver());
-            jsO.put("Balance", DBManager.GetInstance().GetCurrentUserAllInfo().balance);
             
-            
+//            try {
+//                for (Map.Entry<Integer,UserTable> User : TableList.get(IdTable).Users.entrySet()) {
+//                    JSONObject jsUser = new JSONObject();
+//                    if(UserId == User.getValue().getIdUser()){
+//                        jsUser.put("CartOne", User.getValue().getCartOne());
+//                        jsUser.put("CartTwo", User.getValue().getCartTwo());
+//                    }else{
+//                        jsUser.put("CartOne", 0);
+//                        jsUser.put("CartTwo", 0);
+//                    }
+//                    jsUser.put("Dialer", User.getValue().isDialer());
+//                    jsUser.put("UserBet", User.getValue().getUserBet());
+//                    jsUser.put("UserCash", User.getValue().getUserCash());
+//                    jsUser.put("UserName", User.getValue().getName());
+//                    
+//                    
+//                    
+//                    jsUser.put("TimerFoBet", User.getValue().TimerFoBet);
+//                    jsUser.put("isUserSit", User.getValue().isUserSit());
+//                    jsUser.put("Lack", User.getValue().isLack());
+//                    jsUsers.put(jsUser);
+//                    if(User.getValue().isUserSit() && User.getValue().getIdUser() == UserId)
+//                        jsO.put("CurrentUserSit", true);
+//                    if(User.getValue().isUserSit() && User.getValue().getIdUser() == UserId && User.getValue().isActivateButton()){
+//                        JSONObject jsButton = new JSONObject();
+//                        jsButton.put("IsRaise", User.getValue().isIsRaise());
+//                        jsButton.put("MinRaise", User.getValue().getMinRaise());
+//                        jsButton.put("MaxRaise", User.getValue().getMaxRaise());
+//                        jsButton.put("ValueRaise", User.getValue().getValueRaise());
+//                        jsButton.put("IsFold", User.getValue().isIsFold());
+//                        jsButton.put("IsCheck", User.getValue().isIsCheck());
+//                        jsButton.put("SumCall", User.getValue().getSumCall());
+//                        jsButton.put("IsCall", User.getValue().isIsCall());
+//                        jsO.put("ButtonActivate",jsButton.toString());
+//                    }
+//                    
+//                }
+//                jsO.put("Users", jsUsers.toString());
+//                jsO.put("BankTable",TableList.get(IdTable).getBankTable());
+//                jsO.put("FlopOne",TableList.get(IdTable).getFlopOne());
+//                jsO.put("FlopTwo",TableList.get(IdTable).getFlopTwo());
+//                jsO.put("FlopThree",TableList.get(IdTable).getFlopThree());
+//                jsO.put("Tern",TableList.get(IdTable).getTern());
+//                jsO.put("River",TableList.get(IdTable).getRiver());
+//                jsO.put("Balance", DBManager.GetInstance().GetCurrentUserAllInfo().balance);
+//                
+//                
+//            } catch (JSONException ex) {
+//                Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            System.out.println("@@@@@@@@@@@GETDATA");
+//            System.out.println("Time="+System.currentTimeMillis());
+//            System.out.println("*********************************************************");
+//            System.out.println(jsO.toString());
+//            System.out.println("*********************************************************");
+            return jsO.toString();
         } catch (JSONException ex) {
             Logger.getLogger(TableStatus.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("@@@@@@@@@@@GETDATA");
-        System.out.println("Time="+System.currentTimeMillis());
-        System.out.println("*********************************************************");
-        System.out.println(jsO.toString());
-        System.out.println("*********************************************************");
-        return jsO.toString();
+        return null;
     }
     
     public synchronized static TableStatus GetInstance(){
