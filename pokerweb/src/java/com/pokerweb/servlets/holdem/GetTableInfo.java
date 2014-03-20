@@ -64,23 +64,17 @@ public class GetTableInfo extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
             StringBuilder jb = new StringBuilder();
             String line = null;
             BufferedReader reader = request.getReader();
             DBManager DBM = DBManager.GetInstance();
             while ((line = reader.readLine()) != null)
                 jb.append(line);
-            JSONObject jsonObject = new JSONObject(jb.toString());
-            int TableId = jsonObject.getInt("IdTable");
-            System.out.println("TableId = "+TableId);
-            String jsMessage = TableStatus.GetInstance().GetDataTable(TableId);
+            String jsMessage = TableStatus.GetInstance().GetDataTable(jb.toString());
             response.setContentType("application/json; charset=utf-8");
             response.setHeader("Cache-Control", "no-cache");
             response.getWriter().write(jsMessage);
-        } catch (JSONException ex) {
-            Logger.getLogger(GetTableInfo.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
 
     /**

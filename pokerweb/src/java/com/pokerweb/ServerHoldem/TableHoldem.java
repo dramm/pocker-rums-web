@@ -29,9 +29,18 @@ public class TableHoldem {
     private int FlopThree;
     private int Tern;
     private int River;
-    
+    private int Stage;
     Map<Integer,UserTable> Users;
 
+    public int getStage() {
+        return Stage;
+    }
+
+    public void setStage(int Stage) {
+        this.Stage = Stage;
+    }
+
+    
     public int getAverageBank() {
          return averageBank;
      }
