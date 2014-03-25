@@ -8,6 +8,8 @@ import com.pokerweb.DB.DBManager;
 import com.pokerweb.Server.Functions;
 import com.pokerweb.crypto.CryptoManager;
 import java.io.IOException;
+import java.util.AbstractMap;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -22,10 +24,10 @@ import org.json.JSONObject;
 public class TableStatus {
     private static TableStatus instanse;
     public Map<Integer,TableHoldem> TableList; 
-    public Map<Long,UserTable> Users;
+    public Map<Integer,Map<Long,Integer>> UsersTable;
     private TableStatus(){
         TableList = new java.util.concurrent.ConcurrentHashMap<Integer, TableHoldem>();
-        Users = new java.util.concurrent.ConcurrentHashMap<Long,UserTable>();
+        UsersTable = new HashMap<Integer, Map<Long, Integer>>();
         java.util.Timer timer = new java.util.Timer();
         TimerTask task = new TimerTask() {
             public void run(){
@@ -55,9 +57,7 @@ public class TableStatus {
             if(TableList == null || TableList.size() <= 0)
                 return jsO.toString();
             long UserId = DBManager.GetInstance().GetCurrentUserId();
-            // System.out.println("UserId= "+UserId);
-            // System.out.println("Size = "+TableList.get(IdTable).Users.size());
-            UserTable us =  Users.get(UserId);
+            UserTable us =  TableList.get(IdTable).Users.get(UsersTable.get(IdTable).get(UserId));
             if(us != null)
                 us.setLastUserOnline(System.currentTimeMillis());
             int StageServer = TableList.get(IdTable).getStage();
@@ -69,7 +69,7 @@ public class TableStatus {
                     break;
                 case 1:
                     if(StageServer >= 1)
-                        jsO.put("Balance", DBManager.GetInstance().GetCurrentUserAllInfo().balance);
+                        jsO.put("TimerCurrentUser", TableList.get(IdTable).Users.get(us));
                     break;
                     
             }
@@ -187,7 +187,9 @@ public class TableStatus {
                     TableList.get(TableId).Users.get(PlaseId).setIdTable(TableId);
                     TableList.get(TableId).Users.get(PlaseId).UserCash = Stack;
                     TableList.get(TableId).Users.get(PlaseId).setPositionTable(PlaseId);
-                    Users.put(PlayerId, TableList.get(TableId).Users.get(PlaseId));
+                    Map<Long, Integer> UserObj = new HashMap<Long, Integer>();
+                    UserObj.put(PlayerId, PlaseId);
+                    UsersTable.put(TableId, UserObj);
                     
                 }
             
@@ -424,11 +426,13 @@ public class TableStatus {
         try {
             JSONObject js = new JSONObject();
             long UserId = DBManager.GetInstance().GetCurrentUserId();
-            js.put("userId", UserId);
-            js.put("plaseId", Users.get(UserId).getPositionTable());
-            js.put("tableId", Users.get(UserId).getIdTable());
-            JSONObject jsCommand = new JSONObject();
             JSONObject ParseCommand = new JSONObject(Message);
+            int TableId = ParseCommand.getInt("TableId");
+            js.put("userId", UserId);
+            js.put("plaseId", UsersTable.get(TableId).get(UserId));
+            js.put("tableId", TableId);
+            JSONObject jsCommand = new JSONObject();
+            
             switch(ParseCommand.getInt("command")){
                 case 1:
                     JSONObject RaiseSumm = new JSONObject();

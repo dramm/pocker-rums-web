@@ -115,7 +115,7 @@ function ResponceCommand(command){
     $("#CallButton").hide();
     $("#FoldButton").hide();
     $("#CheckButton").hide();
-
+    data.TableId = idTable;
     switch (command){
         case 1:
             data.command = command;
@@ -190,17 +190,12 @@ function SitThis(Id){
 
 function UpdateTable(root){
     Balance = root.Balance;
+    
     if($("#StageCurrentTable").html() == 0){
-        if(root.stage == 0){
-            Balance = root.Balance;
+        if(root.StageServer > 0){
+            
         }
     }
-    
-    
-    
-    
-    
-    
     
     if(root.CurrentUserSit == true)
         for(var i = 0; i < countUserTable; i++){
@@ -256,6 +251,9 @@ if(root.ButtonActivate != null){
 
         
     }
+    
+    $("#StageCurrentTable").html(root.StageServer);
+    
 }
 
 function GetAllUserStatistic() {
