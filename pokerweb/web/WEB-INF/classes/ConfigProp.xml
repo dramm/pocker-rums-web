@@ -2,11 +2,11 @@
 
 <root>
     <jdbc>
-        <serverName>localhost</serverName>
+        <serverName>5.9.82.164</serverName>
         <database>pokerwebdb</database>
         <port>3306</port>
         <username>root</username>
-        <password>i do root</password>
+        <password>lvbnhbq</password>
         <!--<password>P0laroid</password>-->
     </jdbc>
     <mail>

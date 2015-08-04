@@ -24,7 +24,7 @@ public final class Connect {
     
     public void NewConnect(){
         try {
-            socket = new Socket("148.251.10.241", 7778);
+            socket = new Socket("127.0.0.1", 7778);
             //while(!socket.isConnected())
             //    socket = new Socket("148.251.10.241", 7778);
             //System.out.println("reconect");
