@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -75,11 +77,13 @@ public class RequestOutMoney extends HttpServlet {
             
             JSONObject jsonObject = new JSONObject(jb.toString());
             double RequestSum = Double.parseDouble(jsonObject.getString("Sum"));
-            UserAllInformation UserInfo = DBM.GetCurrentUserAllInfo();
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            
+            UserAllInformation UserInfo = DBM.GetCurrentUserAllInfo(auth.getName());
             JSONObject js = new JSONObject();
             String userAgent = request.getHeader("User-Agent");
             if(UserInfo.balance > RequestSum){
-               boolean res = DBM.SetNewRequestOutMoney(RequestSum,userAgent);
+               boolean res = DBM.SetNewRequestOutMoney(RequestSum,userAgent,auth.getName());
                                if(res){
                                    js.append("Message","Заявка на выдачу средств принята");
                                }else

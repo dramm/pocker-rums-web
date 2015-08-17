@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -76,7 +78,8 @@ public class NewBet extends HttpServlet {
             JSONArray Table3 = jsonObject.getJSONArray("Table3");
             double Sum = jsonObject.getDouble("Sum");
             boolean Express = jsonObject.getBoolean("Express");
-            boolean Correct = TableStatus.GetInstance().SetNewBet(Table1,Table2,Table3,Sum,Express);
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            boolean Correct = TableStatus.GetInstance().SetNewBet(Table1,Table2,Table3,Sum,Express,auth.getName());
             JSONObject js = new JSONObject();
             if(Correct)
                 js.append("Correct", true);

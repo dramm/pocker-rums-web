@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -75,7 +77,9 @@ public class SitThisUser extends HttpServlet {
             int IdTable = jsonObject.getInt("IdTable");
             int plaseId = jsonObject.getInt("plaseId");
             double summ = jsonObject.getDouble("summ");
-            TableStatus.GetInstance().SendSitThisRequest(IdTable, plaseId, summ);
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            
+            TableStatus.GetInstance().SendSitThisRequest(IdTable, plaseId, summ,auth.getName());
         } catch (JSONException ex) {
             Logger.getLogger(SitThisUser.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -78,20 +80,21 @@ public class SaveInfoTab6 extends HttpServlet {
             String NewPassport = jsonObject.getString("NewPassport");
             int NewPaySys = jsonObject.getInt("NewPaySys");
             String NewPayNum = jsonObject.getString("NewPayNum");
-           
-            UserAllInformation UserInfo = DBM.GetCurrentUserAllInfo();
+           Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            
+            UserAllInformation UserInfo = DBM.GetCurrentUserAllInfo(auth.getName());
             String CurrentPassword = UserInfo.Passport;
             String ReceptCurrentPassword = jsonObject.getString("CurrentPassword");
             String ReceptCurrentPasswordEn = CryptoManager.GetEnctyptPassword(ReceptCurrentPassword);
             JSONObject js = new JSONObject();
             
             if(ValidationField.ValidConfPassword(CurrentPassword,ReceptCurrentPasswordEn)){
-                boolean resPassport = DBM.UpdateCurrentUserTempInfoPassport(NewPassport);
-                boolean resPaySys = DBM.UpdateCurrentUserTempInfoPaySys(NewPaySys);
-                boolean resPayNum = DBM.UpdateCurrentUserTempInfoScore(NewPayNum);
+                boolean resPassport = DBM.UpdateCurrentUserTempInfoPassport(NewPassport,auth.getName());
+                boolean resPaySys = DBM.UpdateCurrentUserTempInfoPaySys(NewPaySys,auth.getName());
+                boolean resPayNum = DBM.UpdateCurrentUserTempInfoScore(NewPayNum,auth.getName());
                                if(resPassport && resPaySys && resPayNum){
                                    js.append("Message","Для подтверждения перейдите по ссылке в письме отправленное вам на почту");
-                                   DBM.SendConfirmNewSettingsCurrUser();
+                                   DBM.SendConfirmNewSettingsCurrUser(auth.getName());
                                }else
                                    js.append("Message","Данные введены не корректно");
                              }else

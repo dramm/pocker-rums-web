@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -77,7 +79,9 @@ public class GetAllUser extends HttpServlet {
             JSONObject jsonObject = new JSONObject(jb.toString());
             int PageNum = jsonObject.getInt("PageNum");
             int Range = jsonObject.getInt("Range");
-            UserAllInformation UserInfo = DBM.GetCurrentUserAllInfo();
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            
+            UserAllInformation UserInfo = DBM.GetCurrentUserAllInfo(auth.getName());
             int Role = UserInfo.Role;
             if(Role > 1)
                 return;

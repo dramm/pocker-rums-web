@@ -45,7 +45,7 @@ public class TableStatus {
   
     }
     
-    public synchronized String GetDataTable(String Message){
+    public synchronized String GetDataTable(String Message,String Name){
         try {
             JSONObject js = new JSONObject(Message);
             
@@ -56,7 +56,7 @@ public class TableStatus {
             System.out.println(IdTable);
             if(TableList == null || TableList.size() <= 0)
                 return jsO.toString();
-            long UserId = DBManager.GetInstance().GetCurrentUserId();
+            long UserId = DBManager.GetInstance().GetCurrentUserId(Name);
             UserTable us =  TableList.get(IdTable).Users.get(UsersTable.get(IdTable).get(UserId));
             if(us != null)
                 us.setLastUserOnline(System.currentTimeMillis());
@@ -65,7 +65,7 @@ public class TableStatus {
             switch(StageClient){
                 case 0:
                     if(StageServer >= 0)
-                        jsO.put("Balance", DBManager.GetInstance().GetCurrentUserAllInfo().balance);
+                        jsO.put("Balance", DBManager.GetInstance().GetCurrentUserAllInfo(Name).balance);
                     break;
                 case 1:
                     if(StageServer >= 1)
@@ -142,13 +142,13 @@ public class TableStatus {
         return instanse;
     }
     
-    public void SendSitThisRequest(int IdTable,int Idplase,double sum){
+    public void SendSitThisRequest(int IdTable,int Idplase,double sum,String Name){
         try {
             JSONObject js = new JSONObject();
             js.put("tableId", IdTable);
             js.put("plaseId", Idplase);
             js.put("stack", sum);
-            js.put("userId", DBManager.GetInstance().GetCurrentUserId());
+            js.put("userId", DBManager.GetInstance().GetCurrentUserId(Name));
             System.out.println("@@@@@@@@@@@@@@@SITTHIS");
             System.out.println("Time="+System.currentTimeMillis());
             System.out.println("*********************************************************");
@@ -315,11 +315,11 @@ public class TableStatus {
         return "";
     }
     
-    public void ExitTable(int TableId){
+    public void ExitTable(int TableId,String Name){
         try {
             JSONObject js = new JSONObject();
             js.put("tableId", TableId);
-            js.put("userId", DBManager.GetInstance().GetCurrentUserId());
+            js.put("userId", DBManager.GetInstance().GetCurrentUserId(Name));
             System.out.println("@@@@@@@@@@@@@@@@@@@@@ExitTable");
             System.out.println("Time="+System.currentTimeMillis());
             System.out.println("*********************************************************");
@@ -422,10 +422,10 @@ public class TableStatus {
         }
     }
     
-    public void SetButtonSettingsResponce(String Message){
+    public void SetButtonSettingsResponce(String Message,String Name){
         try {
             JSONObject js = new JSONObject();
-            long UserId = DBManager.GetInstance().GetCurrentUserId();
+            long UserId = DBManager.GetInstance().GetCurrentUserId(Name);
             JSONObject ParseCommand = new JSONObject(Message);
             int TableId = ParseCommand.getInt("TableId");
             js.put("userId", UserId);

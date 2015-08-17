@@ -23,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -75,7 +77,9 @@ public class CheckBetArea extends HttpServlet {
             if(Token.length() <= 0)
                 return;
         JSONObject js = new JSONObject();
-        long UserId = DBManager.GetInstance().GetCurrentUserId();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            
+        long UserId = DBManager.GetInstance().GetCurrentUserId(auth.getName());
         for (Map.Entry<Long,StatisticBet> object : TableStatus.GetInstance().RequestStatisticBet.entrySet()) 
             if(object.getValue().ToketUserRequest.equals(Token) && object.getKey() == UserId)
                 if(TableStatus.GetInstance().StatisticBetCurrentUser.containsKey(object.getValue().IdBet)){

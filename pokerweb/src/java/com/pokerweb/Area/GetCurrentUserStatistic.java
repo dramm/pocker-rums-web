@@ -4,6 +4,7 @@
  */
 package com.pokerweb.Area;
 
+import com.pokerweb.DB.DBManager;
 import com.pokerweb.DB.Game;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -60,7 +63,9 @@ public class GetCurrentUserStatistic extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             Game GM = new Game();
-            JSONArray js = GM.GetCurrentUserGameStatistic();
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            
+            JSONArray js = DBManager.GetInstance().GetCurrentUserGameStatistic(auth.getName());
             response.setContentType("application/json; charset=utf-8");
             response.setHeader("Cache-Control", "no-cache");
             response.getWriter().write(js.toString());

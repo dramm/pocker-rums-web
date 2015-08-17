@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -78,7 +80,9 @@ public class SaveInfoTab5 extends HttpServlet {
             JSONObject jsonObject = new JSONObject(jb.toString());
             String NewPhone = jsonObject.getString("NewPhone");
             String ConfNewPhone = jsonObject.getString("ConfNewPhone");
-            UserAllInformation UserInfo = DBM.GetCurrentUserAllInfo();
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            
+            UserAllInformation UserInfo = DBM.GetCurrentUserAllInfo(auth.getName());
             String CurrentPassword = UserInfo.Passport;
             String ReceptCurrentPassword = jsonObject.getString("CurrentPassword");
             String ReceptCurrentPasswordEn = CryptoManager.GetEnctyptPassword(ReceptCurrentPassword);
@@ -87,10 +91,10 @@ public class SaveInfoTab5 extends HttpServlet {
             if(ValidationField.ValidConfPassword(CurrentPassword,ReceptCurrentPasswordEn) &&
                     ValidationField.ValidPhone(NewPhone) &&
                     ValidationField.ValidConfPhone(NewPhone,ConfNewPhone)){
-                boolean res = DBM.UpdateCurrentUserTempInfoPhone(NewPhone);
+                boolean res = DBM.UpdateCurrentUserTempInfoPhone(NewPhone,auth.getName());
                                if(res){
                                    js.append("Message","Для подтверждения перейдите по ссылке в письме отправленное вам на почту");
-                                   DBM.SendConfirmNewSettingsCurrUser();
+                                   DBM.SendConfirmNewSettingsCurrUser(auth.getName());
                                }else
                                    js.append("Message","Данные введены не корректно");
                              }else

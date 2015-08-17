@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -80,7 +82,9 @@ public class SaveInfoTab3 extends HttpServlet {
             JSONObject jsonObject = new JSONObject(jb.toString());
             String NewMail = jsonObject.getString("NewMail");
             String ConfNewMail = jsonObject.getString("ConfNewMail");
-            UserAllInformation UserInfo = DBM.GetCurrentUserAllInfo();
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            
+            UserAllInformation UserInfo = DBM.GetCurrentUserAllInfo(auth.getName());
             String CurrentPassword = UserInfo.password;
             String ReceptCurrentPassword = jsonObject.getString("CurrentPassword");
             String ReceptCurrentPasswordEn = CryptoManager.GetEnctyptPassword(ReceptCurrentPassword);
@@ -89,10 +93,10 @@ public class SaveInfoTab3 extends HttpServlet {
             if(ValidationField.ValidConfPassword(CurrentPassword,ReceptCurrentPasswordEn) &&
                     ValidationField.ValidEmail(NewMail) &&
                     ValidationField.ValidEmailConf(NewMail,ConfNewMail)){
-                boolean res = DBM.UpdateCurrentUserTempInfoMail(NewMail);
+                boolean res = DBM.UpdateCurrentUserTempInfoMail(NewMail,auth.getName());
                                if(res){
                                    js.append("Message","Для подтверждения перейдите по ссылке в письме отправленное вам на почту");
-                                   DBM.SendConfirmNewSettingsCurrUser();
+                                   DBM.SendConfirmNewSettingsCurrUser(auth.getName());
                                }else
                                    js.append("Message","Данные введены не корректно");
                              }

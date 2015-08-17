@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -70,7 +72,8 @@ public class GetTableInfo extends HttpServlet {
             DBManager DBM = DBManager.GetInstance();
             while ((line = reader.readLine()) != null)
                 jb.append(line);
-            String jsMessage = TableStatus.GetInstance().GetDataTable(jb.toString());
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            String jsMessage = TableStatus.GetInstance().GetDataTable(jb.toString(),auth.getName());
             response.setContentType("application/json; charset=utf-8");
             response.setHeader("Cache-Control", "no-cache");
             response.getWriter().write(jsMessage);

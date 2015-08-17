@@ -58,7 +58,10 @@ public class IsOnline extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       DBManager.GetInstance().SetNewDateOnline(); 
+     //  DBManager.GetInstance().SetNewDateOnline(); 
+        response.setContentType("application/json; charset=utf-8");
+            response.setHeader("Cache-Control", "no-cache");
+            response.getWriter().write("");
     }
 
     /**

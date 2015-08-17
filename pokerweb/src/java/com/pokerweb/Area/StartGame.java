@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -67,7 +69,9 @@ public class StartGame extends HttpServlet {
         try{
             Connect.GetInstance();
             JSONObject Data = new JSONObject();
-            Data.put("Max", DBManager.GetInstance().GetCurrentUserAllInfo().balance);
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            
+            Data.put("Max", DBManager.GetInstance().GetCurrentUserAllInfo(auth.getName()).balance);
             response.setContentType("application/json; charset=utf-8");
             response.setHeader("Cache-Control", "no-cache");
             response.getWriter().write(Data.toString());               

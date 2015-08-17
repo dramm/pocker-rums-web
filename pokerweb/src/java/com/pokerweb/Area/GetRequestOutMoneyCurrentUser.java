@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -79,12 +81,14 @@ public class GetRequestOutMoneyCurrentUser extends HttpServlet {
             int PageNum = jsonObject.getInt("PageNum");
             int Range = jsonObject.getInt("Range");
             UserAllInformation UserInfo = null;
-            UserInfo = DBM.GetCurrentUserAllInfo();
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            
+            UserInfo = DBM.GetCurrentUserAllInfo(auth.getName());
             int Role = UserInfo.Role;
             if(UserInfo == null )
                 return;
             JSONObject js = new JSONObject();
-            List<FieldOutMoney> LFOM = DBM.GetRequestOutMoneyNoAcceptedCurrUser(PageNum,Range);
+            List<FieldOutMoney> LFOM = DBM.GetRequestOutMoneyNoAcceptedCurrUser(PageNum,Range,auth.getName());
             JSONObject UserData;
             if(LFOM != null)
                 for(FieldOutMoney item : LFOM){
@@ -98,7 +102,7 @@ public class GetRequestOutMoneyCurrentUser extends HttpServlet {
                     UserData.append("Status", item.Status);
                     js.append("User", UserData);
                 }
-            long CountRequest = DBM.GetCountRequestOutMoneyNoAccepted();
+            long CountRequest = DBM.GetCountRequestOutMoneyNoAccepted(auth.getName());
             if(CountRequest != 0)
             js.append("Count", CountRequest);
             

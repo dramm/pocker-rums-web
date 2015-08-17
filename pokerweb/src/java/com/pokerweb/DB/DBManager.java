@@ -26,6 +26,9 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
@@ -79,6 +82,74 @@ public class DBManager{
         }
     }
     
+    
+    
+    public synchronized JSONArray GetCurrentUserGameStatistic(String Name){
+        //Connection connection = null;
+        PreparedStatement stmt = null;
+        FieldJdbc FieldJ; 
+            FieldJ = new ConfigManager().GetPropJdbc();
+            
+            String driverName = "com.mysql.jdbc.Driver";
+            
+            
+        try {
+            Class.forName(driverName);
+            //String url = "jdbc:mysql://"+FieldJ.serverName+":"+FieldJ.port+"/"+FieldJ.database;
+            //connection = DriverManager.getConnection(url, FieldJ.username, FieldJ.password);
+            JSONArray jsA = new JSONArray();
+            String query = "SELECT id,date_bet, id_game," +
+                    "sum_bet," +
+                    "sum_win " +
+                    "FROM user_bet where id_user = ? ORDER BY date_bet desc " +
+                    "LIMIT 8 OFFSET 0;";
+            stmt = connection.prepareStatement(query);
+            //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            
+            stmt.setLong(1,DBManager.GetInstance().GetCurrentUserId(Name));
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                JSONObject bet = new JSONObject();
+                bet.put("id", rs.getLong("id"));
+                bet.put("id_game", rs.getLong("id_game"));
+                bet.put("date", rs.getString("date_bet"));
+                bet.put("sum_bet", rs.getDouble("sum_bet"));
+                bet.put("sum_win", rs.getDouble("sum_win"));
+                query = "SELECT id_bet,hand FROM pokerwebdb.bet_hand where id_bet = ?";
+                stmt = connection.prepareStatement(query);
+                stmt.setLong(1,rs.getLong("id"));
+                ResultSet rsTwo = stmt.executeQuery();
+                String hands = "";
+                while(rsTwo.next()){
+                hands += rsTwo.getString("hand")+",";
+                }
+                bet.put("hands",hands.substring(0,hands.length()-1));
+                jsA.put(bet);
+            }
+            stmt.close();
+            rs.close();
+            //connection.close();
+            return jsA;
+        } catch (SQLException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (JSONException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }finally{
+        if(stmt != null)
+            try {
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }       
+    }
+    
+    
      public long GetCountAllUser(){
         PreparedStatement stmt = null;
         try {
@@ -104,9 +175,9 @@ public class DBManager{
     }
     
     
-    public long GetCountRequestOutMoneyNoAccepted(){
+    public long GetCountRequestOutMoneyNoAccepted(String Name){
         PreparedStatement stmt = null;
-        Long IdUser = GetCurrentUserId();
+        Long IdUser = GetCurrentUserId(Name);
         try {
             String query="SELECT count(id) as count FROM request_out_money where id_user=?";
              stmt = connection.prepareStatement(query);
@@ -130,9 +201,9 @@ public class DBManager{
         }
     }
     
-   public boolean ExecuteActionOverUser(Map<Long,Integer> lst){
+   public boolean ExecuteActionOverUser(Map<Long,Integer> lst,String Name){
        PreparedStatement stmt = null;
-       Long UserId = GetCurrentUserId();
+       Long UserId = GetCurrentUserId(Name);
        String BlockUserQuery = "Update users "
                + "Set banned=true,"
                + "banned_date=now(),"
@@ -192,10 +263,10 @@ public class DBManager{
         }
    }
     
-    public boolean AcceptOutMoney(Map<Long,Map<Integer,String>> arr,String UserAgent){
+    public boolean AcceptOutMoney(Map<Long,Map<Integer,String>> arr,String UserAgent,String Name){
         PreparedStatement stmt = null;
         try {
-            long IdManager = GetCurrentUserId();
+            long IdManager = GetCurrentUserId(Name);
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             WebAuthenticationDetails details =  (WebAuthenticationDetails) auth.getDetails();
             String remoteAddress = details.getRemoteAddress();
@@ -341,10 +412,10 @@ public class DBManager{
         }
     }
     
-    public List<FieldOutMoney> GetRequestOutMoneyNoAcceptedCurrUser(int PageNum,int Range){
+    public List<FieldOutMoney> GetRequestOutMoneyNoAcceptedCurrUser(int PageNum,int Range,String Name){
         PreparedStatement stmt = null;
         try {
-            Long IdUser=GetCurrentUserId();
+            Long IdUser=GetCurrentUserId(Name);
             String query="SELECT '' as id_manager,"
                     + "sum,"
                     + "balance_request,"
@@ -450,7 +521,7 @@ public class DBManager{
         }
     }
     
-    public List<FieldOutMoney> GetRequestOutMoneyNoAccepted(int PageNum,int Range){
+    public List<FieldOutMoney> GetRequestOutMoneyNoAccepted(int PageNum,int Range,String Name){
         PreparedStatement stmt = null;
         try {
             String query="SELECT login,"
@@ -470,7 +541,7 @@ public class DBManager{
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 if(rs.getDouble("balance") < rs.getDouble("sum")){
-                    SetRequestOutMoneyNoCash(rs.getLong("id"));
+                    SetRequestOutMoneyNoCash(rs.getLong("id"),Name);
                     continue;
                 }
                 FOM=new FieldOutMoney();
@@ -496,9 +567,9 @@ public class DBManager{
         }
     }
     
-    public boolean SetRequestOutMoneyNoCash(Long IdRequest){
+    public boolean SetRequestOutMoneyNoCash(Long IdRequest,String Name){
     PreparedStatement stmt = null;
-    Long UserId = GetCurrentUserId();
+    Long UserId = GetCurrentUserId(Name);
         try {
             String query="Update request_out_money "
                     + "set status=3,"
@@ -571,10 +642,10 @@ public class DBManager{
         return auth.getName();
     }
     
-    public boolean SetNewDateOnline(){
+    public boolean SetNewDateOnline(String Name){
         PreparedStatement stmt = null;
         try {
-            long idUser = GetCurrentUserId();
+            long idUser = GetCurrentUserId(Name);
             if(idUser==0)
                 return false;
             String query="Update stat_logins Set logout=now() "
@@ -603,15 +674,15 @@ public class DBManager{
     }
     
     
-    public synchronized long GetCurrentUserId(){
+    public synchronized long GetCurrentUserId(String Name){
         PreparedStatement stmt = null;
         try {
             String query="select id from users where login=?";
             stmt = connection.prepareStatement(query);
-            String name = GetCurrentUserLogin();
-            if(name == null)
+            //String name = GetCurrentUserLogin();
+            if(Name == null)
                 return 0;
-            stmt.setString(1, name);
+            stmt.setString(1, Name);
             ResultSet rs = stmt.executeQuery();
             if(!rs.first())
                 return 0;
@@ -655,7 +726,7 @@ public class DBManager{
         }
     }
     
-    public boolean SendConfirmNewSettingsCurrUser(){
+    public boolean SendConfirmNewSettingsCurrUser(String Name){
         PreparedStatement stmt = null;
         try {
             UUID uuid = UUID.randomUUID();
@@ -673,7 +744,7 @@ public class DBManager{
                stmt.setString(1, Login);
                stmt.executeUpdate();
                SendConfirmSettingMessage SendCSM = new SendConfirmSettingMessage();
-               UserAllInformation UserInfo = GetCurrentUserAllInfo();
+               UserAllInformation UserInfo = GetCurrentUserAllInfo(Name);
                SendCSM.SetMail(UserInfo.email);
                SendCSM.SetToken(uuid.toString());
                Thread myT = new Thread(SendCSM);
@@ -693,11 +764,11 @@ public class DBManager{
         }
     }
     
-    public PaymentField GetPaymentInfoCurrentUser(){
+    public PaymentField GetPaymentInfoCurrentUser(String Name){
         PaymentField PF = new PaymentField();
         PreparedStatement stmt = null;
         try {
-            long idUser = GetCurrentUserId();
+            long idUser = GetCurrentUserId(Name);
             if(idUser == 0)
                 return null;
             String query="select passport,"
@@ -784,10 +855,10 @@ public class DBManager{
         }
     }
     
-    public boolean UpdateCurrentUserTempInfoScore(String Score){
+    public boolean UpdateCurrentUserTempInfoScore(String Score,String Name){
         PreparedStatement stmt = null;
         try {
-            PaymentField PF = GetPaymentInfoCurrentUser();
+            PaymentField PF = GetPaymentInfoCurrentUser(Name);
             String OldScore = PF.Score;
             if(Score.equals(OldScore))
                 return true;
@@ -819,10 +890,10 @@ public class DBManager{
         }
     }
     
-    public boolean UpdateCurrentUserTempInfoPaySys(int PaySys){
+    public boolean UpdateCurrentUserTempInfoPaySys(int PaySys,String Name){
         PreparedStatement stmt = null;
         try {
-            PaymentField PF = GetPaymentInfoCurrentUser();
+            PaymentField PF = GetPaymentInfoCurrentUser(Name);
             int OldPaySys = PF.Pay_sys;
             if(PaySys == OldPaySys)
                 return true;
@@ -854,10 +925,10 @@ public class DBManager{
         }
     }
     
-    public boolean UpdateCurrentUserTempInfoPassport(String Passport){
+    public boolean UpdateCurrentUserTempInfoPassport(String Passport,String Name){
         PreparedStatement stmt = null;
         try {
-            PaymentField PF = GetPaymentInfoCurrentUser();
+            PaymentField PF = GetPaymentInfoCurrentUser(Name);
             String OldPassport = PF.Passport;
             if(Passport.equals(OldPassport))
                 return true;
@@ -889,10 +960,10 @@ public class DBManager{
         }
     }
     
-    public boolean UpdateCurrentUserTempInfoPhone(String Phone){
+    public boolean UpdateCurrentUserTempInfoPhone(String Phone,String Name){
         PreparedStatement stmt = null;
         try {
-            UserAllInformation UserInfo = GetCurrentUserAllInfo();
+            UserAllInformation UserInfo = GetCurrentUserAllInfo(Name);
             if(Phone.equals(UserInfo.tel))
                 return true;
             String Login = GetCurrentUserLogin();
@@ -924,10 +995,10 @@ public class DBManager{
         }
     }
     
-    public boolean UpdateCurrentUserTempInfoPassword(String Password){
+    public boolean UpdateCurrentUserTempInfoPassword(String Password,String Name){
         PreparedStatement stmt = null;
         try {
-            UserAllInformation UserInfo = GetCurrentUserAllInfo();
+            UserAllInformation UserInfo = GetCurrentUserAllInfo(Name);
             String EncodePass = CryptoManager.GetEnctyptPassword(Password);
             if(EncodePass.equals(UserInfo.password))
                 return true;
@@ -959,10 +1030,10 @@ public class DBManager{
         }
     }
     
-    public boolean UpdateCurrentUserTempInfoMail(String Mail){
+    public boolean UpdateCurrentUserTempInfoMail(String Mail,String Name){
         PreparedStatement stmt = null;
         try {
-            UserAllInformation UserInfo = GetCurrentUserAllInfo();
+            UserAllInformation UserInfo = GetCurrentUserAllInfo(Name);
             if(Mail.equals(UserInfo.email))
                 return true;
             String Login = GetCurrentUserLogin();
@@ -993,7 +1064,7 @@ public class DBManager{
         }
     }
     
-    public synchronized UserAllInformation GetCurrentUserAllInfo(){
+    public synchronized UserAllInformation GetCurrentUserAllInfo(String Name){
         UserAllInformation UserInfo = new UserAllInformation();
         PreparedStatement stmt = null;
         String query="select "
@@ -1008,10 +1079,10 @@ public class DBManager{
                 + " from users,user_roles where login=? and user_id=id";
         try {
             stmt = connection.prepareStatement(query);
-            String name = GetCurrentUserLogin();
-            if(name == null)
+           // String name = GetCurrentUserLogin();
+            if(Name == null)
                 return null;
-            stmt.setString(1, name);
+            stmt.setString(1, Name);
             ResultSet rs = stmt.executeQuery();
             if(rs.first()){
                 UserInfo.name = rs.getString("name");
@@ -1466,10 +1537,10 @@ public class DBManager{
     }
     
     
-    public boolean SetNewRequestOutMoney(double Sum,String UserAgent){
+    public boolean SetNewRequestOutMoney(double Sum,String UserAgent,String Name){
         PreparedStatement stmt = null;
         try {
-            UserAllInformation UserInfo = GetCurrentUserAllInfo();
+            UserAllInformation UserInfo = GetCurrentUserAllInfo(Name);
             String Login = GetCurrentUserLogin();
             long Id = GetIdFromLogin(Login);
             String query="insert into request_out_money("

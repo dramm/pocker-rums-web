@@ -1589,6 +1589,7 @@ function StartGameCallback() {
                            
                     
                 var StringBets = "";
+                //if(Message.Bets != null)
                 for (var i=0;i<Message.Bets[0].length;i++){
                     var hands;
                     if(Message.Bets[0][i].hands.length > 19)

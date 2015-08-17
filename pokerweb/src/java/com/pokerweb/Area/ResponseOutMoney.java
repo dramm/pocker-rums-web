@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -75,7 +77,9 @@ public class ResponseOutMoney extends HttpServlet {
             while ((line = reader.readLine()) != null)
                 jb.append(line);
             JSONObject jsonObject = new JSONObject(jb.toString());
-            UserAllInformation UserInfo = DBM.GetCurrentUserAllInfo();
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            
+            UserAllInformation UserInfo = DBM.GetCurrentUserAllInfo(auth.getName());
             if(UserInfo == null)
                 return;
            Map<Long,Map<Integer,String>> arr = new HashMap<Long, Map<Integer,String>>();
@@ -85,7 +89,7 @@ public class ResponseOutMoney extends HttpServlet {
                act.put(jsonObject.getJSONArray(jsonObject.names().getString(i)).getInt(0),jsonObject.getJSONArray(jsonObject.names().getString(i)).getString(1));
                arr.put(jsonObject.names().getLong(i),act);
             }
-            boolean res = DBM.AcceptOutMoney(arr,userAgent);
+            boolean res = DBM.AcceptOutMoney(arr,userAgent,auth.getName());
             JSONObject js = new JSONObject();
             if(res)
                 js.append("Message", "Оплата прошла успешно");

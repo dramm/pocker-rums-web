@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -78,7 +80,9 @@ public class GetBet extends HttpServlet {
                     Token = object.getValue();
             if(Token.length() <= 0)
                 return;
-              boolean correct = TableStatus.GetInstance().SendGetBetGame(index,Token);
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            
+              boolean correct = TableStatus.GetInstance().SendGetBetGame(index,Token,auth.getName());
                JSONObject js = new JSONObject();
                js.put("correct", correct);
             response.setContentType("application/json; charset=utf-8");

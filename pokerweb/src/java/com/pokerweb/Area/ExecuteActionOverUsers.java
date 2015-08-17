@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -74,14 +76,16 @@ public class ExecuteActionOverUsers extends HttpServlet {
             while ((line = reader.readLine()) != null)
                 jb.append(line);
             JSONObject jsonObject = new JSONObject(jb.toString());
-            UserAllInformation UserInfo = DBM.GetCurrentUserAllInfo();
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            
+            UserAllInformation UserInfo = DBM.GetCurrentUserAllInfo(auth.getName());
             int Role = UserInfo.Role;
             if(Role != 1)
                 return;
             Map<Long,Integer> arr = new HashMap<Long, Integer>();
             for(int i = 0; i < jsonObject.length(); i++)
                 arr.put(jsonObject.names().getLong(i),jsonObject.getInt(jsonObject.names().getString(i)));
-            boolean res = DBM.ExecuteActionOverUser(arr);
+            boolean res = DBM.ExecuteActionOverUser(arr,auth.getName());
             JSONObject js = new JSONObject();
             if(res)
                 js.append("Message", "Все операции прошли успешно");

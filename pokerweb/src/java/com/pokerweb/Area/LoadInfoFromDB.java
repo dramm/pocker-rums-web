@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -68,8 +70,10 @@ public class LoadInfoFromDB extends HttpServlet {
             throws ServletException, IOException {
         try {
             JSONObject js = new JSONObject();
-            UserAllInformation UserInfo = DBManager.GetInstance().GetCurrentUserAllInfo();
-            PaymentField Pay_info = DBManager.GetInstance().GetPaymentInfoCurrentUser();
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            
+            UserAllInformation UserInfo = DBManager.GetInstance().GetCurrentUserAllInfo(auth.getName());
+            PaymentField Pay_info = DBManager.GetInstance().GetPaymentInfoCurrentUser(auth.getName());
             List<String> PaySys = DBManager.GetInstance().GetAllPaySys();
             if(Pay_info != null){
                 js.append("Score",UserInfo.Score);

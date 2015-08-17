@@ -21,6 +21,8 @@ import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -40,7 +42,9 @@ public class Game{
                  Class.forName(driverName);
                  String url = "jdbc:mysql://"+FieldJ.serverName+":"+FieldJ.port+"/"+FieldJ.database;
                  connection = DriverManager.getConnection(url, FieldJ.username, FieldJ.password);
-            Long IdUser = DBManager.GetInstance().GetCurrentUserId();
+                 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            
+            Long IdUser = DBManager.GetInstance().GetCurrentUserId(auth.getName());
             
                  for (int i = 0; i<Winners.length(); i++){
                 try {
@@ -103,7 +107,7 @@ public class Game{
     }
  
     
-    public long WriteBetsCurrentStage(UserBet ub){
+    public long WriteBetsCurrentStage(UserBet ub,String Name){
          Connection connection;
          PreparedStatement stmt = null;
         try {
@@ -116,8 +120,9 @@ public class Game{
             String url = "jdbc:mysql://"+FieldJ.serverName+":"+FieldJ.port+"/"+FieldJ.database;
             connection = DriverManager.getConnection(url, FieldJ.username, FieldJ.password);
             long IdBet = 0;
+            //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             
-            Long UserId = DBManager.GetInstance().GetCurrentUserId();
+            Long UserId = DBManager.GetInstance().GetCurrentUserId(Name);
                 String query="insert user_bet("
                         + "id_user,"
                         + "id_game,"
@@ -134,7 +139,7 @@ public class Game{
                 stmt.setLong(2, TableStatus.GetInstance().GetRound());
                 stmt.setLong(3, 123);
                 stmt.setString(4, "0");
-                DBManager.GetInstance().GetCurrentUserAllInfo();
+                DBManager.GetInstance().GetCurrentUserAllInfo(Name);
                 stmt.setLong(5, UserId);
                 stmt.setDouble(6, 0);
                 stmt.setDouble(7, ub.Sum);
@@ -177,69 +182,7 @@ public class Game{
         }
     }
     
-    public synchronized JSONArray GetCurrentUserGameStatistic(){
-        Connection connection = null;
-        PreparedStatement stmt = null;
-        FieldJdbc FieldJ; 
-            FieldJ = new ConfigManager().GetPropJdbc();
-            
-            String driverName = "com.mysql.jdbc.Driver";
-            
-            
-        try {
-            Class.forName(driverName);
-            
-            String url = "jdbc:mysql://"+FieldJ.serverName+":"+FieldJ.port+"/"+FieldJ.database;
-            connection = DriverManager.getConnection(url, FieldJ.username, FieldJ.password);
-            JSONArray jsA = new JSONArray();
-            String query = "SELECT id,date_bet, id_game," +
-                    "sum_bet," +
-                    "sum_win " +
-                    "FROM user_bet where id_user = ? ORDER BY date_bet desc " +
-                    "LIMIT 8 OFFSET 0;";
-            stmt = connection.prepareStatement(query);
-            stmt.setLong(1,DBManager.GetInstance().GetCurrentUserId());
-            ResultSet rs = stmt.executeQuery();
-            while(rs.next()){
-                JSONObject bet = new JSONObject();
-                bet.put("id", rs.getLong("id"));
-                bet.put("id_game", rs.getLong("id_game"));
-                bet.put("date", rs.getString("date_bet"));
-                bet.put("sum_bet", rs.getDouble("sum_bet"));
-                bet.put("sum_win", rs.getDouble("sum_win"));
-                query = "SELECT id_bet,hand FROM pokerwebdb.bet_hand where id_bet = ?";
-                stmt = connection.prepareStatement(query);
-                stmt.setLong(1,rs.getLong("id"));
-                ResultSet rsTwo = stmt.executeQuery();
-                String hands = "";
-                while(rsTwo.next()){
-                hands += rsTwo.getString("hand")+",";
-                }
-                bet.put("hands",hands.substring(0,hands.length()-1));
-                jsA.put(bet);
-            }
-            stmt.close();
-            rs.close();
-            connection.close();
-            return jsA;
-        } catch (SQLException ex) {
-            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        } catch (JSONException ex) {
-            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }finally{
-        if(stmt != null)
-            try {
-            stmt.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        }       
-    }
+    
     
      public JSONObject GetCurrentUserAllGameStatistic(int limit,int offset){
        Connection connection = null;
@@ -253,7 +196,9 @@ public class Game{
             String url = "jdbc:mysql://"+FieldJ.serverName+":"+FieldJ.port+"/"+FieldJ.database;
             connection = DriverManager.getConnection(url, FieldJ.username, FieldJ.password);
             JSONArray jsA = new JSONArray();
-            long UserId = DBManager.GetInstance().GetCurrentUserId();
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            
+            long UserId = DBManager.GetInstance().GetCurrentUserId(auth.getName());
             String query = "select t1.id_game,t1.id as id_bet, t4.s as sum_bet,t1.sum_win,t1.date_bet,t6.c as count from user_bet as t1,(select id_user,id,id_game, sum_bet as s from user_bet where id_user=? group by id) as t4,(select count(*) as c from user_bet where id_user=?) as t6 where t4.id_user=t1.id_user and t4.id_game=t1.id_game and t4.id=t1.id group by t1.id LIMIT ? OFFSET ?";
             stmt = connection.prepareStatement(query);
             stmt.setLong(1, UserId);
